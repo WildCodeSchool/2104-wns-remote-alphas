@@ -1,0 +1,19 @@
+{
+	"includes": ["packages/**/src/**/*.ts", "packages/**/src/**/*.tsx"],
+	"compilerOptions": {
+		"target": "es5",
+		"module": "esnext",
+		"allowJs": true,
+		"noEmit": true,
+		"isolatedModules": true,
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"exclude": ["node_modules"]
+}
