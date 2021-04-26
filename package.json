@@ -11,6 +11,9 @@
 	"scripts": {
 		"start": "cd packages/front && yarn start"
 	},
+	"lint-staged": {
+		"*": "prettier --write . && git add . && eslint . --fix"
+	},
 	"devDependencies": {
 		"@typescript-eslint/parser": "^4.22.0",
 		"eslint": "^7.25.0",
@@ -21,7 +24,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "prettier --write . && git add . && eslint . --fix"
+			"pre-commit": "lint-staged"
 		}
 	}
 }
