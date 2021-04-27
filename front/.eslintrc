@@ -1,0 +1,28 @@
+{
+	"root": false,
+	"extends": [
+		"airbnb-typescript",
+		"plugin:jsx-a11y/recommended",
+		"airbnb/hooks",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"ignorePatterns": ["node_modules", "build", "public"],
+	"plugins": ["react", "@typescript-eslint", "jsx-a11y"],
+	"env": {
+		"browser": true,
+		"es6": true,
+		"jest": true,
+		"node": true
+	},
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"project": ["./tsconfig.json"],
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-console": 2,
+		"no-tabs": "off",
+		"@typescript-eslint/indent": ["off"]
+	}
+}
