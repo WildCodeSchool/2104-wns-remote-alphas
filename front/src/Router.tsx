@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/Header.styled';
+import Footer from './components/Footer.styled';
 
 function Router(): JSX.Element {
 	return (
@@ -32,6 +33,7 @@ function Router(): JSX.Element {
 					Courses/Course
 				</Route>
 			</Switch>
+			<Footer />
 		</BrowserRouter>
 	);
 }
