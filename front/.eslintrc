@@ -23,6 +23,8 @@
 	"rules": {
 		"no-console": 2,
 		"no-tabs": "off",
-		"@typescript-eslint/indent": ["off"]
+		"@typescript-eslint/indent": "off",
+		"@typescript-eslint/comma-dangle": "off",
+		"react/jsx-indent": "off"
 	}
 }
