@@ -6,7 +6,7 @@ const Card = styled.div`
   width: 25%;
   background-color: ${(props) => props.theme.colors.quaterny};
   padding: ${(props) => props.theme.padding.card};
-  margin: ${(props) => props.theme.margin.card};
+  margin: auto;
   border-radius: 30px;
   box-shadow: 10px 10px 7px -3px rgba(0,0,0,0.29);
 `;
