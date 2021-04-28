@@ -1,16 +1,20 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Header from './components/Header.styled';
 import CardCourses from './CardCourses';
 import darkTheme from './theme/darkTheme';
 
+const AppContent = styled.div`
+  background-color: ${(props) => props.theme.colors.primary};
+`;
+
 function App(): JSX.Element {
 	return (
 		<ThemeProvider theme={darkTheme}>
-			<div className="App">
+			<AppContent className="App">
 				<Header />
 				<CardCourses />
-			</div>
+			</AppContent>
 
 		</ThemeProvider>
 

@@ -4,6 +4,7 @@ import graphql from './graphql.png';
 
 const Card = styled.div`
   width: 25%;
+  background-color: ${(props) => props.theme.colors.quaterny};
   padding: ${(props) => props.theme.padding.card};
   margin: ${(props) => props.theme.margin.card};
   border-radius: 30px;
