@@ -17,7 +17,7 @@ const TitleContent = styled.div`
 	cursor: pointer;
 `;
 
-const MenuContent = styled.div`
+const MenuContent = styled.nav`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -25,13 +25,22 @@ const MenuContent = styled.div`
 	width: 700px;
 	height: 41px;
 `;
-const Li = styled.li`
+
+const Navigate = styled.a`
+	text-decoration: none;
+	color: white;
 	cursor: pointer;
 	&:hover {
 		color: #68d0fc;
 		text-decoration: underline;
 	}
+	&:focus {
+		color: #68d0fc;
+		text-decoration: underline;
+		outline: none;
+	}
 `;
+
 const ButtonChat = styled.button`
 	cursor: pointer;
 	border: 2px solid #68d0fc;
@@ -44,6 +53,12 @@ const ButtonChat = styled.button`
 		background-color: #68d0fc;
 		color: white;
 	}
+	&:focus {
+		outline: none;
+		background-color: #68d0fc;
+		color: white;
+		border: 2px solid white;
+	}
 `;
 
 const Header = (): JSX.Element => (
@@ -52,10 +67,10 @@ const Header = (): JSX.Element => (
 			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="" />
 		</TitleContent>
 		<MenuContent>
-			<Li>Home</Li>
-			<Li>Courses</Li>
-			<Li>Wiki</Li>
-			<Li>Help</Li>
+			<Navigate href="/">Home</Navigate>
+			<Navigate href="/courses">Courses</Navigate>
+			<Navigate href="/wiki">Wiki</Navigate>
+			<Navigate href="/help">Help</Navigate>
 			<ButtonChat type="button">Chat Now</ButtonChat>
 		</MenuContent>
 	</HeaderContent>
