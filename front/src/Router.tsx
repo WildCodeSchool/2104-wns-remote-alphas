@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout.styled';
+import Timeline from './components/Timeline.styled';
 
 function Router(): JSX.Element {
 	return (
@@ -11,7 +12,7 @@ function Router(): JSX.Element {
 						Home
 					</Route>
 					<Route exact path="/courses">
-						Courses
+						<Timeline />
 					</Route>
 					<Route exact path="/wiki">
 						Wiki
