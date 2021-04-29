@@ -5,6 +5,8 @@ import CardCourses from './CardCourses';
 import CardCoursesSecondary from './CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
 import graphql from './graphql.png';
+import mongo from './mongo.png';
+import ts from './ts.png';
 
 const AppContent = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
@@ -21,9 +23,9 @@ function App(): JSX.Element {
 			<AppContent className="App">
 				<Header />
         <CardContainer>
-          <CardCoursesSecondary title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
+          <CardCoursesSecondary title="MongoDB" image={mongo} imageDescription="image video" course="back-end | MongoDB" />
           <CardCourses title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
-          <CardCoursesSecondary title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
+          <CardCoursesSecondary title="Typescript" image={ts} imageDescription="image video" course="front-end | Typescript" />
         </CardContainer>
 			</AppContent>
 

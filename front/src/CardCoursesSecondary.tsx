@@ -13,12 +13,15 @@ const Card = styled.div`
 const Title = styled.div`
   text-align: center;
   color: ${(props) => props.theme.colors.primary};
+  font-size: ${(props) => props.theme.fontSize.l};
 `;
 
 const ThemeCourse = styled.div`
   text-align: center;
   color: ${(props) => props.theme.colors.tertiary};
   margin: ${(props) => props.theme.margin.mainCard};
+  font-size: ${(props) => props.theme.fontSize.s};
+  text-align: left;
 `;
 
 const Container = styled.div`
@@ -44,7 +47,6 @@ const CardCoursesSecondary = ({
     <Line />
     <ThemeCourse>{course}</ThemeCourse>
   </Card>
-
 );
 
 interface Props {
