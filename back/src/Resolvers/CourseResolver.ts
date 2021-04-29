@@ -1,5 +1,6 @@
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
+import { CourseInput } from "./types/CourseInput";
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -9,5 +10,13 @@ export class CourseResolver {
     console.log(courses);
 
     return courses;
+  }
+  @Mutation((returns) => Course)
+  async addCourse(@Arg("course") courseInput: CourseInput): Promise<Course> {
+    const addedCourse = new CourseModel({
+      ...courseInput,
+    } as Course);
+    await addedCourse.save();
+    return addedCourse;
   }
 }
