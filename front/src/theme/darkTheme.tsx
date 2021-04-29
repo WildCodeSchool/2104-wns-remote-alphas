@@ -50,7 +50,6 @@ const darkTheme: import('styled-components').DefaultTheme = {
     m: '253px',
     l: '472px',
     xl: '1140px',
-
    },
    fixedSize: {
      logoProject: {

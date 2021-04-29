@@ -36,9 +36,10 @@ const Line = styled.hr`
   width: 100%;
 `;
 
-const CardCoursesSecondary = ({
+function CardCoursesSecondary({
   title, image, imageDescription, course
- }: Props): JSX.Element => (
+ }: Props): JSX.Element {
+   return (
   <Card>
     <Title>{title}</Title>
     <Container>
@@ -47,7 +48,9 @@ const CardCoursesSecondary = ({
     <Line />
     <ThemeCourse>{course}</ThemeCourse>
   </Card>
-);
+
+   );
+ }
 
 interface Props {
   title: string,

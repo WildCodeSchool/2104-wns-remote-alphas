@@ -37,9 +37,10 @@ const Line = styled.hr`
 `;
 
 // eslint-disable-next-line max-len
-const CardCourses = ({
+function CardCourses({
  title, image, imageDescription, course
-}: Props): JSX.Element => (
+}: Props): JSX.Element {
+  return (
   <Card>
     <Title>{title}</Title>
     <Container>
@@ -49,7 +50,8 @@ const CardCourses = ({
     <ThemeCourse>{course}</ThemeCourse>
   </Card>
 
-);
+  );
+}
 
 interface Props {
   title: string,
