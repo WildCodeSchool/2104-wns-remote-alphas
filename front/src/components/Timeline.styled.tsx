@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
-import fakeData from '../fakeData';
+// import fakeData from '../fakeData';
 
 const TimelineContent = styled.div`
 	width: 100%;
@@ -22,12 +22,15 @@ function Timeline(): JSX.Element {
 			}
 		}
 	`);
-	if (data) console.log(data);
+	// if (data) console.log(data);
+
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
 
 	return (
 		<TimelineContent>
 			<Chrono
-				items={fakeData}
+				items={data.getCourses}
 				mode="HORIZONTAL"
 				slideShow
 				itemWidth={500}
