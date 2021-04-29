@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import graphql from './graphql.png';
 
 const Card = styled.div`
   width: 25%;
@@ -34,16 +33,30 @@ const Line = styled.hr`
   width: 100%;
 `;
 
-const CardCourses = (): JSX.Element => (
+// eslint-disable-next-line max-len
+const CardCourses = ({
+ title, image, imageDescription, course
+}: Props): JSX.Element => (
   <Card>
-    <Title>GraphQL API</Title>
+    <Title>{title}</Title>
     <Container>
-      <Image src={graphql} alt="" />
+      <Image src={image} alt={imageDescription} />
     </Container>
     <Line />
-    <ThemeCourse>front-end | GraphQL</ThemeCourse>
+    <ThemeCourse>{course}</ThemeCourse>
   </Card>
 
 );
 
+interface Props {
+  title: string,
+  image: string,
+  imageDescription: string,
+  course: string,
+}
+
 export default CardCourses;
+
+// GraphQL API
+// {graphql}
+// front-end | GraphQL

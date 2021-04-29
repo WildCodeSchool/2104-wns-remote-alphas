@@ -4,6 +4,7 @@ import Header from './components/Header.styled';
 import CardCourses from './CardCourses';
 import CardCoursesSecondary from './CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
+import graphql from './graphql.png';
 
 const AppContent = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
@@ -20,9 +21,9 @@ function App(): JSX.Element {
 			<AppContent className="App">
 				<Header />
         <CardContainer>
-          <CardCoursesSecondary />
-          <CardCourses />
-          <CardCoursesSecondary />
+          <CardCoursesSecondary title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
+          <CardCourses title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
+          <CardCoursesSecondary title="GraphQL API" image={graphql} imageDescription="image video" course="front-end | GraphQL" />
         </CardContainer>
 			</AppContent>
 
