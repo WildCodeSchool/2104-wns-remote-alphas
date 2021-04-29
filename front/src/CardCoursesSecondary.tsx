@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import graphql from './graphql.png';
 
 const Card = styled.div`
-  width: 25%;
+  width: 20%;
   background-color: ${(props) => props.theme.colors.quaterny};
   padding: ${(props) => props.theme.padding.s};
   margin: auto;
@@ -34,7 +34,7 @@ const Line = styled.hr`
   width: 100%;
 `;
 
-const CardCourses = (): JSX.Element => (
+const CardCoursesSecondary = (): JSX.Element => (
   <Card>
     <Title>GraphQL API</Title>
     <Container>
@@ -46,4 +46,4 @@ const CardCourses = (): JSX.Element => (
 
 );
 
-export default CardCourses;
+export default CardCoursesSecondary;
