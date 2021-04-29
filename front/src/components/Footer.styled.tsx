@@ -10,7 +10,7 @@ const FooterContent = styled.div`
 	padding-right: 5rem;
 	padding-left: 5rem;
 	font-weight: bold;
-	border-top: 2px solid #68d0fc;
+	border-top: 1px solid #e5e5e5;
 `;
 
 const WrapperLeft = styled.div`

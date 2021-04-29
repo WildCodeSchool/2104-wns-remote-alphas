@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const HeaderContent = styled.div`
 	background-color: #292929;
@@ -10,7 +11,7 @@ const HeaderContent = styled.div`
 	height: 7rem;
 	padding-right: 2rem;
 	padding-left: 2rem;
-	border-bottom: 3px solid #68d0fc;
+	border-bottom: 1px solid #68d0fc;
 `;
 const TitleContent = styled.div`
 	align-items: center;
@@ -24,6 +25,7 @@ const MenuContent = styled.nav`
 	list-style: none;
 	width: 700px;
 	height: 41px;
+	font-weight: bold;
 `;
 
 const Navigate = styled.a`
@@ -67,10 +69,19 @@ const Header = (): JSX.Element => (
 			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="" />
 		</TitleContent>
 		<MenuContent>
-			<Navigate href="/">Home</Navigate>
-			<Navigate href="/courses">Courses</Navigate>
-			<Navigate href="/wiki">Wiki</Navigate>
-			<Navigate href="/help">Help</Navigate>
+			<Link style={{ textDecoration: 'none' }} to="/">
+				<Navigate>Home</Navigate>
+			</Link>
+			<Link style={{ textDecoration: 'none' }} to="/courses">
+				<Navigate>Courses</Navigate>
+			</Link>
+			<Link style={{ textDecoration: 'none' }} to="/wiki">
+				<Navigate>Wiki</Navigate>
+			</Link>
+			<Link style={{ textDecoration: 'none' }} to="help">
+				<Navigate>Help</Navigate>
+			</Link>
+
 			<ButtonChat type="button">Chat Now</ButtonChat>
 		</MenuContent>
 	</HeaderContent>
