@@ -5,19 +5,24 @@ import { ApolloProvider } from '@apollo/client/react';
 import './index.css';
 import Router from './Router';
 
-// todo: set a constant API uri in a .env file
+// Set up Apollo Client
 const client = new ApolloClient({
 	uri: process.env.REACT_APP_API_DEV,
 	cache: new InMemoryCache()
 });
 
 // todo: query API
+// Get the 3 last courses for the homepage
 client
 	.query({
 		query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
+      query GetCourses {
+        getCourses(limit: "3") {
+			id
+			title
+		  	description
+		  	image
+			tag
         }
       }
     `
