@@ -13,21 +13,21 @@ const client = new ApolloClient({
 
 // todo: query API
 // Get the 3 last courses for the homepage
-client
-	.query({
-		query: gql`
-      query GetCourses {
-        getCourses(limit: "3") {
-			id
-			title
-		  	description
-		  	image
-			tag
-        }
-      }
-    `
-	})
-	.then((result) => console.log(result));
+// client
+// 	.query({
+// 		query: gql`
+//       query GetCourses {
+//         getCourses(limit: "3") {
+// 			id
+// 			title
+// 		  	description
+// 		  	image
+// 			tag
+//         }
+//       }
+//     `
+// 	})
+// 	.then((result) => console.log(result));
 
 ReactDOM.render(
 	<React.StrictMode>
