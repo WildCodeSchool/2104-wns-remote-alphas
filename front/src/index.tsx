@@ -7,7 +7,7 @@ import Router from './Router';
 
 // todo: set a constant API uri in a .env file
 const client = new ApolloClient({
-	uri: 'https://48p1r2roz4.sse.codesandbox.io',
+	uri: process.env.REACT_APP_API_DEV,
 	cache: new InMemoryCache()
 });
 
