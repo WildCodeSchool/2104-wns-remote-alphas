@@ -8,21 +8,8 @@ import Router from './Router';
 // todo: set a constant API uri in a .env file
 const client = new ApolloClient({
 	uri: process.env.REACT_APP_API_DEV,
-	cache: new InMemoryCache()
+	cache: new InMemoryCache(),
 });
-
-// todo: query API
-client
-	.query({
-		query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-	})
-	.then((result) => console.log(result));
 
 ReactDOM.render(
 	<React.StrictMode>
