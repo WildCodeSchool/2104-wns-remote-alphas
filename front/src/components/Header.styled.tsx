@@ -70,7 +70,11 @@ const ButtonChat = styled.button`
 const Header = (): JSX.Element => (
 	<HeaderContent>
 		<TitleContent>
-			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="Masterize" />
+			<img
+				style={{ width: '280px' }}
+				src="/assets/images/logo.svg"
+				alt="Masterize"
+			/>
 		</TitleContent>
 		<MenuContent>
 			<LinkReactRouter to="/">
@@ -83,6 +87,10 @@ const Header = (): JSX.Element => (
 
 			<LinkReactRouter to="/wiki">
 				<Navigate>Wiki</Navigate>
+			</LinkReactRouter>
+
+			<LinkReactRouter to="/settings">
+				<Navigate>Settings</Navigate>
 			</LinkReactRouter>
 
 			<LinkReactRouter to="help">
