@@ -70,7 +70,7 @@ const ButtonChat = styled.button`
 const Header = (): JSX.Element => (
 	<HeaderContent>
 		<TitleContent>
-			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="" />
+			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="Masterize" />
 		</TitleContent>
 		<MenuContent>
 			<LinkReactRouter to="/">

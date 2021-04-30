@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout.styled';
+import SettingsCard from './components/settings/SettingsCard.styled';
+import Profile from './components/settings/settings_sections/Profile.styled';
 import Timeline from './components/Timeline.styled';
 import Home from './Home';
 
@@ -28,7 +30,9 @@ function Router(): JSX.Element {
 						Timeline-courses
 					</Route>
 					<Route exact path="/settings">
-						Settings
+						<SettingsCard>
+							<Profile />
+						</SettingsCard>
 					</Route>
 					<Route exact path="/courses/:course">
 						Courses/Course
