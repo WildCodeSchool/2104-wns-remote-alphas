@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 /**
- * CardMenu displays the menu section for the setting cards. It's an empty container, you can nest a NavMenu inside of it.
+ * CardMenu displays the menu section for the setting cards.
+ * It's an empty container, you can nest a NavMenu inside of it.
  */
 const CardMenu = styled.section`
     display: flex;
