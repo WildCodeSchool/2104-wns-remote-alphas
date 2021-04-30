@@ -11,6 +11,12 @@ const TimelineContent = styled.div`
 `;
 // APPEL API GRAPHQL
 
+export type CourseType = {
+	courseName: string;
+	description: string;
+	technos: string[];
+	image_url: string;
+};
 function Timeline(): JSX.Element {
 	const { loading, error, data } = useQuery(gql`
 		query {
@@ -22,7 +28,6 @@ function Timeline(): JSX.Element {
 			}
 		}
 	`);
-	// if (data) console.log(data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
@@ -30,7 +35,11 @@ function Timeline(): JSX.Element {
 	return (
 		<TimelineContent>
 			<Chrono
-				items={data.getCourses}
+				items={data.getCourses.map((course: CourseType) => ({
+					title: 'Current Date',
+					cardTitle: course.courseName,
+					cardDetailedText: course.description,
+				}))}
 				mode="HORIZONTAL"
 				slideShow
 				itemWidth={500}
