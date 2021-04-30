@@ -1,4 +1,5 @@
 import "reflect-metadata";
+require("dotenv").config();
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
@@ -7,8 +8,9 @@ import { CourseResolver } from "./Resolvers/CourseResolver";
 const PORT = 8000;
 
 async function bootstrap() {
+  const connectionString: any = process.env.MONGODB_ATLAS;
   mongoose
-    .connect("mongodb://localhost:27017/masterize", {
+    .connect(connectionString, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
