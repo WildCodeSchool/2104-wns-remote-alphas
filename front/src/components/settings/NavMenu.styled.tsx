@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Divider from '../Divider.styled';
 
+/**
+ * NavMenu displays the setting cards' navigation menu, with links and icons
+ */
 const Nav = styled.nav`
 width: 100%;
 ul {
