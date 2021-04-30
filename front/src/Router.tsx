@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout.styled';
 import Timeline from './components/Timeline.styled';
+import Home from './Home';
 
 function Router(): JSX.Element {
 	return (
@@ -9,7 +10,7 @@ function Router(): JSX.Element {
 			<Layout>
 				<Switch>
 					<Route exact path="/">
-						Home
+						<Home />
 					</Route>
 					<Route exact path="/courses">
 						<Timeline />
