@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { ThemeProvider } from 'styled-components';
 import darkTheme from '../theme/darkTheme';
 
-test('should display an image, a title, a description and a course', async () => {
+test('should display a "Test" title, an image with "assets/images/mongo.png" src, and a course theme', async () => {
     render(<ThemeProvider theme={darkTheme}><CardCourses title="test" image="assets/images/mongo.png" imageDescription="test image" course="this is a course" /></ThemeProvider>);
     await waitFor(() => screen.getByTestId('card-course'));
     expect(screen.getByTestId('card-title')).toBeInTheDocument();
