@@ -43,10 +43,6 @@ const LinkReactRouter = styled(Link)`
 	}
 `;
 
-const Navigate = styled.a`
-	cursor: pointer;
-`;
-
 const ButtonChat = styled.button`
 	cursor: pointer;
 	border: 2px solid #68d0fc;
@@ -77,25 +73,15 @@ const Header = (): JSX.Element => (
 			/>
 		</TitleContent>
 		<MenuContent>
-			<LinkReactRouter to="/">
-				<Navigate>Home</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/">Home</LinkReactRouter>
 
-			<LinkReactRouter to="/courses">
-				<Navigate>Courses</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
 
-			<LinkReactRouter to="/wiki">
-				<Navigate>Wiki</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
 
-			<LinkReactRouter to="/settings">
-				<Navigate>Settings</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/settings">Settings</LinkReactRouter>
 
-			<LinkReactRouter to="help">
-				<Navigate>Help</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="help">Help</LinkReactRouter>
 
 			<ButtonChat type="button">Chat Now</ButtonChat>
 		</MenuContent>
