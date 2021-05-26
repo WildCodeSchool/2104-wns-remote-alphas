@@ -44,10 +44,10 @@ function CardCourses({
   <Card data-testid="card-course">
     <Title data-testid="card-title">{title}</Title>
     <Container>
-      <Image test-id="card-image" src={image} alt={imageDescription} />
+      <Image data-testid="card-image" src={image} alt={imageDescription} />
     </Container>
     <Line />
-    <ThemeCourse>{course}</ThemeCourse>
+    <ThemeCourse data-testid= "card-theme">{course}</ThemeCourse>
   </Card>
 
   );
