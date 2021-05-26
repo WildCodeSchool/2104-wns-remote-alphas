@@ -4,6 +4,6 @@ import Router from './Router';
 
 test('renders learn react link', () => {
 	render(<Router />);
-	const linkElement = screen.getByText(/learn react/i);
+	const linkElement = screen.getByText(/wiki/i);
 	expect(linkElement).toBeInTheDocument();
 });
