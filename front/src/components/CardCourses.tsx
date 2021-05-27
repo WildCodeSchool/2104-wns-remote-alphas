@@ -38,7 +38,7 @@ const Line = styled.hr`
 
 // eslint-disable-next-line max-len
 function CardCourses({
- title, image, imageDescription, course
+  title, image, imageDescription, course
 }: Props): JSX.Element {
   return (
   <Card data-testid="card-course">

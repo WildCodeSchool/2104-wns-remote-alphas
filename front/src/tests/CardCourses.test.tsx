@@ -1,13 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import {
-render, screen, waitFor
+    render, screen, waitFor
 } from '@testing-library/react';
 import CardCourses from '../components/CardCourses';
 import '@testing-library/jest-dom/extend-expect';
 import darkTheme from '../theme/darkTheme';
 
-test('should display a "Test" title, an image with "assets/images/mongo.png" src, and a course theme', async () => {
+it('should display a "Test" title, an image with "assets/images/mongo.png" src, and a course theme', async () => {
     render(
         <ThemeProvider theme={darkTheme}>
             <CardCourses

@@ -64,15 +64,17 @@ const ButtonChat = styled.button`
 `;
 
 const Header = (): JSX.Element => (
-	<HeaderContent>
-		<TitleContent>
-			<img
-				style={{ width: '280px' }}
-				src="/assets/images/logo.svg"
-				alt="Masterize"
-			/>
-		</TitleContent>
-		<MenuContent>
+	<HeaderContent data-testid="header">
+		<LinkReactRouter to="/">
+			<TitleContent data-testid="logo-title">
+				<img
+					style={{ width: '280px' }}
+					src="/assets/images/logo.svg"
+					alt="Masterize"
+				/>
+			</TitleContent>
+		</LinkReactRouter>
+		<MenuContent data-testid="menu">
 			<LinkReactRouter to="/">Home</LinkReactRouter>
 
 			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
