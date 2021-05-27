@@ -25,7 +25,17 @@ const INSERT_NEW_COURSE = gql`
     }
   }
 `;
-
+const GET_COURSES = gql`
+  {
+    getCourses {
+      _id
+      courseName
+      image_url
+      description
+      technos
+    }
+  }
+`;
 describe("Tests for the back", () => {
   let apollo: ApolloServer | null = null;
   let mongo: MongoMemoryServer = new MongoMemoryServer();
@@ -69,5 +79,11 @@ describe("Tests for the back", () => {
       "here we will dicover how to make tests with jest"
     );
   });
-  it("Here we test the query to get all the Courses ", async () => {});
+  it("Here we test the query to get all the Courses ", async () => {
+    const { query } = createTestClient(apollo);
+    const res = await query({
+      query: GET_COURSES,
+    });
+    expect(res.data.getCourses.length).toEqual(1);
+  });
 });
