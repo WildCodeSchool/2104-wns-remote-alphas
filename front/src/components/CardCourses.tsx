@@ -41,13 +41,13 @@ function CardCourses({
  title, image, imageDescription, course
 }: Props): JSX.Element {
   return (
-  <Card>
-    <Title>{title}</Title>
+  <Card data-testid="card-course">
+    <Title data-testid="card-title">{title}</Title>
     <Container>
-      <Image src={image} alt={imageDescription} />
+      <Image data-testid="card-image" src={image} alt={imageDescription} />
     </Container>
     <Line />
-    <ThemeCourse>{course}</ThemeCourse>
+    <ThemeCourse data-testid= "card-theme">{course}</ThemeCourse>
   </Card>
 
   );
