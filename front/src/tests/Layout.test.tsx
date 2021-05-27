@@ -7,7 +7,7 @@ import Router from '../Router';
 import '@testing-library/jest-dom/extend-expect';
 import darkTheme from '../theme/darkTheme';
 
-it('should display a header with a logo, a nav menu that contains links with href attributes, and a button', async () => {
+it('should display a complete layout, with a footer and a header that contains a logo, a nav menu and a button', async () => {
     render(
         <ThemeProvider theme={darkTheme}>
             <Router />
