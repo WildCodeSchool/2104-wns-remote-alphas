@@ -41,7 +41,7 @@ function CardCoursesSecondary({
  }: Props): JSX.Element {
    return (
   <Card>
-    <Title>{title}</Title>
+    <Title data-testid="title-secondary-card">{title}</Title>
     <Container>
       <Image src={image} alt={imageDescription} />
     </Container>
