@@ -47,7 +47,7 @@ function CardCourses({
       <Image data-testid="card-image" src={image} alt={imageDescription} />
     </Container>
     <Line />
-    <ThemeCourse data-testid= "card-theme">{course}</ThemeCourse>
+    <ThemeCourse data-testid="card-theme">{course}</ThemeCourse>
   </Card>
 
   );
