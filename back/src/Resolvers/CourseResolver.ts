@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
+// import { UpdateCourseInput } from "./types/UpdateCourseInput";
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -26,18 +27,18 @@ export class CourseResolver {
     return addedCourse;
   }
 
-  // @Mutation((return)=>Course)
-  // async updateCourse(@Arg("course") courseInput: CourseInput, @Arg("courseId") courseId: CourseId ){
-  // }
+  @Mutation(() => Course)
+  async updateOneCourse(
+    @Arg("courseId") courseId: CourseId,
+    @Arg("data") data: CourseInput
+  ) {
+    const updatedCourse = await CourseModel.findOne({ _id: courseId }, data);
 
-  // update: async (req: Request, res: Response) => {
-  //   const { _id } = req.body;
-  //   const result = await WilderModel.updateOne({ _id }, req.body);
-  //   if (result.n === 0) {
-  //     res.status(404).json({ success: false, result: "No wilder found" });
-  //   } else {
-  //     await getById(req, res);
-  //   }
-  //   res.status(200).json({ success: true, result: result });
-  // },
+    if (updatedCourse) {
+      Object.assign(updatedCourse, data);
+      await updatedCourse.save();
+    }
+
+    return updatedCourse;
+  }
 }
