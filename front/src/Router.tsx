@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout.styled';
 import SettingsCard from './components/settings/SettingsCard.styled';
 import Profile from './components/settings/settings_sections/Profile.styled';
-import Timeline from './components/Timeline.styled';
+import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
 
 function Router(): JSX.Element {
