@@ -4,7 +4,12 @@ import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { CourseResolver, UserResolver } from "./Resolvers";
-import { INSERT_NEW_COURSE, INSERT_NEW_USER, GET_COURSES } from "./Test";
+import {
+  INSERT_NEW_COURSE,
+  INSERT_NEW_USER,
+  GET_COURSES,
+  GET_USERS,
+} from "./Test";
 const { createTestClient } = require("apollo-server-testing");
 
 describe("Tests for the back", () => {
@@ -66,5 +71,13 @@ describe("Tests for the back", () => {
       mutation: INSERT_NEW_USER,
     });
     expect(res.data?.addUser).toBeDefined();
+  });
+  it("Here we test the query to get all the Users", async () => {
+    const { query } = createTestClient(apollo);
+    const res = await query({
+      query: GET_USERS,
+    });
+    expect(res.data?.getUsers.length).toEqual(1);
+    expect(typeof res.data?.getUsers).toEqual("object");
   });
 });
