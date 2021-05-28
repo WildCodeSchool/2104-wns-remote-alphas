@@ -10,27 +10,45 @@ const TimelineContent = styled.div`
 	background-color: #292929;
 `;
 // APPEL API GRAPHQL
+export type CourseType = {
+	courseName: string;
+	description: string;
+	technos: string[];
+	image_url: string;
+};
 
-function Timeline(): JSX.Element {
-	const { loading, error, data } = useQuery(gql`
-		query {
-			getCourses {
-				description
-				technos
-				courseName
-				image_url
-			}
+export const GET_COURSES_QUERY = gql`
+	query {
+		getCourses {
+			description
+			technos
+			courseName
+			image_url
 		}
-	`);
-	// if (data) console.log(data);
+	}
+`;
+
+export function Timeline(): JSX.Element {
+	const { loading, error, data } = useQuery(GET_COURSES_QUERY);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
 	return (
-		<TimelineContent>
+		<TimelineContent data-testid="timeline">
 			<Chrono
-				items={data.getCourses}
+				items={data.getCourses.map((course: CourseType) => ({
+					title: 'Current Date',
+					cardTitle: course.courseName,
+					cardDetailedText: course.description,
+					media: {
+						source: {
+							url: course.image_url,
+						},
+						type: 'IMAGE',
+						name: 'test image',
+					},
+				}))}
 				mode="HORIZONTAL"
 				slideShow
 				itemWidth={500}
@@ -44,5 +62,3 @@ function Timeline(): JSX.Element {
 		</TimelineContent>
 	);
 }
-
-export default Timeline;

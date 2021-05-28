@@ -6,30 +6,25 @@ import NavMenu from './NavMenu.styled';
 
 /**
  * SettingsCard provides an empty setting card with 2 sections:
- * a nav menu on the left, and an empty section to be filled with a prop child content.
- * 
- * The following prop is optionnal:
- * {child} is the component you want to display inside of the card.
+ * a nav menu on the left, and an empty section to be filled with a nested child content.
  */
 
-// Set props types and make it optional
-interface SettingsCardProps {
-	child?: React.ReactNode;
-}
+const SettingsCard = (props: Props): JSX.Element => {
+    const { children } = props;
 
-const SettingsCard = ({ child }: SettingsCardProps): JSX.Element => (
-    <Card>
-        <CardMenu>
-        <CircleAvatar alt="user avatar" src="/assets/images/default-avatar.png" />
-            <NavMenu />
-        </CardMenu>
-        {child}
-    </Card>
-);
-
-// Set default props types
-SettingsCard.defaultProps = {
-    child: null,
+    return (
+        <Card>
+            <CardMenu>
+            <CircleAvatar alt="user avatar" src="/assets/images/default-avatar.png" />
+                <NavMenu />
+            </CardMenu>
+            {children}
+        </Card>
+    );
 };
+
+interface Props {
+    children: React.ReactNode;
+  }
 
 export default SettingsCard;

@@ -22,7 +22,7 @@ const WrapperRight = styled.div`
 `;
 
 const Footer = (): JSX.Element => (
-	<FooterContent>
+	<FooterContent data-testid="footer">
 		<WrapperLeft>© 2021 Alpha Wilders - All Rights Reserved.</WrapperLeft>
 		<WrapperRight>Terms of Service</WrapperRight>
 	</FooterContent>

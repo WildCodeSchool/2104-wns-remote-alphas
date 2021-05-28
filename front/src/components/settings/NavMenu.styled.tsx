@@ -39,11 +39,8 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 `;
-interface SettingsCardProps {
-    child?: React.ReactNode;
-}
 
-const NavMenu = ({ child }: SettingsCardProps): JSX.Element => (
+const NavMenu = (): JSX.Element => (
     <Nav>
         <span className="menu-title">Customize</span>
         <ul>
@@ -70,10 +67,5 @@ const NavMenu = ({ child }: SettingsCardProps): JSX.Element => (
         </ul>
     </Nav>
 );
-
-// Set default props types
-NavMenu.defaultProps = {
-    child: null,
-};
 
 export default NavMenu;

@@ -7,7 +7,6 @@ export class CourseResolver {
   @Query((returns) => [Course])
   async getCourses(): Promise<Course[]> {
     const courses = await CourseModel.find();
-    console.log(courses);
 
     return courses;
   }

@@ -43,10 +43,6 @@ const LinkReactRouter = styled(Link)`
 	}
 `;
 
-const Navigate = styled.a`
-	cursor: pointer;
-`;
-
 const ButtonChat = styled.button`
 	cursor: pointer;
 	border: 2px solid #68d0fc;
@@ -68,26 +64,26 @@ const ButtonChat = styled.button`
 `;
 
 const Header = (): JSX.Element => (
-	<HeaderContent>
-		<TitleContent>
-			<img style={{ width: '280px' }} src="/assets/images/logo.svg" alt="Masterize" />
-		</TitleContent>
-		<MenuContent>
-			<LinkReactRouter to="/">
-				<Navigate>Home</Navigate>
-			</LinkReactRouter>
+	<HeaderContent data-testid="header">
+		<LinkReactRouter to="/">
+			<TitleContent data-testid="logo-title">
+				<img
+					style={{ width: '280px' }}
+					src="/assets/images/logo.svg"
+					alt="Masterize"
+				/>
+			</TitleContent>
+		</LinkReactRouter>
+		<MenuContent data-testid="menu">
+			<LinkReactRouter to="/">Home</LinkReactRouter>
 
-			<LinkReactRouter to="/courses">
-				<Navigate>Courses</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
 
-			<LinkReactRouter to="/wiki">
-				<Navigate>Wiki</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
 
-			<LinkReactRouter to="help">
-				<Navigate>Help</Navigate>
-			</LinkReactRouter>
+			<LinkReactRouter to="/settings">Settings</LinkReactRouter>
+
+			<LinkReactRouter to="help">Help</LinkReactRouter>
 
 			<ButtonChat type="button">Chat Now</ButtonChat>
 		</MenuContent>
