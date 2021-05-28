@@ -1,4 +1,9 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
 import { ColorsSettings } from "./ColorsSettings";
 import { DistractionSettings } from "./DistractionSettings";
@@ -6,6 +11,7 @@ import { GlobalSettings } from "./GlobalSettings";
 import { TextSettings } from "./TextsSettings";
 
 @ObjectType()
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Settings {
   @Field((type) => Boolean)
   @prop({ required: true })

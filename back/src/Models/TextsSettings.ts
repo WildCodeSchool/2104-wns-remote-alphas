@@ -1,7 +1,13 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Severity,
+} from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class TextSettings {
   @Field((type) => [String])
   @prop({ required: true })

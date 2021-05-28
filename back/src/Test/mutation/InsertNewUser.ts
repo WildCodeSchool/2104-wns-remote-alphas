@@ -7,11 +7,12 @@ export const INSERT_NEW_USER = gql`
         name: "Lefrancois"
         firstName: "Théodore"
         email: "theodore.lefrancois2906@gmail.com"
+        password: "you won't know my password"
         location: "Ondres"
         settings: {
           instantChat: true
           pandaTips: true
-          colors: { theme: "Dark", custom_colors: ["blue", "white", "red"] }
+          colors: { theme: "Dark", customColors: "blue" }
           texts: {
             font: ["arial", "comic"]
             fontWeight: ["bold", "regular"]
@@ -32,6 +33,41 @@ export const INSERT_NEW_USER = gql`
           globalSettings: { shortcuts: ["f4", "cmd+8", "opt+maj+tab"] }
         }
       }
-    )
+    ) {
+      _id
+      name
+      firstName
+      password
+      email
+      location
+      settings {
+        instantChat
+        pandaTips
+        colors {
+          theme
+          customColors
+        }
+        texts {
+          font
+          fontWeight
+          fontSize
+          letterSpacing
+          lineHeight
+          fontTheme
+        }
+        distraction {
+          distractionTheme
+          textNotifications
+          soundNotifications
+          animations
+          readingMode
+          showTimelineCards
+          allowDialogs
+        }
+        globalSettings {
+          shortcuts
+        }
+      }
+    }
   }
 `;

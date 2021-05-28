@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { CourseResolver } from "./Resolvers/CourseResolver";
+import { CourseResolver, UserResolver } from "./Resolvers";
 import { INSERT_NEW_COURSE, INSERT_NEW_USER, GET_COURSES } from "./Test";
 const { createTestClient } = require("apollo-server-testing");
 
@@ -22,7 +22,9 @@ describe("Tests for the back", () => {
         useUnifiedTopology: true,
         autoIndex: true,
       });
-      const schema = await buildSchema({ resolvers: [CourseResolver] });
+      const schema = await buildSchema({
+        resolvers: [CourseResolver, UserResolver],
+      });
       const server: ApolloServer = new ApolloServer({ schema });
       return server;
     };

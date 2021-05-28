@@ -3,7 +3,7 @@ require("dotenv").config();
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
-import { CourseResolver } from "./Resolvers/CourseResolver";
+import { CourseResolver, UserResolver } from "./Resolvers";
 
 const PORT = 8000;
 
@@ -20,7 +20,7 @@ async function bootstrap() {
       console.log("Connected to database");
     });
   const schema = await buildSchema({
-    resolvers: [CourseResolver],
+    resolvers: [CourseResolver, UserResolver],
   });
 
   const server = new ApolloServer({
