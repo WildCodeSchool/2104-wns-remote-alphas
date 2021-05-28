@@ -1,41 +1,12 @@
 import "reflect-metadata";
-import { gql } from "apollo-server-core";
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { CourseResolver } from "./Resolvers/CourseResolver";
+import { INSERT_NEW_COURSE, INSERT_NEW_USER, GET_COURSES } from "./Test";
 const { createTestClient } = require("apollo-server-testing");
 
-const INSERT_NEW_COURSE = gql`
-  mutation {
-    addCourse(
-      course: {
-        courseName: "Test"
-        image_url: "https://amazon.s3.com/alphas/test/img"
-        description: "here we will dicover how to make tests with jest"
-        technos: ["jest", "apollo", "mongoose"]
-      }
-    ) {
-      courseName
-      description
-      image_url
-      technos
-      _id
-    }
-  }
-`;
-const GET_COURSES = gql`
-  {
-    getCourses {
-      _id
-      courseName
-      image_url
-      description
-      technos
-    }
-  }
-`;
 describe("Tests for the back", () => {
   let apollo: ApolloServer | null = null;
   let mongo: MongoMemoryServer = new MongoMemoryServer();
@@ -66,7 +37,7 @@ describe("Tests for the back", () => {
     await mongoose.disconnect();
   });
 
-  it("Here we test the mutation for the courses", async () => {
+  it("Here we test the mutation to add courses", async () => {
     const { mutate } = createTestClient(apollo);
     const res = await mutate({
       mutation: INSERT_NEW_COURSE,
@@ -85,5 +56,13 @@ describe("Tests for the back", () => {
       query: GET_COURSES,
     });
     expect(res.data.getCourses.length).toEqual(1);
+  });
+
+  it("Here we test the mutation to add user", async () => {
+    const { mutate } = createTestClient(apollo);
+    const res = await mutate({
+      mutation: INSERT_NEW_USER,
+    });
+    expect(res.data?.addUser).toBeDefined();
   });
 });
