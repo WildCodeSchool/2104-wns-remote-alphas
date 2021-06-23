@@ -10,6 +10,8 @@ COPY yarn.lock ./
 
 COPY public public
 COPY src src
+COPY .env .env
+COPY tsconfig.json tsconfig.json
 
 RUN yarn install
 
