@@ -5,7 +5,7 @@ import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { CourseResolver, UserResolver } from "./Resolvers";
 
-const PORT = 8000;
+const PORT = 8080;
 
 async function bootstrap() {
   const connectionString: any = process.env.MONGODB_ATLAS;
