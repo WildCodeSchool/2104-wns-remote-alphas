@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc --project ./",
-    "start": "nodemon ./src/index.ts",
+    "start": "node ./src/index.ts",
+    "dev": "nodemon ./src/index.ts",
     "initJest": "jest --init",
     "test": "jest"
   },
