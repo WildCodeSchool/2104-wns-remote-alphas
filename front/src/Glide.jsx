@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import Glide, { Slide } from 'react-glidejs';
 import styled from 'styled-components';
 
+// eslint-disable-next-line import/no-unresolved
 import 'react-glidejs/dist/index.css';
 
 const ContainerSlider = styled.div`

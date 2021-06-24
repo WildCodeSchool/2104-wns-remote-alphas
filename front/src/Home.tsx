@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
 import CardCourses from './components/CardCourses';
-import Test from './Glide';
+import TestCarousel from './Glide';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
 
@@ -37,22 +38,28 @@ function Home(): JSX.Element {
   const { loading, error, data } = useQuery(GET_COURSES_QUERY);
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	if (error) return <p>Error :(  data: {data}</p>;
 
   return (
   <ThemeProvider theme={darkTheme}>
     {' '}
     <AppContent>
-      <CardContainer>
+       <CardContainer>
         {data.getCourses.map((course: CourseType) => (
-          <CardCoursesSecondary title={course.courseName} image={course.image_url} imageDescription="image video" course={course.technos[0]} />
+          <CardCoursesSecondary
+          title={course.courseName}
+          image={course.image_url}
+          imageDescription="image video"
+          course={course.technos[0]}
+          />
           ))}
+       </CardContainer>
          {/*  <CardCourses title="GraphQL API" image="assets/images/graphql.png"
           imageDescription="image video" course="front-end | GraphQL" />
           <CardCoursesSecondary title="Typescript" image="/assets/images/ts.png"
            imageDescription="image video" course="front-end | Typescript" /> */}
-      </CardContainer>
-      <Test />
+
+      <TestCarousel />
     </AppContent>
   </ThemeProvider>
   );
