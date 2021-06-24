@@ -25,4 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 .
 
+#dossier docker db
 /data
