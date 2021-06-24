@@ -1,0 +1,23 @@
+services: 
+    front:
+        container_name: Masterise-front
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        volumes:
+            - "./front:/app"
+            - "/app/node_modules"
+        ports:
+            - 3030:3000
+    back: 
+        container_name: Masterise-back
+        build: ./back
+        ports: 
+            - 8080:8080
+        command: yarn dev
+        volumes: 
+            - ./back:/app
+    mongodb:
+        image: mongo
+        volumes: 
+            - ./data:/data/db
