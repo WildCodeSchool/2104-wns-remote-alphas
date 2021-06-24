@@ -32,7 +32,10 @@ export class CourseResolver {
     @Arg("courseId") courseId: CourseId,
     @Arg("data") data: CourseInput
   ) {
-    const updatedCourse = await CourseModel.findOne({ _id: courseId }, data);
+    const updatedCourse = await CourseModel.findOneAndUpdate(
+      { _id: courseId },
+      data
+    );
 
     if (updatedCourse) {
       Object.assign(updatedCourse, data);
