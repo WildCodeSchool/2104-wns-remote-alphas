@@ -15,6 +15,7 @@ async function bootstrap() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       autoIndex: true,
+      useFindAndModify: false,
     })
     .then(() => {
       console.log("Connected to database");
