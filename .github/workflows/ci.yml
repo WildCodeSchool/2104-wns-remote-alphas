@@ -34,7 +34,7 @@ jobs:
           context: ./back
           file: ./back/Dockerfile
           push: true
-          tags: theodorelefrancois/app:latest
+          tags: theodorelefrancois/back:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -54,6 +54,6 @@ jobs:
           context: ./front
           file: ./front/Dockerfile
           push: true
-          tags: theodorelefrancois/app:latest
+          tags: theodorelefrancois/front:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
