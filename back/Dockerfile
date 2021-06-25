@@ -3,7 +3,7 @@ FROM node:alpine
 RUN mkdir /app
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+RUN yarn
 COPY tsconfig.json tsconfig.json
 COPY ./src ./src
-CMD npm run dev
+CMD yarn dev
