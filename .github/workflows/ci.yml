@@ -18,43 +18,38 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  test-back:
+  test_and_build_back:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Test the back before build it
         run: cd back && yarn && yarn test
-  test-front:
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        env:
+          MONGODB_ATLAS: ${{ secrets.MONGODB_ATLAS}}
+        with:
+          context: ./back
+          file: ./back/Dockerfile
+          push: true
+          tags: theodorelefrancois/app:latest
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+  test_and_build_front:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Test the front before build it
         run: cd front && yarn && yarn test
-  build-back:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
-        with:
-          context: ./back
-          file: ./back/Dockerfile
-          push: true
-          tags: theodorelefrancois/app:latest
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-  build-front:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
+        env:
+          REACT_APP_API_DEV: ${{secrets.REACT_APP_API_DEV}}
         with:
           context: ./front
           file: ./front/Dockerfile
