@@ -1,0 +1,64 @@
+name: MasterizeCI
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  test-back:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Test the back before build it
+        uses: cd back && yarn && yarn test
+  test-front:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Test the front before build it
+        uses: cd front && yarn && yarn test
+  build-back:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./back
+          file: ./back/Dockerfile
+          push: true
+          tags: theodorelefrancois/app:latest
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+  build-front:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./front
+          file: ./front/Dockerfile
+          push: true
+          tags: theodorelefrancois/app:latest
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
