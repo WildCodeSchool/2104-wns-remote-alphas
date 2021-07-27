@@ -5,13 +5,13 @@ import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { CourseResolver, UserResolver } from "./Resolvers";
 
-if (!process.env.MONGODB_ATLAS) {
-  throw new Error("environment variable MONGODB_ATLAS is missing");
+if (!process.env.MONGODB) {
+  throw new Error("environment variable MONGODB is missing");
 }
 const PORT = 8080;
 
 async function bootstrap() {
-  const connectionString = process.env.MONGODB_ATLAS!;
+  const connectionString = process.env.MONGODB!;
   mongoose
     .connect(connectionString, {
       useCreateIndex: true,
