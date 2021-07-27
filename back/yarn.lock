@@ -883,6 +883,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-10.17.59.tgz"
   integrity sha512-7Uc8IRrL8yZz5ti45RaFxpbU8TxlzdC3HvxV+hOWo1EyLsuKv/w7y0n+TwZzwL3vdx3oZ2k3ubxPq131hNtXyg==
 
+"@types/node@^14.11.2":
+  version "14.17.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.6.tgz#cc61c8361c89e70c468cda464d1fa3dd7e5ebd62"
+  integrity sha512-iBxsxU7eswQDGhlr3AiamBxOssaYxbM+NKXVil8jg9yFXvrfEFbDumLD/2dMTB+zYyg7w+Xjt8yuxfdbUHAtcQ==
+
 "@types/prettier@^2.1.5":
   version "2.2.3"
   resolved "https://registry.npmjs.org/@types/prettier/-/prettier-2.2.3.tgz"
