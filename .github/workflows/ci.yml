@@ -24,14 +24,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Test the back before build it
-        uses: cd back && yarn && yarn test
+        run: cd back && yarn && yarn test
   test-front:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Test the front before build it
-        uses: cd front && yarn && yarn test
+        run: cd front && yarn && yarn test
   build-back:
     runs-on: ubuntu-latest
     steps:
