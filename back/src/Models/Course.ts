@@ -15,6 +15,10 @@ export class Course {
 
   @Field((type) => String)
   @prop({ required: true })
+  public postedAt!: string;
+
+  @Field((type) => String)
+  @prop({ required: true })
   public courseName!: string;
 
   @Field((type) => String)
