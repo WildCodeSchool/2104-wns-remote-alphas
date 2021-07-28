@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
+import convertDate from '../utils/convertDate';
 // import fakeData from '../fakeData';
 
 const TimelineContent = styled.div`
@@ -15,6 +16,7 @@ export type CourseType = {
 	description: string;
 	technos: string[];
 	image_url: string;
+	postedAt?: string;
 };
 
 export const GET_COURSES_QUERY = gql`
@@ -24,6 +26,7 @@ export const GET_COURSES_QUERY = gql`
 			technos
 			courseName
 			image_url
+			postedAt
 		}
 	}
 `;
@@ -38,7 +41,9 @@ export function Timeline(): JSX.Element {
 		<TimelineContent data-testid="timeline">
 			<Chrono
 				items={data.getCourses.map((course: CourseType) => ({
-					title: 'Current Date',
+					title: course.postedAt
+						? convertDate(course.postedAt, 'fr')
+						: 'No date available',
 					cardTitle: course.courseName,
 					cardDetailedText: course.description,
 					media: {
