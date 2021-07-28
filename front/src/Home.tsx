@@ -7,24 +7,6 @@ import TestCarousel from './Glide';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
 
-export type CourseType = {
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-};
-
-export const GET_COURSES_QUERY = gql`
-	query {
-		getCourses {
-			description
-			technos
-			courseName
-			image_url
-		}
-	}
-`;
-
 const AppContent = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
 `;
@@ -35,24 +17,19 @@ const CardContainer = styled.div`
 `;
 
 function Home(): JSX.Element {
-  const { loading, error, data } = useQuery(GET_COURSES_QUERY);
-
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(  data: {data}</p>;
-
   return (
   <ThemeProvider theme={darkTheme}>
     {' '}
     <AppContent>
        <CardContainer>
-        {data.getCourses.map((course: CourseType) => (
+{/*         {data.getCourses.map((course: CourseType) => (
           <CardCoursesSecondary
           title={course.courseName}
           image={course.image_url}
           imageDescription="image video"
           course={course.technos[0]}
           />
-          ))}
+          ))} */}
        </CardContainer>
          {/*  <CardCourses title="GraphQL API" image="assets/images/graphql.png"
           imageDescription="image video" course="front-end | GraphQL" />

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 25%;
+  min-width: 25%;
   background-color: ${(props) => props.theme.colors.quaterny};
   padding: ${(props) => props.theme.padding.s};
   margin: auto;
