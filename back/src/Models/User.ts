@@ -35,7 +35,7 @@ export class User {
   public location!: string;
 
   @Field((type) => Settings)
-  @prop({ required: true })
+  @prop({ required: false })
   public settings!: Settings;
 }
 
