@@ -11,6 +11,9 @@ const FooterContent = styled.div`
 	padding-left: 5rem;
 	font-weight: bold;
 	border-top: 1px solid #e5e5e5;
+	position:absolute;
+	bottom:0;
+	width:calc(100% - 5rem - 5rem);
 `;
 
 const WrapperLeft = styled.div`
