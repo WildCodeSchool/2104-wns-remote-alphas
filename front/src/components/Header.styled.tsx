@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 
 const HeaderContent = styled.div`
 	background-color: #292929;
@@ -75,6 +76,7 @@ const Header = (): JSX.Element => (
 			</TitleContent>
 		</LinkReactRouter>
 		<MenuContent data-testid="menu">
+
 			<LinkReactRouter to="/">Home</LinkReactRouter>
 
 			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
@@ -86,6 +88,11 @@ const Header = (): JSX.Element => (
 			<LinkReactRouter to="help">Help</LinkReactRouter>
 
 			<ButtonChat type="button">Chat Now</ButtonChat>
+
+			<LinkReactRouter to="/signin">Sign in</LinkReactRouter>
+
+			<Logout />
+
 		</MenuContent>
 	</HeaderContent>
 );
