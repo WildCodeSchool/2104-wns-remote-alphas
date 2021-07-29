@@ -11,14 +11,17 @@ const Wrapper = styled.div`
 	margin: auto;
 	margin-top: 5rem;
 	margin-bottom: 5rem;
-	width: 30%;
-	height: 65vh;
+	width: 20%;
+	height: 100%;
 	border: 1px solid black;
 	border-radius: 12px;
 	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
 
 	@media screen and (max-width: 780px) {
 		width: 95%;
+	}
+	@media all and (min-width: 790px) and (max-width: 1280px) {
+		width: 50%;
 	}
 `;
 
@@ -131,7 +134,7 @@ export default function SignInPage(): JSX.Element {
 		}
 	}
 	return (
-		<Wrapper>
+		<Wrapper style={{ backgroundColor: 'white' }}>
 			<Title>J&apos;ai déjà un compte Masterize</Title>
 			<ContainForm>
 				<Form>
