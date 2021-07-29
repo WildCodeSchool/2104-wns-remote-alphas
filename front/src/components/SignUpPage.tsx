@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+import { LOGIN } from './SignInPage';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -8,16 +10,19 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	margin-top: 5rem;
-	margin-bottom: 5rem;
-	width: 30%;
-	height: 65vh;
+	//margin-top: 5rem;
+	//margin-bottom: 5rem;
+	width: 20%;
+	height: 100%;
 	border: 1px solid black;
 	border-radius: 12px;
 	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
 
 	@media screen and (max-width: 780px) {
 		width: 95%;
+	}
+	@media all and (min-width: 790px) and (max-width: 1280px) {
+		width: 50%;
 	}
 `;
 
@@ -26,7 +31,7 @@ const ContainForm = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	//height: 45%;
+	height: 45%;
 `;
 
 const Form = styled.form`
@@ -79,22 +84,75 @@ const Line = styled.div`
 	//margin: auto;
 `;
 
-export default function SignUpPage(): JSX.Element {
-	const [userLog, setUserLog] = useState({
-		name: '',
-		firstname: '',
-		email: '',
-		password: '',
-	});
+const SIGNUP = gql`
+	mutation signup(
+		$name: String!
+		$email: String!
+		$firstName: String!
+		$password: String!
+	) {
+		signup(
+			user: {
+				name: $name
+				email: $email
+				firstName: $firstName
+				password: $password
+			}
+		) {
+			_id
+		}
+	}
+`;
 
+export default function SignUpPage(): JSX.Element {
+	const initialState = {
+		name: '',
+		email: '',
+		firstName: '',
+		password: '',
+	};
+	const [userLog, setUserLog] = useState(initialState);
+	const [signupMutation, { error }] = useMutation(SIGNUP);
+	const [loginMutation] = useMutation(LOGIN);
 	const history = useHistory();
+
+	if (error) return <p>Error :(</p>;
 
 	function handleClick() {
 		history.push('/signin');
 	}
 
+	async function handleSubmit() {
+		const {
+			data: { signup },
+		} = await signupMutation({
+			variables: {
+				...userLog,
+			},
+		});
+		// eslint-disable-next-line no-underscore-dangle
+		if (signup) {
+			const {
+				data: { login },
+			} = await loginMutation({
+				variables: {
+					email: userLog.email,
+					password: userLog.password,
+				},
+			});
+			if (typeof login === 'string') {
+				localStorage.setItem('token', login);
+				history.push('/');
+			} else {
+				console.log('serveur error');
+			}
+		} else {
+			setUserLog(initialState);
+		}
+	}
+
 	return (
-		<Wrapper>
+		<Wrapper style={{ backgroundColor: 'white' }}>
 			<Title>Nouveau sur Masterize</Title>
 			<p>Saisissez vos informations personnelles</p>
 			<ContainForm>
@@ -110,12 +168,12 @@ export default function SignUpPage(): JSX.Element {
 					/>
 					<Input
 						type="text"
-						name="firstname"
+						name="firstName"
 						placeholder="Prénom"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
-						value={userLog.firstname}
+						value={userLog.firstName}
 					/>
 					<Input
 						type="text"
@@ -135,7 +193,13 @@ export default function SignUpPage(): JSX.Element {
 						}}
 						value={userLog.password}
 					/>
-					<Button type="submit" value="s'enregistrer">
+					<Button
+						type="button"
+						value="s'enregistrer"
+						onClick={(e) => {
+							e.preventDefault();
+							handleSubmit();
+						}}>
 						S&apos;inscrire
 					</Button>
 				</Form>

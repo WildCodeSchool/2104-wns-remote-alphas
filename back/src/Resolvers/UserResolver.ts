@@ -13,7 +13,7 @@ export class UserResolver {
   }
 
   @Mutation((returns) => User)
-  async addUser(@Arg("user") userInput: UserInput): Promise<User> {
+  async signup(@Arg("user") userInput: UserInput): Promise<User> {
     const allUsers = await UserModel.find();
     if (
       !allUsers.find((existingUser) => existingUser.email === userInput.email)

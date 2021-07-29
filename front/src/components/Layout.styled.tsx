@@ -5,7 +5,7 @@ import Footer from './Footer.styled';
 
 const Container = styled.div``;
 const App = styled.div`
-	height: 100%;
+	min-height: 100%;
 `;
 
 interface LayoutProps {

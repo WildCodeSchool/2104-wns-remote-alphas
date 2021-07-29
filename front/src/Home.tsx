@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
-import CardCourses from './components/CardCourses';
+// import CardCourses from './components/CardCourses';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
 
