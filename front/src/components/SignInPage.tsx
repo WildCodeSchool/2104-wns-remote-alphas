@@ -168,7 +168,8 @@ export default function SignInPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-						}}>
+							}}
+					>
 						Se connecter
 					</Button>
 				</Form>
@@ -181,7 +182,8 @@ export default function SignInPage(): JSX.Element {
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
 					handleClick();
-				}}>
+				}}
+			>
 				S&apos;INSCRIRE
 			</LittleTitle>
 		</Wrapper>

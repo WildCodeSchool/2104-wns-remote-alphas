@@ -1,0 +1,51 @@
+[
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=1",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-07-28T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://www.freecodecamp.org/news/content/images/size/w2000/2021/03/typescript.png",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-07-26T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=2",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-07-12T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=3",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-06-22T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=4",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-06-21T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=5",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-06-14T08:56:49.342Z"
+    },
+    {
+        "courseName": "Flutter",
+        "description": "The best course to discover Flutter",
+        "image_url": "https://picsum.photos/300/200?random=6",
+        "technos": ["dev mobile", "flutter"],
+        "postedAt": "2021-06-11T08:56:49.342Z"
+    }
+]

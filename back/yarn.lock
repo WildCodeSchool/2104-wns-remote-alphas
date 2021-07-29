@@ -1592,6 +1592,11 @@ bluebird@3.5.1:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
   integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
 
+bluebird@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+  integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
+
 body-parser@1.19.0, body-parser@^1.18.3:
   version "1.19.0"
   resolved "https://registry.npmjs.org/body-parser/-/body-parser-1.19.0.tgz"
@@ -1911,6 +1916,11 @@ commander@^2.20.3:
   version "2.20.3"
   resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
+commander@^6.2.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
+  integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -4027,6 +4037,19 @@ mongodb@3.6.8, mongodb@^3.6.2:
   optionalDependencies:
     saslprep "^1.0.0"
 
+mongodb@^3.6.9:
+  version "3.6.10"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.10.tgz#f10e990113c86b195c8af0599b9b3a90748b6ee4"
+  integrity sha512-fvIBQBF7KwCJnDZUnFFy4WqEFP8ibdXeFANnylW19+vOwdjOAvqIzPdsNCEMT6VKTHnYu4K64AWRih0mkFms6Q==
+  dependencies:
+    bl "^2.2.1"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    optional-require "^1.0.3"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
@@ -4115,6 +4138,15 @@ node-modules-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz"
   integrity sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
+
+node-mongodb-fixtures@^3.2.9:
+  version "3.2.9"
+  resolved "https://registry.yarnpkg.com/node-mongodb-fixtures/-/node-mongodb-fixtures-3.2.9.tgz#f4b8f07673443fef5a4888438a429179928828a1"
+  integrity sha512-UCF7biEwA5kLB33kbhBViO4cC1Kmp4nm2w2LPfBOFMgVyflj+XITAAfgL331YLi8yfJCRUtHp/DbRDmfyjIjFw==
+  dependencies:
+    bluebird "^3.7.2"
+    commander "^6.2.0"
+    mongodb "^3.6.9"
 
 node-releases@^1.1.71:
   version "1.1.72"
