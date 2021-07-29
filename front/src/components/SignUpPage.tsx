@@ -199,7 +199,8 @@ export default function SignUpPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-						}}>
+						}}
+					>
 						S&apos;inscrire
 					</Button>
 				</Form>
