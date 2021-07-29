@@ -22,7 +22,7 @@ export class LoginResolver {
     ) {
       const token = jwt.sign(
         {
-          userFound: userFound.email,
+          userEmail: userFound.email,
         },
         jwtKey
       );

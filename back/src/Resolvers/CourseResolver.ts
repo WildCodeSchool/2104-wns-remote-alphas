@@ -1,16 +1,22 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
+import { AuthenticationError } from "apollo-server";
 // import { UpdateCourseInput } from "./types/UpdateCourseInput";
 
 @Resolver((of) => Course)
 export class CourseResolver {
   @Query((returns) => [Course])
-  async getCourses(): Promise<Course[]> {
-    const courses = await CourseModel.find();
-
-    return courses;
+  async getCourses(
+    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+  ): Promise<Course[]> {
+    if (authenticatedUserEmail) {
+      const courses = await CourseModel.find();
+      return courses;
+    } else {
+      throw new AuthenticationError("Not connected");
+    }
   }
 
   @Query((returns) => Course, { nullable: true })
