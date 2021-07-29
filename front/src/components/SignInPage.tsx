@@ -95,19 +95,40 @@ const Line = styled.div`
 `;
 
 const LOGIN = gql`
-	
-	mutation login {
-		
+	mutation login($email: String, $password: String) {
+		login(userInput: { email: $email, password: $password }) {
+			token
+		}
 	}
 `;
 
 export default function SignInPage(): JSX.Element {
-	const [userLog, setUserLog] = useState({ email: '', password: '' });
-
+	const initialState = { email: '', password: '' };
+	const [userLog, setUserLog] = useState(initialState);
+	const [loginMutation, { error }] = useMutation(LOGIN);
 	const history = useHistory();
+
+	if (error) return <p>Error :(</p>;
 
 	function handleClick() {
 		history.push('/signup');
+	}
+
+	async function handleSubmit() {
+		const {
+			data: { login },
+		} = await loginMutation({
+			variables: {
+				email: userLog.email,
+				password: userLog.password,
+			},
+		});
+		if (login.token) {
+			localStorage.setItem('token', login.token);
+			history.push('/home');
+		} else {
+			setUserLog(initialState);
+		}
 	}
 	return (
 		<Wrapper>
@@ -140,10 +161,18 @@ export default function SignInPage(): JSX.Element {
 						/>
 						<LabelForCheck>Se Souvenir de mon identifiant</LabelForCheck>
 					</ContainCheckBox>
-					<Button type="submit" value="Envoyer">
+					<Button
+						type="button"
+						value="Envoyer"
+						onClick={(e) => {
+							e.preventDefault();
+							console.log(userLog, 'userLog');
+							handleSubmit();
+						}}>
 						Se connecter
 					</Button>
 				</Form>
+				{error && <p>Erreur</p>}
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
@@ -152,7 +181,6 @@ export default function SignInPage(): JSX.Element {
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
 					handleClick();
-					// eslint-disable-next-line react/jsx-closing-bracket-location
 				}}>
 				S&apos;INSCRIRE
 			</LittleTitle>
