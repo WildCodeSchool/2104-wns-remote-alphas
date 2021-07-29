@@ -6,14 +6,17 @@ const FooterContent = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 189px;
+	height: 90px;
 	padding-right: 5rem;
 	padding-left: 5rem;
 	font-weight: bold;
-	border-top: 1px solid #e5e5e5;
-	position:absolute;
-	bottom:0;
 	width:calc(100% - 5rem - 5rem);
+	border-top: 1px solid #e5e5e5;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+
+
 `;
 
 const WrapperLeft = styled.div`
