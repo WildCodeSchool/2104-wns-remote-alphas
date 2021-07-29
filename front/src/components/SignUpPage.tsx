@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -111,7 +111,7 @@ export default function SignUpPage(): JSX.Element {
 					<Input
 						type="text"
 						name="firstname"
-						placeholder="Adresse email"
+						placeholder="Prénom"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
@@ -127,7 +127,7 @@ export default function SignUpPage(): JSX.Element {
 						value={userLog.email}
 					/>
 					<Input
-						type="text"
+						type="password"
 						name="password"
 						placeholder="Mot de passe"
 						onChange={(e) => {
