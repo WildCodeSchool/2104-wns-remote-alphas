@@ -95,10 +95,8 @@ const Line = styled.div`
 `;
 
 const LOGIN = gql`
-	mutation login($email: String, $password: String) {
-		login(userInput: { email: $email, password: $password }) {
-			token
-		}
+	mutation login($email: String!, $password: String!) {
+		login(userInput: { email: $email, password: $password })
 	}
 `;
 
@@ -123,8 +121,8 @@ export default function SignInPage(): JSX.Element {
 				password: userLog.password,
 			},
 		});
-		if (login.token) {
-			localStorage.setItem('token', login.token);
+		if (typeof login === 'string') {
+			localStorage.setItem('token', login);
 			history.push('/home');
 		} else {
 			setUserLog(initialState);
@@ -166,7 +164,6 @@ export default function SignInPage(): JSX.Element {
 						value="Envoyer"
 						onClick={(e) => {
 							e.preventDefault();
-							console.log(userLog, 'userLog');
 							handleSubmit();
 						}}>
 						Se connecter

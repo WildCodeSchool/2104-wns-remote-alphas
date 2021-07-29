@@ -14,6 +14,7 @@ const jwtKey = process.env.SECRET_KEY;
 export class LoginResolver {
   @Mutation((returns) => String)
   async login(@Arg("userInput") userInput: LogsInput): Promise<string> {
+    console.log(userInput);
     const users = await UserModel.find();
     const userFound = users.find((user) => user.email === userInput.email);
     if (
