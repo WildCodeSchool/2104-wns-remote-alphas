@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Logout(): JSX.Element {
+    const USER = gql`
+    `;
     const history = useHistory();
 	return (
         <button
