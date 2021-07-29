@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-
-// const SignInContent = styled.div``;
 
 const Wrapper = styled.div`
 	display: flex;
@@ -93,6 +92,13 @@ const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
 	//margin: auto;
+`;
+
+const LOGIN = gql`
+	
+	mutation login {
+		
+	}
 `;
 
 export default function SignInPage(): JSX.Element {
