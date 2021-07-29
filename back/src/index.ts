@@ -3,7 +3,7 @@ require("dotenv").config();
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
-import { CourseResolver, UserResolver } from "./Resolvers";
+import { CourseResolver, UserResolver, LoginResolver } from "./Resolvers";
 
 if (!process.env.MONGODB) {
   throw new Error("environment variable MONGODB is missing");
@@ -24,7 +24,7 @@ async function bootstrap() {
       console.log("Connected to database");
     });
   const schema = await buildSchema({
-    resolvers: [CourseResolver, UserResolver],
+    resolvers: [CourseResolver, UserResolver, LoginResolver],
   });
 
   const server = new ApolloServer({

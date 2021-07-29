@@ -20,8 +20,12 @@ export class CourseResolver {
 
   @Mutation((returns) => Course)
   async addCourse(@Arg("course") courseInput: CourseInput): Promise<Course> {
-    const addedCourse = new CourseModel({
+    const courseWithDate = {
       ...courseInput,
+      postedAt: new Date(Date.now()).toISOString(),
+    };
+    const addedCourse = new CourseModel({
+      ...courseWithDate,
     } as Course);
     await addedCourse.save();
     return addedCourse;
