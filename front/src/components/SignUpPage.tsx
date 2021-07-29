@@ -87,15 +87,15 @@ const Line = styled.div`
 const SIGNUP = gql`
 	mutation signup(
 		$name: String!
-		$firsName: String!
 		$email: String!
+		$firstName: String!
 		$password: String!
 	) {
 		signup(
 			user: {
 				name: $name
-				firstName: $firstName
 				email: $email
+				firstName: $firstName
 				password: $password
 			}
 		) {
@@ -106,9 +106,9 @@ const SIGNUP = gql`
 
 export default function SignUpPage(): JSX.Element {
 	const initialState = {
-		lastname: '',
-		firstName: '',
+		name: '',
 		email: '',
+		firstName: '',
 		password: '',
 	};
 	const [userLog, setUserLog] = useState(initialState);
@@ -127,10 +127,7 @@ export default function SignUpPage(): JSX.Element {
 			data: { signup },
 		} = await signupMutation({
 			variables: {
-				name: userLog.lastname,
-				firstName: userLog.firstName,
-				email: userLog.email,
-				password: userLog.password,
+				...userLog,
 			},
 		});
 		// eslint-disable-next-line no-underscore-dangle
@@ -162,12 +159,12 @@ export default function SignUpPage(): JSX.Element {
 				<Form>
 					<Input
 						type="text"
-						name="lastname"
+						name="name"
 						placeholder="Nom"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
-						value={userLog.lastname}
+						value={userLog.name}
 					/>
 					<Input
 						type="text"
