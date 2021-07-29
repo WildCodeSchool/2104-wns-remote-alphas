@@ -8,16 +8,19 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	margin-top: 5rem;
-	margin-bottom: 5rem;
-	width: 30%;
-	height: 65vh;
+	//margin-top: 5rem;
+	//margin-bottom: 5rem;
+	width: 20%;
+	height: 100%;
 	border: 1px solid black;
 	border-radius: 12px;
 	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
 
 	@media screen and (max-width: 780px) {
 		width: 95%;
+	}
+	@media all and (min-width: 790px) and (max-width: 1280px) {
+		width: 50%;
 	}
 `;
 
@@ -26,7 +29,7 @@ const ContainForm = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	//height: 45%;
+	height: 45%;
 `;
 
 const Form = styled.form`
@@ -94,7 +97,7 @@ export default function SignUpPage(): JSX.Element {
 	}
 
 	return (
-		<Wrapper>
+		<Wrapper style={{ backgroundColor: 'white' }}>
 			<Title>Nouveau sur Masterize</Title>
 			<p>Saisissez vos informations personnelles</p>
 			<ContainForm>

@@ -4,10 +4,16 @@ import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { CourseResolver, UserResolver, LoginResolver } from "./Resolvers";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 if (!process.env.MONGODB) {
   throw new Error("environment variable MONGODB is missing");
 }
+if (!process.env.SECRET_KEY) {
+  throw new Error("environment variable SECRET_KEY is missing");
+}
+const jwtKey = process.env.SECRET_KEY;
+
 const PORT = 8080;
 
 async function bootstrap() {
@@ -46,6 +52,19 @@ async function bootstrap() {
   const server = new ApolloServer({
     schema,
     playground: true,
+    context: ({ req }) => {
+      const token = req.headers.authorization;
+      if (token) {
+        try {
+          const payload = jwt.verify(token, jwtKey);
+          if (typeof payload !== "string") {
+            return { authenticatedUserEmail: payload.userEmail };
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    },
   });
 
   const { url } = await server.listen(PORT);
