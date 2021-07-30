@@ -97,7 +97,7 @@ const Line = styled.div`
 	//margin: auto;
 `;
 
-const LOGIN = gql`
+export const LOGIN = gql`
 	mutation login($email: String!, $password: String!) {
 		login(userInput: { email: $email, password: $password })
 	}
@@ -126,7 +126,7 @@ export default function SignInPage(): JSX.Element {
 		});
 		if (typeof login === 'string') {
 			localStorage.setItem('token', login);
-			history.push('/home');
+			history.push('/');
 		} else {
 			setUserLog(initialState);
 		}
@@ -146,7 +146,7 @@ export default function SignInPage(): JSX.Element {
 						value={userLog.email}
 					/>
 					<Input
-						type="text"
+						type="password"
 						name="password"
 						placeholder="Mot de passe"
 						onChange={(e) => {
@@ -168,7 +168,8 @@ export default function SignInPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-						}}>
+							}}
+					>
 						Se connecter
 					</Button>
 				</Form>
@@ -181,7 +182,8 @@ export default function SignInPage(): JSX.Element {
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
 					handleClick();
-				}}>
+				}}
+			>
 				S&apos;INSCRIRE
 			</LittleTitle>
 		</Wrapper>
