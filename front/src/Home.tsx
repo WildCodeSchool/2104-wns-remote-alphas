@@ -13,7 +13,7 @@ export type CourseType = {
 };
 
 export const GET_COURSES_QUERY = gql`
-	query {
+	query Course($data: String!) {
 		getCourses {
 			description
 			technos
