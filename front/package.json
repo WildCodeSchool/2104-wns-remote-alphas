@@ -13,6 +13,7 @@
 		"@types/react-dom": "^17.0.0",
 		"@types/react-router-dom": "^5.1.7",
 		"concurrently": "^6.0.2",
+		"create-use-context": "^1.0.1",
 		"date-fns": "^2.23.0",
 		"dotenv": "^10.0.0",
 		"graphql": "^15.5.0",

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-
+/* import AuthContext from '../context/authContext';
+ */
 const Wrapper = styled.div`
 	display: flex;
 	//justify-content: center;
@@ -104,6 +105,7 @@ export const LOGIN = gql`
 `;
 
 export default function SignInPage(): JSX.Element {
+	/* const Authent = useContext(AuthContext); */
 	const initialState = { email: '', password: '' };
 	const [userLog, setUserLog] = useState(initialState);
 	const [loginMutation, { error }] = useMutation(LOGIN);

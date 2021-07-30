@@ -3887,6 +3887,13 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+create-use-context@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/create-use-context/-/create-use-context-1.0.1.tgz#cec9a1daea82afc7f6e52c356f4e4dede91f2b05"
+  integrity sha512-Ew5JfG2hw+C+4UllsmiBk+ByIUz9QidzT5fwIwS9l970m+W5v6SuzIXQwhKNchn5ZEtPw1iGo92fmt1puDx9LQ==
+  dependencies:
+    react-display-name "^0.2.4"
+
 cross-spawn@7.0.3, cross-spawn@^7.0.0, cross-spawn@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -9477,6 +9484,11 @@ react-dev-utils@^11.0.3:
     shell-quote "1.7.2"
     strip-ansi "6.0.0"
     text-table "0.2.0"
+
+react-display-name@^0.2.4:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/react-display-name/-/react-display-name-0.2.5.tgz#304c7cbfb59ee40389d436e1a822c17fe27936c6"
+  integrity sha512-I+vcaK9t4+kypiSgaiVWAipqHRXYmZIuAiS8vzFvXHHXVigg/sMKwlRgLy6LH2i3rmP+0Vzfl5lFsFRwF1r3pg==
 
 react-dom@^17.0.2:
   version "17.0.2"
