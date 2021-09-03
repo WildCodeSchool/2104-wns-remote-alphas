@@ -124,6 +124,8 @@ export default function SignInPage(): JSX.Element {
 				password: userLog.password,
 			},
 		});
+
+		console.log(login, 'login');
 		if (typeof login === 'string') {
 			localStorage.setItem('token', login);
 			history.push('/');
