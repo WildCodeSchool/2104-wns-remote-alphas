@@ -6,4 +6,5 @@ COPY package*.json ./
 RUN yarn
 COPY tsconfig.json tsconfig.json
 COPY ./src ./src
+COPY ./fixtures ./fixtures
 CMD yarn dev

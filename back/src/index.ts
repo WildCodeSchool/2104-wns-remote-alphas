@@ -32,17 +32,18 @@ async function bootstrap() {
 
   // Add fixtures
   console.log("fixtures started");
-  const Fixtures = require('node-mongodb-fixtures');
+  const Fixtures = require("node-mongodb-fixtures");
   const fixtures = new Fixtures();
   // connects to mongoDB
-  fixtures.connect(process.env.MONGODB)
-  // Unload all the fixtures
-  .then(() => fixtures.unload())
-  // load the fixtures
-  .then(() => fixtures.load())
-  .catch((error: any) => console.error(error))
-  // disconnect DB
-  .finally(() => fixtures.disconnect());
+  fixtures
+    .connect(process.env.MONGODB)
+    // Unload all the fixtures
+    .then(() => fixtures.unload())
+    // load the fixtures
+    .then(() => fixtures.load())
+    .catch((error: Error) => console.error(error))
+    // disconnect DB
+    .finally(() => fixtures.disconnect());
   console.log("fixtures loaded");
 
   const schema = await buildSchema({
