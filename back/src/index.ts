@@ -73,16 +73,6 @@ async function bootstrap() {
         }
       }
     },
-
-    // subscriptions: {
-    //   path: "/subscriptions",
-    //   onConnect: () => {
-    //     console.log("Client connected");
-    //   },
-    //   onDisconnect: () => {
-    //     console.log("Client disconnected");
-    //   },
-    // },
   });
 
   const { url } = await server.listen(PORT);
