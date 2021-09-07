@@ -3,7 +3,12 @@ require("dotenv").config();
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
-import { CourseResolver, UserResolver, LoginResolver } from "./Resolvers";
+import {
+  CourseResolver,
+  UserResolver,
+  LoginResolver,
+  MessageResolver,
+} from "./Resolvers";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 if (!process.env.MONGODB) {
@@ -47,22 +52,24 @@ async function bootstrap() {
   console.log("fixtures loaded");
 
   const schema = await buildSchema({
-    resolvers: [CourseResolver, UserResolver, LoginResolver],
+    resolvers: [CourseResolver, UserResolver, LoginResolver, MessageResolver],
   });
 
   const server = new ApolloServer({
     schema,
     playground: true,
     context: ({ req }) => {
-      const token = req.headers.authorization;
-      if (token) {
-        try {
-          const payload = jwt.verify(token, jwtKey);
-          if (typeof payload !== "string") {
-            return { authenticatedUserEmail: payload.userEmail };
+      if (req) {
+        const token = req.headers.authorization;
+        if (token) {
+          try {
+            const payload = jwt.verify(token, jwtKey);
+            if (typeof payload !== "string") {
+              return { authenticatedUserEmail: payload.userEmail };
+            }
+          } catch (err) {
+            console.log(err);
           }
-        } catch (err) {
-          console.log(err);
         }
       }
     },
