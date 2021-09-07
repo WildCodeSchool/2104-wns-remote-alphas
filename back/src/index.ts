@@ -58,24 +58,21 @@ async function bootstrap() {
   const server = new ApolloServer({
     schema,
     playground: true,
-    // context: ({ req }) => {
-    //   console.log("=======>", req.headers);
-    //   if (req) {
-    //     const token = req.headers.authorization;
-    //     if (token) {
-    //       try {
-    //         const payload = jwt.verify(token, jwtKey);
-    //         if (typeof payload !== "string") {
-    //           return { authenticatedUserEmail: payload.userEmail };
-    //         }
-    //       } catch (err) {
-    //         console.log(err);
-    //       }
-    //     }
-    //   } else {
-    //     console.log("HIIIIIIII");
-    //   }
-    // },
+    context: ({ req }) => {
+      if (req) {
+        const token = req.headers.authorization;
+        if (token) {
+          try {
+            const payload = jwt.verify(token, jwtKey);
+            if (typeof payload !== "string") {
+              return { authenticatedUserEmail: payload.userEmail };
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
+    },
 
     // subscriptions: {
     //   path: "/subscriptions",
