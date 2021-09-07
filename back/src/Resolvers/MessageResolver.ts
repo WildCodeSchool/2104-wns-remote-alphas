@@ -24,21 +24,22 @@ export class MessageResolver {
     // @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string },
     // @Arg("chatroomId") chatroomId: ObjectId,
     @Arg("message") message: string,
-    @PubSub("MESSAGE") publish: Publisher<Document>
+    @PubSub("MESSAGE") publish: Publisher<Message>
   ): Promise<Message> {
     const authenticatedUserEmail = "theodore.lefrancois2906@gmail.com";
     if (authenticatedUserEmail) {
       const user = await UserModel.findOne({ email: authenticatedUserEmail });
-      const newMessage = new MessageModel({
+
+      const messagePayload = {
         text: message,
         sentAt: new Date(Date.now()).toISOString(),
         author: user,
-      });
+      }
 
-      const payload = await newMessage.save();
-      console.log(payload);
+      const newMessage = new MessageModel(messagePayload);
 
-      await publish(payload);
+      await newMessage.save();
+      await publish({...messagePayload, _id: newMessage._id});
       return newMessage;
     } else {
       throw new AuthenticationError("not connected");
@@ -48,8 +49,6 @@ export class MessageResolver {
     topics: "MESSAGE",
   })
   newMessage(@Root() messagePayload: Message): Message {
-    console.log(messagePayload._id, "Message payload");
-
     return messagePayload;
   }
 
