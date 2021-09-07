@@ -10,35 +10,40 @@ import {
   Publisher,
 } from "type-graphql";
 import { Message, MessageModel } from "../Models/Message";
+import { User } from "../Models/User";
 import { AuthenticationError } from "apollo-server";
 import { UserModel } from "../Models/User";
-import { PubSubEngine } from "graphql-subscriptions";
-import { Document } from "mongoose";
 
+import { DocumentType } from "@typegoose/typegoose";
+import { Types } from "mongoose";
+
+interface MessagePayload {
+  _id: Types.ObjectId;
+  text: string;
+  author: DocumentType<User> | null;
+  sentAt: string;
+}
 @Resolver((of) => Message)
 export class MessageResolver {
   // @Subscription((returns)=>Chatroom)
   @Mutation((returns) => Message)
   async postMessage(
     // @Arg("userId") userId: UserId,
-    // @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string },
+    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string },
     // @Arg("chatroomId") chatroomId: ObjectId,
     @Arg("message") message: string,
-    @PubSub("MESSAGE") publish: Publisher<Document>
+    @PubSub("MESSAGE") publish: Publisher<MessagePayload>
   ): Promise<Message> {
-    const authenticatedUserEmail = "theodore.lefrancois2906@gmail.com";
     if (authenticatedUserEmail) {
       const user = await UserModel.findOne({ email: authenticatedUserEmail });
-      const newMessage = new MessageModel({
+      const messagePayload = {
         text: message,
         sentAt: new Date(Date.now()).toISOString(),
         author: user,
-      });
-
-      const payload = await newMessage.save();
-      console.log(payload);
-
-      await publish(payload);
+      };
+      const newMessage = new MessageModel(messagePayload);
+      await newMessage.save();
+      await publish({ ...messagePayload, _id: newMessage._id });
       return newMessage;
     } else {
       throw new AuthenticationError("not connected");
@@ -48,8 +53,6 @@ export class MessageResolver {
     topics: "MESSAGE",
   })
   newMessage(@Root() messagePayload: Message): Message {
-    console.log(messagePayload._id, "Message payload");
-
     return messagePayload;
   }
 
