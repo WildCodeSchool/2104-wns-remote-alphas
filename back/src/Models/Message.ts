@@ -6,32 +6,25 @@ import {
 } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 import { Field, ID, ObjectType } from "type-graphql";
+import { User } from "./User";
 
 @ObjectType()
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-export class Course {
+export class Message {
   @Field((type) => ID)
   readonly _id!: ObjectId;
 
   @Field((type) => String)
   @prop({ required: true })
-  public postedAt!: string;
+  public sentAt!: string;
+
+  @Field((type) => User)
+  @prop({ required: true })
+  public author!: User;
 
   @Field((type) => String)
   @prop({ required: true })
-  public courseName!: string;
-
-  @Field((type) => String)
-  @prop({ required: true })
-  public image_url!: string;
-
-  @Field((type) => String)
-  @prop({ required: true })
-  public description!: string;
-
-  @Field((type) => [String])
-  @prop({ required: true })
-  public technos!: string[];
+  public text!: string;
 }
 
-export const CourseModel = getModelForClass(Course);
+export const MessageModel = getModelForClass(Message);

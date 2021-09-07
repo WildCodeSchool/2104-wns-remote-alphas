@@ -30,13 +30,13 @@ export class User {
   @prop({ required: true })
   public password!: string;
 
-  @Field((type) => String)
+  @Field((type) => String, { nullable: true })
   @prop({ required: false })
-  public location!: string;
+  public location?: string;
 
-  @Field((type) => Settings)
-  @prop({ required: true })
-  public settings!: Settings;
+  @Field((type) => Settings, { nullable: true })
+  @prop({ required: false })
+  public settings?: Settings;
 }
 
 export const UserModel = getModelForClass(User);
