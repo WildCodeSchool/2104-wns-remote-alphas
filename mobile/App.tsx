@@ -14,11 +14,13 @@ import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import DiscussList from "./screens/DiscussList";
 import UserContext from "./context/UserContext";
+import ChatInterface from "./screens/ChatInterface";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -28,6 +30,16 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const ChatStack = createStackNavigator();
+
+function MessageStackScreen() {
+  return (
+    <ChatStack.Navigator>
+      <ChatStack.Screen name="Discussions" component={DiscussList} />
+      <ChatStack.Screen name="ChatRoom" component={ChatInterface} />
+    </ChatStack.Navigator>
+  );
+}
 const Tab = createBottomTabNavigator();
 const ME = gql`
   query {
@@ -134,7 +146,9 @@ export default function App() {
             })}
           >
             <Tab.Screen name="Accueil" component={Home} />
-            <Tab.Screen name="Discussion" component={DiscussList} />
+            <Tab.Screen name="Messages" component={MessageStackScreen} />
+            {/* <Tab.Screen name="Discussions" component={DiscussList} /> */}
+            {/* <Tab.Screen name="ChatRoom" component={ChatInterface} /> */}
             <Tab.Screen name="Caméra" component={CameraScreen} />
           </Tab.Navigator>
         </NavigationContainer>
