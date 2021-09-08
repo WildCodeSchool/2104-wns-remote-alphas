@@ -34,7 +34,6 @@ export class UserResolver {
   ) {
     if (authenticatedUserEmail) {
       const me = await UserModel.findOne({ email: authenticatedUserEmail });
-      console.log(me);
       return me;
     } else {
       throw new AuthenticationError("Not connected");
