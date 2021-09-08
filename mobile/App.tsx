@@ -5,6 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import DiscussList from "./screens/DiscussList";
+import Login from "./components/Login";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,8 @@ export default function App() {
               iconName = focused ? "ios-camera" : "ios-camera-outline";
             } else if (route.name === "Discussion") {
               iconName = focused ? "chatbubbles" : "chatbubbles-outline";
+            } else if (route.name === "Se connecter") {
+              iconName = focused ? "log-in" : "log-in-outline";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -30,6 +33,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name="Accueil" component={Home} />
+        <Tab.Screen name="Se connecter" component={Login} />
         <Tab.Screen name="Discussion" component={DiscussList} />
         <Tab.Screen name="Caméra" component={CameraScreen} />
       </Tab.Navigator>
