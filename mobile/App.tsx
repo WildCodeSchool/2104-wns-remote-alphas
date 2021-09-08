@@ -3,6 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Home from "./screens/Home";
+import CameraScreen from "./screens/CameraScreen";
+import DiscussList from "./screens/DiscussList";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -11,6 +17,8 @@ Notifications.setNotificationHandler({
     shouldSetBadge: true,
   }),
 });
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -38,10 +46,30 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>MASTERIZE LANDING PAGE</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName: any;
+
+            if (route.name === "Accueil") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Caméra") {
+              iconName = focused ? "ios-camera" : "ios-camera-outline";
+            } else if (route.name === "Discussion") {
+              iconName = focused ? "chatbubbles" : "chatbubbles-outline";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: "#68d0fc",
+          tabBarInactiveTintColor: "gray",
+        })}
+      >
+        <Tab.Screen name="Accueil" component={Home} />
+        <Tab.Screen name="Discussion" component={DiscussList} />
+        <Tab.Screen name="Caméra" component={CameraScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 
   // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
@@ -96,12 +124,3 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

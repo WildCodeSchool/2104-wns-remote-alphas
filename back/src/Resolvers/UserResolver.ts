@@ -25,7 +25,7 @@ export class UserResolver {
       await addedUser.save();
       return addedUser;
     } else {
-      throw new ApolloError("This email is already token");
+      throw new ApolloError("This email is already taken");
     }
   }
 }
