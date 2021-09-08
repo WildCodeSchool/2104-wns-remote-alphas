@@ -7,30 +7,26 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-// interface Props {
-//   navigation: any;
-// }
-
 const Discuss = ({ navigation }: any) => {
   return (
-    // <TouchableWithoutFeedback
-    //   onPress={() => {
-    //     navigation.navigate("Home");
-    //   }}
-    // >
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/apple-touch-icon.png")}
-        style={{ width: 50, height: 50 }}
-      />
-      <View>
-        <Text style={styles.textContain3}>Title</Text>
-        <Text style={styles.textContain1}>Firstname Lastname</Text>
-      </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        navigation.navigate("ChatRoom");
+      }}
+    >
+      <View style={styles.container}>
+        <Image
+          source={require("../assets/apple-touch-icon.png")}
+          style={{ width: 50, height: 50 }}
+        />
+        <View>
+          <Text style={styles.textContain3}>Title</Text>
+          <Text style={styles.textContain1}>Firstname Lastname</Text>
+        </View>
 
-      <Text style={styles.textContain2}>Date/hour</Text>
-    </View>
-    // </TouchableWithoutFeedback>
+        <Text style={styles.textContain2}>Date/hour</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   textContain3: {
-    color: "white",
+    color: "#68d0fc",
     fontWeight: "bold",
     fontSize: 20,
   },
