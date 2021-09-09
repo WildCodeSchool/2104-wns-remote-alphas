@@ -32,6 +32,7 @@ Notifications.setNotificationHandler({
 });
 
 const ChatStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 function MessageStackScreen() {
   return (
@@ -57,9 +58,7 @@ const ME = gql`
 
 export default function App() {
   const [userData, setUserData] = React.useState(null);
-  const [userToken, setUserToken] = React.useState(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzA5MzIyMDN9.WWsfewJCBK8gPV_X4zUXLjgtBxg8gYGb1OFoztPezow"
-  );
+  const [userToken, setUserToken] = React.useState("");
   // create the apollo client
   const httpLink = createHttpLink({
     uri: "http://localhost:8080/graphql",
@@ -121,7 +120,8 @@ export default function App() {
       value={{ userData, setUserData, userToken, setUserToken }}
     >
       <ApolloProvider client={client}>
-        <NavigationContainer>
+          <NavigationContainer>
+          {userToken == null ? (
           <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({
@@ -158,6 +158,11 @@ export default function App() {
             {/* <Tab.Screen name="ChatRoom" component={ChatInterface} /> */}
             <Tab.Screen name="Caméra" component={CameraScreen} />
           </Tab.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen name="Se connecter" component={Login} />
+          </Stack.Navigator>
+        )}
         </NavigationContainer>
       </ApolloProvider>
     </UserContext.Provider>

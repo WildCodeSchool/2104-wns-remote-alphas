@@ -10,72 +10,112 @@ import {
 	TouchableOpacity
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { gql, useMutation } from "@apollo/client";
+import { __handlePersistedRegistrationInfoAsync } from "expo-notifications/build/DevicePushTokenAutoRegistration.fx";
+import UserContext from "../context/UserContext";
+import { NavigationRouteContext } from "@react-navigation/core";
 
+export const LOGIN = gql`
+	mutation login($email: String!, $password: String!) {
+		login(userInput: { email: $email, password: $password })
+	}
+`;
 
-const Login = () => {
+const Login = ({ navigation }: any) => {
 	const [ email, setEmail ] = React.useState("");
 	const [ password, setPassword ] = React.useState("");
 	const [checked, onChange] = useState(false);
 	const [focusEmail, setFocusEmail] = useState(false);
 	const [focusPassword, setFocusPassword] = useState(false);
+	const { userData, setUserData, userToken, setUserToken }: any = React.useContext(UserContext);
+
+
+	const [loginMutation, { error }] = useMutation(LOGIN);
 
 
 	function onCheckmarkPress() {
 		onChange(!checked);
 	}
 
+	async function handlePress() {
+		const {
+			data: { login },
+		} = await loginMutation({
+			variables: {
+				email: email,
+				password: password,
+			},
+		});
+/* 		console.log('log', login) */
+			console.log(typeof login)
+		if (typeof login === 'string') {
+			setUserToken(login)
+			console.log(userToken)
+			navigation.navigate("Accueil")
+		} else {
+			setUserToken(login)
+			console.log(userToken)
+			setEmail("");
+			setPassword("")
+		}
+	}
 
-
+/* 	if (error) return <p>Error :(</p>;
+ */
   return (
-    <View style={styles.container}>
-			<View style={styles.imageContainer}>
-				<Image
-				source={require("../assets/logo-white.png")}
-				style={{ width: '100%', height: '100%', margin: 'auto', resizeMode: "contain"}}
+			<View style={styles.container}>
+				<View style={styles.imageContainer}>
+					<Image
+					source={require("../assets/logo-white.png")}
+					style={{ width: '100%', height: '100%', margin: 'auto', resizeMode: "contain"}}
+					/>
+				</View>
+
+				<Text style={styles.label}>Email</Text>
+				<TextInput 
+					style={focusEmail ? styles.inputFocus : styles.input}
+					onChangeText={setEmail}
+					/* placeholder="e-mail address" */
+					keyboardType="email-address"
+					onFocus={() => setFocusEmail(true)}
+					onBlur={() => setFocusEmail(false)} 
 				/>
+
+				<Text style={styles.label}>Password</Text>
+				<TextInput 
+					style={focusPassword ? styles.inputFocus : styles.input}
+					onChangeText={setPassword}
+					/* placeholder="password" */
+					keyboardType="visible-password"
+					secureTextEntry={true}
+					onFocus={() => setFocusPassword(true)}
+					onBlur={() => setFocusPassword(false)}
+				/>
+
+				<View style={styles.checkboxContainer}>
+				<Pressable
+					style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+					onPress={onCheckmarkPress}>
+					{checked && <Ionicons name="checkmark" size={24} color="white" />}
+				</Pressable>
+				<Text style={styles.label}> Remember me ?</Text>
+				</View>
+				
+				<TouchableOpacity
+					style={!email || !password ? styles.disabledButton : styles.button}
+					onPress={() => handlePress()}
+					disabled={!email || !password}
+				>
+					<Text style={styles.textButton}>Log in</Text>
+				</TouchableOpacity>
+
+				<View style={styles.panda}>
+					<Image
+					source={require("../assets/ninja-panda-hello.png")}
+					style={{ width: 80, height: 60 }}
+				/>
+				</View>
 			</View>
-			<Text style={styles.label}>Email</Text>
-      <TextInput 
-				style={focusEmail ? styles.inputFocus : styles.input}
-        onChangeText={setEmail}
-        /* placeholder="e-mail address" */
-        keyboardType="email-address"
- 				onFocus={() => setFocusEmail(true)}
-				onBlur={() => setFocusEmail(false)} 
-      />
-			<Text style={styles.label}>Password</Text>
-			<TextInput 
-				style={focusPassword ? styles.inputFocus : styles.input}
-        onChangeText={setPassword}
-        /* placeholder="password" */
-        keyboardType="visible-password"
-				secureTextEntry={true}
-				onFocus={() => setFocusPassword(true)}
-				onBlur={() => setFocusPassword(false)}
-      />
-			<View style={styles.checkboxContainer}>
-			<Pressable
-				style={[styles.checkboxBase, checked && styles.checkboxChecked]}
-				onPress={onCheckmarkPress}>
-				{checked && <Ionicons name="checkmark" size={24} color="white" />}
-			</Pressable>
-			<Text style={styles.label}> Remember me ?</Text>
-			</View>
-			<TouchableOpacity
-			style={styles.button}
-					color="#68D0FC"
-					onPress=""
-					/* disabled={true} */
-			>
-				<Text style={styles.textButton}>Log in</Text>
-			</TouchableOpacity>
-			<View style={styles.panda}>
-				<Image
-				source={require("../assets/ninja-panda-hello.png")}
-				style={{ width: 80, height: 60 }}
-			/>
-			</View>
-    </View>
   );
 };
 
@@ -119,6 +159,11 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: "#68D0FC",
+		borderRadius: 10,
+		marginBottom: 40,
+	},
+	disabledButton: {
+		backgroundColor: "#ECEFF1",
 		borderRadius: 10,
 		marginBottom: 40,
 	},
