@@ -1,11 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 import Discuss from "../components/Discuss";
 
-function DiscussList() {
+function DiscussList({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Discuss />
+      <Discuss navigation={navigation} />
+      {/* <Button
+        title="Back to home"
+        onPress={() => navigation.navigate("Accueil")}
+      /> */}
     </View>
   );
 }
