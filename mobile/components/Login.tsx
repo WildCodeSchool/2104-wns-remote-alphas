@@ -13,8 +13,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 
 const Login = () => {
-	const [ email, onChangeMail ] = React.useState(null);
-	const [ password, onChangePassword ] = React.useState(null);
+	const [ email, onChangeMail ] = React.useState("");
+	const [ password, onChangePassword ] = React.useState("");
 	const [checked, onChange] = useState(false);
 	const [focusEmail, setFocusEmail] = useState(false);
 	const [focusPassword, setFocusPassword] = useState(false);
@@ -37,7 +37,7 @@ const Login = () => {
 			<Text style={styles.label}>Email</Text>
       <TextInput 
 				style={focusEmail ? styles.inputFocus : styles.input}
-        onChangeText={text => onChangeMail(text)}
+        onChangeText={onChangeMail}
         /* placeholder="e-mail address" */
         keyboardType="email-address"
  				onFocus={() => setFocusEmail(true)}
@@ -46,7 +46,7 @@ const Login = () => {
 			<Text style={styles.label}>Password</Text>
 			<TextInput 
 				style={focusPassword ? styles.inputFocus : styles.input}
-        onChangeText={text => onChangePassword(text)}
+        onChangeText={onChangePassword}
         /* placeholder="password" */
         keyboardType="visible-password"
 				secureTextEntry={true}
