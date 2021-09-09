@@ -42,6 +42,7 @@ function MessageStackScreen() {
   );
 }
 const Tab = createBottomTabNavigator();
+
 const ME = gql`
   query {
     me {
@@ -59,6 +60,7 @@ export default function App() {
   const [userToken, setUserToken] = React.useState(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzA5MzIyMDN9.WWsfewJCBK8gPV_X4zUXLjgtBxg8gYGb1OFoztPezow"
   );
+  // create the apollo client
   const httpLink = createHttpLink({
     uri: "http://localhost:8080/graphql",
   });
@@ -75,7 +77,7 @@ export default function App() {
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
-
+  // get userData is there is the token and no data
   React.useEffect(() => {
     if (!userData && userToken) {
       client.query({ query: ME }).then((result) => {
@@ -137,7 +139,7 @@ export default function App() {
                   iconName = focused ? "home" : "home-outline";
                 } else if (route.name === "Caméra") {
                   iconName = focused ? "ios-camera" : "ios-camera-outline";
-                } else if (route.name === "Discussion") {
+                } else if (route.name === "Messages") {
                   iconName = focused ? "chatbubbles" : "chatbubbles-outline";
                 } else if (route.name === "Se connecter") {
                   iconName = focused ? "log-in" : "log-in-outline";
