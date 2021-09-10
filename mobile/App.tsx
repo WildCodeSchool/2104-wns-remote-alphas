@@ -42,6 +42,7 @@ function MessageStackScreen() {
 }
 const Tab = createBottomTabNavigator();
 
+// todo: add expoPushToken in user data
 const ME = gql`
   query {
     me {
@@ -50,6 +51,7 @@ const ME = gql`
       firstName
       password
       email
+      expoPushToken
     }
   }
 `;
@@ -69,6 +71,7 @@ export default function App() {
       headers: {
         ...headers,
         authorization: token ? token : "",
+        //pushToken: expoPushToken ? expoPushToken: "",
       },
     };
   });
@@ -180,7 +183,7 @@ export default function App() {
   // }
 
   async function registerForPushNotificationsAsync() {
-    let token;
+    let pushToken;
     if (Constants.isDevice) {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
@@ -193,8 +196,9 @@ export default function App() {
         alert("Failed to get push token for push notification!");
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
+      pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(pushToken);
+      // todo: send token to backend and save it in user data (mutation update user?)
     } else {
       alert("Must use physical device for Push Notifications");
     }
@@ -207,8 +211,7 @@ export default function App() {
         lightColor: "#FF231F7C",
       });
     }
-
-    return token;
+    return pushToken;
   }
 }
 AppRegistry.registerComponent("MyApplication", () => App);

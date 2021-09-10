@@ -21,4 +21,7 @@ export class UserInput implements Partial<User> {
 
   @Field((type) => SettingsInput, { nullable: true })
   public settings?: SettingsInput;
+
+  @Field((type) => String,  { nullable: true })
+  public expoPushToken?: string;
 }

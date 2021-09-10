@@ -37,6 +37,9 @@ export class User {
   @Field((type) => Settings, { nullable: true })
   @prop({ required: false })
   public settings?: Settings;
+
+  @Field((type) => String,  { nullable: true })
+  public expoPushToken?: string;
 }
 
 export const UserModel = getModelForClass(User);

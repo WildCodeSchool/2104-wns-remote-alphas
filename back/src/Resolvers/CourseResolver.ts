@@ -1,9 +1,20 @@
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, Ctx, Subscription, PubSub, Publisher, Root } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
 import { AuthenticationError } from "apollo-server";
+import { Types } from "mongoose";
+import { Notification, NotificationModel } from "../Models/Notification";
 // import { UpdateCourseInput } from "./types/UpdateCourseInput";
+
+// build the notification
+interface NotificationPayload {
+  _id: Types.ObjectId;
+  to: string;
+  title: string;
+  body: string;
+  //data?: {};
+}
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -34,7 +45,9 @@ export class CourseResolver {
   @Mutation((returns) => Course)
   async addCourse(
     @Arg("course") courseInput: CourseInput,
-    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+    //@Arg("notificationData") notificationData: {},
+    @PubSub("NOTIFICATION") publish: Publisher<NotificationPayload>,
+    @Ctx() { authenticatedUserEmail, expoPushToken }: { authenticatedUserEmail: string, expoPushToken: string }
   ): Promise<Course> {
     if (authenticatedUserEmail) {
       const courseWithDate = {
@@ -44,11 +57,31 @@ export class CourseResolver {
       const addedCourse = new CourseModel({
         ...courseWithDate,
       } as Course);
+      // add notification's data
+      const notificationPayload = {
+        to: expoPushToken,
+        sound: 'default',
+        title: 'New Content Online',
+        body: 'Hey ! A new course is online on your Masterize, check this out !',
+        //data: notificationData,
+      };
+      // pass notification payload to the NotificationModel to instanciate a new notification
+      const newNotification = new NotificationModel(notificationPayload);
       await addedCourse.save();
+      // Send notification
+      await publish({ ...notificationPayload, _id: newNotification._id });
       return addedCourse;
     } else {
       throw new AuthenticationError("not connected");
     }
+  }
+
+  // Notification subscription, sends a push notification when a new course is posted
+  @Subscription({
+    topics: "NOTIFICATION",
+  })
+  newNotification(@Root() notificationPayload: Notification): Notification {
+    return notificationPayload;
   }
 
   @Mutation(() => Course)

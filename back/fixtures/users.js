@@ -9,6 +9,7 @@ module.exports = [
         email: "theodore.lefrancois2906@gmail.com",
         password: bcrypt.hashSync("password", 10),
         location: "Ondres",
+        expoPushToken: "ExponentPushToken[5kLAKlO6LTBh_OUumzMSN7]",
         settings: {
             instantChat: true,
             pandaTips: true,
@@ -40,6 +41,7 @@ module.exports = [
         email: "ameline@gmail.com",
         password: bcrypt.hashSync("password", 10),
         location: "Brittany",
+        expoPushToken: "",
         settings: {
             instantChat: true,
             pandaTips: true,
@@ -71,6 +73,7 @@ module.exports = [
         email: "verges_anthony@hotmail.fr",
         password: bcrypt.hashSync("password", 10),
         location: "France",
+        expoPushToken: "",
         settings: {
             instantChat: true,
             pandaTips: true,
@@ -102,6 +105,7 @@ module.exports = [
         email: "elya29@protonmail.com",
         password: bcrypt.hashSync("password", 10),
         location: "Brittany",
+        expoPushToken: "ExponentPushToken[5kLAKlO6LTBh_OUumzMSN7]",
         settings: {
             instantChat: true,
             pandaTips: true,
