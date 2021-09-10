@@ -6,7 +6,12 @@ import {
   ApolloProvider,
   createHttpLink,
   gql,
+  HttpLink,
+  split,
 } from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
+// import { WebSocketLink } from "apollo-link-ws";
 import { setContext } from "@apollo/client/link/context";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
@@ -59,10 +64,28 @@ export default function App() {
   const [userToken, setUserToken] = React.useState(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzA5MzIyMDN9.WWsfewJCBK8gPV_X4zUXLjgtBxg8gYGb1OFoztPezow"
   );
+
   // create the apollo client
   const httpLink = createHttpLink({
     uri: "http://localhost:8080/graphql",
   });
+
+  // const httpLink = new HttpLink({
+  //   uri: "http://localhost:8080/graphql",
+  // });
+
+  const wsLink = new WebSocketLink({
+    uri: "ws://localhost:8080/graphql",
+    options: {
+      reconnect: true,
+    },
+  });
+
+  // The split function takes three parameters:
+  //
+  // * A function that's called for each operation to execute
+  // * The Link to use for an operation if the function returns a "truthy" value
+  // * The Link to use for an operation if the function returns a "falsy" value
   const authLink = setContext((_, { headers }) => {
     const token = userToken;
     return {
@@ -72,15 +95,39 @@ export default function App() {
       },
     };
   });
+
+  const splitLink = split(
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      return (
+        definition.kind === "OperationDefinition" &&
+        definition.operation === "subscription"
+      );
+    },
+    wsLink,
+    authLink.concat(httpLink)
+  );
+
+  // const link = new WebSocketLink({
+  //   uri: `wss://localhost:8080/`,
+  //   options: {
+  //     reconnect: true,
+  //     connectionParams: {
+  //       headers: {
+  //         authorization: userToken,
+  //       },
+  //     },
+  //   },
+  // });
   const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: splitLink,
     cache: new InMemoryCache(),
+    connectToDevTools: true,
   });
   // get userData is there is the token and no data
   React.useEffect(() => {
     if (!userData && userToken) {
       client.query({ query: ME }).then((result) => {
-        console.log(result.data.me);
         setUserData(result.data.me);
       });
     }
