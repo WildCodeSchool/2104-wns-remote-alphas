@@ -14,6 +14,8 @@ import { gql, useMutation } from "@apollo/client";
 import { __handlePersistedRegistrationInfoAsync } from "expo-notifications/build/DevicePushTokenAutoRegistration.fx";
 import UserContext from "../context/UserContext";
 import { NavigationRouteContext } from "@react-navigation/core";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export const LOGIN = gql`
 	mutation login($email: String!, $password: String!) {
@@ -30,13 +32,24 @@ const Login = ({ navigation }: any) => {
 	const { userData, setUserData, userToken, setUserToken }: any = React.useContext(UserContext);
 
 
-	const [loginMutation, { error }] = useMutation(LOGIN);
+	const [loginMutation, { error }] = useMutation(LOGIN); 
+
+	const storeData = async (setUserToken) => {
+		try {
+		  await AsyncStorage.setItem('@storage_Key', setUserToken);
+		  console.log(setUserToken)
+		} catch (e) {
+		  // saving error
+		}
+	  }
 
 
+//function for check checkbox
 	function onCheckmarkPress() {
 		onChange(!checked);
 	}
 
+	//when we click on submit button
 	async function handlePress() {
 		const {
 			data: { login },
@@ -46,15 +59,11 @@ const Login = ({ navigation }: any) => {
 				password: password,
 			},
 		});
-/* 		console.log('log', login) */
-			console.log(typeof login)
 		if (typeof login === 'string') {
-			setUserToken(login)
-			console.log(userToken)
-			navigation.navigate("Accueil")
+			console.log("store asyn", storeData(login))
+			/* localStorage.setItem('token', login); */
+		 	navigation.navigate("Accueil") 
 		} else {
-			setUserToken(login)
-			console.log(userToken)
 			setEmail("");
 			setPassword("")
 		}
@@ -77,17 +86,18 @@ const Login = ({ navigation }: any) => {
 					onChangeText={setEmail}
 					/* placeholder="e-mail address" */
 					keyboardType="email-address"
+					autoCapitalize={'none'}
 					onFocus={() => setFocusEmail(true)}
 					onBlur={() => setFocusEmail(false)} 
 				/>
-
 				<Text style={styles.label}>Password</Text>
 				<TextInput 
 					style={focusPassword ? styles.inputFocus : styles.input}
 					onChangeText={setPassword}
 					/* placeholder="password" */
-					keyboardType="visible-password"
 					secureTextEntry={true}
+					keyboardType="visible-password"
+					autoCapitalize={'none'}
 					onFocus={() => setFocusPassword(true)}
 					onBlur={() => setFocusPassword(false)}
 				/>
