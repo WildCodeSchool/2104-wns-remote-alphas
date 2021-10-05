@@ -1,0 +1,46 @@
+services:
+  front:
+    container_name: Masterise-front
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    command: sh -c "npm run build"
+    volumes:
+      - "./front:/app"
+      - "/app/node_modules"
+    ports:
+      - 3030:3000
+    env_file:
+      - "./front/.env"
+  back:
+    container_name: Masterise-back
+    build: ./back
+    command: sh -c "npm run build && npm run prod"
+    expose:
+      - 5000
+    ports:
+      - 8080:8080
+    command: yarn dev
+    volumes:
+      - "./back/src:/app/src"
+    # environment:
+    #   - SECRET_KEY
+    #   - MONGODB
+    env_file:
+      - "./back/.env"
+
+  mongodb:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+  nginx:
+    image: nginx:1.21.3
+    depends_on:
+      - back
+      - front
+    restart: always
+    ports:
+      - ${GATEWAY_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - web-client-build:/web-client-build
