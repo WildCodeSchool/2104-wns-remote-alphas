@@ -11,8 +11,8 @@ services:
       - "/app/node_modules"
     ports:
       - 3030:3000
-    env_file:
-      - "./front/.env"
+    # env_file:
+    #   - "./front/.env"
   back:
     container_name: Masterise-back
     build: ./back
@@ -24,11 +24,11 @@ services:
     command: yarn dev
     volumes:
       - "./back/src:/app/src"
-    # environment:
-    #   - SECRET_KEY
-    #   - MONGODB
-    env_file:
-      - "./back/.env"
+     environment:
+       - SECRET_KEY
+       - MONGODB
+    # env_file:
+    #   - "./back/.env"
 
   mongodb:
     image: mongo
