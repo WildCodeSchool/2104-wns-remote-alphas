@@ -25,8 +25,8 @@ services:
     volumes:
       - "./back/src:/app/src"
      environment:
-       - SECRET_KEY
-       - MONGODB
+       - ${SECRET_KEY}
+       - ${MONGODB}
     # env_file:
     #   - "./back/.env"
 
