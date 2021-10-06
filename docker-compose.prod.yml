@@ -6,11 +6,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "npm run build"
     volumes:
-      - "./front:/app"
-      - web-client-build:/app/build
-      - "/app/node_modules"
-    ports:
-      - 3030:3000
+      - web-client-build:/app/build   
     # env_file:
     #   - "./front/.env"
   back:
@@ -19,14 +15,12 @@ services:
     command: sh -c "npm run build && npm run prod"
     expose:
       - 5000
-    ports:
-      - 8080:8080
     command: yarn dev
     volumes:
       - "./back/src:/app/src"
      environment:
-       - SECRET_KEY
-       - MONGODB
+       - ${SECRET_KEY}
+       - MONGODB=mongodb://mongodb:27017/masterize
     # env_file:
     #   - "./back/.env"
 
