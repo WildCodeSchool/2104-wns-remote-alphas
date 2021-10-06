@@ -7,8 +7,8 @@ services:
     command: sh -c "npm run build"
     volumes:
       - web-client-build:/app/build   
-    # env_file:
-    #   - "./front/.env"
+    env_file:
+      - "./front/.env"
   back:
     container_name: Masterise-back
     build: ./back
