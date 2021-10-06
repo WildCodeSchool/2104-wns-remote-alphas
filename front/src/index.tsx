@@ -11,7 +11,10 @@ import './index.css';
 import Router from './Router';
 
 const httpLink = createHttpLink({
-	uri: process.env.REACT_APP_API_DEV,
+	uri:
+		process.env.NODE_ENV === 'production'
+			? '/graphql'
+			: process.env.REACT_APP_API_DEV,
 });
 
 const authLink = setContext((_, { headers }) => {
