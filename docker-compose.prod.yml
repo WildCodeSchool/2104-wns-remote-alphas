@@ -1,4 +1,16 @@
+version: "3"
+
 services:
+  back:
+    container_name: Masterise-back
+    build: ./back
+    command: sh -c "npm run build && npm run prod"
+    expose:
+      - 8080
+    environment:
+      - MONGODB=mongodb://mongodb:27017/masterize
+    env_file:
+      - "./back/.env"
   front:
     container_name: Masterise-front
     build:
@@ -9,21 +21,8 @@ services:
       - web-client-build:/app/build
     environment:
       - NODE_ENV=production
-  back:
-    container_name: Masterise-back
-    build: ./back
-    command: sh -c "tsc && node build/index.js"
-    expose:
-      - 5000
-    volumes:
-      - "./back/src:/app/src"
-    environment:
-      - MONGODB=mongodb://mongodb:27017/masterize
-    env_file:
-      - "./back/.env"
-
   mongodb:
-    image: mongo
+    image: mongo:4.4.9
     volumes:
       - ./data:/data/db
   nginx:
