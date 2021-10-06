@@ -9,7 +9,7 @@
     "dev": "ts-node-dev --transpile-only --respawn  ./src/index.ts",
     "initJest": "jest --init",
     "test": "jest",
-    "prod": "node build/index.js"
+    "prod": "node ./build/src/index.js"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.6.0",
