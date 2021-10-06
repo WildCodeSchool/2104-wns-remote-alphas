@@ -18,9 +18,9 @@ services:
     command: yarn dev
     volumes:
       - "./back/src:/app/src"
-     environment:
-       - ${SECRET_KEY}
-       - MONGODB=mongodb://mongodb:27017/masterize
+    environment:
+      - ${SECRET_KEY}
+      - MONGODB=mongodb://mongodb:27017/masterize
     # env_file:
     #   - "./back/.env"
 
