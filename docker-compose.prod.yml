@@ -21,8 +21,8 @@ services:
     environment:
       - ${SECRET_KEY}
       - MONGODB=mongodb://mongodb:27017/masterize
-    # env_file:
-    #   - "./back/.env"
+    env_file:
+      - "./back/.env"
 
   mongodb:
     image: mongo
