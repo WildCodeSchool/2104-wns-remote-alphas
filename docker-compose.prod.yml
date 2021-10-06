@@ -19,7 +19,6 @@ services:
     volumes:
       - "./back/src:/app/src"
     environment:
-      - ${SECRET_KEY}
       - MONGODB=mongodb://mongodb:27017/masterize
     env_file:
       - "./back/.env"
