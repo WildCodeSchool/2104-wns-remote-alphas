@@ -6,16 +6,15 @@ services:
       dockerfile: Dockerfile
     command: sh -c "npm run build"
     volumes:
-      - web-client-build:/app/build   
+      - web-client-build:/app/build
     environment:
       - NODE_ENV=production
   back:
     container_name: Masterise-back
     build: ./back
-    command: sh -c "npm run build && npm run prod"
+    command: sh -c "tsc && node build/index.js"
     expose:
       - 5000
-    command: yarn dev
     volumes:
       - "./back/src:/app/src"
     environment:
