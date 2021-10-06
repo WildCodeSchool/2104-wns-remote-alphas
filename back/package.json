@@ -4,11 +4,12 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --project ./",
+    "build": "tsc",
     "start": "node ./src/index.ts",
     "dev": "ts-node-dev --transpile-only --respawn  ./src/index.ts",
     "initJest": "jest --init",
-    "test": "jest"
+    "test": "jest",
+    "prod": "node build/index.js"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.6.0",
