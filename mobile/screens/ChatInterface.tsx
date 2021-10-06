@@ -142,10 +142,7 @@ function ChatInterface() {
   //     GiftedChat.append(previousMessages, messages)
   //   );
   // }, []);
-  function getPos(condition: boolean) {
-    console.log(condition);
-    return condition ? "right" : "left";
-  }
+
   const renderBubble = (props: BubbleProps<Message>) => {
     return (
       <Bubble
@@ -171,7 +168,6 @@ function ChatInterface() {
     );
   };
   const renderAvatar = (props: AvatarProps<Message>) => {
-    console.log(props, "===> Props");
     return (
       <Avatar
         {...props}
