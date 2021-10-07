@@ -34,9 +34,9 @@ const Login = ({ navigation }: any) => {
 
 	const [loginMutation, { error }] = useMutation(LOGIN); 
 
-	const storeData = async (setUserToken) => {
+	const storeData = async (userToken) => {
 		try {
-		  await AsyncStorage.setItem('@storage_Key', setUserToken);
+		  await AsyncStorage.setItem('@storage_Key', setUserToken(userToken));
 		  console.log(setUserToken)
 		} catch (e) {
 		  // saving error

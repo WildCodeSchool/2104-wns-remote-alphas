@@ -123,6 +123,7 @@ export default function App() {
       const userToken = await AsyncStorage.getItem('@storage_Key')
       if(userToken !== null) {
         console.log("1",userToken)
+        return userToken
         // value previously stored
       }
     } catch(e) {
@@ -140,6 +141,7 @@ export default function App() {
     >
       <ApolloProvider client={client}>
           <NavigationContainer>
+            token {this.state.userToken}
           {/*  { userToken !== null ? (  */}
             <Tab.Navigator
             screenOptions={({ route }) => ({
