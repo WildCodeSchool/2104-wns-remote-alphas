@@ -14,10 +14,11 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 if (!process.env.MONGODB) {
   throw new Error("environment variable MONGODB is missing");
 }
-if (!process.env.SECRET_KEY) {
+console.log("test", process.env.NODE_ENV);
+if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY!;
+const jwtKey = process.env.SECRET_KEY || "test secret key";
 
 const PORT = 8080;
 
