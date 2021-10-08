@@ -1,4 +1,5 @@
 import "reflect-metadata";
+require("dotenv").config();
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
