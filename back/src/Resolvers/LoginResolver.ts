@@ -9,7 +9,7 @@ import { LogsInput } from "./types/LogsInput";
 if (!process.env.SECRET_KEY) {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY;
+const jwtKey = process.env.SECRET_KEY!;
 @Resolver((of) => User)
 export class LoginResolver {
   @Mutation((returns) => String)
