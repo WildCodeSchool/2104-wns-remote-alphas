@@ -14,10 +14,11 @@ import {
 const { createTestClient } = require("apollo-server-testing");
 import jwt from "jsonwebtoken";
 
-if (!process.env.SECRET_KEY) {
+console.log("test", process.env.NODE_ENV);
+if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY!;
+const jwtKey = process.env.SECRET_KEY || "test secret key";
 
 describe("Tests for the back", () => {
   let apollo: ApolloServer | null = null;
