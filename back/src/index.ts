@@ -17,7 +17,7 @@ if (!process.env.MONGODB) {
 if (!process.env.SECRET_KEY) {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY;
+const jwtKey = process.env.SECRET_KEY!;
 
 const PORT = 8080;
 
@@ -41,7 +41,7 @@ async function bootstrap() {
   const fixtures = new Fixtures();
   // connects to mongoDB
   fixtures
-    .connect(process.env.MONGODB)
+    .connect(process.env.MONGODB!)
     // Unload all the fixtures
     .then(() => fixtures.unload())
     // load the fixtures
