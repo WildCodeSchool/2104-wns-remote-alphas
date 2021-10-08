@@ -2,6 +2,9 @@
 
 Masterize is à POC for an accessible e-learning application, displaying a text integral version of the student’s courses in a weekly timeline. It provides full support for screen readers and keyboard navigation.
 
+TEST README 
+
+
 # Quick Setup
 
 ## Install dependancies
@@ -22,6 +25,9 @@ Launch docker compose in dev mode with the following command :
 ## Stop containers
 
 To stop the containers from the command line :
+
 `docker-compose down`
 
 test CI BUG
+
+
