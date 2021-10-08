@@ -28,7 +28,6 @@ jobs:
         env:
           MONGODB: ${{ secrets.MONGODB }}
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
-
         with:
           context: ./back
           file: ./back/Dockerfile
