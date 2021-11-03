@@ -6,6 +6,8 @@
 .pnp.js
 /front/node_modules
 /back/node_modules
+/mobile/node_modules
+/logs
 # testing
 /coverage
 

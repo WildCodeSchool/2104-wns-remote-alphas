@@ -17,6 +17,7 @@ const mocks = [
 						courseName: 'MockMock',
 						image_url: 'https://picsum.photos/seed/picsum/400',
 						technos: ['react', 'apollo client'],
+						postedAt: '2021-06-22T08:56:49.342Z',
 					},
 				],
 			},

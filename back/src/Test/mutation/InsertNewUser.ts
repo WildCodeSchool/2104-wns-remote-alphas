@@ -2,7 +2,7 @@ import { gql } from "apollo-server-core";
 
 export const INSERT_NEW_USER = gql`
   mutation {
-    addUser(
+    signup(
       user: {
         name: "Lefrancois"
         firstName: "Théodore"
