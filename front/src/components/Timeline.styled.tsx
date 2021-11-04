@@ -40,7 +40,8 @@ export function Timeline(): JSX.Element {
 	return (
 		<TimelineContent data-testid="timeline">
 			<Chrono
-				items={data.getCourses.map((course: CourseType) => ({
+				items={data.getCourses.map((course: CourseType, index: number) => ({
+					key: index,
 					title: course.postedAt
 						? convertDate(course.postedAt, 'fr')
 						: 'No date available',
