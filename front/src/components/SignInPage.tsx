@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+import Context from './context/Context';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -127,6 +128,7 @@ export default function SignInPage(): JSX.Element {
 
 		console.log(login, 'login');
 		if (typeof login === 'string') {
+			console.log('we pass here');
 			localStorage.setItem('token', login);
 			history.push('/');
 		} else {

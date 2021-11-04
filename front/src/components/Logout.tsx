@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import client from '../utils/apolloclient';
+import Context from './context/Context';
 
 const Button = styled.button`
 	text-decoration: none;
@@ -25,11 +25,12 @@ const Button = styled.button`
 
 export default function Logout(): JSX.Element {
     const history = useHistory();
+    const { client } = useContext(Context);
 	return (
         <Button
          type="button"
             onClick={() => {
-                client.resetStore();
+                client?.cache.reset();
                 localStorage.removeItem('token');
                 history.push('/signin');
             }}>

@@ -92,7 +92,6 @@ const Header = (): JSX.Element => (
 			<LinkReactRouter to="/signin">Sign in</LinkReactRouter>
 
 			<Logout />
-
 		</MenuContent>
 	</HeaderContent>
 );
