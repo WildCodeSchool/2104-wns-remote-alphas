@@ -110,6 +110,8 @@ export default function SignInPage(): JSX.Element {
 	const [loginMutation, { error }] = useMutation(LOGIN);
 	const history = useHistory();
 
+	const { setIsLogin } = useContext(Context);
+
 	if (error) return <p>Error :(</p>;
 
 	function handleClick() {
@@ -126,10 +128,13 @@ export default function SignInPage(): JSX.Element {
 			},
 		});
 
-		console.log(login, 'login');
 		if (typeof login === 'string') {
-			console.log('we pass here');
 			localStorage.setItem('token', login);
+
+			if (setIsLogin) {
+				setIsLogin(true);
+			}
+
 			history.push('/');
 		} else {
 			setUserLog(initialState);
@@ -172,8 +177,7 @@ export default function SignInPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-							}}
-					>
+						}}>
 						Se connecter
 					</Button>
 				</Form>
@@ -186,8 +190,7 @@ export default function SignInPage(): JSX.Element {
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
 					handleClick();
-				}}
-			>
+				}}>
 				S&apos;INSCRIRE
 			</LittleTitle>
 		</Wrapper>
