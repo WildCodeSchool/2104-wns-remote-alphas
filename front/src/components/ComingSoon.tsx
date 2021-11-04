@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const ContentSoon = styled.div`
     padding: 75px 129px 75px 144px;
 	background-color: #ECEFF1;
+    box-shadow: 10px 10px 13px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     display: flex;
 `;
