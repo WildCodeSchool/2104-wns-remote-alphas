@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
+import Context from './context/Context';
 
 const HeaderContent = styled.div`
 	background-color: #292929;
@@ -63,31 +65,40 @@ const ButtonChat = styled.button`
 	}
 `;
 
-const Header = (): JSX.Element => (
-	<HeaderContent data-testid="header">
-		<LinkReactRouter to="/">
-			<TitleContent data-testid="logo-title">
-				<img
-					style={{ width: '280px' }}
-					src="/assets/images/logo.svg"
-					alt="Masterize"
-				/>
-			</TitleContent>
-		</LinkReactRouter>
-		<MenuContent data-testid="menu">
-			<LinkReactRouter to="/">Home</LinkReactRouter>
+const Header = (): JSX.Element => {
+	const { isLogin } = useContext(Context);
 
-			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
+	return (
+		<HeaderContent data-testid="header">
+			<LinkReactRouter to="/">
+				<TitleContent data-testid="logo-title">
+					<img
+						style={{ width: '280px' }}
+						src="/assets/images/logo.svg"
+						alt="Masterize"
+					/>
+				</TitleContent>
+			</LinkReactRouter>
+			<MenuContent data-testid="menu">
+				<LinkReactRouter to="/">Home</LinkReactRouter>
 
-			<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
+				<LinkReactRouter to="/courses">Courses</LinkReactRouter>
 
-			<LinkReactRouter to="/settings">Settings</LinkReactRouter>
+				<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
 
-			<LinkReactRouter to="help">Help</LinkReactRouter>
+				<LinkReactRouter to="/settings">Settings</LinkReactRouter>
 
-			<ButtonChat type="button">Chat Now</ButtonChat>
-		</MenuContent>
-	</HeaderContent>
-);
+				<LinkReactRouter to="help">Help</LinkReactRouter>
 
+				<ButtonChat type="button">Chat Now</ButtonChat>
+
+				{isLogin ? (
+					<Logout />
+				) : (
+					<LinkReactRouter to="/signin">Sign in</LinkReactRouter>
+				)}
+			</MenuContent>
+		</HeaderContent>
+	);
+};
 export default Header;

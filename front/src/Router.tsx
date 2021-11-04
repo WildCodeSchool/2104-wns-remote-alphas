@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	ApolloClient,
 	ApolloProvider,
@@ -14,6 +14,7 @@ import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import Context from './components/context/Context';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -39,45 +40,54 @@ function Router(): JSX.Element {
 		link: authLink.concat(httpLink),
 	});
 
+	const [isLogin, setIsLogin] = useState<boolean>(false);
+
+	useEffect(() => {
+		const isValidToken = localStorage.getItem('token');
+		setIsLogin(!!isValidToken);
+	}, [isLogin]);
+
 	return (
 		<ApolloProvider client={client}>
 			<BrowserRouter>
-				<Layout>
-					<Switch>
-						<Route exact path="/signin">
-							<SignInPage />
-						</Route>
-						<Route exact path="/signup">
-							<SignUpPage />
-						</Route>
-						<Route exact path="/">
-							<Home />
-						</Route>
-						<Route exact path="/courses">
-							<Timeline />
-						</Route>
-						<Route exact path="/wiki">
-							Wiki
-						</Route>
-						<Route exact path="/help">
-							Help
-						</Route>
-						<Route exact path="/chat">
-							Chat
-						</Route>
-						<Route exact path="/timeline-courses">
-							Timeline-courses
-						</Route>
-						<Route exact path="/settings">
-							<SettingsCard>
-								<Profile />
-							</SettingsCard>
-						</Route>
-						<Route exact path="/courses/:course">
-							Courses/Course
-						</Route>
-					</Switch>
-				</Layout>
+				<Context.Provider value={{ client, isLogin, setIsLogin }}>
+					<Layout>
+						<Switch>
+							<Route exact path="/signin">
+								<SignInPage />
+							</Route>
+							<Route exact path="/signup">
+								<SignUpPage />
+							</Route>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route exact path="/courses">
+								<Timeline />
+							</Route>
+							<Route exact path="/wiki">
+								Wiki
+							</Route>
+							<Route exact path="/help">
+								Help
+							</Route>
+							<Route exact path="/chat">
+								Chat
+							</Route>
+							<Route exact path="/timeline-courses">
+								Timeline-courses
+							</Route>
+							<Route exact path="/settings">
+								<SettingsCard>
+									<Profile />
+								</SettingsCard>
+							</Route>
+							<Route exact path="/courses/:course">
+								Courses/Course
+							</Route>
+						</Switch>
+					</Layout>
+				</Context.Provider>
 			</BrowserRouter>
 		</ApolloProvider>
 	);

@@ -1,5 +1,6 @@
 import "reflect-metadata";
 require("dotenv").config();
+const { createTestClient } = require("apollo-server-testing");
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
@@ -11,10 +12,8 @@ import {
   GET_COURSES,
   GET_USERS,
 } from "./Test";
-const { createTestClient } = require("apollo-server-testing");
 import jwt from "jsonwebtoken";
 
-console.log("test", process.env.NODE_ENV);
 if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
   throw new Error("environment variable SECRET_KEY is missing");
 }
@@ -34,25 +33,23 @@ describe("Tests for the back", () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         autoIndex: true,
+        useFindAndModify: false,
       });
       const schema = await buildSchema({
         resolvers: [CourseResolver, UserResolver],
       });
       const server: ApolloServer = new ApolloServer({
         schema,
-        context: ({ req }) => {
-          if (req) {
-            const token = req.headers.authorization;
-            if (token) {
-              try {
-                const payload = jwt.verify(token, jwtKey);
-                if (typeof payload !== "string") {
-                  return { authenticatedUserEmail: payload.userEmail };
-                }
-              } catch (err) {
-                console.log(err);
-              }
+        context: () => {
+          const token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ";
+          try {
+            const payload = jwt.verify(token, jwtKey);
+            if (typeof payload !== "string") {
+              return { authenticatedUserEmail: payload.userEmail };
             }
+          } catch (err) {
+            console.log(err);
           }
         },
       });
@@ -73,10 +70,6 @@ describe("Tests for the back", () => {
     const { mutate } = createTestClient(apollo);
     const res = await mutate({
       mutation: INSERT_NEW_COURSE,
-      headers: {
-        authenticatedUserEmail:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ",
-      },
     });
     expect(res.data?.addCourse.courseName).toEqual("Test");
     expect(res.data?.addCourse.image_url).toEqual(
@@ -85,17 +78,17 @@ describe("Tests for the back", () => {
     expect(res.data?.addCourse.description).toEqual(
       "here we will dicover how to make tests with jest"
     );
+    expect(res.data?.addCourse.technos).toEqual(["jest", "apollo", "mongoose"]);
+
+    expect(res.data?.addCourse._id).toBeDefined();
   });
+
   it("Here we test the query to get all the Courses ", async () => {
     const { query } = createTestClient(apollo);
     const res = await query({
       query: GET_COURSES,
-      headers: {
-        authenticatedUserEmail:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ",
-      },
     });
-    expect(res.data.getCourses.length).toEqual(1);
+    expect(res.data?.getCourses.length).toEqual(1);
   });
 
   it("Here we test the mutation to add user", async () => {
@@ -103,7 +96,7 @@ describe("Tests for the back", () => {
     const res = await mutate({
       mutation: INSERT_NEW_USER,
     });
-    expect(res.data?.addUser).toBeDefined();
+    expect(res.data?.signup).toBeDefined();
   });
   it("Here we test the query to get all the Users", async () => {
     const { query } = createTestClient(apollo);
