@@ -1,8 +1,9 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
-type ContextProps = { client?: ApolloClient<NormalizedCacheObject> };
-// const Context = createContext<{ client: ApolloClient<NormalizedCacheObject> }>({ client });
-
-const Context = createContext<{ client?: ApolloClient<NormalizedCacheObject> }>({});
+const Context = createContext<{
+	client?: ApolloClient<NormalizedCacheObject>;
+	isLogin?: boolean;
+	setIsLogin?: Dispatch<SetStateAction<boolean>>;
+}>({});
 export default Context;
