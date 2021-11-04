@@ -75,7 +75,7 @@ describe("Tests for the back", () => {
       mutation: INSERT_NEW_COURSE,
       headers: {
         authenticatedUserEmail:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjg5OTk4fQ.kce0sh3vvlT5BohXu2ft8pXV80fpfdQWIRsz-485MTo",
       },
     });
     expect(res.data?.addCourse.courseName).toEqual("Test");
@@ -85,17 +85,22 @@ describe("Tests for the back", () => {
     expect(res.data?.addCourse.description).toEqual(
       "here we will dicover how to make tests with jest"
     );
+    expect(res.data?.addCourse.technos).toEqual(["jest", "apollo", "mongoose"]);
+
+    expect(res.data?.addCourse._id).toBeDefined();
   });
+
   it("Here we test the query to get all the Courses ", async () => {
     const { query } = createTestClient(apollo);
     const res = await query({
       query: GET_COURSES,
       headers: {
         authenticatedUserEmail:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjg5OTk4fQ.kce0sh3vvlT5BohXu2ft8pXV80fpfdQWIRsz-485MTo",
       },
     });
-    expect(res.data.getCourses.length).toEqual(1);
+    console.log("res", res);
+    expect(res.data?.getCourses.length).toEqual(1);
   });
 
   it("Here we test the mutation to add user", async () => {
