@@ -17,7 +17,7 @@ import jwt from "jsonwebtoken";
 if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY || "test secret key";
+const jwtKey = "test secret key";
 
 describe("Tests for the back", () => {
   let apollo: ApolloServer | null = null;
@@ -42,7 +42,7 @@ describe("Tests for the back", () => {
         schema,
         context: () => {
           const token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ2ZXJnZXNfYW50aG9ueUBob3RtYWlsLmZyIiwiaWF0IjoxNjMzNjc5OTQ1fQ.-U27XzyH4eYVDl-tjLyINjn7P99myIIoK5u9FLFM-zQ";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzYwMzg5MDR9.qidAjlswb0pVSWdceBeStpUalTRxazZsj7WMcndtc9s";
           try {
             const payload = jwt.verify(token, jwtKey);
             if (typeof payload !== "string") {
