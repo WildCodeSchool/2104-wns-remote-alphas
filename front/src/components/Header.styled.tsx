@@ -76,6 +76,7 @@ const Header = (): JSX.Element => (
 			</TitleContent>
 		</LinkReactRouter>
 		<MenuContent data-testid="menu">
+
 			<LinkReactRouter to="/">Home</LinkReactRouter>
 
 			<LinkReactRouter to="/courses">Courses</LinkReactRouter>
