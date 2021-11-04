@@ -58,7 +58,7 @@ async function bootstrap() {
 
   const server = new ApolloServer({
     schema,
-    playground: true,
+    playground: process.env.NODE_ENV !== "production",
     context: ({ req }) => {
       if (req) {
         const token = req.headers.authorization;
