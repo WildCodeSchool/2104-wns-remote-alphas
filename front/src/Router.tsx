@@ -15,6 +15,8 @@ import Home from './Home';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import Context from './components/context/Context';
+import Wiki from './components/Wiki';
+import Help from './components/Help';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -59,10 +61,10 @@ function Router(): JSX.Element {
 							<Timeline />
 						</Route>
 						<Route exact path="/wiki">
-							Wiki
+							<Wiki />
 						</Route>
 						<Route exact path="/help">
-							Help
+							<Help />
 						</Route>
 						<Route exact path="/chat">
 							Chat
