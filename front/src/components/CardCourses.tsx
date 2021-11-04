@@ -43,7 +43,6 @@ function CardCourses({
 	imageDescription,
 	course,
 }: Props): JSX.Element {
-	console.log('toto');
 	return (
 		<Card data-testid="card-course">
 			<Title data-testid="card-title">{title}</Title>
@@ -64,7 +63,3 @@ interface Props {
 }
 
 export default CardCourses;
-
-// GraphQL API
-// {graphql}
-// front-end | GraphQL

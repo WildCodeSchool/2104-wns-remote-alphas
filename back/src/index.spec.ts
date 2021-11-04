@@ -78,7 +78,11 @@ describe("Tests for the back", () => {
     expect(res.data?.addCourse.description).toEqual(
       "here we will dicover how to make tests with jest"
     );
+    expect(res.data?.addCourse.technos).toEqual(["jest", "apollo", "mongoose"]);
+
+    expect(res.data?.addCourse._id).toBeDefined();
   });
+
   it("Here we test the query to get all the Courses ", async () => {
     const { query } = createTestClient(apollo);
     const res = await query({
