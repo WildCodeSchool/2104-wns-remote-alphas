@@ -14,6 +14,7 @@ import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import Context from './components/context/Context';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -42,6 +43,7 @@ function Router(): JSX.Element {
 	return (
 		<ApolloProvider client={client}>
 			<BrowserRouter>
+			<Context.Provider value={{ client }}>
 				<Layout>
 					<Switch>
 						<Route exact path="/signin">
@@ -78,6 +80,7 @@ function Router(): JSX.Element {
 						</Route>
 					</Switch>
 				</Layout>
+			</Context.Provider>
 			</BrowserRouter>
 		</ApolloProvider>
 	);
