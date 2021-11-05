@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import { LOGIN } from './SignInPage';
+import Context from './context/Context';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -116,6 +117,8 @@ export default function SignUpPage(): JSX.Element {
 	const [loginMutation] = useMutation(LOGIN);
 	const history = useHistory();
 
+	const { setIsLogin } = useContext(Context);
+
 	if (error) return <p>Error :(</p>;
 
 	function handleClick() {
@@ -142,6 +145,11 @@ export default function SignUpPage(): JSX.Element {
 			});
 			if (typeof login === 'string') {
 				localStorage.setItem('token', login);
+
+				if (setIsLogin) {
+					setIsLogin(true);
+				}
+
 				history.push('/');
 			} else {
 				console.log('serveur error');
@@ -199,8 +207,7 @@ export default function SignUpPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-						}}
-					>
+						}}>
 						S&apos;inscrire
 					</Button>
 				</Form>

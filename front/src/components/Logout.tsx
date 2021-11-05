@@ -37,7 +37,7 @@ export default function Logout(): JSX.Element {
 					setIsLogin(false);
 				}
 
-				history.push('/signin');
+				history.push('/');
 			}}>
 			Logout
 		</Button>
