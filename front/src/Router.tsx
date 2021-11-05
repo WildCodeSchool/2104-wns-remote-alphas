@@ -15,6 +15,7 @@ import Home from './Home';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import Context from './components/context/Context';
+import SingleCourse from './components/SingleCourse';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -84,6 +85,9 @@ function Router(): JSX.Element {
 							</Route>
 							<Route exact path="/courses/:course">
 								Courses/Course
+							</Route>
+							<Route exact path="/singlecourse">
+								<SingleCourse />
 							</Route>
 						</Switch>
 					</Layout>

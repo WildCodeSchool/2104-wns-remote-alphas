@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 // import CardCourses from './components/CardCourses';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
+import SingleCourse from './components/SingleCourse';
 
 export type CourseType = {
 	_id: string;
