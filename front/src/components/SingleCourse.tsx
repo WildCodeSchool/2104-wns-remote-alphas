@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -6,7 +7,6 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid blue 1px;
     padding: 141px;
 
 `;
@@ -20,22 +20,38 @@ const Course = styled.div`
     border: solid red 1px;
 `;
 
+const TextOnHead = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const linkOfVideo = styled.p`
+    color: #FE7F2D;
+`;
+
+const NinjaPanda = styled.div`
+    width: 170px;
+    float: right;
+`;
+const PandaImage = styled.img`
+    width: 100%;
+`;
+
 function SingleCourse(): JSX.Element {
+    const history = useHistory();
 	return (
         <Container>
             <div>
-                <h3>Go back</h3>
+                <button type="button" onClick={() => history.goBack()}>Go back</button>
             </div>
             <Course>
-                <div>
+                <TextOnHead>
                     <p>GraphQL Basics</p>
                     <p>15/11/2021</p>
-                </div>
+                </TextOnHead>
                 <div>
                     <img src="https://via.placeholder.com/600x350" alt="" />
-                    <blockquote cite="https://www.huxley.net/bnw/four.html">
-                        <p>Lien vidéo - Thomas</p>
-                    </blockquote>
+                    <p>Lien vidéo - Thomas</p>
                 </div>
                 <section>
                     <h4>fknjdbjkcbdkbchbdc</h4>
@@ -74,6 +90,9 @@ function SingleCourse(): JSX.Element {
                         </tr>
                     </table>
                 </div>
+                <NinjaPanda>
+                    <PandaImage src="/assets/images/ninja-goodJob.png" alt="ninja panda says good job" />
+                </NinjaPanda>
             </Course>
         </Container>
 
