@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import ListCoursesback from './ListCoursesBack';
 import FormMasterBackOffice from './FormMasterbackOffice';
@@ -42,6 +43,7 @@ const H2 = styled.h2`
 	color: white;
 	text-align: center;
 `;
+
 function FormCourses(): JSX.Element {
 	return (
 		<>
@@ -52,9 +54,7 @@ function FormCourses(): JSX.Element {
 			<FormContent>
 				<ListCoursesBackOffice>
 					<H2>Liste des cours</H2>
-					{/* <ContainerList> */}
 					<ListCoursesback />
-					{/* </ContainerList> */}
 				</ListCoursesBackOffice>
 				<Form>
 					<H2>Poster un cours</H2>

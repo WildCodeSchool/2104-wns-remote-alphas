@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
@@ -34,10 +35,10 @@ function ListCoursesback(): JSX.Element {
 	console.log(data.getCourses);
 
 	return (
-		<table>
+		<table style={{ width: '100%' }}>
 			<thead>
 				<tr>
-					<th colSpan={2}>Ma Liste</th>
+					<th colSpan={3}>Ma Liste</th>
 				</tr>
 			</thead>
 
@@ -45,53 +46,24 @@ function ListCoursesback(): JSX.Element {
 				<tbody
 					style={{
 						display: 'flex',
-						justifyContent: 'space-evenly',
+						justifyContent: 'space-between',
 						alignItems: 'center',
 						width: '100%',
 					}}>
 					<tr>
-						<h2>{item.courseName}</h2>
+						<h2 style={{ color: 'white' }}>{item.courseName}</h2>
 					</tr>
 					<tr>
-						<h4>{item.technos}</h4>
+						<h4 style={{ color: 'white' }}>{item.technos}</h4>
 					</tr>
-					<tr>Delete</tr>
+					<tr>
+						<button style={{ backgroundColor: 'grey', cursor: 'pointer' }}>
+							Delete
+						</button>
+					</tr>
 				</tbody>
 			))}
 		</table>
-
-		// <div
-		// 	style={{
-		// 		display: 'flex',
-		// 		flexDirection: 'column',
-		// 		// justifyContent: 'space-evenly',
-		// 	}}>
-		// 	{data.getCourses.map((item: CourseType) => (
-		// 		// eslint-disable-next-line no-underscore-dangle
-		// 		<div
-		// 			style={{
-		// 				backgroundColor: 'transparent',
-		// 				display: 'flex',
-		// 				justifyContent: 'space-evenly',
-		// 			}}
-		// 			// eslint-disable-next-line no-underscore-dangle
-		// 			key={item._id}>
-		// 			<h2>{item.courseName}</h2>
-		// 			<div
-		// 				style={{
-		// 					display: 'flex',
-		// 					justifyContent: 'center',
-		// 					alignItems: 'center',
-		// 					gap: '1rem',
-		// 				}}>
-		// 				{item.technos.map((elem: string, index) => (
-		// 					// eslint-disable-next-line react/no-array-index-key
-		// 					<h4 key={index}>{elem}</h4>
-		// 				))}
-		// 			</div>
-		// 		</div>
-		// 	))}
-		// </div>
 	);
 }
 

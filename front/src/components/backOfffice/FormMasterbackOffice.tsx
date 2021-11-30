@@ -112,6 +112,7 @@ function FormMasterBackOffice(): JSX.Element {
 				onSubmit={(e) => {
 					e.preventDefault();
 					handleSubmitCourse();
+					setPostCoursesState(initialState);
 				}}>
 				<Input
 					type="text"
