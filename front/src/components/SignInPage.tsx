@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import Context from './context/Context';
+import ErrorMessage from './ErrorMessage';
 
 const Wrapper = styled.div`
 	display: flex;
-	//justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
@@ -106,38 +106,48 @@ export const LOGIN = gql`
 
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
+	const initialErrorState = {
+		status: false,
+		message: '',
+	};
 	const [userLog, setUserLog] = useState(initialState);
-	const [loginMutation, { error }] = useMutation(LOGIN);
+	const [loginMutation] = useMutation(LOGIN);
 	const history = useHistory();
 
-	const { setIsLogin } = useContext(Context);
+	const [errorState, setErrorState] = useState(initialErrorState);
 
-	if (error) return <p>Error :(</p>;
+	const { setIsLogin } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signup');
 	}
 
 	async function handleSubmit() {
-		const {
-			data: { login },
-		} = await loginMutation({
-			variables: {
-				email: userLog.email,
-				password: userLog.password,
-			},
-		});
+		try {
+			const {
+				data: { login },
+			} = await loginMutation({
+				variables: {
+					email: userLog.email,
+					password: userLog.password,
+				},
+			});
 
-		if (typeof login === 'string') {
-			localStorage.setItem('token', login);
+			if (typeof login === 'string') {
+				localStorage.setItem('token', login);
 
-			if (setIsLogin) {
-				setIsLogin(true);
+				if (setIsLogin) {
+					setIsLogin(true);
+				}
+
+				history.push('/');
+			} else {
+				setUserLog(initialState);
 			}
-
-			history.push('/');
-		} else {
-			setUserLog(initialState);
+		} catch (err) {
+			if (err instanceof ApolloError) {
+				setErrorState({ message: err.message, status: true });
+			}
 		}
 	}
 	return (
@@ -180,8 +190,10 @@ export default function SignInPage(): JSX.Element {
 						}}>
 						Se connecter
 					</Button>
+					{errorState.status && (
+						<ErrorMessage>{errorState.message}</ErrorMessage>
+					)}
 				</Form>
-				{error && <p>Erreur</p>}
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
