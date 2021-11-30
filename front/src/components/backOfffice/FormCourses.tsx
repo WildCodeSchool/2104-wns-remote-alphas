@@ -85,6 +85,17 @@ export const ADD_COURSE = gql`
 			description
 			technos
 			image_url
+			_id
+			postedAt
+		}
+	}
+`;
+
+export const DELETE_ONE_COURSE = gql`
+	mutation deleteOneCourse($_id: ID!) {
+		deleteOneCourse(courseId: { _id: $_id }) {
+			_id
+			message
 		}
 	}
 `;
@@ -106,7 +117,7 @@ function FormCourses(): JSX.Element {
 	}, [data]);
 	const [postCourseState, setPostCourseState] = React.useState(initialState);
 	const [addCourseMutation] = useMutation(ADD_COURSE);
-
+	const [deleteOneCourseMutation] = useMutation(DELETE_ONE_COURSE);
 	async function handleSubmit(e: React.SyntheticEvent) {
 		e.preventDefault();
 		const {
@@ -124,6 +135,21 @@ function FormCourses(): JSX.Element {
 			setCourses([...courses, addCourse]);
 		}
 	}
+	async function deleteCourse(_id: string) {
+		const {
+			data: { deleteOneCourse },
+		} = await deleteOneCourseMutation({
+			variables: {
+				_id,
+			},
+		});
+		if (deleteOneCourse) {
+			setCourses(
+				// eslint-disable-next-line no-underscore-dangle
+				courses.filter((course) => course._id !== deleteOneCourse._id)
+			);
+		}
+	}
 	function handleChange(value: string, name: string) {
 		setPostCourseState({
 			...postCourseState,
@@ -139,7 +165,7 @@ function FormCourses(): JSX.Element {
 			<FormContent>
 				<ListCoursesBackOffice>
 					<H2>Liste des cours</H2>
-					<ListCoursesback courses={courses} />
+					<ListCoursesback courses={courses} deleteCourse={deleteCourse} />
 				</ListCoursesBackOffice>
 				<Form>
 					<H2>Poster un cours</H2>

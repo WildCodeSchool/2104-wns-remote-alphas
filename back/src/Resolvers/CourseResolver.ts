@@ -3,6 +3,7 @@ import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
 import { AuthenticationError } from "apollo-server";
+import { DeleteResponse } from "./types/DeleteResponse";
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -71,7 +72,7 @@ export class CourseResolver {
     }
   }
 
-  @Mutation(() => Course)
+  @Mutation(() => DeleteResponse)
   async deleteOneCourse(
     @Arg("courseId") courseId: CourseId,
     @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
@@ -79,8 +80,9 @@ export class CourseResolver {
     if (authenticatedUserEmail) {
       const deleted = await CourseModel.deleteOne({ _id: courseId });
       console.log(deleted);
-      return "hi";
+      return { _id: courseId._id, message: "Course successfully deleted" };
+    } else {
+      throw new AuthenticationError("Not connected");
     }
-    return "hi";
   }
 }

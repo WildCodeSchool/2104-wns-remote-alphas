@@ -14,8 +14,9 @@ export type CourseType = {
 
 interface Iprops {
 	courses: CourseType[];
+	deleteCourse(_id: string): void;
 }
-function ListCoursesback({ courses }: Iprops): JSX.Element {
+function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 	return (
 		<table style={{ width: '100%' }}>
 			<thead>
@@ -39,7 +40,14 @@ function ListCoursesback({ courses }: Iprops): JSX.Element {
 						<h4 style={{ color: 'white' }}>{item.technos}</h4>
 					</tr>
 					<tr>
-						<button style={{ backgroundColor: 'grey', cursor: 'pointer' }}>
+						<button
+							style={{ backgroundColor: 'grey', cursor: 'pointer' }}
+							type="button"
+							onClick={(e) => {
+								e.preventDefault();
+								// eslint-disable-next-line no-underscore-dangle
+								deleteCourse(item._id);
+							}}>
 							Delete
 						</button>
 					</tr>
