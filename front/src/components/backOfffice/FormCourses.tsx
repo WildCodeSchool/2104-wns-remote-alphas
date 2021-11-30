@@ -19,10 +19,11 @@ const FormContent = styled.div`
 	width: 90%;
 	height: 60rem;
 	border: 3px solid white;
+	overflow: scroll;
 `;
 
 const ListCoursesBackOffice = styled.div`
-	border: 2px solid red;
+	//border: 2px solid red;
 	width: 40%;
 	height: 100%;
 `;
@@ -35,7 +36,7 @@ const ListCoursesBackOffice = styled.div`
 // `;
 
 const Form = styled.div`
-	border: 2px solid yellow;
+	//border: 2px solid yellow;
 	width: 60%;
 	height: 100%;
 `;
