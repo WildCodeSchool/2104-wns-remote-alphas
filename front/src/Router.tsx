@@ -91,8 +91,8 @@ function Router(): JSX.Element {
 											<Profile />
 										</SettingsCard>
 									</Route>
-									<Route exact path="/courses/:course">
-										Courses/Course
+									<Route exact path="/courses/:id">
+										<SingleCourse />
 									</Route>
 									{/* 							<Route exact path="/singlecourse">
 								<SingleCourse />

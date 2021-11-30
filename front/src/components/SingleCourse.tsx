@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 import ScrollToTop from './ScrollToTop';
@@ -64,7 +64,7 @@ const PandaImage = styled.img`
     width: 100%;
 `;
 
-export const GET_COURSES_BY_ID_QUERY = gql`
+export const GET_COURSE_BY_ID_QUERY = gql`
 	query {
 		getCourseById {
 			_id
@@ -78,14 +78,12 @@ export const GET_COURSES_BY_ID_QUERY = gql`
 
 function SingleCourse(): JSX.Element {
     const history = useHistory();
-    const { loading, error, data } = useQuery(GET_COURSES_BY_ID_QUERY);
+    const { loading, error, data } = useQuery(GET_COURSE_BY_ID_QUERY);
+    if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
 
 	return (
         <Container>
-             {data.getCourseById.map((course: any) => (
-                // eslint-disable-next-line no-underscore-dangle
-                <p>{course._id}</p>
-            ))}
                 <BackButton type="button" onClick={() => history.goBack()}>
                     <ArrowContent>
                         <Arrow src="/assets/icons/018-arrowhead-pointing-to-the-right-1.svg" alt="arrow icon" />

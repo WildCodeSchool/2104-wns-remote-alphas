@@ -4,7 +4,6 @@ import styled, { ThemeProvider } from 'styled-components';
 // import CardCourses from './components/CardCourses';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
-import SingleCourse from './components/SingleCourse';
 
 export type CourseType = {
 	_id: string;
@@ -48,6 +47,7 @@ function Home(): JSX.Element {
 						<CardCoursesSecondary
 							// eslint-disable-next-line no-underscore-dangle
 							key={course._id}
+							// eslint-disable-next-line no-underscore-dangle
 							title={course.courseName}
 							image={course.image_url}
 							imageDescription="image video"

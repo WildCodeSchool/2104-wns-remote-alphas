@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -39,12 +39,12 @@ const Line = styled.hr`
 `;
 
 function CardCoursesSecondary({
-  title, image, imageDescription, course
+  title, image, imageDescription, course, // id
  }: Props): JSX.Element {
   const history = useHistory();
 
   function clickCourse() {
-		history.push('/courses/:course');
+		// history.push(`/courses/${id}`);
 	}
    return (
   <Card
@@ -67,6 +67,7 @@ interface Props {
   image: string,
   imageDescription: string,
   course: string,
+  // id: string,
 }
 
 export default CardCoursesSecondary;
