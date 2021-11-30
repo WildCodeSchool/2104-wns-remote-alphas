@@ -44,7 +44,7 @@ function CardCoursesSecondary({
   const history = useHistory();
 
   function clickCourse() {
-		history.push('/singlecourse');
+		history.push('/courses/:course');
 	}
    return (
   <Card

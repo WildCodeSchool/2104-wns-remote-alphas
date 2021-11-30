@@ -84,11 +84,11 @@ function Router(): JSX.Element {
 								</SettingsCard>
 							</Route>
 							<Route exact path="/courses/:course">
-								Courses/Course
-							</Route>
-							<Route exact path="/singlecourse">
 								<SingleCourse />
 							</Route>
+{/* 							<Route exact path="/singlecourse">
+								<SingleCourse />
+							</Route> */}
 						</Switch>
 					</Layout>
 				</Context.Provider>

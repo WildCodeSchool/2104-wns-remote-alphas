@@ -82,10 +82,10 @@ function SingleCourse(): JSX.Element {
 
 	return (
         <Container>
-{/*              {data.getCourseById.map((course: any) => (
+             {data.getCourseById.map((course: any) => (
                 // eslint-disable-next-line no-underscore-dangle
-                <p key={course._id}>{course.name}</p>
-            ))} */}
+                <p>{course._id}</p>
+            ))}
                 <BackButton type="button" onClick={() => history.goBack()}>
                     <ArrowContent>
                         <Arrow src="/assets/icons/018-arrowhead-pointing-to-the-right-1.svg" alt="arrow icon" />
