@@ -14,6 +14,7 @@ import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import VisitorHomePage from './components/VisitorHomePage';
 import Context from './components/context/Context';
 import SingleCourse from './components/SingleCourse';
 
@@ -51,7 +52,12 @@ function Router(): JSX.Element {
 	return (
 		<ApolloProvider client={client}>
 			<BrowserRouter>
-				<Context.Provider value={{ client, isLogin, setIsLogin }}>
+				<Context.Provider
+					value={{
+						client,
+						isLogin,
+						setIsLogin,
+					}}>
 					<Layout>
 						<Switch>
 							<Route exact path="/signin">
@@ -60,35 +66,43 @@ function Router(): JSX.Element {
 							<Route exact path="/signup">
 								<SignUpPage />
 							</Route>
-							<Route exact path="/">
-								<Home />
-							</Route>
-							<Route exact path="/courses">
-								<Timeline />
-							</Route>
-							<Route exact path="/wiki">
-								Wiki
-							</Route>
-							<Route exact path="/help">
-								Help
-							</Route>
-							<Route exact path="/chat">
-								Chat
-							</Route>
-							<Route exact path="/timeline-courses">
-								Timeline-courses
-							</Route>
-							<Route exact path="/settings">
-								<SettingsCard>
-									<Profile />
-								</SettingsCard>
-							</Route>
-							<Route exact path="/courses/:course">
-								<SingleCourse />
-							</Route>
-{/* 							<Route exact path="/singlecourse">
+							{isLogin ? (
+								<>
+									<Route exact path="/">
+										<Home />
+									</Route>
+									<Route exact path="/courses">
+										<Timeline />
+									</Route>
+									<Route exact path="/wiki">
+										Wiki
+									</Route>
+									<Route exact path="/help">
+										Help
+									</Route>
+									<Route exact path="/chat">
+										Chat
+									</Route>
+									<Route exact path="/timeline-courses">
+										Timeline-courses
+									</Route>
+									<Route exact path="/settings">
+										<SettingsCard>
+											<Profile />
+										</SettingsCard>
+									</Route>
+									<Route exact path="/courses/:course">
+										Courses/Course
+									</Route>
+									{/* 							<Route exact path="/singlecourse">
 								<SingleCourse />
 							</Route> */}
+								</>
+							) : (
+								<Route exact path="/">
+									<VisitorHomePage />
+								</Route>
+							)}
 						</Switch>
 					</Layout>
 				</Context.Provider>

@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import { LOGIN } from './SignInPage';
+import Context from './context/Context';
+import ErrorMessage from './ErrorMessage';
 
 const Wrapper = styled.div`
 	display: flex;
-	//justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	//margin-top: 5rem;
-	//margin-bottom: 5rem;
 	width: 20%;
 	height: 100%;
 	border: 1px solid black;
@@ -81,7 +80,6 @@ const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
 	margin-top: 2rem;
-	//margin: auto;
 `;
 
 const SIGNUP = gql`
@@ -111,43 +109,59 @@ export default function SignUpPage(): JSX.Element {
 		firstName: '',
 		password: '',
 	};
+	const initialErrorState = {
+		status: false,
+		message: '',
+	};
 	const [userLog, setUserLog] = useState(initialState);
-	const [signupMutation, { error }] = useMutation(SIGNUP);
+	const [errorState, setErrorState] = useState(initialErrorState);
+	const [signupMutation] = useMutation(SIGNUP);
 	const [loginMutation] = useMutation(LOGIN);
 	const history = useHistory();
 
-	if (error) return <p>Error :(</p>;
+	const { setIsLogin } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signin');
 	}
 
 	async function handleSubmit() {
-		const {
-			data: { signup },
-		} = await signupMutation({
-			variables: {
-				...userLog,
-			},
-		});
-		// eslint-disable-next-line no-underscore-dangle
-		if (signup) {
-			const {
-				data: { login },
-			} = await loginMutation({
+		try {
+			const result = await signupMutation({
 				variables: {
-					email: userLog.email,
-					password: userLog.password,
+					...userLog,
 				},
 			});
-			if (typeof login === 'string') {
-				localStorage.setItem('token', login);
-				history.push('/');
+			if (result.data.signup) {
+				const {
+					data: { login },
+				} = await loginMutation({
+					variables: {
+						email: userLog.email,
+						password: userLog.password,
+					},
+				});
+				if (typeof login === 'string') {
+					localStorage.setItem('token', login);
+
+					if (setIsLogin) {
+						setIsLogin(true);
+					}
+
+					history.push('/');
+				} else {
+					setErrorState({
+						message: 'Oops something went wrong, try again',
+						status: true,
+					});
+				}
 			} else {
-				console.log('serveur error');
+				setUserLog(initialState);
 			}
-		} else {
-			setUserLog(initialState);
+		} catch (err) {
+			if (err instanceof ApolloError) {
+				setErrorState({ message: err.message, status: true });
+			}
 		}
 	}
 
@@ -199,10 +213,12 @@ export default function SignUpPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-						}}
-					>
+						}}>
 						S&apos;inscrire
 					</Button>
+					{errorState.status && (
+						<ErrorMessage>{errorState.message}</ErrorMessage>
+					)}
 				</Form>
 			</ContainForm>
 			<Line> </Line>

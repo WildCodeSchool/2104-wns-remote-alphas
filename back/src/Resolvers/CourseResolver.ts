@@ -3,7 +3,6 @@ import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
 import { AuthenticationError } from "apollo-server";
-// import { UpdateCourseInput } from "./types/UpdateCourseInput";
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -47,7 +46,7 @@ export class CourseResolver {
       await addedCourse.save();
       return addedCourse;
     } else {
-      throw new AuthenticationError("not connected");
+      throw new AuthenticationError("Not connected");
     }
   }
 
