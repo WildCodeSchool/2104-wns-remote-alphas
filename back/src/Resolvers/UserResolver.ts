@@ -14,18 +14,22 @@ export class UserResolver {
 
   @Mutation((returns) => User)
   async signup(@Arg("user") userInput: UserInput): Promise<User> {
-    const allUsers = await UserModel.find();
-    if (
-      !allUsers.find((existingUser) => existingUser.email === userInput.email)
-    ) {
-      const addedUser = new UserModel({
-        ...userInput,
-        password: bcrypt.hashSync(userInput.password, 10),
-      } as User);
-      await addedUser.save();
-      return addedUser;
+    if (!Object.entries(userInput).find((log) => log[1].length === 0)) {
+      const allUsers = await UserModel.find();
+      if (
+        !allUsers.find((existingUser) => existingUser.email === userInput.email)
+      ) {
+        const addedUser = new UserModel({
+          ...userInput,
+          password: bcrypt.hashSync(userInput.password, 10),
+        } as User);
+        await addedUser.save();
+        return addedUser;
+      } else {
+        throw new ApolloError("This email is already taken");
+      }
     } else {
-      throw new ApolloError("This email is already taken");
+      throw new ApolloError("Please fill all the fields");
     }
   }
   @Query((returns) => User)

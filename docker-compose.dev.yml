@@ -19,9 +19,6 @@ services:
     command: yarn dev
     volumes:
       - "./back/src:/app/src"
-    # environment:
-    #   - SECRET_KEY
-    #   - MONGODB
     env_file:
       - "./back/.env"
 
