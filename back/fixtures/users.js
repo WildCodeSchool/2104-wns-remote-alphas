@@ -8,6 +8,7 @@ module.exports = [
         firstName: "Théodore",
         email: "theodore.lefrancois2906@gmail.com",
         password: bcrypt.hashSync("password", 10),
+        roles: ["teacher"],
         location: "Ondres",
         settings: {
             instantChat: true,
@@ -39,6 +40,7 @@ module.exports = [
         firstName: "Ameline",
         email: "ameline@gmail.com",
         password: bcrypt.hashSync("password", 10),
+        roles: ["student"],
         location: "Brittany",
         settings: {
             instantChat: true,
@@ -70,6 +72,7 @@ module.exports = [
         firstName: "Anthony",
         email: "verges_anthony@hotmail.fr",
         password: bcrypt.hashSync("password", 10),
+        roles: ["student"],
         location: "France",
         settings: {
             instantChat: true,
@@ -101,6 +104,7 @@ module.exports = [
         firstName: "Alex",
         email: "elya29@protonmail.com",
         password: bcrypt.hashSync("password", 10),
+        roles: ["student"],
         location: "Brittany",
         settings: {
             instantChat: true,

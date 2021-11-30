@@ -4,6 +4,7 @@ import { gql, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import { LOGIN } from './SignInPage';
 
+/// Build styled components
 const Wrapper = styled.div`
 	display: flex;
 	//justify-content: center;
@@ -81,15 +82,17 @@ const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
 	margin-top: 2rem;
-	//margin: auto;
+	margin: auto;
 `;
 
+/// Construct a GraphQL mutation
 const SIGNUP = gql`
 	mutation signup(
 		$name: String!
 		$email: String!
 		$firstName: String!
 		$password: String!
+		$roles: [String!]!
 	) {
 		signup(
 			user: {
@@ -97,6 +100,7 @@ const SIGNUP = gql`
 				email: $email
 				firstName: $firstName
 				password: $password
+				roles: $roles
 			}
 		) {
 			_id
@@ -104,12 +108,14 @@ const SIGNUP = gql`
 	}
 `;
 
+/// View
 export default function SignUpPage(): JSX.Element {
 	const initialState = {
 		name: '',
 		email: '',
 		firstName: '',
 		password: '',
+		roles: ['student']
 	};
 	const [userLog, setUserLog] = useState(initialState);
 	const [signupMutation, { error }] = useMutation(SIGNUP);
@@ -144,6 +150,7 @@ export default function SignUpPage(): JSX.Element {
 				localStorage.setItem('token', login);
 				history.push('/');
 			} else {
+				// eslint-disable-next-line no-console
 				console.log('serveur error');
 			}
 		} else {
