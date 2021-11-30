@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { gql, useMutation } from '@apollo/client';
 
 const Container = styled.div`
 	display: 'flex';
@@ -60,94 +59,52 @@ const Button = styled.button`
 	}
 `;
 
-// MUTATION POUR POSTER UN COURS
-export const ADD_COURSE = gql`
-	mutation addCourse(
-		$courseName: String!
-		$image_url: String!
-		$description: String!
-		$technos: [String!]
-	) {
-		addCourse(
-			course: {
-				courseName: $courseName
-				description: $description
-				technos: $technos
-				image_url: $image_url
-			}
-		) {
-			courseName
-			description
-			technos
-			image_url
-		}
-	}
-`;
-
-function FormMasterBackOffice(): JSX.Element {
-	const initialState = {
-		courseName: '',
-		image_url: '',
-		description: '',
-		technos: '',
+interface Iprops {
+	onChange(value: string, name: string): void;
+	courseInput: {
+		courseName: string;
+		image_url: string;
+		description: string;
+		technos: string;
 	};
-	const [postCoursesState, setPostCoursesState] = useState(initialState);
-	const [addCourseMutation, { error }] = useMutation(ADD_COURSE);
-
-	async function handleSubmitCourse() {
-		const {
-			data: { addCourse },
-		} = await addCourseMutation({
-			variables: {
-				courseName: postCoursesState.courseName,
-				image_url: 'http://reactjs/image.fr',
-				description: postCoursesState.description,
-				technos: postCoursesState.technos.split(' '),
-			},
-		});
-	}
+	onSubmit(e: React.SyntheticEvent): void;
+}
+function FormMasterBackOffice({
+	onChange,
+	courseInput,
+	onSubmit,
+}: Iprops): JSX.Element {
 	return (
 		<Container>
 			<Form
 				onSubmit={(e) => {
-					e.preventDefault();
-					handleSubmitCourse();
-					setPostCoursesState(initialState);
+					onSubmit(e);
 				}}>
 				<Input
 					type="text"
 					name="courseName"
 					placeholder="Titre du cours"
 					onChange={(e) => {
-						setPostCoursesState({
-							...postCoursesState,
-							[e.target.name]: e.target.value,
-						});
+						onChange(e.target.value, e.target.name);
 					}}
-					value={postCoursesState.courseName}
+					value={courseInput.courseName}
 				/>
 				<Input
 					type="text"
 					name="technos"
 					placeholder="Technos abordées du cours"
 					onChange={(e) => {
-						setPostCoursesState({
-							...postCoursesState,
-							[e.target.name]: e.target.value,
-						});
+						onChange(e.target.value, e.target.name);
 					}}
-					value={postCoursesState.technos}
+					value={courseInput.technos}
 				/>
 				<Textarea
 					name="description"
 					placeholder="Contenu du cours"
 					onChange={(e) => {
-						setPostCoursesState({
-							...postCoursesState,
-							[e.target.name]: e.target.value,
-						});
+						onChange(e.target.value, e.target.name);
 					}}
-					value={postCoursesState.description}
+					value={courseInput.description}
 				/>
 				{/* <Input
 					type="file"
@@ -163,7 +120,6 @@ function FormMasterBackOffice(): JSX.Element {
 				/> */}
 				<Button type="submit">Poster un cours</Button>
 			</Form>
-			{error && <p>Erreur</p>}
 		</Container>
 	);
 }

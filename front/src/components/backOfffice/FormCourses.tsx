@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
+import { useMutation, gql, useQuery } from '@apollo/client';
 import ListCoursesback from './ListCoursesBack';
 import FormMasterBackOffice from './FormMasterbackOffice';
 
@@ -44,7 +45,91 @@ const H2 = styled.h2`
 	text-align: center;
 `;
 
+export interface CourseType {
+	courseName: string;
+	description: string;
+	technos: string[];
+	image_url: string;
+	postedAt?: string;
+	_id: string;
+}
+
+export const GET_COURSES_QUERY = gql`
+	query {
+		getCourses {
+			description
+			technos
+			courseName
+			image_url
+			postedAt
+			_id
+		}
+	}
+`;
+export const ADD_COURSE = gql`
+	mutation addCourse(
+		$courseName: String!
+		$image_url: String!
+		$description: String!
+		$technos: [String!]
+	) {
+		addCourse(
+			course: {
+				courseName: $courseName
+				description: $description
+				technos: $technos
+				image_url: $image_url
+			}
+		) {
+			courseName
+			description
+			technos
+			image_url
+		}
+	}
+`;
+
 function FormCourses(): JSX.Element {
+	const initialState = {
+		courseName: '',
+		image_url: '',
+		description: '',
+		technos: '',
+	};
+	const { data } = useQuery(GET_COURSES_QUERY);
+
+	const [courses, setCourses] = useState<CourseType[]>([]);
+	useEffect(() => {
+		if (data) {
+			setCourses([...data.getCourses]);
+		}
+	}, [data]);
+	const [postCourseState, setPostCourseState] = React.useState(initialState);
+	const [addCourseMutation] = useMutation(ADD_COURSE);
+
+	async function handleSubmit(e: React.SyntheticEvent) {
+		e.preventDefault();
+		const {
+			data: { addCourse },
+		} = await addCourseMutation({
+			variables: {
+				courseName: postCourseState.courseName,
+				image_url: 'http://reactjs/image.fr',
+				description: postCourseState.description,
+				technos: postCourseState.technos.split(' '),
+			},
+		});
+		if (addCourse) {
+			setPostCourseState(initialState);
+			setCourses([...courses, addCourse]);
+		}
+	}
+	function handleChange(value: string, name: string) {
+		setPostCourseState({
+			...postCourseState,
+			[name]: value,
+		});
+	}
 	return (
 		<>
 			<BackOfficeTitle>
@@ -54,11 +139,15 @@ function FormCourses(): JSX.Element {
 			<FormContent>
 				<ListCoursesBackOffice>
 					<H2>Liste des cours</H2>
-					<ListCoursesback />
+					<ListCoursesback courses={courses} />
 				</ListCoursesBackOffice>
 				<Form>
 					<H2>Poster un cours</H2>
-					<FormMasterBackOffice />
+					<FormMasterBackOffice
+						onChange={handleChange}
+						courseInput={postCourseState}
+						onSubmit={handleSubmit}
+					/>
 				</Form>
 			</FormContent>
 		</>

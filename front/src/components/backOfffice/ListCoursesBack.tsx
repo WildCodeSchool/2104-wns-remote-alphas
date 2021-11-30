@@ -1,7 +1,6 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import styled from 'styled-components';
-import { useQuery, gql } from '@apollo/client';
 
 // APPEL API GRAPHQL
 export type CourseType = {
@@ -13,27 +12,10 @@ export type CourseType = {
 	_id: string;
 };
 
-export const GET_COURSES_QUERY = gql`
-	query {
-		getCourses {
-			description
-			technos
-			courseName
-			image_url
-			postedAt
-			_id
-		}
-	}
-`;
-
-function ListCoursesback(): JSX.Element {
-	const { loading, error, data } = useQuery(GET_COURSES_QUERY);
-
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
-
-	console.log(data.getCourses);
-
+interface Iprops {
+	courses: CourseType[];
+}
+function ListCoursesback({ courses }: Iprops): JSX.Element {
 	return (
 		<table style={{ width: '100%' }}>
 			<thead>
@@ -42,7 +24,7 @@ function ListCoursesback(): JSX.Element {
 				</tr>
 			</thead>
 
-			{data.getCourses.map((item: CourseType) => (
+			{courses.map((item) => (
 				<tbody
 					style={{
 						display: 'flex',

@@ -70,4 +70,17 @@ export class CourseResolver {
       throw new AuthenticationError("Not connected");
     }
   }
+
+  @Mutation(() => Course)
+  async deleteOneCourse(
+    @Arg("courseId") courseId: CourseId,
+    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+  ) {
+    if (authenticatedUserEmail) {
+      const deleted = await CourseModel.deleteOne({ _id: courseId });
+      console.log(deleted);
+      return "hi";
+    }
+    return "hi";
+  }
 }
