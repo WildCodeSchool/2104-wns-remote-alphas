@@ -13,19 +13,20 @@ export class LoginResolver {
   async login(@Arg("userInput") userInput: LogsInput): Promise<string> {
     const users = await UserModel.find();
     const userFound = users.find((user) => user.email === userInput.email);
-    if (
-      userFound &&
-      bcrypt.compareSync(userInput.password, userFound.password)
-    ) {
-      const token = jwt.sign(
-        {
-          userEmail: userFound.email,
-        },
-        jwtKey
-      );
-      return token;
+    if (userFound) {
+      if (bcrypt.compareSync(userInput.password, userFound.password)) {
+        const token = jwt.sign(
+          {
+            userEmail: userFound.email,
+          },
+          jwtKey
+        );
+        return token;
+      } else {
+        throw new AuthenticationError("Incorrect password");
+      }
     } else {
-      throw new AuthenticationError("Email or password is incorrect");
+      throw new AuthenticationError("This email does not exist");
     }
   }
 }
