@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
-// import CardCourses from './components/CardCourses';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
 
@@ -45,7 +44,6 @@ function Home(): JSX.Element {
 				<CardContainer>
 					{data.getCourses.slice(-3).map((course: CourseType) => (
 						<CardCoursesSecondary
-							// eslint-disable-next-line no-underscore-dangle
 							key={course._id}
 							title={course.courseName}
 							image={course.image_url}

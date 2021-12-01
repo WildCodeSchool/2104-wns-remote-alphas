@@ -79,25 +79,21 @@ const Header = (): JSX.Element => {
 					/>
 				</TitleContent>
 			</LinkReactRouter>
-			<MenuContent data-testid="menu">
-				<LinkReactRouter to="/">Home</LinkReactRouter>
 
-				<LinkReactRouter to="/courses">Courses</LinkReactRouter>
-
-				<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
-
-				<LinkReactRouter to="/settings">Settings</LinkReactRouter>
-
-				<LinkReactRouter to="help">Help</LinkReactRouter>
-
-				<ButtonChat type="button">Chat Now</ButtonChat>
-
-				{isLogin ? (
+			{isLogin ? (
+				<MenuContent data-testid="menu">
+					<LinkReactRouter to="/">Home</LinkReactRouter>
+					<LinkReactRouter to="/courses">Courses</LinkReactRouter>
+					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
+					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
+					<LinkReactRouter to="help">Help</LinkReactRouter>
+					<LinkReactRouter to="/backoffice">MasterBackOffice </LinkReactRouter>
+					<ButtonChat type="button">Chat Now</ButtonChat>
 					<Logout />
-				) : (
-					<LinkReactRouter to="/signin">Sign in</LinkReactRouter>
-				)}
-			</MenuContent>
+				</MenuContent>
+			) : (
+				<LinkReactRouter to="/signin">Se connecter</LinkReactRouter>
+			)}
 		</HeaderContent>
 	);
 };

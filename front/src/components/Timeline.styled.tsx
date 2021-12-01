@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
 import convertDate from '../utils/convertDate';
+import ErrorMessage from './ErrorMessage';
 // import fakeData from '../fakeData';
 
 const TimelineContent = styled.div`
@@ -35,8 +36,9 @@ export function Timeline(): JSX.Element {
 	const { loading, error, data } = useQuery(GET_COURSES_QUERY);
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
-
+	if (error) {
+		return <ErrorMessage>Error while trying to fetch courses</ErrorMessage>;
+	}
 	return (
 		<TimelineContent data-testid="timeline">
 			<Chrono

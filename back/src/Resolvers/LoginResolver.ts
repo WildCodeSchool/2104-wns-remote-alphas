@@ -25,7 +25,7 @@ export class LoginResolver {
       );
       return token;
     } else {
-      throw new AuthenticationError("Email or password is incorrect");
+      throw new AuthenticationError("Invalid credentials");
     }
   }
 }
