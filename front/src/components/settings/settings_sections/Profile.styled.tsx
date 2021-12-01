@@ -9,6 +9,16 @@ import styled from 'styled-components';
  * Profile displays the user profile's form
  */
 
+/// Style the profile container
+const Container = styled.div`
+    display: grid;
+    flex-direction: column;
+    margin: 3em;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    width: 60%;
+`;
+
 /// Style the form
 const Form = styled.form`
     display: grid;
@@ -21,23 +31,28 @@ const Form = styled.form`
 const Column = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: baseline;
     margin: 1em;
+    gap: 1em;
 `;
 
 /// Style the input
 const Input = styled.input`
-		border-radius: 10px;
-		background-color: #4e4e4e;
-		color: #d1dce5;
-		height: 2.5em;
-		width: 90%;
-        :focus-visible label {
-            color: #FE7F2D;
-            font-weight: bold;
-        }
-	`;
+	border-radius: 10px;
+	background-color: #4e4e4e;
+	color: #d1dce5;
+	height: 2.5em;
+	width: 90%;
+`;
 
+const Button = styled.button`
+    width: 8em;
+    height: 3em;
+    background-color: ${(props) => props.theme.colors.secondary};
+    border-radius: 10px;
+    color: ${(props) => props.theme.colors.primary};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+`;
 /// Define user data interface with form fields
 export interface IUserData {
     firstName?: string;
@@ -65,7 +80,7 @@ const Profile = (): JSX.Element => {
     const userName = userData?.firstName ? userData?.firstName : 'student';
 
     return (
-        <Column>
+        <Container>
             <h1>
                 Welcome {userName} !
             </h1>
@@ -180,8 +195,8 @@ const Profile = (): JSX.Element => {
                         value={userData?.location} /> */}
                 </Column>
             </Form>
-            <button type="submit">Save</button>
-        </Column>
+            <Button type="submit">Save</Button>
+        </Container>
     );
 };
 

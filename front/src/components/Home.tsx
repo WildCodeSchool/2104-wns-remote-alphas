@@ -1,8 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import CardCoursesSecondary from './timeline/CardCoursesSecondary';
-import darkTheme from '../theme/darkTheme';
 import { GET_COURSES } from '../utils/apollo';
 
 export type CourseType = {
@@ -28,21 +27,19 @@ function Home(): JSX.Element {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 	return (
-		<ThemeProvider theme={darkTheme}>
-			<AppContent>
-				<CardContainer>
-					{data.getCourses.slice(-3).map((course: CourseType) => (
-						<CardCoursesSecondary
-							key={course._id}
-							title={course.courseName}
-							image={course.image_url}
-							imageDescription="image video"
-							course={course.technos[0]}
-						/>
-					))}
-				</CardContainer>
-			</AppContent>
-		</ThemeProvider>
+		<AppContent>
+			<CardContainer>
+				{data.getCourses.slice(-3).map((course: CourseType) => (
+					<CardCoursesSecondary
+						key={course._id}
+						title={course.courseName}
+						image={course.image_url}
+						imageDescription="image video"
+						course={course.technos[0]}
+					/>
+				))}
+			</CardContainer>
+		</AppContent>
 	);
 }
 
