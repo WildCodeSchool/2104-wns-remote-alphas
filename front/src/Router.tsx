@@ -7,14 +7,14 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Layout from './components/Layout.styled';
+import Layout from './components/templates/Layout.styled';
 import SettingsCard from './components/settings/SettingsCard.styled';
 import Profile from './components/settings/settings_sections/Profile.styled';
-import { Timeline } from './components/Timeline.styled';
-import Home from './Home';
+import { Timeline } from './components/timeline/Timeline.styled';
+import Home from './components/Home';
 import FormCourses from './components/backOfffice/FormCourses';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
+import SignInPage from './components/authentication/SignInPage';
+import SignUpPage from './components/authentication/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
 import Context, { User } from './components/context/Context';
 

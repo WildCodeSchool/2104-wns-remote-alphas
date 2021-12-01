@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Logout from './Logout';
-import Context from './context/Context';
+import Logout from '../authentication/Logout';
+import Context from '../context/Context';
 
 const HeaderContent = styled.div`
 	background-color: #292929;

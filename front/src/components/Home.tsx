@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
-import CardCoursesSecondary from './components/CardCoursesSecondary';
-import darkTheme from './theme/darkTheme';
-import { GET_COURSES } from './utils/apollo';
+import CardCoursesSecondary from './timeline/CardCoursesSecondary';
+import darkTheme from '../theme/darkTheme';
+import { GET_COURSES } from '../utils/apollo';
 
 export type CourseType = {
 	_id: string;
