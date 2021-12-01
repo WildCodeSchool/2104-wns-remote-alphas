@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import darkTheme from '../theme/darkTheme';
 
 export type CourseType = {
 	_id: string;

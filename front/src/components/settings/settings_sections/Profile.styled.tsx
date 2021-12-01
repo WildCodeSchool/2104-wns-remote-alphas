@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-cycle
 // import Field from '../../Field.styled';
 
 /**

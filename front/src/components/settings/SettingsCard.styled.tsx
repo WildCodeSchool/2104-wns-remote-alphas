@@ -2,7 +2,9 @@ import React from 'react';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './Card.styled';
 import CardMenu from './CardMenu.styled';
-import NavMenu from './NavMenu.styled';
+// import NavMenu from './NavMenu.styled';
+
+/// FIXME: obsolete. this file is not used anymore
 
 /**
  * SettingsCard provides an empty setting card with 2 sections:
@@ -16,7 +18,7 @@ const SettingsCard = (props: Props): JSX.Element => {
         <Card>
             <CardMenu>
             <CircleAvatar alt="user avatar" src="/assets/images/default-avatar.png" />
-                <NavMenu />
+                {/* <NavMenu /> */}
             </CardMenu>
             {children}
         </Card>

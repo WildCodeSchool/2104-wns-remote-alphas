@@ -10,8 +10,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
-import SettingsCard from './components/settings/SettingsCard.styled';
-import Profile from './components/settings/settings_sections/Profile.styled';
 import { Timeline } from './components/timeline/Timeline.styled';
 import Home from './components/Home';
 import FormCourses from './components/backOfffice/FormCourses';
@@ -20,6 +18,7 @@ import SignUpPage from './components/authentication/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
 
 import Context, { User } from './components/context/Context';
+import Settings from './components/settings/Settings';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -94,9 +93,7 @@ function Router(): JSX.Element {
 											Timeline-courses
 										</Route>
 										<Route exact path="/settings">
-											<SettingsCard>
-												<Profile />
-											</SettingsCard>
+											<Settings />
 										</Route>
 										<Route exact path="/courses/:course">
 											Courses/Course
