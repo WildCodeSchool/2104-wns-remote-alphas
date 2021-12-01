@@ -23,6 +23,7 @@
 	"rules": {
 		"no-console": 1,
 		"no-tabs": "off",
+		"no-underscore-dangle": ["error", { "allow": ["_id"] }],
 		"@typescript-eslint/indent": "off",
 		"@typescript-eslint/comma-dangle": "off",
 		"react/jsx-indent": 0,
