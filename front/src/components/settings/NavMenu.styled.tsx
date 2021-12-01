@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Divider from '../Divider.styled';
+import Divider from '../core/Divider.styled';
 
 /**
  * NavMenu displays the setting cards' navigation menu, with links and icons

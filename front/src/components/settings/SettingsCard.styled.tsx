@@ -1,5 +1,5 @@
 import React from 'react';
-import CircleAvatar from '../CircleAvatar.styled';
+import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './Card.styled';
 import CardMenu from './CardMenu.styled';
 import NavMenu from './NavMenu.styled';
@@ -25,6 +25,6 @@ const SettingsCard = (props: Props): JSX.Element => {
 
 interface Props {
     children: React.ReactNode;
-  }
+}
 
 export default SettingsCard;

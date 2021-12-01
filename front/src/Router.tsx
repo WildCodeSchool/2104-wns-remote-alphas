@@ -77,12 +77,12 @@ function Router(): JSX.Element {
 									<Route exact path="/courses">
 										<Timeline />
 									</Route>
-									<Route exact path="/wiki">
+									{/* <Route exact path="/wiki">
 										Wiki
-									</Route>
-									<Route exact path="/help">
+									</Route> */}
+									{/* <Route exact path="/help">
 										Help
-									</Route>
+									</Route> */}
 									<Route exact path="/chat">
 										Chat
 									</Route>
