@@ -13,11 +13,21 @@ export type CourseType = {
 	_id: string;
 };
 
+export type CourseId = {
+	_id: string;
+};
+
 interface Iprops {
 	courses: CourseType[];
 	deleteCourse(_id: string): void;
+	fetchById(_id: string): void;
 }
-function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
+
+function ListCoursesback({
+	courses,
+	deleteCourse,
+	fetchById,
+}: Iprops): JSX.Element {
 	return (
 		<table style={{ width: '100%' }}>
 			<thead>
@@ -50,12 +60,13 @@ function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 						<tr style={{ color: 'white' }}>
 							{item.postedAt ? convertDate(item.postedAt, 'fr') : undefined}
 						</tr>
-						<tr>
+						<tr
+							style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
 							<button
 								style={{
 									backgroundColor: '#FF2960',
 									cursor: 'pointer',
-									width: '10rem',
+									width: '8rem',
 									height: '1.5rem',
 									border: '1px solid red',
 									borderRadius: '5px',
@@ -68,6 +79,24 @@ function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 									deleteCourse(item._id);
 								}}>
 								Supprimer
+							</button>
+							<button
+								style={{
+									backgroundColor: '#68d0fc',
+									cursor: 'pointer',
+									width: '8rem',
+									height: '1.5rem',
+									border: '1px solid #68d0fc',
+									borderRadius: '5px',
+									color: 'white',
+									fontWeight: 'bold',
+								}}
+								type="button"
+								onClick={(e) => {
+									e.preventDefault();
+									fetchById(item._id);
+								}}>
+								Modifier
 							</button>
 						</tr>
 					</tbody>

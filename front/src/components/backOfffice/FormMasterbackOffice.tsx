@@ -37,7 +37,7 @@ const Textarea = styled.textarea`
 	min-height: 2.5rem;
 	max-height: 50%;
 	margin: auto;
-	height: 2.5rem;
+	height: 50%;
 	border: 1px solid grey;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -68,11 +68,15 @@ interface Iprops {
 		technos: string;
 	};
 	onSubmit(e: React.SyntheticEvent): void;
+	buttonType: 'post' | 'update';
+	onCancel(): void;
 }
 function FormMasterBackOffice({
 	onChange,
 	courseInput,
 	onSubmit,
+	buttonType,
+	onCancel,
 }: Iprops): JSX.Element {
 	return (
 		<Container>
@@ -118,7 +122,23 @@ function FormMasterBackOffice({
 						});
 					}}
 				/> */}
-				<Button type="submit">Poster un cours</Button>
+				<Button type="submit">
+					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}
+				</Button>
+				{buttonType === 'update' && (
+					<Button
+						style={{
+							backgroundColor: 'transparent',
+							border: '1px solid white',
+						}}
+						type="button"
+						onClick={(e) => {
+							e.preventDefault();
+							onCancel();
+						}}>
+						Annuler modification
+					</Button>
+				)}
 			</Form>
 		</Container>
 	);

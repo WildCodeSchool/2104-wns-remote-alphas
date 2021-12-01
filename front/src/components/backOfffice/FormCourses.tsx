@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import styled from 'styled-components';
 import { useMutation, gql, useQuery } from '@apollo/client';
 import ListCoursesback from './ListCoursesBack';
@@ -67,6 +66,7 @@ export const GET_COURSES_QUERY = gql`
 		}
 	}
 `;
+
 export const ADD_COURSE = gql`
 	mutation addCourse(
 		$courseName: String!
@@ -81,6 +81,33 @@ export const ADD_COURSE = gql`
 				technos: $technos
 				image_url: $image_url
 			}
+		) {
+			courseName
+			description
+			technos
+			image_url
+			_id
+			postedAt
+		}
+	}
+`;
+
+export const UPDATE_COURSE = gql`
+	mutation updateOneCourse(
+		$courseName: String!
+		$image_url: String!
+		$description: String!
+		$technos: [String!]
+		$_id: ID!
+	) {
+		updateOneCourse(
+			data: {
+				courseName: $courseName
+				description: $description
+				technos: $technos
+				image_url: $image_url
+			}
+			courseId: { _id: $_id }
 		) {
 			courseName
 			description
@@ -107,33 +134,69 @@ function FormCourses(): JSX.Element {
 		image_url: '',
 		description: '',
 		technos: '',
+		_id: '',
+		postedAt: '',
 	};
+
 	const { data } = useQuery(GET_COURSES_QUERY);
 
 	const [courses, setCourses] = useState<CourseType[]>([]);
+
 	useEffect(() => {
 		if (data) {
 			setCourses([...data.getCourses]);
 		}
 	}, [data]);
-	const [postCourseState, setPostCourseState] = React.useState(initialState);
+
+	const [postCourseState, setPostCourseState] = useState(initialState);
+
+	const [buttonType, setButtonType] = useState<'post' | 'update'>('post');
+
 	const [addCourseMutation] = useMutation(ADD_COURSE);
+	const [updateOneCourseMutation] = useMutation(UPDATE_COURSE);
 	const [deleteOneCourseMutation] = useMutation(DELETE_ONE_COURSE);
+
 	async function handleSubmit(e: React.SyntheticEvent) {
 		e.preventDefault();
-		const {
-			data: { addCourse },
-		} = await addCourseMutation({
-			variables: {
-				courseName: postCourseState.courseName,
-				image_url: 'http://reactjs/image.fr',
-				description: postCourseState.description,
-				technos: postCourseState.technos.split(' '),
-			},
-		});
-		if (addCourse) {
-			setPostCourseState(initialState);
-			setCourses([...courses, addCourse]);
+		if (buttonType === 'update') {
+			const {
+				data: { updateOneCourse },
+			} = await updateOneCourseMutation({
+				variables: {
+					courseName: postCourseState.courseName,
+					image_url: 'http://reactjs/image.fr',
+					description: postCourseState.description,
+					technos: postCourseState.technos.split(' '),
+					_id: postCourseState._id,
+				},
+			});
+			if (updateOneCourse) {
+				setPostCourseState(initialState);
+				setCourses(
+					courses.map((item) => {
+						if (item._id === updateOneCourse._id) {
+							return updateOneCourse;
+						}
+						return item;
+					})
+				);
+				setButtonType('post');
+			}
+		} else {
+			const {
+				data: { addCourse },
+			} = await addCourseMutation({
+				variables: {
+					courseName: postCourseState.courseName,
+					image_url: 'http://reactjs/image.fr',
+					description: postCourseState.description,
+					technos: postCourseState.technos.split(' '),
+				},
+			});
+			if (addCourse) {
+				setPostCourseState(initialState);
+				setCourses([...courses, addCourse]);
+			}
 		}
 	}
 	async function deleteCourse(_id: string) {
@@ -150,11 +213,32 @@ function FormCourses(): JSX.Element {
 			);
 		}
 	}
+
+	function fetchOneCourse(_id: string) {
+		const course = courses.find((item) => item._id === _id);
+		if (course) {
+			setPostCourseState({
+				courseName: course.courseName,
+				technos: course.technos.join(' '),
+				description: course.description,
+				image_url: course.image_url,
+				_id: course._id,
+				postedAt: course.postedAt,
+			});
+			setButtonType('update');
+		}
+	}
+
 	function handleChange(value: string, name: string) {
 		setPostCourseState({
 			...postCourseState,
 			[name]: value,
 		});
+	}
+
+	function onCancel() {
+		setButtonType('post');
+		setPostCourseState(initialState);
 	}
 	return (
 		<>
@@ -165,7 +249,11 @@ function FormCourses(): JSX.Element {
 			<FormContent>
 				<ListCoursesBackOffice>
 					<H2>Liste des cours</H2>
-					<ListCoursesback courses={courses} deleteCourse={deleteCourse} />
+					<ListCoursesback
+						courses={courses}
+						deleteCourse={deleteCourse}
+						fetchById={fetchOneCourse}
+					/>
 				</ListCoursesBackOffice>
 				<Form>
 					<H2>Poster un cours</H2>
@@ -173,6 +261,8 @@ function FormCourses(): JSX.Element {
 						onChange={handleChange}
 						courseInput={postCourseState}
 						onSubmit={handleSubmit}
+						buttonType={buttonType}
+						onCancel={onCancel}
 					/>
 				</Form>
 			</FormContent>
