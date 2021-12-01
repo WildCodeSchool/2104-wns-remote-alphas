@@ -41,7 +41,10 @@ export class CourseResolver {
     }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ): Promise<Course> {
     if (authenticatedUserEmail) {
-      if (authenticatedUserRole === "teacher") {
+      if (
+        authenticatedUserRole === "teacher" ||
+        authenticatedUserRole === "admin"
+      ) {
         const courseWithDate = {
           ...courseInput,
           postedAt: new Date(Date.now()).toISOString(),
@@ -70,7 +73,10 @@ export class CourseResolver {
     }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ) {
     if (authenticatedUserEmail) {
-      if (authenticatedUserRole === "teacher") {
+      if (
+        authenticatedUserRole === "teacher" ||
+        authenticatedUserRole === "admin"
+      ) {
         const updatedCourse = await CourseModel.findOneAndUpdate(
           { _id: courseId },
           data
@@ -98,7 +104,10 @@ export class CourseResolver {
     }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ) {
     if (authenticatedUserEmail) {
-      if (authenticatedUserRole === "teacher") {
+      if (
+        authenticatedUserRole === "teacher" ||
+        authenticatedUserRole === "admin"
+      ) {
         const deleted = await CourseModel.deleteOne({ _id: courseId });
         console.log(deleted);
         return { _id: courseId._id, message: "Course successfully deleted" };

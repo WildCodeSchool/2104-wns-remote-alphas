@@ -3,18 +3,68 @@ import { User, UserModel } from "../Models/User";
 import { UserInput } from "./types/UserInput";
 import bcrypt from "bcrypt";
 import { ApolloError, AuthenticationError } from "apollo-server";
+import { UserId } from "./types/UserId";
 
 @Resolver((of) => User)
 export class UserResolver {
   @Query((returns) => [User])
-  async getUsers(): Promise<User[]> {
-    const users = await UserModel.find();
-    return users;
+  async getUsers(
+    @Ctx()
+    {
+      authenticatedUserEmail,
+      authenticatedUserRole,
+    }: {
+      authenticatedUserEmail: string;
+      authenticatedUserRole: string;
+    }
+  ): Promise<User[]> {
+    if (authenticatedUserEmail) {
+      if (authenticatedUserRole === "admin") {
+        const users = await UserModel.find();
+        return users;
+      } else {
+        throw new ApolloError("You are not allowed to do this");
+      }
+    } else {
+      throw new AuthenticationError("Not connected");
+    }
+  }
+
+  @Mutation((returns) => User)
+  async updateOneUser(
+    @Arg("courseId") userId: UserId,
+    @Arg("data") data: UserInput,
+    @Ctx()
+    {
+      authenticatedUserEmail,
+      authenticatedUserRole,
+    }: {
+      authenticatedUserEmail: string;
+      authenticatedUserRole: string;
+    }
+  ) {
+    if (authenticatedUserEmail) {
+      if (authenticatedUserRole === "admin") {
+        const updatedUser = await UserModel.findOneAndUpdate(
+          { _id: userId },
+          data
+        );
+        if (updatedUser) {
+          Object.assign(updatedUser, data);
+          await updatedUser.save();
+        }
+        return updatedUser;
+      } else {
+        throw new ApolloError("You are not allowed to do this");
+      }
+    } else {
+      throw new AuthenticationError("Not connected");
+    }
   }
 
   @Mutation((returns) => User)
   async signup(@Arg("user") userInput: UserInput): Promise<User> {
-    if (!Object.entries(userInput).find((log) => log[1].length === 0)) {
+    if (!Object.values(userInput).find((log) => log.length === 0)) {
       const allUsers = await UserModel.find();
       if (
         !allUsers.find((existingUser) => existingUser.email === userInput.email)
