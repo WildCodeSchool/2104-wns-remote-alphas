@@ -8,6 +8,7 @@ const GET_COURSES = gql`
 			courseName
 			image_url
 			postedAt
+			_id
 		}
 	}
 `;
