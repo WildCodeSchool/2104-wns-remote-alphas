@@ -20,6 +20,7 @@ export class LoginResolver {
       const token = jwt.sign(
         {
           userEmail: userFound.email,
+          userRole: userFound.role,
         },
         jwtKey
       );

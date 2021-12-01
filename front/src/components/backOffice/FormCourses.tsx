@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useMutation, gql, useQuery } from '@apollo/client';
+// eslint-disable-next-line object-curly-newline
+import { useMutation, useQuery, ApolloError, gql } from '@apollo/client';
 import ListCoursesback from './ListCoursesBack';
 import FormMasterBackOffice from './FormMasterbackOffice';
+import { ADD_COURSE, DELETE_ONE_COURSE, GET_COURSES } from '../../utils/apollo';
 
 const BackOfficeTitle = styled.div`
 	display: flex;
@@ -54,44 +56,6 @@ export interface CourseType {
 	_id: string;
 }
 
-export const GET_COURSES_QUERY = gql`
-	query {
-		getCourses {
-			description
-			technos
-			courseName
-			image_url
-			postedAt
-			_id
-		}
-	}
-`;
-
-export const ADD_COURSE = gql`
-	mutation addCourse(
-		$courseName: String!
-		$image_url: String!
-		$description: String!
-		$technos: [String!]
-	) {
-		addCourse(
-			course: {
-				courseName: $courseName
-				description: $description
-				technos: $technos
-				image_url: $image_url
-			}
-		) {
-			courseName
-			description
-			technos
-			image_url
-			_id
-			postedAt
-		}
-	}
-`;
-
 export const UPDATE_COURSE = gql`
 	mutation updateOneCourse(
 		$courseName: String!
@@ -119,15 +83,6 @@ export const UPDATE_COURSE = gql`
 	}
 `;
 
-export const DELETE_ONE_COURSE = gql`
-	mutation deleteOneCourse($_id: ID!) {
-		deleteOneCourse(courseId: { _id: $_id }) {
-			_id
-			message
-		}
-	}
-`;
-
 function FormCourses(): JSX.Element {
 	const initialState = {
 		courseName: '',
@@ -137,8 +92,12 @@ function FormCourses(): JSX.Element {
 		_id: '',
 		postedAt: '',
 	};
-
-	const { data } = useQuery(GET_COURSES_QUERY);
+	const initialErrorState = {
+		status: false,
+		message: '',
+	};
+	const [formErrorState, setFormErrorState] = useState(initialErrorState);
+	const { data } = useQuery(GET_COURSES);
 
 	const [courses, setCourses] = useState<CourseType[]>([]);
 
@@ -159,47 +118,60 @@ function FormCourses(): JSX.Element {
 	async function handleSubmit(e: React.SyntheticEvent) {
 		e.preventDefault();
 		if (buttonType === 'update') {
-			const {
-				data: { updateOneCourse },
-			} = await updateOneCourseMutation({
-				variables: {
-					courseName: postCourseState.courseName,
-					image_url: 'http://reactjs/image.fr',
-					description: postCourseState.description,
-					technos: postCourseState.technos.split(' '),
-					_id: postCourseState._id,
-				},
-			});
-			if (updateOneCourse) {
-				setPostCourseState(initialState);
-				setCourses(
-					courses.map((item) => {
-						if (item._id === updateOneCourse._id) {
-							return updateOneCourse;
-						}
-						return item;
-					})
-				);
-				setButtonType('post');
+			try {
+				const {
+					data: { updateOneCourse },
+				} = await updateOneCourseMutation({
+					variables: {
+						courseName: postCourseState.courseName,
+						image_url: 'http://reactjs/image.fr',
+						description: postCourseState.description,
+						technos: postCourseState.technos.split(' '),
+						_id: postCourseState._id,
+					},
+				});
+				if (updateOneCourse) {
+					setPostCourseState(initialState);
+					setCourses(
+						courses.map((item) => {
+							if (item._id === updateOneCourse._id) {
+								return updateOneCourse;
+							}
+							return item;
+						})
+					);
+					setButtonType('post');
+				}
+			} catch (err) {
+				if (err instanceof ApolloError) {
+					setFormErrorState({ status: true, message: err.message });
+				}
 			}
 		} else {
-			const {
-				data: { addCourse },
-			} = await addCourseMutation({
-				variables: {
-					courseName: postCourseState.courseName,
-					image_url: 'http://reactjs/image.fr',
-					description: postCourseState.description,
-					technos: postCourseState.technos.split(' '),
-				},
-			});
-			if (addCourse) {
-				setPostCourseState(initialState);
-				setCourses([...courses, addCourse]);
+			try {
+				const {
+					data: { addCourse },
+				} = await addCourseMutation({
+					variables: {
+						courseName: postCourseState.courseName,
+						image_url: 'http://reactjs/image.fr',
+						description: postCourseState.description,
+						technos: postCourseState.technos.split(' '),
+					},
+				});
+				if (addCourse) {
+					setPostCourseState(initialState);
+					setCourses([...courses, addCourse]);
+				}
+			} catch (err) {
+				if (err instanceof ApolloError) {
+					setFormErrorState({ status: true, message: err.message });
+				}
 			}
 		}
 	}
 	async function deleteCourse(_id: string) {
+		console.log(_id, 'ID');
 		const {
 			data: { deleteOneCourse },
 		} = await deleteOneCourseMutation({
@@ -263,11 +235,11 @@ function FormCourses(): JSX.Element {
 						onSubmit={handleSubmit}
 						buttonType={buttonType}
 						onCancel={onCancel}
+						errorState={formErrorState}
 					/>
 				</Form>
 			</FormContent>
 		</>
 	);
 }
-
 export default FormCourses;

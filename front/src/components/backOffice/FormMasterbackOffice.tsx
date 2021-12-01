@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ErrorMessage from '../ErrorMessage';
 
 const Container = styled.div`
 	display: 'flex';
@@ -70,6 +71,7 @@ interface Iprops {
 	onSubmit(e: React.SyntheticEvent): void;
 	buttonType: 'post' | 'update';
 	onCancel(): void;
+	errorState: { status: boolean; message: string };
 }
 function FormMasterBackOffice({
 	onChange,
@@ -77,6 +79,7 @@ function FormMasterBackOffice({
 	onSubmit,
 	buttonType,
 	onCancel,
+	errorState,
 }: Iprops): JSX.Element {
 	return (
 		<Container>
@@ -122,6 +125,7 @@ function FormMasterBackOffice({
 						});
 					}}
 				/> */}
+				{errorState.status && <ErrorMessage>{errorState.message}</ErrorMessage>}
 				<Button type="submit">
 					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}
 				</Button>
