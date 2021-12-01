@@ -39,12 +39,12 @@ const Line = styled.hr`
 `;
 
 function CardCoursesSecondary({
-  title, image, imageDescription, course, // id
+  title, image, imageDescription, course, id
  }: Props): JSX.Element {
   const history = useHistory();
 
   function clickCourse() {
-		// history.push(`/courses/${id}`);
+		history.push(`/courses/${id}`);
 	}
    return (
   <Card
@@ -67,7 +67,7 @@ interface Props {
   image: string,
   imageDescription: string,
   course: string,
-  // id: string,
+  id: string,
 }
 
 export default CardCoursesSecondary;

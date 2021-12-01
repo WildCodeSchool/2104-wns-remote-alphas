@@ -48,6 +48,7 @@ function Home(): JSX.Element {
 							// eslint-disable-next-line no-underscore-dangle
 							key={course._id}
 							// eslint-disable-next-line no-underscore-dangle
+							id={course._id}
 							title={course.courseName}
 							image={course.image_url}
 							imageDescription="image video"

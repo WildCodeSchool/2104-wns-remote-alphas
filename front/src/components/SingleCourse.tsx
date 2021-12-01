@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useQuery, gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import ScrollToTop from './ScrollToTop';
 
 const Container = styled.div`
@@ -47,11 +47,34 @@ const Course = styled.div`
 const TextOnHead = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 31px;
+`;
+
+const TitleCourse = styled.div`
+    font-size: 48px;
+`;
+
+const PostedDate = styled.p`
+    color:  #FE7F2D;
+    font-weight: bold;
+`;
+
+const ContentVideo = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 const LinkOfVideo = styled.p`
     color: #FE7F2D;
 `;
+
+const ContentImg = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 19px;
+`;
+
 const LinkReference = styled.td`
     color: #FE7F2D;
 `;
@@ -64,24 +87,32 @@ const PandaImage = styled.img`
     width: 100%;
 `;
 
-export const GET_COURSE_BY_ID_QUERY = gql`
-	query {
-		getCourseById {
-			_id
-			description
+export const GET_ONE_COURSE = gql`
+    query getOneCourse($_id: ID!) {
+        getCourseById(courseId: { _id: $_id }) {
+            _id
+            description
 			technos
 			courseName
 			image_url
-		}
-	}
+            postedAt
+        }
+    }
 `;
 
 function SingleCourse(): JSX.Element {
     const history = useHistory();
-    const { loading, error, data } = useQuery(GET_COURSE_BY_ID_QUERY);
+    const { id } = useParams<{ id: string }>();
+    const { loading, error, data } = useQuery(GET_ONE_COURSE, {
+        variables: { _id: id },
+      });
+    function formattedDate(date: string) {
+        const parsedDate = Date.parse(date);
+        const localeDate = new Date(parsedDate).toLocaleDateString('fr-FR');
+        return localeDate;
+    }
     if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-
 	return (
         <Container>
                 <BackButton type="button" onClick={() => history.goBack()}>
@@ -92,13 +123,13 @@ function SingleCourse(): JSX.Element {
                 </BackButton>
             <Course>
                 <TextOnHead>
-                    <p>GraphQL Basics</p>
-                    <p>15/11/2021</p>
+                    <TitleCourse>{data.getCourseById.courseName}</TitleCourse>
+                    <PostedDate>{formattedDate(data.getCourseById.postedAt)}</PostedDate>
                 </TextOnHead>
-                <div>
-                    <img src="https://via.placeholder.com/600x350" alt="" />
-                    <LinkOfVideo>Lien vidéo - Thomas</LinkOfVideo>
-                </div>
+                    <ContentVideo>
+                        <img src={data.getCourseById.image_url} alt="" />
+                        <LinkOfVideo>Lien vidéo - Thomas</LinkOfVideo>
+                    </ContentVideo>
                 <section>
                     <h4>fknjdbjkcbdkbchbdc</h4>
                     <p>
@@ -110,7 +141,9 @@ function SingleCourse(): JSX.Element {
                         dcbdhbchd.
                     </p>
                 </section>
-                <img src="https://via.placeholder.com/300x150" alt="" />
+                <ContentImg>
+                    <img src="https://via.placeholder.com/300x150" alt="" />
+                </ContentImg>
                 <section>
                     <h4>fknjdbjkcbdkbchbdc</h4>
                     <p>

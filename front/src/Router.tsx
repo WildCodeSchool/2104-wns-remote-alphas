@@ -94,9 +94,6 @@ function Router(): JSX.Element {
 									<Route exact path="/courses/:id">
 										<SingleCourse />
 									</Route>
-									{/* 							<Route exact path="/singlecourse">
-								<SingleCourse />
-							</Route> */}
 								</>
 							) : (
 								<Route exact path="/">
