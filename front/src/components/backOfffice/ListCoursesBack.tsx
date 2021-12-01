@@ -22,12 +22,12 @@ function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 		<table style={{ width: '100%' }}>
 			<thead>
 				<tr>
-					<th colSpan={3}> </th>
+					<th colSpan={4}> </th>
 				</tr>
 			</thead>
 
 			{courses
-				.sort((a, b) => (b.postedAt < a.postedAt ? 1 : -1))
+				.sort((a, b) => (b.postedAt < a.postedAt ? -1 : 1))
 				.map((item) => (
 					<tbody
 						style={{
