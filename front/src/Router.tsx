@@ -12,6 +12,7 @@ import SettingsCard from './components/settings/SettingsCard.styled';
 import Profile from './components/settings/settings_sections/Profile.styled';
 import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
+import FormCourses from './components/backOfffice/FormCourses';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
@@ -92,6 +93,9 @@ function Router(): JSX.Element {
 									</Route>
 									<Route exact path="/courses/:course">
 										Courses/Course
+									</Route>
+									<Route exact path="/backOffice">
+										<FormCourses />
 									</Route>
 								</>
 							) : (

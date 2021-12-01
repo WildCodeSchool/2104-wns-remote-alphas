@@ -42,11 +42,6 @@ const Form = styled.form`
 	width: 100%;
 `;
 
-// const titleSignIn = styled.h3`
-// 	display: flex;
-// 	justify-content: 'center';
-// `;
-
 const Input = styled.input`
 	margin: auto;
 	width: 85%;

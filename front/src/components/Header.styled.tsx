@@ -87,6 +87,7 @@ const Header = (): JSX.Element => {
 					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
 					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
 					<LinkReactRouter to="help">Help</LinkReactRouter>
+					<LinkReactRouter to="/backoffice">MasterBackOffice </LinkReactRouter>
 					<ButtonChat type="button">Chat Now</ButtonChat>
 					<Logout />
 				</MenuContent>
