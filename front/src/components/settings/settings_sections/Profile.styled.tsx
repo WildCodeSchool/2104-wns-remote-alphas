@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     display: grid;
     flex-direction: column;
-    margin: 3em;
+    margin: ${(props) => props.theme.margin.generic.large};
     flex-wrap: wrap;
     justify-content: stretch;
     width: 60%;
@@ -24,31 +24,31 @@ const Form = styled.form`
     display: grid;
     grid-template-columns: 50% 50%;
     width: 100%;
-    margin: 1em;
+    margin: ${(props) => props.theme.margin.generic.small};
 `;
 
 /// Style the form columns
 const Column = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 1em;
-    gap: 1em;
+    margin: ${(props) => props.theme.margin.generic.small};
+    gap: ${(props) => props.theme.margin.generic.small};
 `;
 
 /// Style the input
 const Input = styled.input`
-	border-radius: 10px;
-	background-color: #4e4e4e;
-	color: #d1dce5;
-	height: 2.5em;
+	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
+	background-color: ${(props) => props.theme.colors.secondaryLighter};
+	color: ${(props) => props.theme.colors.primaryLighter};;
+	height: ${(props) => props.theme.fixedSize.field.height};
 	width: 90%;
 `;
 
 const Button = styled.button`
-    width: 8em;
-    height: 3em;
+    width: ${(props) => props.theme.fixedSize.button.small.width};
+    height: ${(props) => props.theme.fixedSize.button.small.height};
     background-color: ${(props) => props.theme.colors.secondary};
-    border-radius: 10px;
+    border-radius: ${(props) => props.theme.fixedSize.borderRadius};
     color: ${(props) => props.theme.colors.primary};
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -91,11 +91,15 @@ const Profile = (): JSX.Element => {
                         htmlFor="Name"
                         style={{
                             color: nameFocused ? '#FE7F2D' : '',
-                            fontWeight: nameFocused ? 'bold' : 500
+                            fontWeight: nameFocused ? 'bold' : 500,
                         }}
                     >
                         Name
                         <Input
+                            style={{
+                                border: nameFocused ? '3px solid #FE7F2D' : '',
+                                outline: 'none'
+                            }}
                             onFocus={() => setNameFocus(true)}
                             onBlur={() => setNameFocus(false)}
                             id="Name"
@@ -119,6 +123,10 @@ const Profile = (): JSX.Element => {
                     >
                         Email
                         <Input
+                            style={{
+                                border: emailFocused ? '3px solid #FE7F2D' : '',
+                                outline: 'none'
+                            }}
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
                             id="Email"
@@ -144,6 +152,10 @@ const Profile = (): JSX.Element => {
                     >
                         First Name
                         <Input
+                            style={{
+                                border: firstNameFocused ? '3px solid #FE7F2D' : '',
+                                outline: 'none'
+                            }}
                             onFocus={() => setFirstNameFocus(true)}
                             onBlur={() => setFirstNameFocus(false)}
                             id="firstName"
@@ -167,6 +179,10 @@ const Profile = (): JSX.Element => {
                     >
                         Location
                         <Input
+                            style={{
+                                border: locationFocused ? '3px solid #FE7F2D' : '',
+                                outline: 'none'
+                            }}
                             onFocus={() => setLocationFocus(true)}
                             onBlur={() => setLocationFocus(false)}
                             id="Location"

@@ -35,12 +35,17 @@ const darkTheme: import('styled-components').DefaultTheme = {
     textMenuSettings: '0px 0px 0px 75px',
     cardSettings: 'auto',
     imageCourse: '31px 0px',
+    generic: {
+      small: '1em',
+      medium: '2em',
+      large: '3em'
+    }
   },
   width: {
     xs: '139px',
     s: '370px',
     m: '1124px',
-    l: 'px',
+    l: '1300px',
     xl: '1440px',
 
   },
@@ -62,6 +67,15 @@ const darkTheme: import('styled-components').DefaultTheme = {
     toggleButton: '64px',
     boxShadow: '19px 20px 11px 13px rgba(0,0,0,0.36)',
     borderRadius: '12px',
+    button: {
+      small: {
+        height: '3em',
+        width: '8em'
+      }
+    },
+    field: {
+      height: '2.5em',
+    }
   },
 };
 
