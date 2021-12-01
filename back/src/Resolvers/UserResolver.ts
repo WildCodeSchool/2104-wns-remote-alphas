@@ -21,6 +21,7 @@ export class UserResolver {
       ) {
         const addedUser = new UserModel({
           ...userInput,
+          role: "student",
           password: bcrypt.hashSync(userInput.password, 10),
         } as User);
         await addedUser.save();
@@ -32,7 +33,7 @@ export class UserResolver {
       throw new ApolloError("Please fill all the fields");
     }
   }
-  @Query((returns) => User)
+  @Mutation((returns) => User)
   async me(
     @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
   ) {

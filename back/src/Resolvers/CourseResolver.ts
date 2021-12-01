@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
-import { AuthenticationError } from "apollo-server";
+import { AuthenticationError, ApolloError } from "apollo-server";
 import { DeleteResponse } from "./types/DeleteResponse";
 
 @Resolver((of) => Course)
@@ -34,18 +34,26 @@ export class CourseResolver {
   @Mutation((returns) => Course)
   async addCourse(
     @Arg("course") courseInput: CourseInput,
-    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+    @Ctx()
+    {
+      authenticatedUserEmail,
+      authenticatedUserRole,
+    }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ): Promise<Course> {
     if (authenticatedUserEmail) {
-      const courseWithDate = {
-        ...courseInput,
-        postedAt: new Date(Date.now()).toISOString(),
-      };
-      const addedCourse = new CourseModel({
-        ...courseWithDate,
-      } as Course);
-      await addedCourse.save();
-      return addedCourse;
+      if (authenticatedUserRole === "teacher") {
+        const courseWithDate = {
+          ...courseInput,
+          postedAt: new Date(Date.now()).toISOString(),
+        };
+        const addedCourse = new CourseModel({
+          ...courseWithDate,
+        } as Course);
+        await addedCourse.save();
+        return addedCourse;
+      } else {
+        throw new ApolloError("You are not allowed to do this");
+      }
     } else {
       throw new AuthenticationError("Not connected");
     }
@@ -55,18 +63,26 @@ export class CourseResolver {
   async updateOneCourse(
     @Arg("courseId") courseId: CourseId,
     @Arg("data") data: CourseInput,
-    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+    @Ctx()
+    {
+      authenticatedUserEmail,
+      authenticatedUserRole,
+    }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ) {
     if (authenticatedUserEmail) {
-      const updatedCourse = await CourseModel.findOneAndUpdate(
-        { _id: courseId },
-        data
-      );
-      if (updatedCourse) {
-        Object.assign(updatedCourse, data);
-        await updatedCourse.save();
+      if (authenticatedUserRole === "teacher") {
+        const updatedCourse = await CourseModel.findOneAndUpdate(
+          { _id: courseId },
+          data
+        );
+        if (updatedCourse) {
+          Object.assign(updatedCourse, data);
+          await updatedCourse.save();
+        }
+        return updatedCourse;
+      } else {
+        throw new ApolloError("You are not allowed to do this");
       }
-      return updatedCourse;
     } else {
       throw new AuthenticationError("Not connected");
     }
@@ -75,12 +91,20 @@ export class CourseResolver {
   @Mutation(() => DeleteResponse)
   async deleteOneCourse(
     @Arg("courseId") courseId: CourseId,
-    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+    @Ctx()
+    {
+      authenticatedUserEmail,
+      authenticatedUserRole,
+    }: { authenticatedUserEmail: string; authenticatedUserRole: string }
   ) {
     if (authenticatedUserEmail) {
-      const deleted = await CourseModel.deleteOne({ _id: courseId });
-      console.log(deleted);
-      return { _id: courseId._id, message: "Course successfully deleted" };
+      if (authenticatedUserRole === "teacher") {
+        const deleted = await CourseModel.deleteOne({ _id: courseId });
+        console.log(deleted);
+        return { _id: courseId._id, message: "Course successfully deleted" };
+      } else {
+        throw new ApolloError("You are not allowed to do this");
+      }
     } else {
       throw new AuthenticationError("Not connected");
     }

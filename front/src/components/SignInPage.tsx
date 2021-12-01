@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ApolloError, gql, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import Context from './context/Context';
 import ErrorMessage from './ErrorMessage';
+import { LOGIN, ME } from '../utils/apollo';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -93,12 +94,6 @@ const Line = styled.div`
 	//margin: auto;
 `;
 
-export const LOGIN = gql`
-	mutation login($email: String!, $password: String!) {
-		login(userInput: { email: $email, password: $password })
-	}
-`;
-
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
 	const initialErrorState = {
@@ -107,11 +102,12 @@ export default function SignInPage(): JSX.Element {
 	};
 	const [userLog, setUserLog] = useState(initialState);
 	const [loginMutation] = useMutation(LOGIN);
+	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
 	const [errorState, setErrorState] = useState(initialErrorState);
 
-	const { setIsLogin } = useContext(Context);
+	const { setIsLogin, setUser } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signup');
@@ -134,7 +130,13 @@ export default function SignInPage(): JSX.Element {
 				if (setIsLogin) {
 					setIsLogin(true);
 				}
+				const {
+					data: { me },
+				} = await userMutation({});
 
+				if (me._id) {
+					setUser({ ...me });
+				}
 				history.push('/');
 			} else {
 				setUserLog(initialState);
