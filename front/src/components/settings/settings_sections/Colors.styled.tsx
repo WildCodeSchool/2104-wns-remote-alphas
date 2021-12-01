@@ -1,9 +1,16 @@
 import React from 'react';
+import useWindowSize from '../../../utils/useWindowSize';
 
 const Colors = (): JSX.Element => {
-    console.log('colors section');
+    const { width } = useWindowSize();
+
     return (
-        <text>Colors</text>
+        <>
+            {width > 500 && (
+                <text>Colors</text>
+            )}
+            {width < 500 && (<text>Too small</text>)}
+        </>
     );
 };
 
