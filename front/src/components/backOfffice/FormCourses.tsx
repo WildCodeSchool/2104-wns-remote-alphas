@@ -146,7 +146,6 @@ function FormCourses(): JSX.Element {
 		});
 		if (deleteOneCourse) {
 			setCourses(
-				// eslint-disable-next-line no-underscore-dangle
 				courses.filter((course) => course._id !== deleteOneCourse._id)
 			);
 		}

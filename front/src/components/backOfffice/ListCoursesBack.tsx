@@ -27,9 +27,10 @@ function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 			</thead>
 
 			{courses
-				.sort((a, b) => (b.postedAt < a.postedAt ? -1 : 1))
+				.sort((a, b) => (b.postedAt > a.postedAt ? 1 : -1))
 				.map((item) => (
 					<tbody
+						key={item._id}
 						style={{
 							display: 'flex',
 							justifyContent: 'space-between',
@@ -64,7 +65,6 @@ function ListCoursesback({ courses, deleteCourse }: Iprops): JSX.Element {
 								type="button"
 								onClick={(e) => {
 									e.preventDefault();
-									// eslint-disable-next-line no-underscore-dangle
 									deleteCourse(item._id);
 								}}>
 								Supprimer
