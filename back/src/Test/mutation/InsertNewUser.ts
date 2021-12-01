@@ -8,7 +8,6 @@ export const INSERT_NEW_USER = gql`
         firstName: "Théodore"
         email: "theodore.lefrancois2906@gmail.com"
         password: "password"
-        roles: ["teacher"]
       }
     ) {
       _id
@@ -16,7 +15,7 @@ export const INSERT_NEW_USER = gql`
       firstName
       password
       email
-      roles
+      role
     }
   }
 `;

@@ -66,7 +66,10 @@ async function bootstrap() {
           try {
             const payload = jwt.verify(token, jwtKey);
             if (typeof payload !== "string") {
-              return { authenticatedUserEmail: payload.userEmail };
+              return {
+                authenticatedUserEmail: payload.userEmail,
+                authenticatedUserRole: payload.userRole,
+              };
             }
           } catch (err) {
             console.log(err);

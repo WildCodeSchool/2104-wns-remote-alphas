@@ -1,8 +1,9 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
 import CardCoursesSecondary from './components/CardCoursesSecondary';
 import darkTheme from './theme/darkTheme';
+import { GET_COURSES } from './utils/apollo';
 
 export type CourseType = {
 	_id: string;
@@ -11,18 +12,6 @@ export type CourseType = {
 	technos: string[];
 	image_url: string;
 };
-
-export const GET_COURSES_QUERY = gql`
-	query {
-		getCourses {
-			_id
-			description
-			technos
-			courseName
-			image_url
-		}
-	}
-`;
 
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
@@ -34,7 +23,7 @@ const CardContainer = styled.div`
 `;
 
 function Home(): JSX.Element {
-	const { loading, error, data } = useQuery(GET_COURSES_QUERY);
+	const { loading, error, data } = useQuery(GET_COURSES);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;

@@ -8,6 +8,7 @@ export const GET_USERS = gql`
       firstName
       password
       email
+      role
       location
       settings {
         instantChat
