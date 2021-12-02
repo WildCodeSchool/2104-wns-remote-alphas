@@ -38,7 +38,7 @@ const Column = styled.div`
 const Input = styled.input`
 	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
 	background-color: ${(props) => props.theme.colors.secondaryLighter};
-	color: ${(props) => props.theme.colors.primaryLighter};;
+	color: ${(props) => props.theme.colors.primaryLighter};
 	height: ${(props) => props.theme.fixedSize.field.height};
 	width: 90%;
 `;
