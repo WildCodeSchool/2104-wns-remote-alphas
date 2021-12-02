@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import CardCoursesSecondary from './timeline/CardCoursesSecondary';
 import { GET_COURSES } from '../utils/apollo';
+import Loader from './core/Loader.styled';
+import Error from './core/Error.styled';
 
 export type CourseType = {
 	_id: string;
@@ -30,11 +32,12 @@ const CardContainer = styled.div`
 function Home(): JSX.Element {
 	const { loading, error, data } = useQuery(GET_COURSES);
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
 	return (
 		<AppContent>
-			<CardContainer>
+			{loading && <Loader />}
+			{error && <Error />}
+			{!loading && (
+				<CardContainer>
 					{data.getCourses.slice(-3).map((course: CourseType) => (
 						<CardCoursesSecondary
 							key={course._id}
@@ -45,7 +48,8 @@ function Home(): JSX.Element {
 							course={course.technos[0]}
 						/>
 					))}
-			</CardContainer>
+				</CardContainer>
+			)}
 		</AppContent>
 	);
 }
