@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Context, { User } from './context/Context';
+import Context, { User } from '../context/Context';
 
 const Button = styled.button`
 	text-decoration: none;

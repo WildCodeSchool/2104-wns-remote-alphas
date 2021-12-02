@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { waitFor, screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import CardCoursesSecondary from '../components/CardCoursesSecondary';
+import CardCoursesSecondary from '../components/timeline/CardCoursesSecondary';
 import darkTheme from '../theme/darkTheme';
 
 test('should have a good title course',

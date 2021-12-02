@@ -1,18 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-import Context from './context/Context';
-import ErrorMessage from './ErrorMessage';
-import { LOGIN, ME } from '../utils/apollo';
-
+import Context from '../context/Context';
+import ErrorMessage from '../core/ErrorMessage';
+import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
+/// Build styled components
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	margin-top: 5rem;
-	margin-bottom: 5rem;
 	width: 20%;
 	height: 100%;
 	border: 1px solid black;
@@ -52,18 +50,6 @@ const Input = styled.input`
 	font-size: 1rem;
 `;
 
-const ContainCheckBox = styled.div`
-	width: 85%;
-	display: flex;
-	justify-content: flex-start;
-	margin: auto;
-`;
-
-const CheckBox = styled.input`
-	cursor: pointer;
-`;
-const LabelForCheck = styled.label``;
-
 const Button = styled.button`
 	margin: auto;
 	width: 85%;
@@ -83,6 +69,8 @@ const Title = styled.h3``;
 
 const LittleTitle = styled.h4`
 	cursor: pointer;
+	color: #2bb7f3;
+	text-decoration: bold;
 	:hover {
 		text-decoration: underline;
 	}
@@ -91,54 +79,74 @@ const LittleTitle = styled.h4`
 const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
-	//margin: auto;
+	margin-top: 2rem;
+	margin: auto;
 `;
 
-export default function SignInPage(): JSX.Element {
-	const initialState = { email: '', password: '' };
+/// View
+export default function SignUpPage(): JSX.Element {
+	const initialState = {
+		name: '',
+		email: '',
+		firstName: '',
+		password: '',
+		roles: ['student'],
+	};
 	const initialErrorState = {
 		status: false,
 		message: '',
 	};
 	const [userLog, setUserLog] = useState(initialState);
+	const [errorState, setErrorState] = useState(initialErrorState);
+	const [signupMutation] = useMutation(SIGNUP);
 	const [loginMutation] = useMutation(LOGIN);
 	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
-	const [errorState, setErrorState] = useState(initialErrorState);
-
 	const { setIsLogin, setUser } = useContext(Context);
 
 	function handleClick() {
-		history.push('/signup');
+		history.push('/signin');
 	}
 
 	async function handleSubmit() {
 		try {
-			const {
-				data: { login },
-			} = await loginMutation({
+			const result = await signupMutation({
 				variables: {
-					email: userLog.email,
-					password: userLog.password,
+					...userLog,
 				},
 			});
-
-			if (typeof login === 'string') {
-				localStorage.setItem('token', login);
-
-				if (setIsLogin) {
-					setIsLogin(true);
-				}
+			if (result.data.signup) {
 				const {
-					data: { me },
-				} = await userMutation({});
+					data: { login },
+				} = await loginMutation({
+					variables: {
+						email: userLog.email,
+						password: userLog.password,
+					},
+				});
+				if (typeof login === 'string') {
+					localStorage.setItem('token', login);
 
-				if (me._id) {
-					setUser({ ...me });
-					localStorage.setItem('user', JSON.stringify(me));
+					if (setIsLogin) {
+						setIsLogin(true);
+					}
+
+					const {
+						data: { me },
+					} = await userMutation({});
+
+					if (me._id) {
+						setUser({ ...me });
+						localStorage.setItem('user', JSON.stringify(me));
+					}
+					history.push('/');
+				} else {
+					setErrorState({
+						message: 'Oops something went wrong, try again',
+						status: true,
+					});
 				}
-				history.push('/');
 			} else {
 				setUserLog(initialState);
 			}
@@ -148,11 +156,31 @@ export default function SignInPage(): JSX.Element {
 			}
 		}
 	}
+
 	return (
 		<Wrapper style={{ backgroundColor: 'white' }}>
-			<Title>J&apos;ai déjà un compte Masterize</Title>
+			<Title>Nouveau sur Masterize</Title>
+			<p>Saisissez vos informations personnelles</p>
 			<ContainForm>
 				<Form>
+					<Input
+						type="text"
+						name="name"
+						placeholder="Nom"
+						onChange={(e) => {
+							setUserLog({ ...userLog, [e.target.name]: e.target.value });
+						}}
+						value={userLog.name}
+					/>
+					<Input
+						type="text"
+						name="firstName"
+						placeholder="Prénom"
+						onChange={(e) => {
+							setUserLog({ ...userLog, [e.target.name]: e.target.value });
+						}}
+						value={userLog.firstName}
+					/>
 					<Input
 						type="text"
 						name="email"
@@ -171,38 +199,23 @@ export default function SignInPage(): JSX.Element {
 						}}
 						value={userLog.password}
 					/>
-					<ContainCheckBox>
-						<CheckBox
-							type="checkbox"
-							id="remember-password"
-							name="remember-password"
-						/>
-						<LabelForCheck>Se Souvenir de mon identifiant</LabelForCheck>
-					</ContainCheckBox>
 					<Button
 						type="button"
-						value="Envoyer"
+						value="s'enregistrer"
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
 						}}>
-						Se connecter
+						S&apos;inscrire
 					</Button>
 					{errorState.status && (
 						<ErrorMessage>{errorState.message}</ErrorMessage>
 					)}
 				</Form>
 			</ContainForm>
-			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
-			<Title>Nouveau sur Masterize ? </Title>
-			<LittleTitle
-				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
-				onClick={() => {
-					handleClick();
-				}}>
-				S&apos;INSCRIRE
-			</LittleTitle>
+			<Title>Déjà un compte Masterize</Title>
+			<LittleTitle onClick={() => handleClick()}>SE CONNECTER</LittleTitle>
 		</Wrapper>
 	);
 }

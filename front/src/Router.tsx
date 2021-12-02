@@ -7,20 +7,21 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Layout from './components/Layout.styled';
-import SettingsCard from './components/settings/SettingsCard.styled';
-import Profile from './components/settings/settings_sections/Profile.styled';
-import { Timeline } from './components/Timeline.styled';
-import Home from './Home';
-import FormCourses from './components/backOffice/FormCourses';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
-import Wiki from './components/Wiki';
-import Help from './components/Help';
+import { ThemeProvider } from 'styled-components';
+import darkTheme from './theme/darkTheme';
+import Layout from './components/templates/Layout.styled';
+import { Timeline } from './components/timeline/Timeline.styled';
+import Home from './components/Home';
+import SignInPage from './components/authentication/SignInPage';
+import SignUpPage from './components/authentication/SignUpPage';
+import Wiki from './components/wiki/Wiki';
+import Help from './components/help/Help';
 import VisitorHomePage from './components/VisitorHomePage';
 import SingleCourse from './components/SingleCourse';
 import Context, { User } from './components/context/Context';
+import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
+import FormCourses from './components/backOffice/FormCourses';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -64,6 +65,7 @@ function Router(): JSX.Element {
 							data: { me },
 						} = result;
 						setUser(me);
+						localStorage.setItem('user', JSON.stringify(me));
 					}
 				});
 			}
@@ -74,64 +76,64 @@ function Router(): JSX.Element {
 	return (
 		<ApolloProvider client={client}>
 			<BrowserRouter>
-				<Context.Provider
-					value={{
-						client,
-						isLogin,
-						setIsLogin,
-						user,
-						setUser,
-					}}>
-					<Layout>
-						<Switch>
-							<Route exact path="/signin">
-								<SignInPage />
-							</Route>
-							<Route exact path="/signup">
-								<SignUpPage />
-							</Route>
-							{isLogin ? (
-								<>
-									<Route exact path="/">
-										<Home />
-									</Route>
-									<Route exact path="/courses">
-										<Timeline />
-									</Route>
-									<Route exact path="/wiki">
-										<Wiki />
-									</Route>
-									<Route exact path="/help">
-										<Help />
-									</Route>
-									<Route exact path="/chat">
-										Chat
-									</Route>
-									<Route exact path="/timeline-courses">
-										Timeline-courses
-									</Route>
-									<Route exact path="/settings">
-										<SettingsCard>
-											<Profile />
-										</SettingsCard>
-									</Route>
-									<Route exact path="/courses/:id">
-										<SingleCourse />
-									</Route>
-									{user?.role === 'teacher' && (
-										<Route exact path="/backOffice">
-											<FormCourses />
-										</Route>
-									)}
-								</>
-							) : (
-								<Route exact path="/">
-									<VisitorHomePage />
+				<ThemeProvider theme={darkTheme}>
+					<Context.Provider
+						value={{
+							client,
+							isLogin,
+							setIsLogin,
+							user,
+							setUser,
+						}}>
+						<Layout>
+							<Switch>
+								<Route exact path="/signin">
+									<SignInPage />
 								</Route>
-							)}
-						</Switch>
-					</Layout>
-				</Context.Provider>
+								<Route exact path="/signup">
+									<SignUpPage />
+								</Route>
+								{isLogin ? (
+									<>
+										<Route exact path="/">
+											<Home />
+										</Route>
+										<Route exact path="/courses">
+											<Timeline />
+										</Route>
+										<Route exact path="/wiki">
+											<Wiki />
+										</Route>
+										<Route exact path="/help">
+											<Help />
+										</Route>
+										<Route exact path="/chat">
+											Chat
+										</Route>
+										<Route exact path="/timeline-courses">
+											Timeline-courses
+										</Route>
+										<Route exact path="/settings">
+											<Settings />
+										</Route>
+										<Route exact path="/courses/:id">
+											<SingleCourse />
+										</Route>
+										{user?.role === 'teacher' && (
+											<Route exact path="/backOffice">
+												<FormCourses />
+											</Route>
+										)}
+									</>
+								) : (
+									<Route exact path="/">
+										<VisitorHomePage />
+									</Route>
+								)}
+							</Switch>
+						</Layout>
+					</Context.Provider>
+				</ThemeProvider>
 			</BrowserRouter>
 		</ApolloProvider>
 	);

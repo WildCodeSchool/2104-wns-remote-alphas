@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ComingSoon from './ComingSoon';
+import ComingSoon from '../core/ComingSoon';
 
 const ContentWiki = styled.div`
     height: 85vh;

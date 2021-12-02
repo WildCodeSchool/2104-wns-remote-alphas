@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
-import ScrollToTop from './ScrollToTop';
+import ScrollToTop from './core/ScrollToTop';
 
 const Container = styled.div`
     display: flex;
