@@ -29,15 +29,16 @@ function Home(): JSX.Element {
 	return (
 		<AppContent>
 			<CardContainer>
-				{data.getCourses.slice(-3).map((course: CourseType) => (
-					<CardCoursesSecondary
-						key={course._id}
-						title={course.courseName}
-						image={course.image_url}
-						imageDescription="image video"
-						course={course.technos[0]}
-					/>
-				))}
+					{data.getCourses.slice(-3).map((course: CourseType) => (
+						<CardCoursesSecondary
+							key={course._id}
+							id={course._id}
+							title={course.courseName}
+							image={course.image_url}
+							imageDescription="image video"
+							course={course.technos[0]}
+						/>
+					))}
 			</CardContainer>
 		</AppContent>
 	);

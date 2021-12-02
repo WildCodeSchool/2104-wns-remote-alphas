@@ -14,7 +14,10 @@ import { Timeline } from './components/timeline/Timeline.styled';
 import Home from './components/Home';
 import SignInPage from './components/authentication/SignInPage';
 import SignUpPage from './components/authentication/SignUpPage';
+import Wiki from './components/wiki/Wiki';
+import Help from './components/help/Help';
 import VisitorHomePage from './components/VisitorHomePage';
+import SingleCourse from './components/SingleCourse';
 import Context, { User } from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
@@ -97,12 +100,12 @@ function Router(): JSX.Element {
 										<Route exact path="/courses">
 											<Timeline />
 										</Route>
-										{/* <Route exact path="/wiki">
-										Wiki
-									</Route> */}
-										{/* <Route exact path="/help">
-										Help
-									</Route> */}
+										<Route exact path="/wiki">
+											<Wiki />
+										</Route>
+										<Route exact path="/help">
+											<Help />
+										</Route>
 										<Route exact path="/chat">
 											Chat
 										</Route>
@@ -112,8 +115,8 @@ function Router(): JSX.Element {
 										<Route exact path="/settings">
 											<Settings />
 										</Route>
-										<Route exact path="/courses/:course">
-											Courses/Course
+										<Route exact path="/courses/:id">
+											<SingleCourse />
 										</Route>
 										{user?.role === 'teacher' && (
 											<Route exact path="/backOffice">
