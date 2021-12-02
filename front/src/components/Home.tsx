@@ -15,11 +15,16 @@ export type CourseType = {
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
 	height: 79vh;
+	display: flex;
+	justify-content: center;
+
 `;
 
 const CardContainer = styled.div`
-	display: flex;
+	width: 100%;
 	padding: 50px 0px;
+	display: flex;
+
 `;
 
 function Home(): JSX.Element {
