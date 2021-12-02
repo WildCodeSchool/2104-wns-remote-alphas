@@ -14,7 +14,7 @@ export type CourseType = {
 
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
-	height: 79vh;
+	height: calc(100vh - 113px - 94px);
 	display: flex;
 	justify-content: center;
 
