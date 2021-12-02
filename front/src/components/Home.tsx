@@ -14,6 +14,7 @@ export type CourseType = {
 
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
+	height: 79vh;
 `;
 
 const CardContainer = styled.div`
