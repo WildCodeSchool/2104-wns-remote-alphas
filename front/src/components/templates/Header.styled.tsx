@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Logout from '../authentication/Logout';
 import Context from '../context/Context';
+import useWindowSize from '../../utils/useWindowSize';
 
 const HeaderContent = styled.div`
 	background-color: #292929;
@@ -66,6 +67,7 @@ const ButtonChat = styled.button`
 `;
 
 const Header = (): JSX.Element => {
+	const { width } = useWindowSize();
 	const { isLogin, user } = useContext(Context);
 
 	return (
@@ -73,7 +75,7 @@ const Header = (): JSX.Element => {
 			<LinkReactRouter to="/">
 				<TitleContent data-testid="logo-title">
 					<img
-						style={{ width: '280px' }}
+						style={{ width: width > 1000 ? '280px' : '' }}
 						src="/assets/images/logo.svg"
 						alt="Masterize"
 					/>
@@ -82,20 +84,94 @@ const Header = (): JSX.Element => {
 
 			{isLogin ? (
 				<MenuContent data-testid="menu">
-					<LinkReactRouter to="/">Home</LinkReactRouter>
-					<LinkReactRouter to="/courses">Courses</LinkReactRouter>
-					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
-					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
-					<LinkReactRouter to="help">Help</LinkReactRouter>
+					<LinkReactRouter to="/">
+						{width > 1000 && (
+							<text>Home</text>
+						)}
+						{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/024-home.svg"
+								alt="Masterize"
+							/>
+						)}
+					</LinkReactRouter>
+					<LinkReactRouter to="/courses">
+					{width > 1000 && (
+							<text>Courses</text>
+						)}
+						{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/025-course.svg"
+								alt="Masterize"
+							/>
+						)}
+					</LinkReactRouter>
+					<LinkReactRouter to="/wiki">
+					{width > 1000 && (
+							<text>Wiki</text>
+						)}
+						{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/026-wiki.svg"
+								alt="Masterize"
+							/>
+						)}
+					</LinkReactRouter>
+					<LinkReactRouter to="help">
+					{width > 1000 && (
+							<text>Help</text>
+						)}
+						{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/027-help.svg"
+								alt="Masterize"
+							/>
+						)}
+					</LinkReactRouter>
 					{user?.role === 'teacher' && (
-						<LinkReactRouter to="/backoffice">MasterBackOffice</LinkReactRouter>
+						<LinkReactRouter to="/backoffice">
+							{width > 1000 && (
+							<text>Office</text>
+						)}
+						{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/028-add.svg"
+								alt="Masterize"
+							/>
+						)}
+						</LinkReactRouter>
 					)}
 
-					<ButtonChat type="button">Chat Now</ButtonChat>
+					{width > 1000 && (<ButtonChat type="button">Chat Now</ButtonChat>)}
+					{width < 1000 && (
+							<img
+								style={{ width: '30px' }}
+								src="/assets/icons/029-chat.svg"
+								alt="Masterize"
+							/>
+					)}
+					<LinkReactRouter to="/settings">
+						<img
+							style={{ width: '30px' }}
+							src="/assets/icons/013-settings.svg"
+							alt="Masterize"
+						/>
+					</LinkReactRouter>
 					<Logout />
 				</MenuContent>
 			) : (
-				<LinkReactRouter to="/signin">Se connecter</LinkReactRouter>
+				<LinkReactRouter to="/signin">
+					<img
+						style={{ width: '25px' }}
+						src="/assets/icons/022-login.svg"
+						alt="Masterize"
+					/>
+				</LinkReactRouter>
 			)}
 		</HeaderContent>
 	);
