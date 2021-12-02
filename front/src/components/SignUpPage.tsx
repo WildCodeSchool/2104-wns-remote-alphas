@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ApolloError, gql, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-import { LOGIN } from './SignInPage';
 import Context from './context/Context';
 import ErrorMessage from './ErrorMessage';
-
+import { ME, SIGNUP, LOGIN } from '../utils/apollo';
+/// Build styled components
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -80,34 +80,17 @@ const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
 	margin-top: 2rem;
+	margin: auto;
 `;
 
-const SIGNUP = gql`
-	mutation signup(
-		$name: String!
-		$email: String!
-		$firstName: String!
-		$password: String!
-	) {
-		signup(
-			user: {
-				name: $name
-				email: $email
-				firstName: $firstName
-				password: $password
-			}
-		) {
-			_id
-		}
-	}
-`;
-
+/// View
 export default function SignUpPage(): JSX.Element {
 	const initialState = {
 		name: '',
 		email: '',
 		firstName: '',
 		password: '',
+		roles: ['student'],
 	};
 	const initialErrorState = {
 		status: false,
@@ -117,9 +100,10 @@ export default function SignUpPage(): JSX.Element {
 	const [errorState, setErrorState] = useState(initialErrorState);
 	const [signupMutation] = useMutation(SIGNUP);
 	const [loginMutation] = useMutation(LOGIN);
+	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
-	const { setIsLogin } = useContext(Context);
+	const { setIsLogin, setUser } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signin');
@@ -148,6 +132,14 @@ export default function SignUpPage(): JSX.Element {
 						setIsLogin(true);
 					}
 
+					const {
+						data: { me },
+					} = await userMutation({});
+
+					if (me._id) {
+						setUser({ ...me });
+						localStorage.setItem('user', JSON.stringify(me));
+					}
 					history.push('/');
 				} else {
 					setErrorState({

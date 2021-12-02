@@ -1,18 +1,17 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import convertDate from '../utils/convertDate';
 import ErrorMessage from './ErrorMessage';
-// import fakeData from '../fakeData';
+import { GET_COURSES } from '../utils/apollo';
 
 const TimelineContent = styled.div`
 	width: 100%;
 	height: 70vh;
 	background-color: #292929;
 `;
-// APPEL API GRAPHQL
 export type CourseType = {
 	courseName: string;
 	description: string;
@@ -22,23 +21,9 @@ export type CourseType = {
 	_id: string;
 };
 
-export const GET_COURSES_QUERY = gql`
-	query {
-		getCourses {
-			_id
-			description
-			technos
-			courseName
-			image_url
-			postedAt
-		}
-	}
-`;
-
 export function Timeline(): JSX.Element {
-	const { loading, error, data } = useQuery(GET_COURSES_QUERY);
+	const { loading, error, data } = useQuery(GET_COURSES);
 	const history = useHistory();
-	console.log(data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) {

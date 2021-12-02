@@ -15,6 +15,7 @@ export const INSERT_NEW_USER = gql`
       firstName
       password
       email
+      role
     }
   }
 `;

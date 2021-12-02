@@ -12,11 +12,13 @@ import SettingsCard from './components/settings/SettingsCard.styled';
 import Profile from './components/settings/settings_sections/Profile.styled';
 import { Timeline } from './components/Timeline.styled';
 import Home from './Home';
+import FormCourses from './components/backOffice/FormCourses';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
-import Context from './components/context/Context';
 import SingleCourse from './components/SingleCourse';
+import Context, { User } from './components/context/Context';
+import { ME } from './utils/apollo';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -43,11 +45,29 @@ function Router(): JSX.Element {
 	});
 
 	const [isLogin, setIsLogin] = useState<boolean>(false);
+	const [user, setUser] = useState<User>({} as User);
 
 	useEffect(() => {
 		const isValidToken = localStorage.getItem('token');
 		setIsLogin(!!isValidToken);
-	}, [isLogin]);
+		if (!user || !user._id) {
+			const res = localStorage.getItem('user');
+			if (res) {
+				const userData = JSON.parse(res);
+				setUser(userData);
+			} else if (isValidToken) {
+				client.mutate({ mutation: ME }).then((result) => {
+					if (result) {
+						const {
+							data: { me },
+						} = result;
+						setUser(me);
+					}
+				});
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isLogin, user]);
 
 	return (
 		<ApolloProvider client={client}>
@@ -57,6 +77,8 @@ function Router(): JSX.Element {
 						client,
 						isLogin,
 						setIsLogin,
+						user,
+						setUser,
 					}}>
 					<Layout>
 						<Switch>
@@ -94,6 +116,11 @@ function Router(): JSX.Element {
 									<Route exact path="/courses/:id">
 										<SingleCourse />
 									</Route>
+									{user?.role === 'teacher' && (
+										<Route exact path="/backOffice">
+											<FormCourses />
+										</Route>
+									)}
 								</>
 							) : (
 								<Route exact path="/">
