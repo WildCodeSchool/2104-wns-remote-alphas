@@ -17,6 +17,7 @@ import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
 import Context, { User } from './components/context/Context';
+import { ME } from './utils/apollo';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -48,7 +49,24 @@ function Router(): JSX.Element {
 	useEffect(() => {
 		const isValidToken = localStorage.getItem('token');
 		setIsLogin(!!isValidToken);
-	}, [isLogin]);
+		if (!user || !user._id) {
+			const res = localStorage.getItem('user');
+			if (res) {
+				const userData = JSON.parse(res);
+				setUser(userData);
+			} else if (isValidToken) {
+				client.mutate({ mutation: ME }).then((result) => {
+					if (result) {
+						const {
+							data: { me },
+						} = result;
+						setUser(me);
+					}
+				});
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isLogin, user]);
 
 	return (
 		<ApolloProvider client={client}>

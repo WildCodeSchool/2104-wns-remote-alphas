@@ -136,6 +136,7 @@ export default function SignInPage(): JSX.Element {
 
 				if (me._id) {
 					setUser({ ...me });
+					localStorage.setItem('user', JSON.stringify(me));
 				}
 				history.push('/');
 			} else {

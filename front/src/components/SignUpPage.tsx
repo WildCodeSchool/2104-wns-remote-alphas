@@ -138,6 +138,7 @@ export default function SignUpPage(): JSX.Element {
 
 					if (me._id) {
 						setUser({ ...me });
+						localStorage.setItem('user', JSON.stringify(me));
 					}
 					history.push('/');
 				} else {
