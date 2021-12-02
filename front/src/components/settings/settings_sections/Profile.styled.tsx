@@ -59,7 +59,6 @@ export interface IUserData {
     name?: string;
     email?: string;
     location?: string;
-
 }
 
 /// Build the Profile component
