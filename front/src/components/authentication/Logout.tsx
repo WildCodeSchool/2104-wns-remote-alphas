@@ -46,7 +46,7 @@ export default function Logout(): JSX.Element {
 			<img
 				style={{ width: '25px' }}
 				src="/assets/icons/023-logout.svg"
-				alt="Masterize"
+				alt="logout"
 			/>
 		</Button>
 	);
