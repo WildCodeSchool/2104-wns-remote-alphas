@@ -6,6 +6,9 @@ import { GET_COURSES } from '../utils/apollo';
 import Loader from './core/Loader.styled';
 import Error from './core/Error.styled';
 
+/**
+ * App home page view, displayed when a user is connected
+ */
 export type CourseType = {
 	_id: string;
 	courseName: string;

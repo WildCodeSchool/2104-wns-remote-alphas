@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import LargeDivider from '../core/LargeDivider.styled';
 
+/**
+ * Builds a responsive footer with a neumorphic divider on top
+ */
 const FooterContainer = styled.div`
 	display: none;
 	@media (min-width: 350px) {
@@ -32,6 +35,7 @@ const Wrapper = styled.div`
     }
 `;
 
+// TODO: make a clickable link and create view for terms of services.
 const Footer = (): JSX.Element => (
 	<FooterContainer>
 		<LargeDivider />

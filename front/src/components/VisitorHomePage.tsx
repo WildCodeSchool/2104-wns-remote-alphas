@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+/**
+ * Default home page shown to the unknown visitors.
+ */
 export type CourseType = {
 	_id: string;
 	courseName: string;
