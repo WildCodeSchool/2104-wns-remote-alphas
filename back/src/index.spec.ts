@@ -14,9 +14,6 @@ import {
 } from "./Test";
 import jwt from "jsonwebtoken";
 
-if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
-  throw new Error("environment variable SECRET_KEY is missing");
-}
 const jwtKey = "test secret key";
 
 describe("Tests for the back", () => {
@@ -42,11 +39,14 @@ describe("Tests for the back", () => {
         schema,
         context: () => {
           const token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzYwMzg5MDR9.qidAjlswb0pVSWdceBeStpUalTRxazZsj7WMcndtc9s";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InRlYWNoZXIiLCJpYXQiOjE2Mzg0NDQ0Mzl9.ejRb2zqkqVoW9hd3hMjzpCS1DpxDXa_LNCJBNaU9cTA";
           try {
             const payload = jwt.verify(token, jwtKey);
             if (typeof payload !== "string") {
-              return { authenticatedUserEmail: payload.userEmail };
+              return {
+                authenticatedUserEmail: payload.userEmail,
+                authenticatedUserRole: payload.userRole,
+              };
             }
           } catch (err) {
             console.log(err);
