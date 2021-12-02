@@ -15,6 +15,8 @@ import Home from './Home';
 import FormCourses from './components/backOffice/FormCourses';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import Wiki from './components/Wiki';
+import Help from './components/Help';
 import VisitorHomePage from './components/VisitorHomePage';
 import SingleCourse from './components/SingleCourse';
 import Context, { User } from './components/context/Context';
@@ -97,10 +99,10 @@ function Router(): JSX.Element {
 										<Timeline />
 									</Route>
 									<Route exact path="/wiki">
-										Wiki
+										<Wiki />
 									</Route>
 									<Route exact path="/help">
-										Help
+										<Help />
 									</Route>
 									<Route exact path="/chat">
 										Chat
