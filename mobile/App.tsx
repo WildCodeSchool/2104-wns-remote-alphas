@@ -141,7 +141,6 @@ export default function App() {
     >
       <ApolloProvider client={client}>
           <NavigationContainer>
-            token {this.state.userToken}
           {/*  { userToken !== null ? (  */}
             <Tab.Navigator
             screenOptions={({ route }) => ({
