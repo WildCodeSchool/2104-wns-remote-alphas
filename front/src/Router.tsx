@@ -65,6 +65,7 @@ function Router(): JSX.Element {
 							data: { me },
 						} = result;
 						setUser(me);
+						localStorage.setItem('user', JSON.stringify(me));
 					}
 				});
 			}

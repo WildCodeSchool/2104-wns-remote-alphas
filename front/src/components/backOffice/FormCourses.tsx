@@ -171,7 +171,6 @@ function FormCourses(): JSX.Element {
 		}
 	}
 	async function deleteCourse(_id: string) {
-		console.log(_id, 'ID');
 		const {
 			data: { deleteOneCourse },
 		} = await deleteOneCourseMutation({
@@ -183,6 +182,8 @@ function FormCourses(): JSX.Element {
 			setCourses(
 				courses.filter((course) => course._id !== deleteOneCourse._id)
 			);
+			setPostCourseState(initialState);
+			setButtonType('post');
 		}
 	}
 
