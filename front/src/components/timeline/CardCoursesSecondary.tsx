@@ -1,15 +1,17 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 20%;
+  width: 50%;
   background-color: ${(props) => props.theme.colors.quaterny};
   padding: ${(props) => props.theme.padding.s};
   margin: auto;
   border-radius: ${(props) => props.theme.fixedSize.borderRadius};
   box-shadow: ${(props) => props.theme.fixedSize.boxShadow};
   cursor: pointer;
+  min-width: 130px;
+  max-width: 300px;
 `;
 
 const Title = styled.div`
@@ -40,27 +42,27 @@ const Line = styled.hr`
 
 function CardCoursesSecondary({
   title, image, imageDescription, course, id
- }: Props): JSX.Element {
+}: Props): JSX.Element {
   const history = useHistory();
 
   function clickCourse() {
-		history.push(`/courses/${id}`);
-	}
-   return (
-  <Card
-    onClick={() => {
-    clickCourse();
-  }}>
-    <Title data-testid="title-secondary-card">{title}</Title>
-    <Container>
-      <Image src={image} alt={imageDescription} />
-    </Container>
-    <Line />
-    <ThemeCourse>{course}</ThemeCourse>
-  </Card>
+    history.push(`/courses/${id}`);
+  }
+  return (
+    <Card
+      onClick={() => {
+        clickCourse();
+      }}>
+      <Title data-testid="title-secondary-card">{title}</Title>
+      <Container>
+        <Image src={image} alt={imageDescription} />
+      </Container>
+      <Line />
+      <ThemeCourse>{course}</ThemeCourse>
+    </Card>
 
-   );
- }
+  );
+}
 
 interface Props {
   title: string,
