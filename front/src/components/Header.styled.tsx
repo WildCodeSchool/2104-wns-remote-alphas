@@ -66,7 +66,7 @@ const ButtonChat = styled.button`
 `;
 
 const Header = (): JSX.Element => {
-	const { isLogin } = useContext(Context);
+	const { isLogin, user } = useContext(Context);
 
 	return (
 		<HeaderContent data-testid="header">
@@ -79,25 +79,24 @@ const Header = (): JSX.Element => {
 					/>
 				</TitleContent>
 			</LinkReactRouter>
-			<MenuContent data-testid="menu">
-				<LinkReactRouter to="/">Home</LinkReactRouter>
 
-				<LinkReactRouter to="/courses">Courses</LinkReactRouter>
+			{isLogin ? (
+				<MenuContent data-testid="menu">
+					<LinkReactRouter to="/">Home</LinkReactRouter>
+					<LinkReactRouter to="/courses">Courses</LinkReactRouter>
+					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
+					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
+					<LinkReactRouter to="help">Help</LinkReactRouter>
+					{user?.role === 'teacher' && (
+						<LinkReactRouter to="/backoffice">MasterBackOffice</LinkReactRouter>
+					)}
 
-				<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
-
-				<LinkReactRouter to="/settings">Settings</LinkReactRouter>
-
-				<LinkReactRouter to="help">Help</LinkReactRouter>
-
-				<ButtonChat type="button">Chat Now</ButtonChat>
-
-				{isLogin ? (
+					<ButtonChat type="button">Chat Now</ButtonChat>
 					<Logout />
-				) : (
-					<LinkReactRouter to="/signin">Sign in</LinkReactRouter>
-				)}
-			</MenuContent>
+				</MenuContent>
+			) : (
+				<LinkReactRouter to="/signin">Se connecter</LinkReactRouter>
+			)}
 		</HeaderContent>
 	);
 };

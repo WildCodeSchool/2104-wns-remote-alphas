@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import Context from './context/Context';
+import ErrorMessage from './ErrorMessage';
+import { LOGIN, ME } from '../utils/apollo';
 
 const Wrapper = styled.div`
 	display: flex;
-	//justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
@@ -41,11 +42,6 @@ const Form = styled.form`
 	gap: 1rem;
 	width: 100%;
 `;
-
-// const titleSignIn = styled.h3`
-// 	display: flex;
-// 	justify-content: 'center';
-// `;
 
 const Input = styled.input`
 	margin: auto;
@@ -98,46 +94,58 @@ const Line = styled.div`
 	//margin: auto;
 `;
 
-export const LOGIN = gql`
-	mutation login($email: String!, $password: String!) {
-		login(userInput: { email: $email, password: $password })
-	}
-`;
-
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
+	const initialErrorState = {
+		status: false,
+		message: '',
+	};
 	const [userLog, setUserLog] = useState(initialState);
-	const [loginMutation, { error }] = useMutation(LOGIN);
+	const [loginMutation] = useMutation(LOGIN);
+	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
-	const { setIsLogin } = useContext(Context);
+	const [errorState, setErrorState] = useState(initialErrorState);
 
-	if (error) return <p>Error :(</p>;
+	const { setIsLogin, setUser } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signup');
 	}
 
 	async function handleSubmit() {
-		const {
-			data: { login },
-		} = await loginMutation({
-			variables: {
-				email: userLog.email,
-				password: userLog.password,
-			},
-		});
+		try {
+			const {
+				data: { login },
+			} = await loginMutation({
+				variables: {
+					email: userLog.email,
+					password: userLog.password,
+				},
+			});
 
-		if (typeof login === 'string') {
-			localStorage.setItem('token', login);
+			if (typeof login === 'string') {
+				localStorage.setItem('token', login);
 
-			if (setIsLogin) {
-				setIsLogin(true);
+				if (setIsLogin) {
+					setIsLogin(true);
+				}
+				const {
+					data: { me },
+				} = await userMutation({});
+
+				if (me._id) {
+					setUser({ ...me });
+					localStorage.setItem('user', JSON.stringify(me));
+				}
+				history.push('/');
+			} else {
+				setUserLog(initialState);
 			}
-
-			history.push('/');
-		} else {
-			setUserLog(initialState);
+		} catch (err) {
+			if (err instanceof ApolloError) {
+				setErrorState({ message: err.message, status: true });
+			}
 		}
 	}
 	return (
@@ -180,8 +188,10 @@ export default function SignInPage(): JSX.Element {
 						}}>
 						Se connecter
 					</Button>
+					{errorState.status && (
+						<ErrorMessage>{errorState.message}</ErrorMessage>
+					)}
 				</Form>
-				{error && <p>Erreur</p>}
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>

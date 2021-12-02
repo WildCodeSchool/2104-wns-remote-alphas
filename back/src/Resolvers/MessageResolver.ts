@@ -46,7 +46,7 @@ export class MessageResolver {
       await publish({ ...messagePayload, _id: newMessage._id });
       return newMessage;
     } else {
-      throw new AuthenticationError("not connected");
+      throw new AuthenticationError("Not connected");
     }
   }
   @Subscription({
