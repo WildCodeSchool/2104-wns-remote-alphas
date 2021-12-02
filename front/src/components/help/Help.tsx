@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ComingSoon from '../core/ComingSoon';
 
 const ContentHelp = styled.div`
-    height: 85vh;
+    height: 79vh;
     display: flex;
     justify-content: center;
     align-items: center;
