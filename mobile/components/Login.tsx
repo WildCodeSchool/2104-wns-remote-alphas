@@ -36,8 +36,9 @@ const Login = ({ navigation }: any) => {
 
 	const storeData = async (userToken) => {
 		try {
-		  await AsyncStorage.setItem('@storage_Key', setUserToken(userToken));
-		  console.log(setUserToken)
+		  await AsyncStorage.setItem('@storage_Key', userToken);
+		  setUserToken(userToken);
+		  console.log(userToken)
 		} catch (e) {
 		  // saving error
 		}
@@ -60,6 +61,8 @@ const Login = ({ navigation }: any) => {
 			},
 		});
 		if (typeof login === 'string') {
+			console.log(login);
+			storeData(login);
 			console.log("store asyn", storeData(login))
 			/* localStorage.setItem('token', login); */
 		 	navigation.navigate("Accueil") 
