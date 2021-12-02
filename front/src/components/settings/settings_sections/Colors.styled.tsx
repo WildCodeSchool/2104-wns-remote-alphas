@@ -33,12 +33,16 @@ const Column = styled.div`
     gap: ${(props) => props.theme.margin.generic.small};
 `;
 
+const Text = styled.text`
+    font-weight: bold;
+`;
+
 const Colors = (): JSX.Element => {
     const { width } = useWindowSize();
 
     return (
         <Column>
-            <text>Select a theme</text>
+            <Text>Select a theme</Text>
             <Row>
                 <Row>
                     <Circle style={{ backgroundColor: '#292929', border: 'none' }} />
@@ -58,10 +62,12 @@ const Colors = (): JSX.Element => {
 
                 <Row>
                     <LowerCircle style={{ backgroundColor: '#000' }} />
-                    <Circle style={{ backgroundColor: '#fff', border: '1px solid #4E4E4E' }} />
+                    <Circle style={{ backgroundColor: '#fff' }} />
                     <text>High Contrast</text>
                 </Row>
             </Row>
+            <Text>Or set up your own colors :</Text>
+
         </Column>
     );
 };
