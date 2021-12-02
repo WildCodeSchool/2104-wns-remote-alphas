@@ -16,6 +16,7 @@ import FormCourses from './components/backOffice/FormCourses';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import VisitorHomePage from './components/VisitorHomePage';
+import SingleCourse from './components/SingleCourse';
 import Context, { User } from './components/context/Context';
 import { ME } from './utils/apollo';
 
@@ -112,8 +113,8 @@ function Router(): JSX.Element {
 											<Profile />
 										</SettingsCard>
 									</Route>
-									<Route exact path="/courses/:course">
-										Courses/Course
+									<Route exact path="/courses/:id">
+										<SingleCourse />
 									</Route>
 									{user?.role === 'teacher' && (
 										<Route exact path="/backOffice">

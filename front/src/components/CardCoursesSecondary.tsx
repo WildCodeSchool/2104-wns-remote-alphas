@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -8,6 +9,7 @@ const Card = styled.div`
   margin: auto;
   border-radius: ${(props) => props.theme.fixedSize.borderRadius};
   box-shadow: ${(props) => props.theme.fixedSize.boxShadow};
+  cursor: pointer;
 `;
 
 const Title = styled.div`
@@ -37,10 +39,18 @@ const Line = styled.hr`
 `;
 
 function CardCoursesSecondary({
-  title, image, imageDescription, course
+  title, image, imageDescription, course, id
  }: Props): JSX.Element {
+  const history = useHistory();
+
+  function clickCourse() {
+		history.push(`/courses/${id}`);
+	}
    return (
-  <Card>
+  <Card
+    onClick={() => {
+    clickCourse();
+  }}>
     <Title data-testid="title-secondary-card">{title}</Title>
     <Container>
       <Image src={image} alt={imageDescription} />
@@ -57,6 +67,7 @@ interface Props {
   image: string,
   imageDescription: string,
   course: string,
+  id: string,
 }
 
 export default CardCoursesSecondary;

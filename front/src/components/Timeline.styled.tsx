@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import convertDate from '../utils/convertDate';
 import ErrorMessage from './ErrorMessage';
 import { GET_COURSES } from '../utils/apollo';
@@ -17,10 +18,12 @@ export type CourseType = {
 	technos: string[];
 	image_url: string;
 	postedAt?: string;
+	_id: string;
 };
 
 export function Timeline(): JSX.Element {
 	const { loading, error, data } = useQuery(GET_COURSES);
+	const history = useHistory();
 
 	if (loading) return <p>Loading...</p>;
 	if (error) {
@@ -53,7 +56,19 @@ export function Timeline(): JSX.Element {
 					cardBgColor: 'grey',
 					cardForeColor: 'white',
 				}}
-			/>
+			>
+			{data.getCourses.map((course: CourseType, index: number) => (
+				<button
+					type="button"
+					// eslint-disable-next-line react/no-array-index-key
+					key={index}
+					// eslint-disable-next-line no-underscore-dangle
+					onClick={() => { history.push(`/courses/${course._id}`); }}>
+						See course
+						<span role="img" aria-label="Books">📚</span>
+    </button>
+				))}
+   </Chrono>
 		</TimelineContent>
 	);
 }
