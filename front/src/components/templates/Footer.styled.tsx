@@ -2,6 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import LargeDivider from '../core/LargeDivider.styled';
 
+const FooterContainer = styled.div`
+	display: none;
+	@media (min-width: 350px) {
+		display: block
+	}
+`;
+
 const FooterContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
 	display: flex;
@@ -17,22 +24,22 @@ const FooterContent = styled.div`
 	position: relative;
 `;
 
-const WrapperLeft = styled.div`
+const Wrapper = styled.div`
 	color: ${(props) => props.theme.colors.textColor};
-`;
-
-const WrapperRight = styled.div`
-	color: ${(props) => props.theme.colors.textColor};
+	font-size: 10px;
+	@media (min-width: 580px) {
+        font-size: 14px;
+    }
 `;
 
 const Footer = (): JSX.Element => (
-	<>
+	<FooterContainer>
 		<LargeDivider />
 		<FooterContent data-testid="footer">
-			<WrapperLeft>© 2021 Alpha Wilders - All Rights Reserved.</WrapperLeft>
-			<WrapperRight>Terms of Service</WrapperRight>
+			<Wrapper>© 2021 Alpha Wilders - All Rights Reserved.</Wrapper>
+			<Wrapper>Terms of Service</Wrapper>
 		</FooterContent>
-	</>
+	</FooterContainer>
 );
 
 export default Footer;
