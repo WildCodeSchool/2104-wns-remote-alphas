@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-import Context from './context/Context';
-import ErrorMessage from './ErrorMessage';
-import { ME, SIGNUP, LOGIN } from '../utils/apollo';
+import Context from '../context/Context';
+import ErrorMessage from '../core/ErrorMessage';
+import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
 /// Build styled components
 const Wrapper = styled.div`
 	display: flex;
@@ -138,6 +138,7 @@ export default function SignUpPage(): JSX.Element {
 
 					if (me._id) {
 						setUser({ ...me });
+						localStorage.setItem('user', JSON.stringify(me));
 					}
 					history.push('/');
 				} else {

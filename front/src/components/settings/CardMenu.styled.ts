@@ -9,8 +9,8 @@ const CardMenu = styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: #4E4E4E; // todo: use theme secondary lighter
-    color: #D1DCE5; // todo: use theme light_text
+    background-color: #4E4E4E; // TODO: use theme secondary lighter
+    color: #D1DCE5; // TODO: use theme light_text
     width: 25%;
     height: 100%;
     min-height: 500px;

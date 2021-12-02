@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-import Context from './context/Context';
-import ErrorMessage from './ErrorMessage';
-import { LOGIN, ME } from '../utils/apollo';
+import Context from '../context/Context';
+import ErrorMessage from '../core/ErrorMessage';
+import { LOGIN, ME } from '../../utils/apollo';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -136,6 +136,7 @@ export default function SignInPage(): JSX.Element {
 
 				if (me._id) {
 					setUser({ ...me });
+					localStorage.setItem('user', JSON.stringify(me));
 				}
 				history.push('/');
 			} else {

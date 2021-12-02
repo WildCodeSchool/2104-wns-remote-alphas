@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Divider from '../Divider.styled';
+import Divider from '../core/Divider.styled';
 
 /**
- * NavMenu displays the setting cards' navigation menu, with links and icons
+ * NavMenu displays the setting cards' navigation menu, with links and icons.
+ * It updates the section displayed in the settings view on click on an item.
  */
+
 const Nav = styled.nav`
 width: 100%;
 ul {
@@ -25,13 +27,13 @@ hr:first-child {
     margin-block-start: 0;
 }
 li.active {
-    color: #FE7F2D;
+    color: ${(props) => props.theme.colors.tertiary};
 }
 `;
 
 const MenuIcon = styled.img`
-width: 48px;
-height: 48px;
+width: ${(props) => props.theme.fixedSize.icon.large};
+height: ${(props) => props.theme.fixedSize.icon.large};
 `;
 
 const MenuElement = styled.li`
@@ -40,27 +42,46 @@ justify-content: space-between;
 align-items: center;
 `;
 
-const NavMenu = (): JSX.Element => (
+interface NavMenuProps {
+    updateSection: (e: string) => void
+    section: string
+}
+
+const NavMenu = ({
+    updateSection,
+    section
+}: NavMenuProps): JSX.Element => (
     <Nav>
         <span className="menu-title">Customize</span>
         <ul>
             <Divider />
-            <MenuElement className="active">
+            <MenuElement
+                className={`banner ${(section === 'colors') ? 'active' : ''}`}
+                onClick={() => updateSection('colors')}>
                 <MenuIcon src="/assets/icons/002-pantone.svg" />
                 Colors
             </MenuElement>
+
             <Divider />
-            <MenuElement>
+            <MenuElement
+                className={`banner ${(section === 'texts') ? 'active' : ''}`}
+                onClick={() => updateSection('texts')}>
                 <MenuIcon src="/assets/icons/006-font-1.svg" />
                 Texts & Fonts
             </MenuElement>
+
             <Divider />
-            <MenuElement>
+            <MenuElement
+                className={`banner ${(section === 'distractions') ? 'active' : ''}`}
+                onClick={() => updateSection('distractions')}>
                 <MenuIcon src="/assets/icons/004-brain.svg" />
                 Distractions
             </MenuElement>
+
             <Divider />
-            <MenuElement>
+            <MenuElement
+            className={`banner ${(section === 'settings') ? 'active' : ''}`}
+            onClick={() => updateSection('settings')}>
                 <MenuIcon src="/assets/icons/003-wrench.svg" />
                 Settings
             </MenuElement>

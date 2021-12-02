@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import {
     render, screen, waitFor
 } from '@testing-library/react';
-import CardCourses from '../components/CardCourses';
+import CardCourses from '../components/timeline/CardCourses';
 import '@testing-library/jest-dom/extend-expect';
 import darkTheme from '../theme/darkTheme';
 

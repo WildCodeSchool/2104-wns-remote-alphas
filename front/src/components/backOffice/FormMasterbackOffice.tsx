@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../core/ErrorMessage';
 
 const Container = styled.div`
 	display: 'flex';
@@ -38,7 +38,7 @@ const Textarea = styled.textarea`
 	min-height: 2.5rem;
 	max-height: 50%;
 	margin: auto;
-	height: 2.5rem;
+	height: 50%;
 	border: 1px solid grey;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -69,12 +69,16 @@ interface Iprops {
 		technos: string;
 	};
 	onSubmit(e: React.SyntheticEvent): void;
+	buttonType: 'post' | 'update';
+	onCancel(): void;
 	errorState: { status: boolean; message: string };
 }
 function FormMasterBackOffice({
 	onChange,
 	courseInput,
 	onSubmit,
+	buttonType,
+	onCancel,
 	errorState,
 }: Iprops): JSX.Element {
 	return (
@@ -122,7 +126,23 @@ function FormMasterBackOffice({
 					}}
 				/> */}
 				{errorState.status && <ErrorMessage>{errorState.message}</ErrorMessage>}
-				<Button type="submit">Poster un cours</Button>
+				<Button type="submit">
+					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}
+				</Button>
+				{buttonType === 'update' && (
+					<Button
+						style={{
+							backgroundColor: 'transparent',
+							border: '1px solid white',
+						}}
+						type="button"
+						onClick={(e) => {
+							e.preventDefault();
+							onCancel();
+						}}>
+						Annuler modification
+					</Button>
+				)}
 			</Form>
 		</Container>
 	);
