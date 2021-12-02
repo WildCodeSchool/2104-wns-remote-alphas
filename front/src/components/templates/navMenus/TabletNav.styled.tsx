@@ -4,6 +4,9 @@ import Context from '../../context/Context';
 import MenuContent from '../components/MenuContent.styled';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
 
+/**
+ *  Build nav menu for tablets and medium screens
+ * */
 const TabletNav = (): JSX.Element => {
     const { user } = useContext(Context);
 

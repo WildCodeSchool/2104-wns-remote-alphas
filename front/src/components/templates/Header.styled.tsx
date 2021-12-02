@@ -5,7 +5,11 @@ import useWindowSize from '../../utils/useWindowSize';
 import LinkReactRouter from './components/LinkReactRouter.styled';
 import DesktopNav from './navMenus/DesktopNav.styled';
 import TabletNav from './navMenus/TabletNav.styled';
+import MobileNav from './navMenus/MobileNav.styled';
 
+/**
+ * Build a responsive app header with navigation menu
+ */
 const HeaderContent = styled.div`
 	background-color: #292929;
 	color: white;
@@ -45,6 +49,9 @@ const Header = (): JSX.Element => {
 					)}
 					{(width > 650 && width < 1000) && (
 						<TabletNav />
+					)}
+					{width < 650 && (
+						<MobileNav />
 					)}
 				</>
 			) : (

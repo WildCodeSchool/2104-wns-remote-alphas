@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Context, { User } from '../context/Context';
 
+/// Logout button
 const Button = styled.button`
 	text-decoration: none;
 	background-color: transparent;

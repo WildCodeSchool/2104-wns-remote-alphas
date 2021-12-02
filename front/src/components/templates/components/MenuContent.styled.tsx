@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
+/// A styled nav element for wrapping menu content
 const MenuContent = styled.nav`
 	display: flex;
-	justify-content: space-around;
+	justify-content: ${(props) => props.style?.justifyContent || 'space-around'};
 	align-items: center;
 	list-style: none;
 	width: ${(props) => props.style?.width || '700px'};

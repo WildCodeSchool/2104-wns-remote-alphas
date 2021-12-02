@@ -5,6 +5,9 @@ import Context from '../../context/Context';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
 import MenuContent from '../components/MenuContent.styled';
 
+/**
+ * Build desktop nav menu
+ */
 const ButtonChat = styled.button`
 	cursor: pointer;
 	border: 2px solid #68d0fc;
