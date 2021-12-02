@@ -101,7 +101,7 @@ function Router(): JSX.Element {
 										<Wiki />
 									</Route>
 									<Route exact path="/help">
-										Help
+										<Help />
 									</Route>
 									<Route exact path="/chat">
 										Chat
