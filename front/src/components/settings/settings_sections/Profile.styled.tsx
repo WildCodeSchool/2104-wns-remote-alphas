@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import Context from '../../context/Context';
 // import Field from '../../Field.styled';
 
 /**
@@ -63,11 +64,11 @@ export interface IUserData {
 
 /// Build the Profile component
 const Profile = (): JSX.Element => {
-    // TODO: connect to the back end
-    // récupérer le user connecté
-    // définir comme state initial
-    // injecter dans le useState comme état initial
-    const [userData, setUserData] = useState<IUserData>();
+    /// Fetch current user in context
+    const { user } = useContext(Context);
+    /// Set as initial data
+    const [userData, setUserData] = useState<IUserData>(user);
+    /// Handle field focus
     const [nameFocused, setNameFocus] = useState(false);
     const [firstNameFocused, setFirstNameFocus] = useState(false);
     const [emailFocused, setEmailFocus] = useState(false);
