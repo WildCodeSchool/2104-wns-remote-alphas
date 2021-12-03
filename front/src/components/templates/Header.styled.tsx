@@ -1,9 +1,15 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Logout from '../authentication/Logout';
 import Context from '../context/Context';
+import useWindowSize from '../../utils/useWindowSize';
+import LinkReactRouter from './components/LinkReactRouter.styled';
+import DesktopNav from './navMenus/DesktopNav.styled';
+import TabletNav from './navMenus/TabletNav.styled';
+import MobileNav from './navMenus/MobileNav.styled';
 
+/**
+ * Build a responsive app header with navigation menu
+ */
 const HeaderContent = styled.div`
 	background-color: #292929;
 	color: white;
@@ -20,60 +26,16 @@ const TitleContent = styled.div`
 	cursor: pointer;
 `;
 
-const MenuContent = styled.nav`
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	list-style: none;
-	width: 700px;
-	height: 41px;
-	font-weight: bold;
-`;
-
-const LinkReactRouter = styled(Link)`
-	text-decoration: none;
-	color: white;
-	cursor: pointer;
-	&:hover {
-		color: #68d0fc;
-		text-decoration: underline;
-	}
-	&:focus {
-		color: #68d0fc;
-		text-decoration: underline;
-		outline: none;
-	}
-`;
-
-const ButtonChat = styled.button`
-	cursor: pointer;
-	border: 2px solid #68d0fc;
-	border-radius: 4px;
-	background-color: #292929;
-	color: #68d0fc;
-	height: 41px;
-	width: 117px;
-	&:hover {
-		background-color: #68d0fc;
-		color: white;
-	}
-	&:focus {
-		outline: none;
-		background-color: #68d0fc;
-		color: white;
-		border: 2px solid white;
-	}
-`;
-
 const Header = (): JSX.Element => {
-	const { isLogin, user } = useContext(Context);
+	const { width } = useWindowSize();
+	const { isLogin } = useContext(Context);
 
 	return (
 		<HeaderContent data-testid="header">
 			<LinkReactRouter to="/">
 				<TitleContent data-testid="logo-title">
 					<img
-						style={{ width: '280px' }}
+						style={{ width: width > 1000 ? '280px' : '' }}
 						src="/assets/images/logo.svg"
 						alt="Masterize"
 					/>
@@ -81,21 +43,25 @@ const Header = (): JSX.Element => {
 			</LinkReactRouter>
 
 			{isLogin ? (
-				<MenuContent data-testid="menu">
-					<LinkReactRouter to="/">Home</LinkReactRouter>
-					<LinkReactRouter to="/courses">Courses</LinkReactRouter>
-					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
-					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
-					<LinkReactRouter to="help">Help</LinkReactRouter>
-					{user?.role === 'teacher' && (
-						<LinkReactRouter to="/backoffice">MasterBackOffice</LinkReactRouter>
+				<>
+					{width > 1000 && (
+						<DesktopNav />
 					)}
-
-					<ButtonChat type="button">Chat Now</ButtonChat>
-					<Logout />
-				</MenuContent>
+					{(width > 650 && width < 1000) && (
+						<TabletNav />
+					)}
+					{width < 650 && (
+						<MobileNav />
+					)}
+				</>
 			) : (
-				<LinkReactRouter to="/signin">Se connecter</LinkReactRouter>
+				<LinkReactRouter to="/signin">
+					<img
+						style={{ width: '25px' }}
+						src="/assets/icons/022-login.svg"
+						alt="Login"
+					/>
+				</LinkReactRouter>
 			)}
 		</HeaderContent>
 	);

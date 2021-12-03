@@ -115,12 +115,11 @@ function VisitorHomePage(): JSX.Element {
 					</LinkReactRouter>
 				</h3>
 			</div>
-			<CardContainer>
-				{fakeObjectsForVisitorPage.map((item: CourseType) => (
-					<Card>
-						<Title data-testid="title-secondary-card">
-							{item.courseName}
-						</Title>
+			<CardContainer data-testid="container-visitor-page">
+				{fakeObjectsForVisitorPage.map((item: CourseType, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<Card key={index}>
+						<Title data-testid="title-secondary-card">{item.courseName}</Title>
 						<Container>
 							<Image src={item.image_url} alt={item.description} />
 						</Container>
