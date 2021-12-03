@@ -32,7 +32,7 @@ export class User {
 
   @Field((type) => String)
   @prop({ required: true })
-  public role!: "student" | "teacher";
+  public role!: "student" | "teacher" | "admin";
 
   @Field((type) => String, { nullable: true })
   @prop({ required: false })

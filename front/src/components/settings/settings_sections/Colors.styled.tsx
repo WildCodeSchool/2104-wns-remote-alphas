@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 // import useWindowSize from '../../../utils/useWindowSize';
 import Context from '../../context/Context';
+import Colorpicker from '../Colorpicker.styled';
 
 const Circle = styled.div`
     border-radius: 50%;
@@ -63,12 +64,15 @@ export interface IUserData {
 
 const Colors = (): JSX.Element => {
     const [color, setColor] = useState('#aabbcc');
+    const [visibleColorPicker, toggleColorPicker] = useState(false);
     // const { width } = useWindowSize();
     /// Fetch current user in context
     const { user } = useContext(Context);
     /// Set as initial data
     // const [userColors, setUserColors] = useState<IUserData>(user);
     console.log(user);
+    console.log(`color = ${color}`);
+
     return (
         <Container>
             <Column>
@@ -97,9 +101,8 @@ const Colors = (): JSX.Element => {
                     </Row>
                 </Row>
                 <Text>Or set up your own colors :</Text>
-                {/* <HexColorPicker color={color} onChange={setColor} /> */}
                 <Row>
-                    <Circle style={{ backgroundColor: '#292929' }} />
+                    <Circle style={{ backgroundColor: '#292929' }} onClick={() => toggleColorPicker(!visibleColorPicker)} />
                     <Text>Primary</Text>
                     <p>Text & background color</p>
                 </Row>
@@ -129,6 +132,7 @@ const Colors = (): JSX.Element => {
                     <p>Links, menu elements & text on a dark background</p>
                 </Row>
             </Column>
+            {visibleColorPicker && (<Colorpicker color={color} setColor={setColor} />)}
         </Container>
     );
 };

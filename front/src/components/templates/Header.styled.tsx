@@ -44,15 +44,9 @@ const Header = (): JSX.Element => {
 
 			{isLogin ? (
 				<>
-					{width > 1000 && (
-						<DesktopNav />
-					)}
-					{(width > 650 && width < 1000) && (
-						<TabletNav />
-					)}
-					{width < 650 && (
-						<MobileNav />
-					)}
+					{width > 1000 && <DesktopNav />}
+					{width > 650 && width < 1000 && <TabletNav />}
+					{width < 650 && <MobileNav />}
 				</>
 			) : (
 				<LinkReactRouter to="/signin">

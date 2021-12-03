@@ -31,59 +31,59 @@ const ButtonChat = styled.button`
 `;
 
 const BurgerButton = styled.button`
-    background-color: #292929;
-    border: none;
+	background-color: #292929;
+	border: none;
 `;
 
 const MobileNav = (): JSX.Element => {
-    const { user } = useContext(Context);
-    const [open, setOpen] = useState(false);
+	const { user } = useContext(Context);
+	const [open, setOpen] = useState(false);
 
-    return (
-        <MenuContent style={{ justifyContent: 'flex-end' }}>
-            <BurgerButton
-                type="button"
-                onClick={() => setOpen(!open)}
-                onKeyDown={() => setOpen(!open)}>
-                <img
-                    style={{ width: '30px' }}
-                    src="/assets/icons/030-burger.svg"
-                    alt="Settings"
-                />
-            </BurgerButton>
+	return (
+		<MenuContent style={{ justifyContent: 'flex-end' }}>
+			<BurgerButton
+				type="button"
+				onClick={() => setOpen(!open)}
+				onKeyDown={() => setOpen(!open)}>
+				<img
+					style={{ width: '30px' }}
+					src="/assets/icons/030-burger.svg"
+					alt="Settings"
+				/>
+			</BurgerButton>
 
-            <BurgerMenu open={open} onClose={() => setOpen(!open)}>
-                <LinkReactRouter to="/">
-                    <text>Home</text>
-                </LinkReactRouter>
+			<BurgerMenu open={open} onClose={() => setOpen(!open)}>
+				<LinkReactRouter to="/">
+					<text>Home</text>
+				</LinkReactRouter>
 
-                <LinkReactRouter to="/courses">
-                    <text>Courses</text>
-                </LinkReactRouter>
+				<LinkReactRouter to="/courses">
+					<text>Courses</text>
+				</LinkReactRouter>
 
-                <LinkReactRouter to="/wiki">
-                    <text>Wiki</text>
-                </LinkReactRouter>
+				<LinkReactRouter to="/wiki">
+					<text>Wiki</text>
+				</LinkReactRouter>
 
-                <LinkReactRouter to="help">
-                    <text>Help</text>
-                </LinkReactRouter>
+				<LinkReactRouter to="help">
+					<text>Help</text>
+				</LinkReactRouter>
 
-                {user?.role === 'teacher' && (
-                    <LinkReactRouter to="/backoffice">
-                        <text>Office</text>
-                    </LinkReactRouter>
-                )}
+				{(user?.role === 'teacher' || user?.role === 'admin') && (
+					<LinkReactRouter to="/backoffice">
+						<text>Office</text>
+					</LinkReactRouter>
+				)}
 
-                <LinkReactRouter to="/settings">
-                    <text>Settings</text>
-                </LinkReactRouter>
+				<LinkReactRouter to="/settings">
+					<text>Settings</text>
+				</LinkReactRouter>
 
-                <ButtonChat type="button">Chat Now</ButtonChat>
+				<ButtonChat type="button">Chat Now</ButtonChat>
 
-                <Logout />
-            </BurgerMenu>
-        </MenuContent>
-    );
+				<Logout />
+			</BurgerMenu>
+		</MenuContent>
+	);
 };
 export default MobileNav;
