@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-// import { HexColorPicker } from 'react-colorful';
+import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
 // import useWindowSize from '../../../utils/useWindowSize';
 import Context from '../../context/Context';
@@ -97,7 +97,7 @@ const Colors = (): JSX.Element => {
                     </Row>
                 </Row>
                 <Text>Or set up your own colors :</Text>
-                {/* <HexColorPicker color={color} onChange={setColor} /> */}
+                <HexColorPicker color={color} onChange={setColor} />
                 <Row>
                     <Circle style={{ backgroundColor: '#292929' }} />
                     <Text>Primary</Text>
