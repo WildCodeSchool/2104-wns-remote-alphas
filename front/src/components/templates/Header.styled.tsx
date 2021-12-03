@@ -87,7 +87,7 @@ const Header = (): JSX.Element => {
 					<LinkReactRouter to="/wiki">Wiki</LinkReactRouter>
 					<LinkReactRouter to="/settings">Settings</LinkReactRouter>
 					<LinkReactRouter to="help">Help</LinkReactRouter>
-					{user?.role === 'teacher' && (
+					{(user?.role === 'teacher' || user?.role === 'admin') && (
 						<LinkReactRouter to="/backoffice">MasterBackOffice</LinkReactRouter>
 					)}
 

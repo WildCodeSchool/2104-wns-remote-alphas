@@ -20,12 +20,13 @@ export class CourseResolver {
   }
 
   @Query((returns) => Course, { nullable: true })
-  getCourseById(
+  async getCourseById(
     @Arg("courseId") courseId: CourseId,
     @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
   ) {
     if (authenticatedUserEmail) {
-      return CourseModel.findOne({ _id: courseId });
+      const foundCourse = await CourseModel.findOne({ _id: courseId });
+      return foundCourse;
     } else {
       throw new AuthenticationError("Not connected");
     }
@@ -109,7 +110,6 @@ export class CourseResolver {
         authenticatedUserRole === "admin"
       ) {
         const deleted = await CourseModel.deleteOne({ _id: courseId });
-        console.log(deleted);
         return { _id: courseId._id, message: "Course successfully deleted" };
       } else {
         throw new ApolloError("You are not allowed to do this");

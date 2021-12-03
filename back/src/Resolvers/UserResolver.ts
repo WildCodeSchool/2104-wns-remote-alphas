@@ -4,6 +4,7 @@ import { UserInput } from "./types/UserInput";
 import bcrypt from "bcrypt";
 import { ApolloError, AuthenticationError } from "apollo-server";
 import { UserId } from "./types/UserId";
+import { UpdateRoleInput } from "./types/updateRoleInput";
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -31,9 +32,9 @@ export class UserResolver {
   }
 
   @Mutation((returns) => User)
-  async updateOneUser(
-    @Arg("courseId") userId: UserId,
-    @Arg("data") data: UserInput,
+  async updateRole(
+    @Arg("userId") userId: UserId,
+    @Arg("newRole") newRole: UpdateRoleInput,
     @Ctx()
     {
       authenticatedUserEmail,
@@ -46,14 +47,14 @@ export class UserResolver {
     if (authenticatedUserEmail) {
       if (authenticatedUserRole === "admin") {
         const updatedUser = await UserModel.findOneAndUpdate(
-          { _id: userId },
-          data
+          { _id: userId._id },
+          { role: newRole.role }
         );
         if (updatedUser) {
-          Object.assign(updatedUser, data);
+          Object.assign(updatedUser, { role: newRole.role });
           await updatedUser.save();
+          return updatedUser;
         }
-        return updatedUser;
       } else {
         throw new ApolloError("You are not allowed to do this");
       }
