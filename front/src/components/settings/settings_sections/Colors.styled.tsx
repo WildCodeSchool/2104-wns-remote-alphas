@@ -1,50 +1,14 @@
-import React, { useContext, useState } from 'react';
-// import { HexColorPicker } from 'react-colorful';
+// eslint-disable-next-line object-curly-newline
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import useWindowSize from '../../../utils/useWindowSize';
 import Context from '../../context/Context';
+import Column from '../../core/layout_parts/Column.styled';
+import Row from '../../core/layout_parts/Row.styled';
 import Colorpicker from '../Colorpicker.styled';
-
-const Circle = styled.div`
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    border: 1px solid #4E4E4E;
-    z-index: 10;
-`;
-
-const LowerCircle = styled.div`
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    border: 1px solid #4E4E4E;
-    position: relative;
-    left: 28px;
-`;
-
-const Container = styled.div`
-    display: grid;
-    flex-direction: column;
-    margin: ${(props) => props.theme.margin.generic.large};
-    flex-wrap: wrap;
-    justify-content: stretch;
-    width: 60%;
-`;
-
-const Row = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-`;
-
-const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: ${(props) => props.theme.margin.generic.small};
-    gap: 0;
-`;
+import ColorDrop from '../components/ColorDrop.styled';
+import DoubleColorDrop from '../components/DoubleColorDrop.styled';
+import Container from '../components/SettingsContainer.styled';
 
 const Text = styled.p`
     font-weight: bold;
@@ -63,15 +27,48 @@ export interface IUserData {
 }
 
 const Colors = (): JSX.Element => {
-    const [color, setColor] = useState('#aabbcc');
     const [visibleColorPicker, toggleColorPicker] = useState(false);
+    const [setter, setSetter] = useState('');
+    const [color, setColor] = useState('#292929');
+    const [primaryColor, setPrimaryColor] = useState('#292929');
+    const [secondaryColor, setSecondaryColor] = useState('#68D0FC');
+    const [tertiaryColor, setTertiaryColor] = useState('#FE7F2D');
+    const [lighterSecondaryColor, setLighterSecondaryColor] = useState('#4E4E4E');
+    const [lightBackgroundColor, setLightBackgroundColor] = useState('#ECEFF1');
+    const [lightTextColor, setLightTextColor] = useState('#D1DCE5');
+
     // const { width } = useWindowSize();
     /// Fetch current user in context
     const { user } = useContext(Context);
     /// Set as initial data
     // const [userColors, setUserColors] = useState<IUserData>(user);
     console.log(user);
-    console.log(`color = ${color}`);
+
+    useEffect(() => {
+        console.log('effect');
+        switch (setter) {
+            case 'primary':
+                setPrimaryColor(color);
+                break;
+            case 'secondary':
+                setSecondaryColor(color);
+                break;
+            case 'tertiary':
+                setTertiaryColor(color);
+                break;
+            case 'lighterSecondary':
+                setLighterSecondaryColor(color);
+                break;
+            case 'lightBackground':
+                setLightBackgroundColor(color);
+                break;
+            case 'lightText':
+                setLightTextColor(color);
+                break;
+            default:
+                break;
+        }
+    }, [color, setter]);
 
     return (
         <Container>
@@ -79,60 +76,88 @@ const Colors = (): JSX.Element => {
                 <Text>Select a theme</Text>
                 <Row>
                     <Row>
-                        <Circle style={{ backgroundColor: '#292929', border: 'none' }} />
+                        <ColorDrop style={{ backgroundColor: '#292929', border: 'none' }} />
                         <text>Dark</text>
                     </Row>
 
                     <Row>
-                        <Circle style={{ backgroundColor: '#ECEFF1' }} />
+                        <ColorDrop style={{ backgroundColor: '#ECEFF1' }} />
                         <text>Light</text>
                     </Row>
 
-                    <Row>
-                        <LowerCircle style={{ backgroundColor: '#BDBDBD' }} />
-                        <Circle style={{ backgroundColor: '#E0E0E0' }} />
-                        <text>GreyScale</text>
-                    </Row>
+                    <DoubleColorDrop lowerColor="#BDBDBD" upperColor="#E0E0E0" title="GreyScale" />
 
-                    <Row>
-                        <LowerCircle style={{ backgroundColor: '#000' }} />
-                        <Circle style={{ backgroundColor: '#fff' }} />
-                        <text>High Contrast</text>
-                    </Row>
+                    <DoubleColorDrop lowerColor="#000" upperColor="#fff" title="High Contrast" />
                 </Row>
                 <Text>Or set up your own colors :</Text>
                 <Row>
-                    <Circle style={{ backgroundColor: '#292929' }} onClick={() => toggleColorPicker(!visibleColorPicker)} />
+                    <ColorDrop
+                        style={{ backgroundColor: primaryColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('primary');
+                            }} />
                     <Text>Primary</Text>
                     <p>Text & background color</p>
                 </Row>
                 <Row>
-                    <Circle style={{ backgroundColor: '#68D0FC' }} />
+                    <ColorDrop
+                        style={{ backgroundColor: secondaryColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('secondary');
+                        }} />
                     <Text>Secondary</Text>
                     <p>Main color to uplight higher level elements</p>
                 </Row>
                 <Row>
-                    <Circle style={{ backgroundColor: '#FE7F2D' }} />
+                    <ColorDrop
+                        style={{ backgroundColor: tertiaryColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('tertiary');
+                        }} />
                     <Text>Tertiary</Text>
                     <p>Links, buttons, focus borders & labels, tags</p>
                 </Row>
                 <Row>
-                    <Circle style={{ backgroundColor: '#4E4E4E' }} />
+                    <ColorDrop
+                        style={{ backgroundColor: lighterSecondaryColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('lighterSecondary');
+                        }} />
                     <Text>Lighter Secondary</Text>
                     <p>Secondary level background color (menus...)</p>
                 </Row>
                 <Row>
-                    <Circle style={{ backgroundColor: '#ECEFF1' }} />
+                    <ColorDrop
+                        style={{ backgroundColor: lightBackgroundColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('lightBackground');
+                        }} />
                     <Text>Light Background</Text>
                     <p>Clear light background, used on cards and lessons</p>
                 </Row>
                 <Row>
-                    <Circle style={{ backgroundColor: '#D1DCE5' }} />
+                    <ColorDrop
+                        style={{ backgroundColor: lightTextColor }}
+                        onClick={() => {
+                            toggleColorPicker(!visibleColorPicker);
+                            setSetter('lightText');
+                        }} />
                     <Text>Light Text</Text>
                     <p>Links, menu elements & text on a dark background</p>
                 </Row>
             </Column>
-            {visibleColorPicker && (<Colorpicker color={color} setColor={setColor} />)}
+            {visibleColorPicker && (
+            <Colorpicker
+                color={color}
+                setColor={setColor}
+                toggleColorPicker={toggleColorPicker}
+                visibleColorPicker={visibleColorPicker} />
+            )}
         </Container>
     );
 };

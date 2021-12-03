@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CircleAvatar from '../core/CircleAvatar.styled';
-import Card from './Card.styled';
-import CardMenu from './CardMenu.styled';
+import Card from './components/Card.styled';
+import CardMenu from './components/CardMenu.styled';
 import NavMenu from './NavMenu.styled';
 import Colors from './settings_sections/Colors.styled';
 import Distractions from './settings_sections/Distractions.styled';

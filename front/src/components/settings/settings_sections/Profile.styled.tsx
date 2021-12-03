@@ -3,21 +3,12 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../../context/Context';
+import Container from '../components/SettingsContainer.styled';
 // import Field from '../../Field.styled';
 
 /**
  * Profile displays the user profile's form
  */
-
-/// Style the profile container
-const Container = styled.div`
-    display: grid;
-    flex-direction: column;
-    margin: ${(props) => props.theme.margin.generic.large};
-    flex-wrap: wrap;
-    justify-content: stretch;
-    width: 60%;
-`;
 
 /// Style the form
 const Form = styled.form`

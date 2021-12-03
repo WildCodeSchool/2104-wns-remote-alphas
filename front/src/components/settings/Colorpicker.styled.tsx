@@ -2,6 +2,7 @@
 import React from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
+import ColorDrop from './components/ColorDrop.styled';
 
 /**
  * Colorpicker displays a modal color picker
@@ -27,34 +28,40 @@ const Modal = styled.div`
     padding: 3em;
     width: 30%;
     height: 30%;
-    display: flex;
-    gap: 1em;
     z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `;
 
-const ColorDrop = styled.div`
-    background-color: #000;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    border: 1px solid #4E4E4E;
+const Content = styled.div`
+    display: flex;
+    gap: 1em;
+    width: 100%;
 `;
 
 interface ColorpickerProps {
     setColor: (e: string) => void
+    toggleColorPicker: (e: boolean) => void
+    visibleColorPicker: boolean
     color: string
 }
 
 const Colorpicker = ({
     setColor,
-    color
+    color,
+    toggleColorPicker,
+    visibleColorPicker
 }: ColorpickerProps): JSX.Element => (
     <>
-        <Overlay />
+        <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
         <Modal>
-            <HexColorPicker color={color} onChange={setColor} />
-            <ColorDrop style={{ backgroundColor: color }} />
-            Current color is {color}
+            <Content>
+                <HexColorPicker color={color} onChange={setColor} />
+                <ColorDrop style={{ backgroundColor: color }} />
+                Current color is {color}
+            </Content>
+            <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>
         </Modal>
     </>
 );
