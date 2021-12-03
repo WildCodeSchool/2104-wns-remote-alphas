@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line object-curly-newline
 import { useMutation, useQuery, ApolloError, gql } from '@apollo/client';
-import ListCoursesback from './ListCoursesBack';
+import ListCoursesback, { CourseId } from './ListCoursesBack';
 import FormMasterBackOffice from './FormMasterbackOffice';
+import ModalConfirmation from '../core/ModalConfirmation';
 import { ADD_COURSE, DELETE_ONE_COURSE, GET_COURSES } from '../../utils/apollo';
 
 const BackOfficeTitle = styled.div`
@@ -115,6 +116,8 @@ function FormCourses(): JSX.Element {
 	const [updateOneCourseMutation] = useMutation(UPDATE_COURSE);
 	const [deleteOneCourseMutation] = useMutation(DELETE_ONE_COURSE);
 
+	const [showModal, setShowModal] = useState<boolean>(false);
+
 	async function handleSubmit(e: React.SyntheticEvent) {
 		e.preventDefault();
 		if (buttonType === 'update') {
@@ -170,6 +173,12 @@ function FormCourses(): JSX.Element {
 			}
 		}
 	}
+
+	function closeModal() {
+		setShowModal(false);
+		setPostCourseState(initialState);
+	}
+
 	async function deleteCourse(_id: string) {
 		const {
 			data: { deleteOneCourse },
@@ -182,8 +191,24 @@ function FormCourses(): JSX.Element {
 			setCourses(
 				courses.filter((course) => course._id !== deleteOneCourse._id)
 			);
-			setPostCourseState(initialState);
+			closeModal();
 			setButtonType('post');
+		}
+	}
+
+	function toggleModal(item: CourseType): void {
+		setShowModal(!showModal);
+		if (!showModal) {
+			setPostCourseState({
+				courseName: item.courseName,
+				technos: item.technos.join(' '),
+				description: item.description,
+				image_url: item.image_url,
+				_id: item._id,
+				postedAt: item.postedAt,
+			});
+		} else {
+			setPostCourseState(initialState);
 		}
 	}
 
@@ -224,8 +249,9 @@ function FormCourses(): JSX.Element {
 					<H2>Liste des cours</H2>
 					<ListCoursesback
 						courses={courses}
-						deleteCourse={deleteCourse}
+						// deleteCourse={deleteCourse}
 						fetchById={fetchOneCourse}
+						displayModal={toggleModal}
 					/>
 				</ListCoursesBackOffice>
 				<Form>
@@ -240,6 +266,14 @@ function FormCourses(): JSX.Element {
 					/>
 				</Form>
 			</FormContent>
+			{showModal && (
+				<ModalConfirmation
+					question="Es-tu sûr de vouloir supprimer ce cours ?"
+					id={postCourseState._id}
+					deleteCourse={deleteCourse}
+					closeModal={closeModal}
+				/>
+			)}
 		</>
 	);
 }
