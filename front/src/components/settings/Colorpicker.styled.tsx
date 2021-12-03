@@ -58,7 +58,7 @@ const Colorpicker = ({
         <Modal>
             <Content>
                 <HexColorPicker color={color} onChange={setColor} />
-                <ColorDrop style={{ backgroundColor: color }} />
+                <ColorDrop color={color} />
                 Current color is {color}
             </Content>
             <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>

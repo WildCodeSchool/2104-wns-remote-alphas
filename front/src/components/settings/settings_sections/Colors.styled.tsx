@@ -1,18 +1,12 @@
 // eslint-disable-next-line object-curly-newline
 import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
-// import useWindowSize from '../../../utils/useWindowSize';
 import Context from '../../context/Context';
 import Column from '../../core/layout_parts/Column.styled';
-import Row from '../../core/layout_parts/Row.styled';
+import Title from '../../core/Title.styled';
 import Colorpicker from '../Colorpicker.styled';
 import ColorDrop from '../components/ColorDrop.styled';
-import DoubleColorDrop from '../components/DoubleColorDrop.styled';
+import ColorTheme from '../components/ColorTheme.styled';
 import Container from '../components/SettingsContainer.styled';
-
-const Text = styled.p`
-    font-weight: bold;
-`;
 
 // export interface IUserColors {
 //     theme?: string;
@@ -26,6 +20,9 @@ export interface IUserData {
     location?: string;
 }
 
+/**
+ * Build the colors settings section
+ */
 const Colors = (): JSX.Element => {
     const [visibleColorPicker, toggleColorPicker] = useState(false);
     const [setter, setSetter] = useState('');
@@ -37,15 +34,16 @@ const Colors = (): JSX.Element => {
     const [lightBackgroundColor, setLightBackgroundColor] = useState('#ECEFF1');
     const [lightTextColor, setLightTextColor] = useState('#D1DCE5');
 
-    // const { width } = useWindowSize();
+    // FIXME: user data doesn't contain settings
+    // FIXME: customColors should be an array of string (currently set as string)
     /// Fetch current user in context
     const { user } = useContext(Context);
     /// Set as initial data
     // const [userColors, setUserColors] = useState<IUserData>(user);
-    console.log(user);
+    // console.log(user);
 
+    /// Set the current colordrop to the new value on color picker changes
     useEffect(() => {
-        console.log('effect');
         switch (setter) {
             case 'primary':
                 setPrimaryColor(color);
@@ -73,90 +71,70 @@ const Colors = (): JSX.Element => {
     return (
         <Container>
             <Column>
-                <Text>Select a theme</Text>
-                <Row>
-                    <Row>
-                        <ColorDrop style={{ backgroundColor: '#292929', border: 'none' }} />
-                        <text>Dark</text>
-                    </Row>
+                <Title>Select a theme</Title>
+                <ColorTheme />
+                <Title>Or set up your own colors :</Title>
 
-                    <Row>
-                        <ColorDrop style={{ backgroundColor: '#ECEFF1' }} />
-                        <text>Light</text>
-                    </Row>
+                <ColorDrop
+                    color={primaryColor}
+                    title="Primary"
+                    description="Text & background color"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('primary');
+                    }} />
 
-                    <DoubleColorDrop lowerColor="#BDBDBD" upperColor="#E0E0E0" title="GreyScale" />
+                <ColorDrop
+                    color={secondaryColor}
+                    title="Secondary"
+                    description="Main color to uplight higher level elements"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('secondary');
+                    }} />
 
-                    <DoubleColorDrop lowerColor="#000" upperColor="#fff" title="High Contrast" />
-                </Row>
-                <Text>Or set up your own colors :</Text>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: primaryColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('primary');
-                            }} />
-                    <Text>Primary</Text>
-                    <p>Text & background color</p>
-                </Row>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: secondaryColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('secondary');
-                        }} />
-                    <Text>Secondary</Text>
-                    <p>Main color to uplight higher level elements</p>
-                </Row>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: tertiaryColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('tertiary');
-                        }} />
-                    <Text>Tertiary</Text>
-                    <p>Links, buttons, focus borders & labels, tags</p>
-                </Row>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: lighterSecondaryColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('lighterSecondary');
-                        }} />
-                    <Text>Lighter Secondary</Text>
-                    <p>Secondary level background color (menus...)</p>
-                </Row>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: lightBackgroundColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('lightBackground');
-                        }} />
-                    <Text>Light Background</Text>
-                    <p>Clear light background, used on cards and lessons</p>
-                </Row>
-                <Row>
-                    <ColorDrop
-                        style={{ backgroundColor: lightTextColor }}
-                        onClick={() => {
-                            toggleColorPicker(!visibleColorPicker);
-                            setSetter('lightText');
-                        }} />
-                    <Text>Light Text</Text>
-                    <p>Links, menu elements & text on a dark background</p>
-                </Row>
+                <ColorDrop
+                    color={tertiaryColor}
+                    title="Tertiary"
+                    description="Links, buttons, focus borders & labels, tags"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('tertiary');
+                    }} />
+
+                <ColorDrop
+                    color={lighterSecondaryColor}
+                    title="Lighter Secondary"
+                    description="Secondary level background color (menus...)"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('lighterSecondary');
+                    }} />
+
+                <ColorDrop
+                    color={lightBackgroundColor}
+                    title="LightBackground"
+                    description="Clear light background, used on cards and lessons"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('lightBackground');
+                    }} />
+
+                <ColorDrop
+                    color={lightTextColor}
+                    title="Light Text"
+                    description="Links, menu elements & text on a dark background"
+                    onClick={() => {
+                        toggleColorPicker(!visibleColorPicker);
+                        setSetter('lightText');
+                    }} />
             </Column>
             {visibleColorPicker && (
-            <Colorpicker
-                color={color}
-                setColor={setColor}
-                toggleColorPicker={toggleColorPicker}
-                visibleColorPicker={visibleColorPicker} />
+                <Colorpicker
+                    color={color}
+                    setColor={setColor}
+                    toggleColorPicker={toggleColorPicker}
+                    visibleColorPicker={visibleColorPicker} />
             )}
         </Container>
     );

@@ -25,7 +25,7 @@ const DoubleColorDrop = ({
 }: DoubleColorDropProps): JSX.Element => (
     <Row>
         <LowerDrop style={{ backgroundColor: lowerColor }} />
-        <ColorDrop style={{ backgroundColor: upperColor }} />
+        <ColorDrop color={upperColor} />
         <text>{title}</text>
     </Row>
 );
