@@ -4,7 +4,7 @@ import { UserInput } from "./types/UserInput";
 import bcrypt from "bcrypt";
 import { ApolloError, AuthenticationError } from "apollo-server";
 import { UserId } from "./types/UserId";
-import { UpdateRoleInput } from "./types/updateRoleInput";
+import { UpdateRoleInput } from "./types/UpdateRoleInput";
 
 @Resolver((of) => User)
 export class UserResolver {
