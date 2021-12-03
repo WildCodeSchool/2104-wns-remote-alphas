@@ -17,6 +17,9 @@ export class UserInput implements Partial<User> {
   public password!: string;
 
   @Field((type) => String, { nullable: true })
+  public role?: "student" | "teacher" | "admin";
+
+  @Field((type) => String, { nullable: true })
   public location?: string;
 
   @Field((type) => SettingsInput, { nullable: true })

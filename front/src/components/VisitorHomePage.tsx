@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, { ThemeProvider } from 'styled-components';
-import darkTheme from '../theme/darkTheme';
+import styled from 'styled-components';
 
 export type CourseType = {
 	_id: string;
@@ -98,41 +97,38 @@ const fakeObjectsForVisitorPage = [
 
 function VisitorHomePage(): JSX.Element {
 	return (
-		<ThemeProvider theme={darkTheme}>
-			<AppContent>
-				<div>
-					<h1 style={{ color: '#68d0fc', textAlign: 'center' }}>
-						Bienvenue sur Masterize
-					</h1>
-					<br />
-					<h2 style={{ color: 'white', textAlign: 'center' }}>
-						La meilleure plateforme de cours en ligne pour apprendre le code.
-					</h2>
-					<h3 style={{ color: 'white', textAlign: 'center' }}>
-						Pas encore de compte ?
-						<LinkReactRouter to="/signup">
-							{'   '}
-							Je m&apos;inscris et je deviens Dev senior freelance 600 euros /
-							jour en moins de 7 jours.
-						</LinkReactRouter>
-					</h3>
-				</div>
-				<CardContainer>
-					{fakeObjectsForVisitorPage.map((item: CourseType) => (
-						<Card>
-							<Title data-testid="title-secondary-card">
-								{item.courseName}
-							</Title>
-							<Container>
-								<Image src={item.image_url} alt={item.description} />
-							</Container>
-							<Line />
-							<ThemeCourse>{item.technos[0]}</ThemeCourse>
-						</Card>
-					))}
-				</CardContainer>
-			</AppContent>
-		</ThemeProvider>
+		<AppContent>
+			<div>
+				<h1 style={{ color: '#68d0fc', textAlign: 'center' }}>
+					Bienvenue sur Masterize
+				</h1>
+				<br />
+				<h2 style={{ color: 'white', textAlign: 'center' }}>
+					La meilleure plateforme de cours en ligne pour apprendre le code.
+				</h2>
+				<h3 style={{ color: 'white', textAlign: 'center' }}>
+					Pas encore de compte ?
+					<LinkReactRouter to="/signup">
+						{'   '}
+						Je m&apos;inscris et je deviens Dev senior freelance 600 euros /
+						jour en moins de 7 jours.
+					</LinkReactRouter>
+				</h3>
+			</div>
+			<CardContainer data-testid="container-visitor-page">
+				{fakeObjectsForVisitorPage.map((item: CourseType, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<Card key={index}>
+						<Title data-testid="title-secondary-card">{item.courseName}</Title>
+						<Container>
+							<Image src={item.image_url} alt={item.description} />
+						</Container>
+						<Line />
+						<ThemeCourse>{item.technos[0]}</ThemeCourse>
+					</Card>
+				))}
+			</CardContainer>
+		</AppContent>
 	);
 }
 

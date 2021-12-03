@@ -30,6 +30,10 @@ export class User {
   @prop({ required: true })
   public password!: string;
 
+  @Field((type) => String)
+  @prop({ required: true })
+  public role!: "student" | "teacher" | "admin";
+
   @Field((type) => String, { nullable: true })
   @prop({ required: false })
   public location?: string;

@@ -36,7 +36,6 @@ const Line = styled.hr`
 	width: 100%;
 `;
 
-// eslint-disable-next-line max-len
 function CardCourses({
 	title,
 	image,

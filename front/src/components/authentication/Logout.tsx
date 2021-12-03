@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Context from './context/Context';
+import Context, { User } from '../context/Context';
 
+/// Logout button
 const Button = styled.button`
 	text-decoration: none;
 	background-color: transparent;
@@ -25,21 +26,29 @@ const Button = styled.button`
 
 export default function Logout(): JSX.Element {
 	const history = useHistory();
-	const { client, setIsLogin } = useContext(Context);
+	// eslint-disable-next-line object-curly-newline
+	const { client, isLogin, setIsLogin, user, setUser } = useContext(Context);
 	return (
 		<Button
 			type="button"
 			onClick={() => {
 				client?.cache.reset();
-				localStorage.removeItem('token');
+				localStorage.clear();
 
-				if (setIsLogin) {
+				if (isLogin) {
 					setIsLogin(false);
+				}
+				if (user) {
+					setUser({} as User);
 				}
 
 				history.push('/');
 			}}>
-			Logout
+			<img
+				style={{ width: '25px' }}
+				src="/assets/icons/023-logout.svg"
+				alt="logout"
+			/>
 		</Button>
 	);
 }

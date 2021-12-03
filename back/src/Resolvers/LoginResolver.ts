@@ -20,12 +20,13 @@ export class LoginResolver {
       const token = jwt.sign(
         {
           userEmail: userFound.email,
+          userRole: userFound.role,
         },
         jwtKey
       );
       return token;
     } else {
-      throw new AuthenticationError("Email or password is incorrect");
+      throw new AuthenticationError("Invalid credentials");
     }
   }
 }
