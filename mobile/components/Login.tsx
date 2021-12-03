@@ -61,13 +61,13 @@ const Login = ({ navigation }: any) => {
 			},
 		});
 		if (typeof login === 'string') {
-			console.log(login);
 			storeData(login);
-			console.log("store asyn", storeData(login))
-		 	navigation.navigate("Accueil") 
+		 	setTimeout(() => {
+				navigation.navigate("Accueil");
+			 });
 		} else {
 			setEmail("");
-			setPassword("")
+			setPassword("");
 		}
 	}
 

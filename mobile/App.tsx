@@ -24,6 +24,7 @@ import Login from "./components/Login";
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Logout from "./components/Logout";
 
 
 Notifications.setNotificationHandler({
@@ -163,6 +164,8 @@ export default function App() {
                   iconName = focused ? "chatbubbles" : "chatbubbles-outline";
                 } else if (route.name === "Se connecter") {
                   iconName = focused ? "log-in" : "log-in-outline";
+                } else if (route.name === "Se déconnecter") {
+                  iconName = focused ? "log-out" : "log-out-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -172,7 +175,8 @@ export default function App() {
           >
             <Tab.Screen name="Accueil" component={Home} />
             <Tab.Screen name="Messages" component={MessageStackScreen} />
-            <Tab.Screen name="Se connecter" component={Login} />
+            <Tab.Screen name="Se déconnecter" component={Logout} />
+            {/* <Tab.Screen name="Se connecter" component={Login} /> */}
               <Tab.Screen name="Caméra" component={CameraScreen} />
            </Tab.Navigator>  
               ) : (
