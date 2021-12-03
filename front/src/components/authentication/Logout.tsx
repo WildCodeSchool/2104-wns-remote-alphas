@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Context, { User } from '../context/Context';
 
+/// Logout button
 const Button = styled.button`
 	text-decoration: none;
 	background-color: transparent;
@@ -43,7 +44,11 @@ export default function Logout(): JSX.Element {
 
 				history.push('/');
 			}}>
-			Logout
+			<img
+				style={{ width: '25px' }}
+				src="/assets/icons/023-logout.svg"
+				alt="logout"
+			/>
 		</Button>
 	);
 }

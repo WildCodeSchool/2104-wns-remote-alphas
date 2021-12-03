@@ -8,7 +8,7 @@ module.exports = [
     firstName: "Théodore",
     email: "theodore.lefrancois2906@gmail.com",
     password: bcrypt.hashSync("password", 10),
-    role: "teacher",
+    role: "admin",
     location: "Ondres",
     settings: {
       instantChat: true,
