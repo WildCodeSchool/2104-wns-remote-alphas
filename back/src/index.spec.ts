@@ -39,7 +39,7 @@ describe("Tests for the back", () => {
         schema,
         context: () => {
           const token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InRlYWNoZXIiLCJpYXQiOjE2Mzg0NDQ0Mzl9.ejRb2zqkqVoW9hd3hMjzpCS1DpxDXa_LNCJBNaU9cTA";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNjM4NTI3NDQwfQ.E2NTaANl3myy22VjMwyw7fDYD37mlSdV8faO44kaL3w";
           try {
             const payload = jwt.verify(token, jwtKey);
             if (typeof payload !== "string") {
@@ -103,6 +103,7 @@ describe("Tests for the back", () => {
     const res = await query({
       query: GET_USERS,
     });
+    console.log(res);
     expect(res.data?.getUsers.length).toEqual(1);
     expect(typeof res.data?.getUsers).toEqual("object");
   });
