@@ -8,10 +8,11 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
 
+RUN yarn install
+
 COPY public public
 COPY src src
 COPY tsconfig.json tsconfig.json
 
-RUN yarn install
 
 CMD ["yarn", "start"]

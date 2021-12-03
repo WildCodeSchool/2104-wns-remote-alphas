@@ -14,9 +14,7 @@ const FooterContent = styled.div`
 	border-top: 1px solid #e5e5e5;
 	position: absolute;
 	bottom: 0;
-	left: 0;
-
-
+	position: relative;
 `;
 
 const WrapperLeft = styled.div`

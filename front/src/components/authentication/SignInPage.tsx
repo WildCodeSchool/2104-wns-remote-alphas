@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+import Context from '../context/Context';
+import ErrorMessage from '../core/ErrorMessage';
+import { LOGIN, ME } from '../../utils/apollo';
 
 const Wrapper = styled.div`
 	display: flex;
-	//justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	margin: auto;
@@ -40,11 +42,6 @@ const Form = styled.form`
 	gap: 1rem;
 	width: 100%;
 `;
-
-// const titleSignIn = styled.h3`
-// 	display: flex;
-// 	justify-content: 'center';
-// `;
 
 const Input = styled.input`
 	margin: auto;
@@ -97,40 +94,58 @@ const Line = styled.div`
 	//margin: auto;
 `;
 
-export const LOGIN = gql`
-	mutation login($email: String!, $password: String!) {
-		login(userInput: { email: $email, password: $password })
-	}
-`;
-
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
+	const initialErrorState = {
+		status: false,
+		message: '',
+	};
 	const [userLog, setUserLog] = useState(initialState);
-	const [loginMutation, { error }] = useMutation(LOGIN);
+	const [loginMutation] = useMutation(LOGIN);
+	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
-	if (error) return <p>Error :(</p>;
+	const [errorState, setErrorState] = useState(initialErrorState);
+
+	const { setIsLogin, setUser } = useContext(Context);
 
 	function handleClick() {
 		history.push('/signup');
 	}
 
 	async function handleSubmit() {
-		const {
-			data: { login },
-		} = await loginMutation({
-			variables: {
-				email: userLog.email,
-				password: userLog.password,
-			},
-		});
+		try {
+			const {
+				data: { login },
+			} = await loginMutation({
+				variables: {
+					email: userLog.email,
+					password: userLog.password,
+				},
+			});
 
-		console.log(login, 'login');
-		if (typeof login === 'string') {
-			localStorage.setItem('token', login);
-			history.push('/');
-		} else {
-			setUserLog(initialState);
+			if (typeof login === 'string') {
+				localStorage.setItem('token', login);
+
+				if (setIsLogin) {
+					setIsLogin(true);
+				}
+				const {
+					data: { me },
+				} = await userMutation({});
+
+				if (me._id) {
+					setUser({ ...me });
+					localStorage.setItem('user', JSON.stringify(me));
+				}
+				history.push('/');
+			} else {
+				setUserLog(initialState);
+			}
+		} catch (err) {
+			if (err instanceof ApolloError) {
+				setErrorState({ message: err.message, status: true });
+			}
 		}
 	}
 	return (
@@ -170,12 +185,13 @@ export default function SignInPage(): JSX.Element {
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
-							}}
-					>
+						}}>
 						Se connecter
 					</Button>
+					{errorState.status && (
+						<ErrorMessage>{errorState.message}</ErrorMessage>
+					)}
 				</Form>
-				{error && <p>Erreur</p>}
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
@@ -184,8 +200,7 @@ export default function SignInPage(): JSX.Element {
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
 					handleClick();
-				}}
-			>
+				}}>
 				S&apos;INSCRIRE
 			</LittleTitle>
 		</Wrapper>

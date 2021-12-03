@@ -14,10 +14,11 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 if (!process.env.MONGODB) {
   throw new Error("environment variable MONGODB is missing");
 }
-if (!process.env.SECRET_KEY) {
+console.log("test", process.env.NODE_ENV);
+if (!process.env.SECRET_KEY && process.env.NODE_ENV !== "test") {
   throw new Error("environment variable SECRET_KEY is missing");
 }
-const jwtKey = process.env.SECRET_KEY;
+const jwtKey = process.env.SECRET_KEY || "test secret key";
 
 const PORT = 8080;
 
@@ -41,7 +42,7 @@ async function bootstrap() {
   const fixtures = new Fixtures();
   // connects to mongoDB
   fixtures
-    .connect(process.env.MONGODB)
+    .connect(process.env.MONGODB!)
     // Unload all the fixtures
     .then(() => fixtures.unload())
     // load the fixtures
@@ -57,7 +58,7 @@ async function bootstrap() {
 
   const server = new ApolloServer({
     schema,
-    playground: true,
+    playground: process.env.NODE_ENV !== "production",
     context: ({ req }) => {
       if (req) {
         const token = req.headers.authorization;
@@ -65,7 +66,10 @@ async function bootstrap() {
           try {
             const payload = jwt.verify(token, jwtKey);
             if (typeof payload !== "string") {
-              return { authenticatedUserEmail: payload.userEmail };
+              return {
+                authenticatedUserEmail: payload.userEmail,
+                authenticatedUserRole: payload.userRole,
+              };
             }
           } catch (err) {
             console.log(err);

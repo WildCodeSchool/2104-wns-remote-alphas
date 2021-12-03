@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  back:
+    build: ./back
+    command: sh -c "npm run build && npm run prod"
+    expose:
+      - 8080
+    environment:
+      - MONGODB=mongodb://mongodb:27017/masterize
+    env_file:
+      - "./back/.env"
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    command: sh -c "npm run build"
+    volumes:
+      - web-client-build:/app/build
+    environment:
+      - NODE_ENV=production
+  mongodb:
+    image: mongo:4.4.9
+    volumes:
+      - ./data:/data/db
+  nginx:
+    image: nginx:1.21.3
+    depends_on:
+      - back
+      - front
+    restart: always
+    ports:
+      - ${GATEWAY_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - web-client-build:/web-client-build
+      - ./logs:/var/log/nginx
+volumes:
+  web-client-build:
