@@ -127,13 +127,13 @@ export default function App() {
         // value previously stored
       }
     } catch(e) {
-      console.log("2",userToken)
-
       // error reading value
     }
   }
 
   getData()
+
+  console.log('USER TOKEN', userToken)
 
   return (
     <UserContext.Provider
@@ -141,7 +141,7 @@ export default function App() {
     >
       <ApolloProvider client={client}>
           <NavigationContainer>
-          {/*  { userToken !== null ? (  */}
+          { userToken !== "" ? (  
             <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({
@@ -173,30 +173,13 @@ export default function App() {
             <Tab.Screen name="Accueil" component={Home} />
             <Tab.Screen name="Messages" component={MessageStackScreen} />
             <Tab.Screen name="Se connecter" component={Login} />
-            {/* <Tab.Screen name="Discussions" component={DiscussList} /> */}
-            {/* <Tab.Screen name="ChatRoom" component={ChatInterface} /> */}
               <Tab.Screen name="Caméra" component={CameraScreen} />
            </Tab.Navigator>  
-           {/*       ) : (
-                <Stack.Navigator>
-                <Stack.Screen name="Se connecter" component={Login} />
-                </Stack.Navigator>
-                )}  */}
- 
-            {/* { localStorage.getItem('token') !== null ? (
-                          <Stack.Navigator>
-                            <Stack.Screen name="Accueil" component={Home} />
-                            <Stack.Screen name="Messages" component={MessageStackScreen} />
-                            <Stack.Screen name="Discussions" component={DiscussList} />
-                           </Stack.Navigator>
-
-
-            ) : (
-              <Stack.Navigator>
-              <Stack.Screen name="Se connecter" component={Login} />
-            </Stack.Navigator>
-
-            )} */}
+              ) : (
+                <Tab.Navigator>
+                <Tab.Screen name="Se connecter" component={Login} />
+                </Tab.Navigator>
+                )} 
         </NavigationContainer>
         </ApolloProvider>
     </UserContext.Provider>

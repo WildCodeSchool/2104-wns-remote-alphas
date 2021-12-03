@@ -64,7 +64,6 @@ const Login = ({ navigation }: any) => {
 			console.log(login);
 			storeData(login);
 			console.log("store asyn", storeData(login))
-			/* localStorage.setItem('token', login); */
 		 	navigation.navigate("Accueil") 
 		} else {
 			setEmail("");
