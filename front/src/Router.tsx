@@ -119,7 +119,7 @@ function Router(): JSX.Element {
 										<Route exact path="/courses/:id">
 											<SingleCourse />
 										</Route>
-										{user?.role === 'teacher' && (
+										{(user?.role === 'teacher' || user?.role === 'admin') && (
 											<Route exact path="/backOffice">
 												<FormCourses />
 											</Route>

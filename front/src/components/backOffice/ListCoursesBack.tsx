@@ -1,7 +1,8 @@
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import convertDate from '../../utils/convertDate';
+import ModalConfirmation from '../core/ModalConfirmation';
 
 // APPEL API GRAPHQL
 export type CourseType = {
@@ -19,14 +20,15 @@ export type CourseId = {
 
 interface Iprops {
 	courses: CourseType[];
-	deleteCourse(_id: string): void;
+	// deleteCourse(_id: string): void;
 	fetchById(_id: string): void;
+	displayModal(item: CourseType): void;
 }
 
 function ListCoursesback({
 	courses,
-	deleteCourse,
 	fetchById,
+	displayModal,
 }: Iprops): JSX.Element {
 	return (
 		<table style={{ width: '100%' }}>
@@ -76,7 +78,9 @@ function ListCoursesback({
 								type="button"
 								onClick={(e) => {
 									e.preventDefault();
-									deleteCourse(item._id);
+									// deleteCourse(item._id);
+									// displayModalToConfirm();
+									displayModal(item);
 								}}>
 								Supprimer
 							</button>
@@ -102,6 +106,15 @@ function ListCoursesback({
 					</tbody>
 				))}
 		</table>
+		// {showModal && (
+		// 	<ModalConfirmation
+		// 		question="Es-tu sûr de vouloir supprimer ce cours ?"
+		// 		displayModal={displayModalToConfirm}
+		// 		deleteCourse={deleteCourse}
+		// 		id={item._id}
+		// 		courses={courses}
+		// 	/>
+		// )}
 	);
 }
 
