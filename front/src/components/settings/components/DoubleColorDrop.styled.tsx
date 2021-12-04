@@ -5,9 +5,9 @@ import ColorDrop from './ColorDrop.styled';
 
 /**
  * Build a double color drop for themes
- * @property {string} lowerColor : defines the first color drop background
- * @property {string} upperColor : defines the second color drop background
- * @property {string} [title=''] : the text coming with the color drop
+ * @param lowerColor - defines the first color drop background
+ * @param upperColor - defines the second color drop background
+ * @param title - the text coming with the color drop
  */
 
 const LowerDrop = styled.div<{ color: string }>`

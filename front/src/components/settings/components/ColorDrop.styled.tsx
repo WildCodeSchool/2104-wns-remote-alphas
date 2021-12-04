@@ -5,11 +5,11 @@ import Bold from '../../core/Bold.styled';
 
 /**
  * Build a circular color drop for displaying selected colors or themes
- * @property {string} color the background color of the drop
- * @property {string} [title = ''] the optionnal title coming on the right
- * @property {string} [description = ''] the optionnal description of the element
- * @property {boolean} [border = true] defines if the colordrop has a border or not
- * @property {(e:unknown) => void} [onClick] set the optionnal callback on click event
+ * @param color - the background color of the drop
+ * @param title - the optionnal title coming on the right
+ * @param description - the optionnal description of the element
+ * @param border - defines if the colordrop has a border or not
+ * @param onClick - set the optionnal callback on click event
  */
 
 const Drop = styled.div<{ hasBorder?: boolean, background: string }>`

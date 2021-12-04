@@ -4,14 +4,13 @@ import styled from 'styled-components';
 
 /**
  * Build a generic text field to use in forms
- * @property {string} [type] set optionnal input type
- * @property {string} [label] set optionnal label for the field
- * @property {boolean} focused changes style on focus state
- * @property {ChangeEventHandler<HTMLInputElement>} onChange handle onChange input property,
- * in order to listen to the content changes
- * @property {FocusEventHandler} onFocus handles onFocus input property
- * @property {FocusEventHandler} onBlur handles onBlur input property (=> lost focus)
- * @property {string} [value] the optionnal value of the input field
+ * @param type - set optionnal input type
+ * @param label - set optionnal label for the field
+ * @param focused - changes style on focus state
+ * @param onChange - handle onChange input property, in order to listen to the content changes
+ * @param onFocus - handles onFocus input property
+ * @param onBlur - handles onBlur input property (= lost focus)
+ * @param value - the optionnal value of the input field
  */
 /// Define props type
 interface FormFieldProps {
