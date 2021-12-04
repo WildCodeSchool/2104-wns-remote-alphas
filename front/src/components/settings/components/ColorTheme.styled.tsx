@@ -4,6 +4,9 @@ import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
 import DoubleColorDrop from './DoubleColorDrop.styled';
 
+/**
+ * Builds a row with color themes drops and titles for colors settings section
+ */
 const ColorTheme = (): JSX.Element => {
     const [theme, setTheme] = useState();
 

@@ -3,19 +3,27 @@ import styled from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
 
-const LowerDrop = styled.div`
+/**
+ * Build a double color drop for themes
+ * @property {string} lowerColor : defines the first color drop background
+ * @property {string} upperColor : defines the second color drop background
+ * @property {string} [title=''] : the text coming with the color drop
+ */
+
+const LowerDrop = styled.div<{ color: string }>`
     border-radius: 50%;
     width: 35px;
     height: 35px;
     border: 1px solid #4E4E4E;
     position: relative;
     left: 28px;
+    background-color: ${(props) => props.color};
 `;
 
 interface DoubleColorDropProps {
     lowerColor: string
     upperColor: string
-    title: string
+    title?: string
 }
 
 const DoubleColorDrop = ({
@@ -24,10 +32,14 @@ const DoubleColorDrop = ({
     title,
 }: DoubleColorDropProps): JSX.Element => (
     <Row>
-        <LowerDrop style={{ backgroundColor: lowerColor }} />
+        <LowerDrop color={lowerColor} />
         <ColorDrop color={upperColor} />
         <text>{title}</text>
     </Row>
 );
+
+DoubleColorDrop.defaultProps = {
+    title: ''
+};
 
 export default DoubleColorDrop;

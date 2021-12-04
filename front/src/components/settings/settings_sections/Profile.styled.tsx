@@ -58,7 +58,7 @@ const Profile = (): JSX.Element => {
     const { user } = useContext(Context);
     /// Set as initial data
     const [userData, setUserData] = useState<IUserData>(user);
-    /// Handle field focus
+    /// Handle fields focus
     const [nameFocused, setNameFocus] = useState(false);
     const [firstNameFocused, setFirstNameFocus] = useState(false);
     const [emailFocused, setEmailFocus] = useState(false);

@@ -2,11 +2,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../context/Context';
 import Column from '../../core/layout_parts/Column.styled';
-import Title from '../../core/Title.styled';
 import Colorpicker from '../Colorpicker.styled';
 import ColorDrop from '../components/ColorDrop.styled';
 import ColorTheme from '../components/ColorTheme.styled';
 import Container from '../components/SettingsContainer.styled';
+import Bold from '../../core/Bold.styled';
 
 // export interface IUserColors {
 //     theme?: string;
@@ -71,9 +71,9 @@ const Colors = (): JSX.Element => {
     return (
         <Container>
             <Column>
-                <Title>Select a theme</Title>
+                <Bold>Select a theme</Bold>
                 <ColorTheme />
-                <Title>Or set up your own colors :</Title>
+                <Bold>Or set up your own colors :</Bold>
 
                 <ColorDrop
                     color={primaryColor}

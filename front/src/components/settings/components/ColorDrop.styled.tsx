@@ -1,14 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
-import Title from '../../core/Title.styled';
+import Bold from '../../core/Bold.styled';
 
-const Drop = styled.div`
-    background-color: #000;
+/**
+ * Build a circular color drop for displaying selected colors or themes
+ * @property {string} color the background color of the drop
+ * @property {string} [title = ''] the optionnal title coming on the right
+ * @property {string} [description = ''] the optionnal description of the element
+ * @property {boolean} [border = true] defines if the colordrop has a border or not
+ * @property {(e:unknown) => void} [onClick] set the optionnal callback on click event
+ */
+
+const Drop = styled.div<{ hasBorder?: boolean, background: string }>`
+    background-color: ${(props) => props.background};
     border-radius: 50%;
     width: 35px;
     height: 35px;
     z-index: 10;
+    ${(props) => (props.hasBorder && css`
+        border: 1px solid #4E4E4E`
+    )};
 `;
 
 interface ColorDropProps {
@@ -28,8 +40,8 @@ const ColorDrop = ({
 }: ColorDropProps): JSX.Element => (
     <Row>
         <Row>
-            <Drop style={{ backgroundColor: color, border: !border ? 'none' : '1px solid #4E4E4E' }} onClick={onClick} />
-            <Title>{title}</Title>
+            <Drop hasBorder={border} background={color} onClick={onClick} />
+            <Bold>{title}</Bold>
         </Row>
         <p>{description}</p>
     </Row>
