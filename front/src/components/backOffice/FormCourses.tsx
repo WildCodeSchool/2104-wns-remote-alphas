@@ -118,6 +118,8 @@ function FormCourses(): JSX.Element {
 
 	const [showModal, setShowModal] = useState<boolean>(false);
 
+	const [opacityUnderModal, setOpacityUnderModal] = useState(1);
+
 	async function handleSubmit(e: React.SyntheticEvent) {
 		e.preventDefault();
 		if (buttonType === 'update') {
@@ -177,6 +179,7 @@ function FormCourses(): JSX.Element {
 	function closeModal() {
 		setShowModal(false);
 		setPostCourseState(initialState);
+		setOpacityUnderModal(1);
 	}
 
 	async function deleteCourse(_id: string) {
@@ -207,6 +210,7 @@ function FormCourses(): JSX.Element {
 				_id: item._id,
 				postedAt: item.postedAt,
 			});
+			setOpacityUnderModal(0.05);
 		} else {
 			setPostCourseState(initialState);
 		}
@@ -237,14 +241,16 @@ function FormCourses(): JSX.Element {
 	function onCancel() {
 		setButtonType('post');
 		setPostCourseState(initialState);
+		setOpacityUnderModal(1);
 	}
+
 	return (
 		<>
 			<BackOfficeTitle>
 				<h1>Back Office</h1>
 			</BackOfficeTitle>
 
-			<FormContent>
+			<FormContent style={{ opacity: `${opacityUnderModal}` }}>
 				<ListCoursesBackOffice>
 					<H2>Liste des cours</H2>
 					<ListCoursesback
