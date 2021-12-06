@@ -11,35 +11,31 @@ import ColorDrop from './ColorDrop.styled';
  */
 
 const LowerDrop = styled.div<{ color: string }>`
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    border: 1px solid #4E4E4E;
-    position: relative;
-    left: 28px;
-    background-color: ${(props) => props.color};
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	border: 1px solid #4e4e4e;
+	position: relative;
+	left: 28px;
+	background-color: ${(props) => props.color};
 `;
 
 interface DoubleColorDropProps {
-    lowerColor: string
-    upperColor: string
-    title?: string
+	lowerColor: string;
+	upperColor: string;
+	title?: string;
 }
 
 const DoubleColorDrop = ({
-    lowerColor,
-    upperColor,
-    title,
+	lowerColor,
+	upperColor,
+	title = '',
 }: DoubleColorDropProps): JSX.Element => (
-    <Row>
-        <LowerDrop color={lowerColor} />
-        <ColorDrop color={upperColor} />
-        <text>{title}</text>
-    </Row>
+	<Row>
+		<LowerDrop color={lowerColor} />
+		<ColorDrop color={upperColor} />
+		<text>{title}</text>
+	</Row>
 );
-
-DoubleColorDrop.defaultProps = {
-    title: ''
-};
 
 export default DoubleColorDrop;

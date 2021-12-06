@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable operator-linebreak */
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
@@ -12,47 +14,49 @@ import Bold from '../../core/Bold.styled';
  * @param onClick - set the optionnal callback on click event
  */
 
-const Drop = styled.div<{ hasBorder?: boolean, background: string }>`
-    background-color: ${(props) => props.background};
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    z-index: 10;
-    ${(props) => (props.hasBorder && css`
-        border: 1px solid #4E4E4E`
-    )};
+const Drop = styled.div<{ hasBorder?: boolean; background: string }>`
+	background-color: ${(props) => props.background};
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	z-index: 10;
+	${(props) =>
+		props.hasBorder &&
+		css`
+			border: 1px solid #4e4e4e;
+		`};
 `;
 
 interface ColorDropProps {
-    color: string
-    title?: string
-    description?: string
-    border?: boolean
-    onClick?: (e:unknown) => void
+	color: string;
+	title?: string;
+	description?: string;
+	border?: boolean;
+	onClick?(): void;
 }
 
 const ColorDrop = ({
-    color,
-    title,
-    description,
-    onClick,
-    border
+	color,
+	title = '',
+	description = '',
+	onClick = () => {},
+	border = true,
 }: ColorDropProps): JSX.Element => (
-    <Row>
-        <Row>
-            <Drop hasBorder={border} background={color} onClick={onClick} />
-            <Bold>{title}</Bold>
-        </Row>
-        <p>{description}</p>
-    </Row>
+	<Row>
+		<Row>
+			<Drop
+				hasBorder={border}
+				background={color}
+				onClick={() => {
+					if (onClick) {
+						onClick();
+					}
+				}}
+			/>
+			<Bold>{title}</Bold>
+		</Row>
+		<p>{description}</p>
+	</Row>
 );
-
-// Set default props types
-ColorDrop.defaultProps = {
-	title: '',
-    description: '',
-    onClick: null,
-    border: true
-};
 
 export default ColorDrop;

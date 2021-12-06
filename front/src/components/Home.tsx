@@ -39,7 +39,7 @@ function Home(): JSX.Element {
 		<AppContent>
 			{loading && <Loader />}
 			{error && <Error />}
-			{!loading && (
+			{data?.getCourses && (
 				<CardContainer>
 					{data.getCourses.slice(-3).map((course: CourseType) => (
 						<CardCoursesSecondary

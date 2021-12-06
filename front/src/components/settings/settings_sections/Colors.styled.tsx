@@ -14,130 +14,120 @@ import Bold from '../../core/Bold.styled';
 // }
 
 export interface IUserData {
-    firstName?: string;
-    name?: string;
-    email?: string;
-    location?: string;
+	firstName?: string;
+	name?: string;
+	email?: string;
+	location?: string;
 }
 
 /**
  * Build the colors settings section
  */
+enum COLORS {
+	PRIMARY = 'primary',
+	SECONDARY = 'secondary',
+	TERTIARY = 'tertiary',
+	LIGHTER_SECONDARY = 'lighterSecondary',
+	LIGHT_BACKGROUND = 'lightBackground',
+	LIGHT_TEXT = 'lightText',
+}
+
+interface ColorType {
+	title: string;
+	color: string;
+	description: string;
+}
 const Colors = (): JSX.Element => {
-    const [visibleColorPicker, toggleColorPicker] = useState(false);
-    const [setter, setSetter] = useState('');
-    const [color, setColor] = useState('#292929');
-    const [primaryColor, setPrimaryColor] = useState('#292929');
-    const [secondaryColor, setSecondaryColor] = useState('#68D0FC');
-    const [tertiaryColor, setTertiaryColor] = useState('#FE7F2D');
-    const [lighterSecondaryColor, setLighterSecondaryColor] = useState('#4E4E4E');
-    const [lightBackgroundColor, setLightBackgroundColor] = useState('#ECEFF1');
-    const [lightTextColor, setLightTextColor] = useState('#D1DCE5');
+	const [visibleColorPicker, toggleColorPicker] = useState(false);
+	const [setter, setSetter] = useState<COLORS>(COLORS.PRIMARY);
+	const [color, setColor] = useState('#292929');
+	const [customColors, setCustomColors] = useState<Record<COLORS, ColorType>>({
+		[COLORS.PRIMARY]: {
+			color: '#292929',
+			title: 'Primary',
+			description: 'Text & background color',
+		},
+		[COLORS.SECONDARY]: {
+			color: '#68D0FC',
+			title: 'Secondary',
+			description: 'Main color to uplight higher level elements',
+		},
+		[COLORS.TERTIARY]: {
+			color: '#FE7F2D',
+			title: 'Tertiary',
+			description: 'Links, buttons, focus borders & labels, tags',
+		},
+		[COLORS.LIGHTER_SECONDARY]: {
+			color: '#4E4E4E',
+			title: 'Lighter Secondary',
+			description: 'Secondary level background color (menus...)',
+		},
+		[COLORS.LIGHT_BACKGROUND]: {
+			color: '#ECEFF1',
+			title: 'Light Background',
+			description: 'Clear light background, used on cards and lessons',
+		},
+		[COLORS.LIGHT_TEXT]: {
+			color: '#D1DCE5',
+			title: 'Light Text',
+			description: 'Links, menu elements & text on a dark background',
+		},
+	});
 
-    // FIXME: user data doesn't contain settings
-    // FIXME: customColors should be an array of string (currently set as string)
-    /// Fetch current user in context
-    const { user } = useContext(Context);
-    /// Set as initial data
-    // const [userColors, setUserColors] = useState<IUserData>(user);
-    // console.log(user);
+	// FIXME: user data doesn't contain settings
+	// FIXME: customColors should be an array of string (currently set as string)
+	/// Fetch current user in context
+	const { user } = useContext(Context);
+	/// Set as initial data
+	// const [userColors, setUserColors] = useState<IUserData>(user);
+	// console.log(user);
 
-    /// Set the current colordrop to the new value on color picker changes
-    useEffect(() => {
-        switch (setter) {
-            case 'primary':
-                setPrimaryColor(color);
-                break;
-            case 'secondary':
-                setSecondaryColor(color);
-                break;
-            case 'tertiary':
-                setTertiaryColor(color);
-                break;
-            case 'lighterSecondary':
-                setLighterSecondaryColor(color);
-                break;
-            case 'lightBackground':
-                setLightBackgroundColor(color);
-                break;
-            case 'lightText':
-                setLightTextColor(color);
-                break;
-            default:
-                break;
-        }
-    }, [color, setter]);
+	/// Set the current colordrop to the new value on color picker changes
 
-    return (
-        <Container>
-            <Column>
-                <Bold>Select a theme</Bold>
-                <ColorTheme />
-                <Bold>Or set up your own colors :</Bold>
+	useEffect(() => {
+		if (setter && Object.keys(customColors).includes(setter)) {
+			setCustomColors({
+				...customColors,
+				[setter]: { ...customColors[setter], color },
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [color, setter]);
 
-                <ColorDrop
-                    color={primaryColor}
-                    title="Primary"
-                    description="Text & background color"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('primary');
-                    }} />
-
-                <ColorDrop
-                    color={secondaryColor}
-                    title="Secondary"
-                    description="Main color to uplight higher level elements"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('secondary');
-                    }} />
-
-                <ColorDrop
-                    color={tertiaryColor}
-                    title="Tertiary"
-                    description="Links, buttons, focus borders & labels, tags"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('tertiary');
-                    }} />
-
-                <ColorDrop
-                    color={lighterSecondaryColor}
-                    title="Lighter Secondary"
-                    description="Secondary level background color (menus...)"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('lighterSecondary');
-                    }} />
-
-                <ColorDrop
-                    color={lightBackgroundColor}
-                    title="LightBackground"
-                    description="Clear light background, used on cards and lessons"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('lightBackground');
-                    }} />
-
-                <ColorDrop
-                    color={lightTextColor}
-                    title="Light Text"
-                    description="Links, menu elements & text on a dark background"
-                    onClick={() => {
-                        toggleColorPicker(!visibleColorPicker);
-                        setSetter('lightText');
-                    }} />
-            </Column>
-            {visibleColorPicker && (
-                <Colorpicker
-                    color={color}
-                    setColor={setColor}
-                    toggleColorPicker={toggleColorPicker}
-                    visibleColorPicker={visibleColorPicker} />
-            )}
-        </Container>
-    );
+	function convertToEntries(
+		obj: Record<COLORS, ColorType>
+	): [COLORS, ColorType][] {
+		return Object.entries(obj) as [COLORS, ColorType][];
+	}
+	const ColorEntries = convertToEntries(customColors);
+	return (
+		<Container>
+			<Column>
+				<Bold>Select a theme</Bold>
+				<ColorTheme />
+				<Bold>Or set up your own colors :</Bold>
+				{ColorEntries.map(([key, value]) => (
+					<ColorDrop
+						color={value.color}
+						title={value.title}
+						description={value.description}
+						onClick={() => {
+							toggleColorPicker(!visibleColorPicker);
+							setSetter(key);
+						}}
+					/>
+				))}
+			</Column>
+			{visibleColorPicker && (
+				<Colorpicker
+					color={color}
+					setColor={setColor}
+					toggleColorPicker={toggleColorPicker}
+					visibleColorPicker={visibleColorPicker}
+				/>
+			)}
+		</Container>
+	);
 };
 
 export default Colors;
