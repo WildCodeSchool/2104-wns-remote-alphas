@@ -3,21 +3,12 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../../context/Context';
+import Container from '../components/SettingsContainer.styled';
 // import Field from '../../Field.styled';
 
 /**
  * Profile displays the user profile's form
  */
-
-/// Style the profile container
-const Container = styled.div`
-    display: grid;
-    flex-direction: column;
-    margin: ${(props) => props.theme.margin.generic.large};
-    flex-wrap: wrap;
-    justify-content: stretch;
-    width: 60%;
-`;
 
 /// Style the form
 const Form = styled.form`
@@ -59,7 +50,6 @@ export interface IUserData {
     name?: string;
     email?: string;
     location?: string;
-
 }
 
 /// Build the Profile component
@@ -68,7 +58,7 @@ const Profile = (): JSX.Element => {
     const { user } = useContext(Context);
     /// Set as initial data
     const [userData, setUserData] = useState<IUserData>(user);
-    /// Handle field focus
+    /// Handle fields focus
     const [nameFocused, setNameFocus] = useState(false);
     const [firstNameFocused, setFirstNameFocus] = useState(false);
     const [emailFocused, setEmailFocus] = useState(false);

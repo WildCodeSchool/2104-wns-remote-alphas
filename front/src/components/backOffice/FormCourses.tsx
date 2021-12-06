@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line object-curly-newline

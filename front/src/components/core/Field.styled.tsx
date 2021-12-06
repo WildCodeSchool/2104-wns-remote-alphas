@@ -2,6 +2,16 @@
 import React, { ChangeEventHandler, FocusEventHandler } from 'react';
 import styled from 'styled-components';
 
+/**
+ * Build a generic text field to use in forms
+ * @param type - set optionnal input type
+ * @param label - set optionnal label for the field
+ * @param focused - changes style on focus state
+ * @param onChange - handle onChange input property, in order to listen to the content changes
+ * @param onFocus - handles onFocus input property
+ * @param onBlur - handles onBlur input property (= lost focus)
+ * @param value - the optionnal value of the input field
+ */
 /// Define props type
 interface FormFieldProps {
 	type?: string;

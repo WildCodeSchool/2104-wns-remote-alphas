@@ -1,13 +1,38 @@
+/**
+ *
+ * Define dark theme data.
+ *
+ *  **WARNING**
+ *
+ * This file is duplicated in lightTheme.
+ * If anything is modified here, be sure to do the same modification in the
+ * lightTheme or you will break theme switching.
+ *
+ * */
 const darkTheme: import('styled-components').DefaultTheme = {
+  // Theme specific values
   colors: {
+    // Background Color
     primary: '#292929',
+    // Highlight Color
     secondary: '#68D0FC',
+    // Second highlight Color
     tertiary: '#FE7F2D',
+    // Complementary Colors
     quaterny: '#FFFFFF',
     primaryLighter: '#D1DCE5',
     secondaryLighter: '#4E4E4E',
-    bgLight: '#ECEFF1',
+    // Text light for dark backgrounds
+    textColor: '#E5E5E5',
+    // Text dark for light backgrounds
+    altTextColor: '#292929',
+    // opposite to primary color
+    opposite: '#ECEFF1',
   },
+  neumorphism: {
+    boxShadow: 'inset 8px 8px 8px #212121, inset -8px -8px 8px #313131',
+  },
+  // shared values between themes
   font: {
     fontSource: 'https://fonts.googleapis.com/css2?family=Oxygen&display=swap',
     fontName: "'Oxygen'",
@@ -38,7 +63,8 @@ const darkTheme: import('styled-components').DefaultTheme = {
     generic: {
       small: '1em',
       medium: '2em',
-      large: '3em'
+      large: '3em',
+      extraLarge: '5em',
     }
   },
   width: {
@@ -79,6 +105,11 @@ const darkTheme: import('styled-components').DefaultTheme = {
     },
     field: {
       height: '2.5em',
+    },
+    footer: {
+      height: '90px',
+      width: 'calc(100% - 10rem)',
+      padding: '5rem'
     }
   },
 };
