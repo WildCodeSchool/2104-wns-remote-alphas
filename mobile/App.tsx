@@ -58,7 +58,7 @@ const ME = gql`
   }
 `;
 
-export default function App({ navigation }) {
+export default function App() {
   const [userData, setUserData] = React.useState(null);
   const [userToken, setUserToken] = React.useState("");
   // create the apollo client
