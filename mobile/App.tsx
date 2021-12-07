@@ -35,7 +35,7 @@ Notifications.setNotificationHandler({
 });
 
 const ChatStack = createStackNavigator();
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
 
 function MessageStackScreen() {
   return (
@@ -88,6 +88,11 @@ export default function App({ navigation }) {
       });
     }
   }, [userData]);
+  React.useEffect(() => {
+    getData();
+    console.log('USER TOKEN', userToken)
+  }, []);
+  
   const [expoPushToken, setExpoPushToken] = React.useState("");
   const [notification, setNotification] = React.useState<any>(false);
   const notificationListener: any = React.useRef();
@@ -118,20 +123,20 @@ export default function App({ navigation }) {
     };
   }, []);
 
-/*   const getData = async () => {
+   const getData = async () => {
     try {
       const userToken = await AsyncStorage.getItem('@storage_Key')
-      if(userToken !== null) {
-        console.log("1",userToken)
-        return userToken
+      if(userToken !== "") {
+        setUserToken(userToken)
+        return userToken;
+        //return userToken
         // value previously stored
       }
     } catch(e) {
       // error reading value
     }
-  } */
+  } 
 
-  //getData();
   const logOut = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key')
@@ -142,15 +147,13 @@ export default function App({ navigation }) {
     }
   }
 
-  console.log('USER TOKEN', userToken)
-
   return (
     <UserContext.Provider
       value={{ userData, setUserData, userToken, setUserToken }}
     >
       <ApolloProvider client={client}>
           <NavigationContainer>
-          { userToken !== "" ? (  
+           { userToken !== "" ? (
             <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({
@@ -190,14 +193,34 @@ export default function App({ navigation }) {
               },
             })}
              /> 
-            {/* <Tab.Screen name="Se connecter" component={Login} /> */}
               <Tab.Screen name="Caméra" component={CameraScreen} />
            </Tab.Navigator>  
-              ) : (
-                <Tab.Navigator>
-                <Tab.Screen name="Se connecter" component={Login} />
+               ) : ( 
+                 <Tab.Navigator
+                  screenOptions={({ route }) => ({
+                    tabBarIcon: ({
+                      focused,
+                      color,
+                      size,
+                    }: {
+                      focused: boolean;
+                      color: string;
+                      size: number;
+                    }) => {
+                      let iconName: any;
+      
+                      if (route.name === "Se connecter") {
+                        iconName = focused ? "log-in" : "log-in-outline";
+                      }
+                      return <Ionicons name={iconName} size={size} color={color} />;
+                    },
+                    tabBarActiveTintColor: "#68d0fc",
+                    tabBarInactiveTintColor: "gray",
+                  })}
+                >
+                  <Tab.Screen name="Se connecter" component={Login} />
                 </Tab.Navigator>
-                )} 
+                )}
         </NavigationContainer>
         </ApolloProvider>
     </UserContext.Provider>
