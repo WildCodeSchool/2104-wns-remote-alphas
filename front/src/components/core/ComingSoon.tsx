@@ -25,9 +25,9 @@ const Image = styled.img`
 
 const Text = styled.p`
     @media (min-width: 450px) {
-        font-size: 52px;
+        font-size: ${(props) => props.theme.fontSize.xl};
     }
-    font-size: 46px;
+    font-size: ${(props) => props.theme.fontSize.l};
     font-weight: bold;
     text-align: center;
     color: ${(props) => props.theme.colors.altTextColor};
