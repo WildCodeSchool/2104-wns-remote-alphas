@@ -44,18 +44,6 @@ const Form = styled.form`
 	width: 100%;
 `;
 
-const ContainCheckBox = styled.div`
-	width: 85%;
-	display: flex;
-	justify-content: flex-start;
-	margin: auto;
-`;
-
-const CheckBox = styled.input`
-	cursor: pointer;
-`;
-const LabelForCheck = styled.label``;
-
 const Button = styled.button`
 	margin: auto;
 	width: 85%;
@@ -72,6 +60,10 @@ const Button = styled.button`
 	}
 `;
 const Title = styled.h1`
+	font-size: ${(props) => props.theme.fontSize.s};
+`;
+
+const SubTitle = styled.h2`
 	font-size: ${(props) => props.theme.fontSize.s};
 `;
 
@@ -182,7 +174,7 @@ export default function SignInPage(): JSX.Element {
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
-			<Title>Nouveau sur Masterize ? </Title>
+			<SubTitle>Nouveau sur Masterize ? </SubTitle>
 			<LittleTitle
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
