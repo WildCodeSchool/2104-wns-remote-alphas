@@ -5,10 +5,10 @@ import LargeDivider from '../core/LargeDivider.styled';
 /**
  * Builds a responsive footer with a neumorphic divider on top
  */
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
 	display: none;
 	@media (min-width: 350px) {
-		display: block
+		display: block;
 	}
 `;
 
@@ -31,8 +31,8 @@ const Wrapper = styled.div`
 	color: ${(props) => props.theme.colors.textColor};
 	font-size: 10px;
 	@media (min-width: 580px) {
-        font-size: 14px;
-    }
+		font-size: 14px;
+	}
 `;
 
 // TODO: make a clickable link and create view for terms of services.

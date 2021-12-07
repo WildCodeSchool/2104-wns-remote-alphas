@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { LOGIN, ME } from '../../utils/apollo';
+import AuthField from './AuthField';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -43,15 +44,6 @@ const Form = styled.form`
 	width: 100%;
 `;
 
-const Input = styled.input`
-	margin: auto;
-	width: 85%;
-	height: 2.5rem;
-	border: 1px solid grey;
-	border-radius: 5px;
-	font-size: 1rem;
-`;
-
 const ContainCheckBox = styled.div`
 	width: 85%;
 	display: flex;
@@ -79,9 +71,11 @@ const Button = styled.button`
 		border-color: #2bb7f3;
 	}
 `;
-const Title = styled.h3``;
+const Title = styled.h1`
+	font-size: ${(props) => props.theme.fontSize.s};
+`;
 
-const LittleTitle = styled.h4`
+const LittleTitle = styled.p`
 	cursor: pointer;
 	:hover {
 		text-decoration: underline;
@@ -153,32 +147,25 @@ export default function SignInPage(): JSX.Element {
 			<Title>J&apos;ai déjà un compte Masterize</Title>
 			<ContainForm>
 				<Form>
-					<Input
-						type="text"
-						name="email"
-						placeholder="Adresse email"
+					<AuthField
+						label="email"
+						type="email"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
 						value={userLog.email}
+						placeholder="hello@masterize.com"
 					/>
-					<Input
+					<AuthField
+						label="password"
 						type="password"
-						name="password"
-						placeholder="Mot de passe"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
 						value={userLog.password}
+						placeholder="supersecretpassword"
 					/>
-					<ContainCheckBox>
-						<CheckBox
-							type="checkbox"
-							id="remember-password"
-							name="remember-password"
-						/>
-						<LabelForCheck>Se Souvenir de mon identifiant</LabelForCheck>
-					</ContainCheckBox>
+
 					<Button
 						type="button"
 						value="Envoyer"
