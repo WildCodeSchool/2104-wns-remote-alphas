@@ -45,6 +45,7 @@ function Router(): JSX.Element {
 		uri: process.env.REACT_APP_API_DEV,
 		cache: new InMemoryCache(),
 		link: authLink.concat(httpLink),
+		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});
 
 	const [isLogin, setIsLogin] = useState<boolean>(false);

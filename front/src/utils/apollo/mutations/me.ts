@@ -19,9 +19,6 @@ const ME = gql`
 				texts {
 					font
 					fontWeight
-					fontSize
-					letterSpacing
-					lineHeight
 					fontTheme
 				}
 				distraction {
