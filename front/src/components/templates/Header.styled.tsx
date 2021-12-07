@@ -11,15 +11,15 @@ import MobileNav from './navMenus/MobileNav.styled';
  * Build a responsive app header with navigation menu
  */
 const HeaderContent = styled.header`
-	background-color: #292929;
-	color: white;
+	background-color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.textColor};
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 7rem;
 	padding-right: 2rem;
 	padding-left: 2rem;
-	border-bottom: 1px solid #68d0fc;
+	border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
 `;
 const TitleContent = styled.div`
 	align-items: center;

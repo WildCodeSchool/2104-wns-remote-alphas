@@ -12,21 +12,21 @@ import BurgerMenu from '../components/BurgerMenu.styled';
 
 const ButtonChat = styled.button`
 	cursor: pointer;
-	border: 2px solid #68d0fc;
+	border: 2px solid ${(props) => props.theme.colors.secondary};
 	border-radius: 4px;
-	background-color: #292929;
-	color: #68d0fc;
+	background-color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.secondary};
 	height: 41px;
 	width: 117px;
 	&:hover {
-		background-color: #68d0fc;
-		color: white;
+		background-color: ${(props) => props.theme.colors.secondary};
+		color: ${(props) => props.theme.colors.textColor};
 	}
 	&:focus {
 		outline: none;
-		background-color: #68d0fc;
-		color: white;
-		border: 2px solid white;
+		background-color: ${(props) => props.theme.colors.secondary};
+		color: ${(props) => props.theme.colors.textColor};
+		border: 2px solid ${(props) => props.theme.colors.textColor};
 	}
 `;
 
