@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '../../core/Icon.styled';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const CourseIcon = () => (
+/**
+ * Display a course icon with hover effect (themed colors)
+ */
+const CourseIcon = (): JSX.Element => (
     <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g>
             <g xmlns="http://www.w3.org/2000/svg">

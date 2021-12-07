@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '../../core/Icon.styled';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const HelpIcon = () => (
+/**
+ * Display a help icon with hover effect (themed colors)
+ */
+const HelpIcon = (): JSX.Element => (
     <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g>
             <path xmlns="http://www.w3.org/2000/svg" d="m277.332031 384c0 11.78125-9.550781 21.332031-21.332031 21.332031s-21.332031-9.550781-21.332031-21.332031 9.550781-21.332031 21.332031-21.332031 21.332031 9.550781 21.332031 21.332031zm0 0" data-original="#d1dce5" />

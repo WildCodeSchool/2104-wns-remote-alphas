@@ -5,6 +5,7 @@ import Context from '../../context/Context';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
 import MenuContent from '../components/MenuContent.styled';
 import BurgerMenu from '../components/BurgerMenu.styled';
+import BurgerIcon from '../../assets/icons/BurgerIcon';
 
 /**
  * Build mobile nav menu with collapsible drawer and burger icon
@@ -45,11 +46,7 @@ const MobileNav = (): JSX.Element => {
 				type="button"
 				onClick={() => setOpen(!open)}
 				onKeyDown={() => setOpen(!open)}>
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/030-burger.svg"
-					alt="Settings"
-				/>
+				<BurgerIcon />
 			</BurgerButton>
 
 			<BurgerMenu open={open} onClose={() => setOpen(!open)}>

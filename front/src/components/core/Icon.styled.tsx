@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+/**
+ * Display a simple icon with a hover effect (themed colors)
+ */
 const Icon = styled.svg`
     width: 30px;
     height: 30px;

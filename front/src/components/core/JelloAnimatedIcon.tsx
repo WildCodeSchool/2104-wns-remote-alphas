@@ -1,9 +1,17 @@
 import styled, { css } from 'styled-components';
 
+/**
+ * Display a jello animated icon with a spin effect on hover.
+ * @param animated - enable the jello animation
+ */
 const JelloAnimatedIcon = styled.svg<{ animated?: boolean }>`
     width: 30px;
     height: 30px;
     overflow: visible;
+    &:hover {
+        transition: all 0.65s;
+        transform: rotateY(360deg);
+    }
     ${(props) => (props.animated && css`
         .jello {
             -webkit-animation: jello 6s infinite both;

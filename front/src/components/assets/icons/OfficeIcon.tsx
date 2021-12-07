@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '../../core/Icon.styled';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const HomeIcon = () => (
+/**
+ * Display an office icon with hover effect (themed colors)
+ */
+const OfficeIcon = (): JSX.Element => (
     <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24">
         <g>
             <g xmlns="http://www.w3.org/2000/svg" id="_x33_"><path d="m18 2c2.206 0 4 1.794 4 4v12c0 2.206-1.794 4-4 4h-12c-2.206 0-4-1.794-4-4v-12c0-2.206 1.794-4 4-4zm0-2h-12c-3.314 0-6 2.686-6 6v12c0 3.314 2.686 6 6 6h12c3.314 0 6-2.686 6-6v-12c0-3.314-2.686-6-6-6z" data-original="#d1dce5" /></g>
@@ -12,4 +14,4 @@ const HomeIcon = () => (
     </Icon>
 );
 
-export default HomeIcon;
+export default OfficeIcon;

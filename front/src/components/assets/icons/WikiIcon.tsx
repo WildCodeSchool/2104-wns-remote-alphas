@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '../../core/Icon.styled';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const WikiIcon = () => (
+/**
+ * Display a wiki icon with hover effect (themed colors)
+ */
+const WikiIcon = (): JSX.Element => (
     <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g>
             <path xmlns="http://www.w3.org/2000/svg" id="XMLID_347_" d="m222.4 154.5c0 26.6-18.1 37.6-30.1 44.8-5.4 3.3-10.9 6.6-10.9 9.1v7.1c0 4.4-3.6 8-8 8s-8-3.6-8-8v-7.1c0-11.6 9.9-17.5 18.7-22.8 11.5-7 22.4-13.5 22.4-31.1 0-18.2-14.8-33.1-33.1-33.1-18.2 0-33.1 14.8-33.1 33.1 0 4.4-3.6 8-8 8s-8-3.6-8-8c0-27.1 22-49.1 49.1-49.1 26.9 0 49 22 49 49.1z" data-original="#d1dce5" />

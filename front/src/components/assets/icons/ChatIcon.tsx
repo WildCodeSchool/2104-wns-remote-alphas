@@ -2,8 +2,11 @@ import React from 'react';
 import JelloAnimatedIcon from '../../core/JelloAnimatedIcon';
 
 // TODO: link animated property with user's theme data
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const HomeIcon = () => (
+
+/**
+ * Display an animated chat icon with hover effect (spin)
+ */
+const ChatIcon = (): JSX.Element => (
     <JelloAnimatedIcon animated xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g className="jello">
             <g xmlns="http://www.w3.org/2000/svg">
@@ -23,4 +26,4 @@ const HomeIcon = () => (
     </JelloAnimatedIcon>
 );
 
-export default HomeIcon;
+export default ChatIcon;
