@@ -1,7 +1,12 @@
+/* eslint-disable operator-linebreak */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Row from './core/layout_parts/Row.styled';
 
+/**
+ * Default home page shown to the unknown visitors.
+ */
 export type CourseType = {
 	_id: string;
 	courseName: string;
@@ -39,10 +44,11 @@ const Title = styled.div`
 
 const ThemeCourse = styled.div`
 	text-align: center;
-	color: ${(props) => props.theme.colors.tertiary};
-	margin: ${(props) => props.theme.margin.mainCard};
-	font-size: ${(props) => props.theme.fontSize.s};
+	color: '${(props) => props.theme.colors.altTextColor}';
+	font-size: ${(props) => props.theme.fontSize.xxs};
 	text-align: left;
+	border-radius: 10%;
+	width: min-content;
 `;
 
 const Container = styled.div`
@@ -74,7 +80,7 @@ const LinkReactRouter = styled(Link)`
 const fakeObjectsForVisitorPage = [
 	{
 		description: 'The best course to discover Flutter',
-		technos: ['dev mobile', 'flutter'],
+		technos: ['mobile', 'flutter'],
 		courseName: 'Flutter',
 		image_url: 'https://picsum.photos/300/200?random=1',
 		_id: '6184f1a80f8bc700254a4a82',
@@ -116,15 +122,19 @@ function VisitorHomePage(): JSX.Element {
 				</h3>
 			</div>
 			<CardContainer data-testid="container-visitor-page">
-				{fakeObjectsForVisitorPage.map((item: CourseType, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Card key={index}>
+				{fakeObjectsForVisitorPage.map((item: CourseType) => (
+					<Card key={item.courseName}>
 						<Title data-testid="title-secondary-card">{item.courseName}</Title>
 						<Container>
 							<Image src={item.image_url} alt={item.description} />
 						</Container>
 						<Line />
-						<ThemeCourse>{item.technos[0]}</ThemeCourse>
+						<Row gap="10px">
+							{item?.technos.length > 0 &&
+								item.technos.map((techno) => (
+									<ThemeCourse aria-label="tag">{techno}</ThemeCourse>
+								))}
+						</Row>
 					</Card>
 				))}
 			</CardContainer>
