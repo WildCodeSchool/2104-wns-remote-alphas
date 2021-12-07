@@ -24,7 +24,6 @@ import Login from "./components/Login";
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Logout from "./components/Logout";
 
 
 Notifications.setNotificationHandler({
@@ -60,7 +59,7 @@ const ME = gql`
   }
 `;
 
-export default function App() {
+export default function App({ navigation }) {
   const [userData, setUserData] = React.useState(null);
   const [userToken, setUserToken] = React.useState("");
   // create the apollo client
@@ -119,7 +118,7 @@ export default function App() {
     };
   }, []);
 
-  const getData = async () => {
+/*   const getData = async () => {
     try {
       const userToken = await AsyncStorage.getItem('@storage_Key')
       if(userToken !== null) {
@@ -130,9 +129,18 @@ export default function App() {
     } catch(e) {
       // error reading value
     }
-  }
+  } */
 
-  getData()
+  //getData();
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key')
+      setUserToken("");
+      client?.cache.reset();
+    }
+    catch(error) {
+    }
+  }
 
   console.log('USER TOKEN', userToken)
 
@@ -164,7 +172,7 @@ export default function App() {
                   iconName = focused ? "chatbubbles" : "chatbubbles-outline";
                 } else if (route.name === "Se connecter") {
                   iconName = focused ? "log-in" : "log-in-outline";
-                } else if (route.name === "Se déconnecter") {
+                } else if (route.name === "Log out") {
                   iconName = focused ? "log-out" : "log-out-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
@@ -175,7 +183,13 @@ export default function App() {
           >
             <Tab.Screen name="Accueil" component={Home} />
             <Tab.Screen name="Messages" component={MessageStackScreen} />
-            <Tab.Screen name="Se déconnecter" component={Logout} />
+            <Tab.Screen name="Log out" component={Login} listeners={({ navigation }) => ({
+              tabPress: (e) => {
+                e.preventDefault();
+                logOut();
+              },
+            })}
+             /> 
             {/* <Tab.Screen name="Se connecter" component={Login} /> */}
               <Tab.Screen name="Caméra" component={CameraScreen} />
            </Tab.Navigator>  

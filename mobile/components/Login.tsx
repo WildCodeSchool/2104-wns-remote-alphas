@@ -38,7 +38,6 @@ const Login = ({ navigation }: any) => {
 		try {
 		  await AsyncStorage.setItem('@storage_Key', userToken);
 		  setUserToken(userToken);
-		  console.log(userToken)
 		} catch (e) {
 		  // saving error
 		}
