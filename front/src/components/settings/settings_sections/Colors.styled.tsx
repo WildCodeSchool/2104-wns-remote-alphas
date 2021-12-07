@@ -1,7 +1,6 @@
 // eslint-disable-next-line object-curly-newline
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
-import Context from '../../context/Context';
 import Column from '../../core/layout_parts/Column.styled';
 import Colorpicker from '../Colorpicker.styled';
 import ColorDrop from '../components/ColorDrop.styled';
@@ -9,11 +8,6 @@ import ColorTheme from '../components/ColorTheme.styled';
 import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
 import { useUpdateTheme } from '../../context/ThemeUpdateContext';
-
-// export interface IUserColors {
-//     theme?: string;
-//     customColors?: string[];
-// }
 
 export interface IUserData {
 	firstName?: string;
@@ -76,17 +70,13 @@ const Colors = (): JSX.Element => {
 		},
 	});
 
-	// FIXME: user data doesn't contain settings
-	/// Fetch current user in context
-	// const { user } = useContext(Context);
-	/// Set as initial data
-	// const [userColors, setUserColors] = useState<unknown>(user.settings?.colors);
-	// console.log(userColors);
 	const updateTheme = useUpdateTheme();
 	const currentTheme = useContext(ThemeContext);
 
-	/// Set the current colordrop to the new value on color picker changes
-
+	/**
+	 * Set the current colordrop to the new value on color picker changes
+	 * and update theme data in context.
+	 * */
 	useEffect(() => {
 		if (setter && Object.keys(customColors).includes(setter)) {
 			setCustomColors({
@@ -97,11 +87,9 @@ const Colors = (): JSX.Element => {
 			updateTheme({
 				colors: {
 					...currentTheme.colors,
-					// customColors,
 					[setter]: color,
 				}
 			});
-			console.log('theme updated');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [color, setter]);
@@ -114,8 +102,6 @@ const Colors = (): JSX.Element => {
 
 	const ColorEntries = convertToEntries(customColors);
 
-	console.log(`theme : ${currentTheme.colors.primary}`);
-	console.log(ColorEntries);
 	return (
 		<Container>
 			<Column>
