@@ -2,30 +2,42 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ContentSoon = styled.div`
-    padding: 75px 129px 75px 144px;
-	background-color: #ECEFF1;
+    padding: 2em;
+	background-color: ${(props) => props.theme.colors.opposite};
     box-shadow: 10px 10px 13px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     display: flex;
+    width: 40vw;
+    max-width: 600px;
+    min-width: 180px;
+    height: 45vh;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
 `;
 
-const Image = styled.div`
+const Image = styled.img`
     margin: auto;
-    margin-right: 94px;
+    width: 35%;
+    max-width: 250px;
+    min-width: 140px;
 `;
 
 const Text = styled.p`
-    font-size: 72px;
+    @media (min-width: 450px) {
+        font-size: 52px;
+    }
+    font-size: 46px;
     font-weight: bold;
+    text-align: center;
+    color: ${(props) => props.theme.colors.altTextColor};
 `;
 
 const ComingSoon = (): JSX.Element => (
     <ContentSoon>
-        <Image>
-            <img src="assets/images/running_panda.png" alt="illustration of panda is running" />
-        </Image>
+        <Image src="assets/images/running_panda.png" alt="illustration of panda is running" />
         <Text>
-            <p>Coming Soon !</p>
+            Coming Soon !
         </Text>
     </ContentSoon>
 );
