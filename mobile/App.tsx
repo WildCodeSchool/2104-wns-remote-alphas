@@ -35,7 +35,6 @@ Notifications.setNotificationHandler({
 });
 
 const ChatStack = createStackNavigator();
-//const Stack = createStackNavigator();
 
 function MessageStackScreen() {
   return (
@@ -88,11 +87,11 @@ export default function App({ navigation }) {
       });
     }
   }, [userData]);
+  // check if token exist or not
   React.useEffect(() => {
-    getData();
-    console.log('USER TOKEN', userToken)
+    getToken();
   }, []);
-  
+
   const [expoPushToken, setExpoPushToken] = React.useState("");
   const [notification, setNotification] = React.useState<any>(false);
   const notificationListener: any = React.useRef();
@@ -123,14 +122,12 @@ export default function App({ navigation }) {
     };
   }, []);
 
-   const getData = async () => {
+   const getToken = async () => {
     try {
       const userToken = await AsyncStorage.getItem('@storage_Key')
       if(userToken !== "") {
         setUserToken(userToken)
         return userToken;
-        //return userToken
-        // value previously stored
       }
     } catch(e) {
       // error reading value
