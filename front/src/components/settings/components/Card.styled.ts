@@ -4,8 +4,8 @@ import styled from 'styled-components';
  * Card displays a custom <section> with rounded corners and themed styles
  */
 const Card = styled.section`
-    background-color: #ECEFF1; // TODO: use theme background_light
-    color: #292929; // TODO: use theme secondary
+    background-color: ${(props) => props.theme.colors.opposite};
+    color: ${(props) => props.theme.colors.altTextColor};
     display: flex;
     justify-content: space-between;
     align-items: center;

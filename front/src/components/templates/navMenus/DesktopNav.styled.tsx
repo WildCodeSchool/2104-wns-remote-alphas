@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import SettingsIcon from '../../assets/icons/SettingsIcon';
 import Logout from '../../authentication/Logout';
 import Context from '../../context/Context';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
@@ -60,11 +61,7 @@ const DesktopNav = (): JSX.Element => {
 			<ButtonChat type="button">Chat Now</ButtonChat>
 
 			<LinkReactRouter to="/settings">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/013-settings.svg"
-					alt="Settings"
-				/>
+				<SettingsIcon />
 			</LinkReactRouter>
 
 			<Logout />

@@ -39,7 +39,7 @@ const Course = styled.div`
 	min-height: 850px;
 	width: 650px;
 	border-radius: 30px;
-	background-color: #eceff1;
+	background-color: ${(props) => props.theme.colors.opposite};
 	padding: 65px 121px 65px 121px;
 	box-shadow: 10px 12px 16px -3px rgba(0, 0, 0, 0.75);
 `;
@@ -55,7 +55,7 @@ const TitleCourse = styled.div`
 `;
 
 const PostedDate = styled.p`
-	color: #fe7f2d;
+	color: ${(props) => props.theme.colors.tertiary};
 	font-weight: bold;
 `;
 
@@ -66,7 +66,7 @@ const ContentVideo = styled.div`
 `;
 
 const LinkOfVideo = styled.p`
-	color: #fe7f2d;
+	color: ${(props) => props.theme.colors.tertiary};
 `;
 
 const ContentImg = styled.div`
@@ -76,7 +76,7 @@ const ContentImg = styled.div`
 `;
 
 const LinkReference = styled.td`
-	color: #fe7f2d;
+	color: ${(props) => props.theme.colors.tertiary};
 `;
 
 const NinjaPanda = styled.div`

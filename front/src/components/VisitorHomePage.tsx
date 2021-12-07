@@ -67,11 +67,11 @@ const LinkReactRouter = styled(Link)`
 	color: white;
 	cursor: pointer;
 	&:hover {
-		color: #68d0fc;
+		color:${(props) => props.theme.colors.secondary};
 		text-decoration: underline;
 	}
 	&:focus {
-		color: #68d0fc;
+		color: ${(props) => props.theme.colors.secondary};
 		text-decoration: underline;
 		outline: none;
 	}
