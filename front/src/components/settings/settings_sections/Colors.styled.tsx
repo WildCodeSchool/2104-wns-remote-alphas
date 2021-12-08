@@ -119,6 +119,7 @@ const Colors = (): JSX.Element => {
 						onClick={() => {
 							toggleColorPicker(!visibleColorPicker);
 							setSetter(key);
+							setColor(value.color);
 						}}
 					/>
 				))}
