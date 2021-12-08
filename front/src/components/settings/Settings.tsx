@@ -14,6 +14,9 @@ const Wrapper = styled.div`
 	height: calc(100vh - 113px - 105px);
 	display: flex;
 	align-items: center;
+	@media screen and (max-width: 780px) {
+		height: inherit;
+	}
 `;
 
 /**
