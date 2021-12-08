@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Content = styled.div`
@@ -7,14 +7,22 @@ const Content = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
+    position: relative;
+
 `;
 
 const ContainerIcon = styled.div`
-    width: 32px;
+    width: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 108px; 
 `;
 
 const Icon = styled.img`
-    width: 100%;
+    width: 45%;
 `;
 
 const Text = styled.p`
@@ -25,20 +33,17 @@ const Text = styled.p`
 function ScrollToTop(): JSX.Element {
     const [isVisible, setIsVisible] = useState(true);
 
-    const toggleVisibility = (): void => {
-        if (window.pageYOffset > 300) {
+    useEffect(() => {
+      document.addEventListener('scroll', () => {
+        if (window.pageYOffset > 790) {
           setIsVisible(true);
         } else {
           setIsVisible(false);
         }
-      };
+      });
+    }, []);
 
-    const componentDidMount = () => {
-        document.addEventListener('scroll', () => {
-          toggleVisibility();
-        });
-      };
-    const scrollToTop = (): void => {
+    const scrollToTop = (): any => {
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
@@ -47,11 +52,13 @@ function ScrollToTop(): JSX.Element {
     return (
       <Content>
         {isVisible && (
-          <ContainerIcon onClick={() => scrollToTop()} onKeyDown={() => scrollToTop()} role="button" tabIndex={0}>
-              <Icon src="/assets/icons/016-caret-arrow-up.svg" alt="arrow icon" />
-          </ContainerIcon>
+            <ContainerIcon onClick={() => scrollToTop()} onKeyDown={() => scrollToTop()} role="button" tabIndex={0}>
+                <Icon src="/assets/icons/016-caret-arrow-up.svg" alt="arrow icon" />
+                <>
+                <Text>Back to top</Text>
+                </>
+            </ContainerIcon>
         )}
-        <Text>Back to top</Text>
       </Content>
     );
 }

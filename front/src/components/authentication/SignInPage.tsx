@@ -9,16 +9,10 @@ import AuthField from './AuthField';
 
 const Wrapper = styled.div`
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	margin-top: 5rem;
-	margin-bottom: 5rem;
 	width: 20%;
-	height: 100%;
-	border: 1px solid black;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+	height: calc(100vh - 113px - 105px);
 
 	@media screen and (max-width: 780px) {
 		width: 95%;
@@ -26,6 +20,17 @@ const Wrapper = styled.div`
 	@media all and (min-width: 790px) and (max-width: 1280px) {
 		width: 50%;
 	}
+`;
+
+const FormContainer = styled.div`
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 12px;
+	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 14px;
 `;
 
 const ContainForm = styled.div`
@@ -61,6 +66,7 @@ const Button = styled.button`
 `;
 const Title = styled.h1`
 	font-size: ${(props) => props.theme.fontSize.s};
+	text-align: center;
 `;
 
 const SubTitle = styled.h2`
@@ -135,7 +141,8 @@ export default function SignInPage(): JSX.Element {
 		}
 	}
 	return (
-		<Wrapper style={{ backgroundColor: 'white' }}>
+		<Wrapper>
+			<FormContainer>
 			<Title>J&apos;ai déjà un compte Masterize</Title>
 			<ContainForm>
 				<Form>
@@ -182,6 +189,8 @@ export default function SignInPage(): JSX.Element {
 				}}>
 				S&apos;INSCRIRE
 			</LittleTitle>
+
+			</FormContainer>
 		</Wrapper>
 	);
 }

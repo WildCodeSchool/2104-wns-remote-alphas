@@ -25,10 +25,9 @@ const AppContent = styled.div`
 
 const CardContainer = styled.div`
 	width: 100%;
-	padding: 50px 0px;
+	height: calc(100vh - 113px - 105px);
 	display: flex;
 	flex-wrap: wrap;
-	margin: 2em;
 	gap: 2em;
 `;
 

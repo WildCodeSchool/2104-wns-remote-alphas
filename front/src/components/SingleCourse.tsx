@@ -23,6 +23,7 @@ const BackButton = styled.button`
 	width: 125px;
 	align-self: flex-start;
 	margin: 0 0 2% 12%;
+	cursor: pointer;
 `;
 
 const ArrowContent = styled.div`
