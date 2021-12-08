@@ -5,6 +5,7 @@ import Context from '../../context/Context';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
 import MenuContent from '../components/MenuContent.styled';
 import BurgerMenu from '../components/BurgerMenu.styled';
+import BurgerIcon from '../../assets/icons/BurgerIcon';
 
 /**
  * Build mobile nav menu with collapsible drawer and burger icon
@@ -12,21 +13,21 @@ import BurgerMenu from '../components/BurgerMenu.styled';
 
 const ButtonChat = styled.button`
 	cursor: pointer;
-	border: 2px solid #68d0fc;
+	border: 2px solid ${(props) => props.theme.colors.secondary};
 	border-radius: 4px;
-	background-color: #292929;
-	color: #68d0fc;
+	background-color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.secondary};
 	height: 41px;
 	width: 117px;
 	&:hover {
-		background-color: #68d0fc;
-		color: white;
+		background-color: ${(props) => props.theme.colors.secondary};
+		color: ${(props) => props.theme.colors.textColor};
 	}
 	&:focus {
 		outline: none;
-		background-color: #68d0fc;
-		color: white;
-		border: 2px solid white;
+		background-color: ${(props) => props.theme.colors.secondary};
+		color: ${(props) => props.theme.colors.textColor};
+		border: 2px solid ${(props) => props.theme.colors.textColor};
 	}
 `;
 
@@ -45,11 +46,7 @@ const MobileNav = (): JSX.Element => {
 				type="button"
 				onClick={() => setOpen(!open)}
 				onKeyDown={() => setOpen(!open)}>
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/030-burger.svg"
-					alt="Settings"
-				/>
+				<BurgerIcon />
 			</BurgerButton>
 
 			<BurgerMenu open={open} onClose={() => setOpen(!open)}>

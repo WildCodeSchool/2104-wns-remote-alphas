@@ -19,8 +19,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import DiscussList from "./screens/DiscussList";
+import Login from "./components/Login";
+
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -56,9 +60,7 @@ const ME = gql`
 
 export default function App() {
   const [userData, setUserData] = React.useState(null);
-  const [userToken, setUserToken] = React.useState(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0aGVvZG9yZS5sZWZyYW5jb2lzMjkwNkBnbWFpbC5jb20iLCJpYXQiOjE2MzA5MzIyMDN9.WWsfewJCBK8gPV_X4zUXLjgtBxg8gYGb1OFoztPezow"
-  );
+  const [userToken, setUserToken] = React.useState("");
   // create the apollo client
   const httpLink = createHttpLink({
     uri: "http://localhost:8080/graphql",
@@ -85,6 +87,11 @@ export default function App() {
       });
     }
   }, [userData]);
+  // check if token exist or not
+  React.useEffect(() => {
+    getToken();
+  }, []);
+
   const [expoPushToken, setExpoPushToken] = React.useState("");
   const [notification, setNotification] = React.useState<any>(false);
   const notificationListener: any = React.useRef();
@@ -115,13 +122,36 @@ export default function App() {
     };
   }, []);
 
+   const getToken = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('@storage_Key')
+      if(userToken !== "") {
+        setUserToken(userToken)
+        return userToken;
+      }
+    } catch(e) {
+      // error reading value
+    }
+  } 
+
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key')
+      setUserToken("");
+      client?.cache.reset();
+    }
+    catch(error) {
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{ userData, setUserData, userToken, setUserToken }}
     >
       <ApolloProvider client={client}>
-        <NavigationContainer>
-          <Tab.Navigator
+          <NavigationContainer>
+           { userToken !== "" ? (
+            <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({
                 focused,
@@ -140,6 +170,10 @@ export default function App() {
                   iconName = focused ? "ios-camera" : "ios-camera-outline";
                 } else if (route.name === "Messages") {
                   iconName = focused ? "chatbubbles" : "chatbubbles-outline";
+                } else if (route.name === "Se connecter") {
+                  iconName = focused ? "log-in" : "log-in-outline";
+                } else if (route.name === "Log out") {
+                  iconName = focused ? "log-out" : "log-out-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -149,12 +183,43 @@ export default function App() {
           >
             <Tab.Screen name="Accueil" component={Home} />
             <Tab.Screen name="Messages" component={MessageStackScreen} />
-            {/* <Tab.Screen name="Discussions" component={DiscussList} /> */}
-            {/* <Tab.Screen name="ChatRoom" component={ChatInterface} /> */}
-            <Tab.Screen name="Caméra" component={CameraScreen} />
-          </Tab.Navigator>
+            <Tab.Screen name="Log out" component={Login} listeners={({ navigation }) => ({
+              tabPress: (e) => {
+                e.preventDefault();
+                logOut();
+              },
+            })}
+             /> 
+              <Tab.Screen name="Caméra" component={CameraScreen} />
+           </Tab.Navigator>  
+               ) : ( 
+                 <Tab.Navigator
+                  screenOptions={({ route }) => ({
+                    tabBarIcon: ({
+                      focused,
+                      color,
+                      size,
+                    }: {
+                      focused: boolean;
+                      color: string;
+                      size: number;
+                    }) => {
+                      let iconName: any;
+      
+                      if (route.name === "Se connecter") {
+                        iconName = focused ? "log-in" : "log-in-outline";
+                      }
+                      return <Ionicons name={iconName} size={size} color={color} />;
+                    },
+                    tabBarActiveTintColor: "#68d0fc",
+                    tabBarInactiveTintColor: "gray",
+                  })}
+                >
+                  <Tab.Screen name="Se connecter" component={Login} />
+                </Tab.Navigator>
+                )}
         </NavigationContainer>
-      </ApolloProvider>
+        </ApolloProvider>
     </UserContext.Provider>
   );
 

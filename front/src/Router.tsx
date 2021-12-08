@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
 	ApolloClient,
 	ApolloProvider,
@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { DarkTheme, ThemeProvider } from 'styled-components';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
 import { Timeline } from './components/timeline/Timeline.styled';
@@ -23,6 +23,7 @@ import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
 import FormCourses from './components/backOffice/FormCourses';
 import Admin from './components/admin/Admin';
+import ThemeUpdateContext from './components/context/ThemeUpdateContext';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -51,6 +52,14 @@ function Router(): JSX.Element {
 
 	const [isLogin, setIsLogin] = useState<boolean>(false);
 	const [user, setUser] = useState<User>({} as User);
+	const [userTheme, setUserTheme] = useState(darkTheme);
+
+	const updateTheme = useCallback(
+		(changes: Partial<DarkTheme>) => {
+			setUserTheme({ ...userTheme, ...changes });
+		},
+		[userTheme, setUserTheme]
+	);
 
 	useEffect(() => {
 		const isValidToken = localStorage.getItem('token');
@@ -78,68 +87,70 @@ function Router(): JSX.Element {
 	return (
 		<ApolloProvider client={client}>
 			<BrowserRouter>
-				<ThemeProvider theme={darkTheme}>
-					<Context.Provider
-						value={{
-							client,
-							isLogin,
-							setIsLogin,
-							user,
-							setUser,
-						}}>
-						<Layout>
-							<Switch>
-								<Route exact path="/signin">
-									<SignInPage />
-								</Route>
-								<Route exact path="/signup">
-									<SignUpPage />
-								</Route>
-								{isLogin ? (
-									<>
-										<Route exact path="/">
-											<Home />
-										</Route>
-										<Route exact path="/courses">
-											<Timeline />
-										</Route>
-										<Route exact path="/wiki">
-											<Wiki />
-										</Route>
-										<Route exact path="/help">
-											<Help />
-										</Route>
-										<Route exact path="/chat">
-											Chat
-										</Route>
-										<Route exact path="/timeline-courses">
-											Timeline-courses
-										</Route>
-										<Route exact path="/settings">
-											<Settings />
-										</Route>
-										<Route exact path="/courses/:id">
-											<SingleCourse />
-										</Route>
-										{(user?.role === 'teacher' || user?.role === 'admin') && (
-											<Route exact path="/backoffice">
-												<FormCourses />
-											</Route>
-										)}
-										{user?.role === 'admin' && (
-											<Route exact path="/admin">
-												<Admin />
-											</Route>
-										)}
-									</>
-								) : (
-									<Route exact path="/">
-										<VisitorHomePage />
+				<ThemeProvider theme={userTheme}>
+					<ThemeUpdateContext.Provider value={updateTheme}>
+						<Context.Provider
+							value={{
+								client,
+								isLogin,
+								setIsLogin,
+								user,
+								setUser,
+							}}>
+							<Layout>
+								<Switch>
+									<Route exact path="/signin">
+										<SignInPage />
 									</Route>
-								)}
-							</Switch>
-						</Layout>
-					</Context.Provider>
+									<Route exact path="/signup">
+										<SignUpPage />
+									</Route>
+									{isLogin ? (
+										<>
+											<Route exact path="/">
+												<Home />
+											</Route>
+											<Route exact path="/courses">
+												<Timeline />
+											</Route>
+											<Route exact path="/wiki">
+												<Wiki />
+											</Route>
+											<Route exact path="/help">
+												<Help />
+											</Route>
+											<Route exact path="/chat">
+												Chat
+											</Route>
+											<Route exact path="/timeline-courses">
+												Timeline-courses
+											</Route>
+											<Route exact path="/settings">
+												<Settings />
+											</Route>
+											<Route exact path="/courses/:id">
+												<SingleCourse />
+											</Route>
+											{(user?.role === 'teacher' || user?.role === 'admin') && (
+												<Route exact path="/backoffice">
+													<FormCourses />
+												</Route>
+											)}
+											{user?.role === 'admin' && (
+												<Route exact path="/admin">
+													<Admin />
+												</Route>
+											)}
+										</>
+									) : (
+										<Route exact path="/">
+											<VisitorHomePage />
+										</Route>
+									)}
+								</Switch>
+							</Layout>
+						</Context.Provider>
+					</ThemeUpdateContext.Provider>
 				</ThemeProvider>
 			</BrowserRouter>
 		</ApolloProvider>
