@@ -45,6 +45,7 @@ const ColorDrop = ({
 	<Row>
 		<Row>
 			<Drop
+				key={title}
 				hasBorder={border}
 				background={color}
 				onClick={() => {

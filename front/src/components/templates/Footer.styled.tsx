@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import ColorLuminance from '../../utils/colorLuminance';
 import LargeDivider from '../core/LargeDivider.styled';
 
 /**
@@ -36,14 +37,22 @@ const Wrapper = styled.div`
 `;
 
 // TODO: make a clickable link and create view for terms of services.
-const Footer = (): JSX.Element => (
-	<FooterContainer>
-		<LargeDivider />
-		<FooterContent data-testid="footer">
-			<Wrapper>© 2021 Alpha Wilders - All Rights Reserved.</Wrapper>
-			<Wrapper>Terms of Service</Wrapper>
-		</FooterContent>
-	</FooterContainer>
-);
+const Footer = (): JSX.Element => {
+	/// Compute shadows colors from current primary theme color
+	const theme = useContext(ThemeContext);
+	const primaryColor = theme.colors.primary;
+	const lightShadow = ColorLuminance(primaryColor, -0.5);
+	const darkShadow = ColorLuminance(primaryColor, +0.5);
+
+	return (
+		<FooterContainer>
+			<LargeDivider light={lightShadow} dark={darkShadow} />
+			<FooterContent data-testid="footer">
+				<Wrapper>© 2021 Alpha Wilders - All Rights Reserved.</Wrapper>
+				<Wrapper>Terms of Service</Wrapper>
+			</FooterContent>
+		</FooterContainer>
+	);
+};
 
 export default Footer;
