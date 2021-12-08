@@ -11,7 +11,6 @@ import styled, { css } from 'styled-components';
  * @param onBlur - handles onBlur input property (= lost focus)
  * @param value - the optionnal value of the input field
  */
-/// Define props type
 
 const Input = styled.input<{ focused?: boolean }>`
 	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
