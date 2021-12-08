@@ -16,6 +16,10 @@ const Form = styled.form`
     grid-template-columns: 50% 50%;
     width: 100%;
     margin: ${(props) => props.theme.margin.generic.small};
+    @media screen and (max-width: 780px) {
+        display: contents;
+
+	}
 `;
 
 // TODO: style core button
@@ -27,6 +31,9 @@ const Button = styled.button`
     color: ${(props) => props.theme.colors.primary};
     text-transform: uppercase;
     letter-spacing: 1px;
+    @media screen and (max-width: 780px) {
+        margin: auto;
+	}
 `;
 /// Define user data interface with form fields
 export interface IUserData {

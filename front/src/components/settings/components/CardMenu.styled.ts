@@ -18,6 +18,9 @@ const CardMenu = styled.section`
     padding: 1em;
     font-size: 1.5em;
     font-weight: 500;
+    @media screen and (max-width: 780px) {
+        min-height: 516px;
+	}
 `;
 
 export default CardMenu;
