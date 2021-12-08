@@ -11,7 +11,7 @@ const ColorTheme = (): JSX.Element => {
     const [theme, setTheme] = useState();
 
     return (
-        <Row>
+        <Row gap="0">
             <ColorDrop color="#292929" title="Dark" />
             <ColorDrop color="#ECEFF1" title="Light" />
             <DoubleColorDrop lowerColor="#BDBDBD" upperColor="#E0E0E0" title="GreyScale" />
