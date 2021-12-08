@@ -47,6 +47,9 @@ const Button = styled.button`
     color: ${(props) => props.theme.colors.primary};
     text-transform: uppercase;
     letter-spacing: 1px;
+    @media screen and (max-width: 780px) {
+        margin: auto;
+	}
 `;
 /// Define user data interface with form fields
 export interface IUserData {
