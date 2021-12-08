@@ -18,7 +18,10 @@ const ContainerIcon = styled.div`
     flex-direction: column;
     align-items: center;
     position: absolute;
-    bottom: 108px; 
+    bottom: 108px;
+    @media screen and (max-width: 780px) {
+      bottom: -10px;
+    } 
 `;
 
 const Icon = styled.img`
@@ -27,6 +30,9 @@ const Icon = styled.img`
 
 const Text = styled.p`
   color: white;
+  @media screen and (max-width: 780px) {
+    font-size: 12px;
+  } 
 `;
 
 // eslint-disable-next-line max-len

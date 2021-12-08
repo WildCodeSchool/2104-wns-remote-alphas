@@ -35,6 +35,7 @@ const BackButton = styled.button`
 
 const ArrowContent = styled.div`
 	width: 32px;
+
 `;
 
 const Arrow = styled.img`
@@ -54,6 +55,7 @@ const Course = styled.div`
 		width: 90%;
 		min-height: 40%;
 		padding: 5%;
+		margin-bottom: 80px;
 	}
 `;
 
