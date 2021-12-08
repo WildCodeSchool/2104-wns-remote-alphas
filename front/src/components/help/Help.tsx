@@ -7,6 +7,9 @@ const ContentHelp = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 780px) {
+		padding: 0% 10% 0% 10%;
+	}
 `;
 
 const Help = (): JSX.Element => (

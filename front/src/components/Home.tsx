@@ -21,6 +21,9 @@ const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
 	display: flex;
 	justify-content: center;
+	@media screen and (max-width: 780px) {
+		padding: 4%;
+	}
 `;
 
 const CardContainer = styled.div`
@@ -29,6 +32,9 @@ const CardContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2em;
+	@media screen and (max-width: 780px) {
+		height: inherit;
+	}
 `;
 
 function Home(): JSX.Element {
