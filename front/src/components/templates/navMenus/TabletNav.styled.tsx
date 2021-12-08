@@ -53,6 +53,9 @@ const TabletNav = (): JSX.Element => {
 					/>
 				</LinkReactRouter>
 			)}
+			{user?.role === 'admin' && (
+				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
+			)}
 
 			<img
 				style={{ width: '30px' }}

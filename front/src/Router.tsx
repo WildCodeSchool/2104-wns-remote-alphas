@@ -22,6 +22,7 @@ import Context, { User } from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
 import FormCourses from './components/backOffice/FormCourses';
+import Admin from './components/admin/Admin';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -121,8 +122,13 @@ function Router(): JSX.Element {
 											<SingleCourse />
 										</Route>
 										{(user?.role === 'teacher' || user?.role === 'admin') && (
-											<Route exact path="/backOffice">
+											<Route exact path="/backoffice">
 												<FormCourses />
+											</Route>
+										)}
+										{user?.role === 'admin' && (
+											<Route exact path="/admin">
+												<Admin />
 											</Route>
 										)}
 									</>
