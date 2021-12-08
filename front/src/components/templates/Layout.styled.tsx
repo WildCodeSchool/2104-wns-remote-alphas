@@ -10,6 +10,7 @@ import Footer from './Footer.styled';
 const App = styled.div`
 	display: flex;
 	flex-direction: column;
+	background-color: ${(props) => props.theme.colors.primary};
 `;
 
 interface LayoutProps {

@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../../context/Context';
+import Field from '../../core/Field.styled';
+import Column from '../../core/layout_parts/Column.styled';
 import Container from '../components/SettingsContainer.styled';
-// import Field from '../../Field.styled';
 
 /**
  * Profile displays the user profile's form
@@ -18,23 +18,7 @@ const Form = styled.form`
     margin: ${(props) => props.theme.margin.generic.small};
 `;
 
-/// Style the form columns
-const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: ${(props) => props.theme.margin.generic.small};
-    gap: ${(props) => props.theme.margin.generic.small};
-`;
-
-/// Style the input
-const Input = styled.input`
-	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
-	background-color: ${(props) => props.theme.colors.secondaryLighter};
-	color: ${(props) => props.theme.colors.primaryLighter};
-	height: ${(props) => props.theme.fixedSize.field.height};
-	width: 90%;
-`;
-
+// TODO: style core button
 const Button = styled.button`
     width: ${(props) => props.theme.fixedSize.button.small.width};
     height: ${(props) => props.theme.fixedSize.button.small.height};
@@ -64,8 +48,6 @@ const Profile = (): JSX.Element => {
     const [emailFocused, setEmailFocus] = useState(false);
     const [locationFocused, setLocationFocus] = useState(false);
 
-    // console.log(userData);
-
     /// Define user name if it exists, or set a generic value.
     const userName = userData?.firstName ? userData?.firstName : 'student';
 
@@ -77,118 +59,44 @@ const Profile = (): JSX.Element => {
             <p>You can set up your profile informations here. Don&apos;t be shy !</p>
             <Form>
                 <Column>
-                    <label
-                        htmlFor="Name"
-                        style={{
-                            color: nameFocused ? '#FE7F2D' : '',
-                            fontWeight: nameFocused ? 'bold' : 500,
-                        }}
-                    >
-                        Name
-                        <Input
-                            style={{
-                                border: nameFocused ? '3px solid #FE7F2D' : '',
-                                outline: 'none'
-                            }}
-                            onFocus={() => setNameFocus(true)}
-                            onBlur={() => setNameFocus(false)}
-                            id="Name"
-                            type="text"
-                            name="Name"
-                            onChange={(e) => setUserData({
-                                ...userData,
-                                name: e.currentTarget.value
-                            })}
-                            key="Name"
-                            value={userData?.name}
-                        />
-                    </label>
+                    <Field
+                        type="text"
+                        label="Name"
+                        onChange={(e) => setUserData({
+                            ...userData,
+                            name: e.currentTarget.value
+                        })}
+                        focused={nameFocused}
+                        onFocus={() => setNameFocus(true)}
+                        onBlur={() => setNameFocus(false)}
+                        value={userData?.name} />
 
-                    <label
-                        htmlFor="Email"
-                        style={{
-                            color: emailFocused ? '#FE7F2D' : '',
-                            fontWeight: emailFocused ? 'bold' : 500
-                        }}
-                    >
-                        Email
-                        <Input
-                            style={{
-                                border: emailFocused ? '3px solid #FE7F2D' : '',
-                                outline: 'none'
-                            }}
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
-                            id="Email"
-                            type="text"
-                            name="Email"
-                            onChange={(e) => setUserData({
-                                ...userData,
-                                email: e.currentTarget.value
-                            })}
-                            key="Email"
-                            value={userData?.email}
-                        />
-                    </label>
+                    <Field
+                        type="text"
+                        label="Email"
+                        onChange={(e) => setUserData({
+                            ...userData,
+                            email: e.currentTarget.value
+                        })}
+                        focused={emailFocused}
+                        onFocus={() => setEmailFocus(true)}
+                        onBlur={() => setEmailFocus(false)}
+                        value={userData?.email} />
                 </Column>
 
                 <Column>
-                    <label
-                        htmlFor="firstName"
-                        style={{
-                            color: firstNameFocused ? '#FE7F2D' : '',
-                            fontWeight: firstNameFocused ? 'bold' : 500
-                        }}
-                    >
-                        First Name
-                        <Input
-                            style={{
-                                border: firstNameFocused ? '3px solid #FE7F2D' : '',
-                                outline: 'none'
-                            }}
-                            onFocus={() => setFirstNameFocus(true)}
-                            onBlur={() => setFirstNameFocus(false)}
-                            id="firstName"
-                            type="text"
-                            name="firstName"
-                            onChange={(e) => setUserData({
-                                ...userData,
-                                firstName: e.currentTarget.value
-                            })}
-                            key="firstName"
-                            value={userData?.firstName}
-                        />
-                    </label>
-
-                    <label
-                        htmlFor="Location"
-                        style={{
-                            color: locationFocused ? '#FE7F2D' : '',
-                            fontWeight: locationFocused ? 'bold' : 500
-                        }}
-                    >
-                        Location
-                        <Input
-                            style={{
-                                border: locationFocused ? '3px solid #FE7F2D' : '',
-                                outline: 'none'
-                            }}
-                            onFocus={() => setLocationFocus(true)}
-                            onBlur={() => setLocationFocus(false)}
-                            id="Location"
-                            type="text"
-                            name="Location"
-                            onChange={(e) => setUserData({
-                                ...userData,
-                                location: e.currentTarget.value
-                            })}
-                            key="Location"
-                            value={userData?.location}
-                        />
-                    </label>
-
-                    {/* FIXME:  Field lost focus on typing because of component refresh */}
-                    {/* <Field
+                    <Field
+                        type="text"
+                        label="First Name"
+                        onChange={(e) => setUserData({
+                            ...userData,
+                            firstName: e.currentTarget.value
+                        })}
+                        focused={firstNameFocused}
+                        onFocus={() => setFirstNameFocus(true)}
+                        onBlur={() => setFirstNameFocus(false)}
+                        value={userData?.firstName} />
+                    <Field
                         type="text"
                         label="Location"
                         onChange={(e) => setUserData({
@@ -198,7 +106,7 @@ const Profile = (): JSX.Element => {
                         focused={locationFocused}
                         onFocus={() => setLocationFocus(true)}
                         onBlur={() => setLocationFocus(false)}
-                        value={userData?.location} /> */}
+                        value={userData?.location} />
                 </Column>
             </Form>
             <Button type="submit">Save</Button>

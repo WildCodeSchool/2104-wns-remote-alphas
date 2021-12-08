@@ -34,9 +34,12 @@ interface ColorType {
 	description: string;
 }
 const Colors = (): JSX.Element => {
+	const theme = useContext(ThemeContext);
+	const primaryColor = theme.colors.primary;
+
 	const [visibleColorPicker, toggleColorPicker] = useState(false);
 	const [setter, setSetter] = useState<COLORS>(COLORS.PRIMARY);
-	const [color, setColor] = useState('#292929');
+	const [color, setColor] = useState(primaryColor);
 	const [customColors, setCustomColors] = useState<Record<COLORS, ColorType>>({
 		[COLORS.PRIMARY]: {
 			color: '#292929',
