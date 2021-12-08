@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import convertDate from '../../utils/convertDate';
 import ErrorMessage from '../core/ErrorMessage';
 import { GET_COURSES } from '../../utils/apollo';
+import logo from '../../utils/img/apple-touch-icon.png';
 
 const TimelineContent = styled.div`
 	width: 100%;
@@ -53,22 +54,30 @@ export function Timeline(): JSX.Element {
 				theme={{
 					primary: '#68d0fc',
 					secondary: 'white',
-					cardBgColor: 'grey',
+					cardBgColor: 'white',
 					cardForeColor: 'white',
-				}}
-			>
-			{data.getCourses.map((course: CourseType, index: number) => (
-				<button
-					type="button"
-					// eslint-disable-next-line react/no-array-index-key
-					key={index}
-					// eslint-disable-next-line no-underscore-dangle
-					onClick={() => { history.push(`/courses/${course._id}`); }}>
+				}}>
+				<div className="chrono-icons">
+					{data.getCourses.map(() => (
+						<img src={logo} alt="" />
+					))}
+				</div>
+				{data.getCourses.map((course: CourseType, index: number) => (
+					<button
+						type="button"
+						// eslint-disable-next-line react/no-array-index-key
+						key={index}
+						// eslint-disable-next-line no-underscore-dangle
+						onClick={() => {
+							history.push(`/courses/${course._id}`);
+						}}>
 						See course
-						<span role="img" aria-label="Books">📚</span>
-    </button>
+						<span role="img" aria-label="Books">
+							📚
+						</span>
+					</button>
 				))}
-   </Chrono>
+			</Chrono>
 		</TimelineContent>
 	);
 }

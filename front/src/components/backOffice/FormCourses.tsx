@@ -275,10 +275,11 @@ function FormCourses(): JSX.Element {
 			</FormContent>
 			{showModal && (
 				<ModalConfirmation
+					title="Confirmation"
 					question="Es-tu sûr de vouloir supprimer ce cours ?"
-					id={postCourseState._id}
-					deleteCourse={deleteCourse}
-					closeModal={closeModal}
+					onConfirm={() => deleteCourse(postCourseState._id)}
+					onCancel={closeModal}
+					confirmActionName="Supprimer"
 				/>
 			)}
 		</>
