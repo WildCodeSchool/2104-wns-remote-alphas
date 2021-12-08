@@ -10,7 +10,7 @@ import { GET_COURSES } from '../../utils/apollo';
 const TimelineContent = styled.div`
 	width: 100%;
 	height: calc(100vh - 113px - 105px);
-	background-color: #292929;
+	background-color: ${(props) => props.theme.colors.primary};
 `;
 export type CourseType = {
 	courseName: string;

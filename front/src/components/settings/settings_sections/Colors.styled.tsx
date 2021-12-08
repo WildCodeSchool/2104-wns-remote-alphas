@@ -1,17 +1,13 @@
 // eslint-disable-next-line object-curly-newline
 import React, { useContext, useEffect, useState } from 'react';
-import Context from '../../context/Context';
+import { ThemeContext } from 'styled-components';
 import Column from '../../core/layout_parts/Column.styled';
 import Colorpicker from '../Colorpicker.styled';
 import ColorDrop from '../components/ColorDrop.styled';
 import ColorTheme from '../components/ColorTheme.styled';
 import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
-
-// export interface IUserColors {
-//     theme?: string;
-//     customColors?: string[];
-// }
+import { useUpdateTheme } from '../../context/ThemeUpdateContext';
 
 export interface IUserData {
 	firstName?: string;
@@ -38,9 +34,12 @@ interface ColorType {
 	description: string;
 }
 const Colors = (): JSX.Element => {
+	const theme = useContext(ThemeContext);
+	const primaryColor = theme.colors.primary;
+
 	const [visibleColorPicker, toggleColorPicker] = useState(false);
 	const [setter, setSetter] = useState<COLORS>(COLORS.PRIMARY);
-	const [color, setColor] = useState('#292929');
+	const [color, setColor] = useState(primaryColor);
 	const [customColors, setCustomColors] = useState<Record<COLORS, ColorType>>({
 		[COLORS.PRIMARY]: {
 			color: '#292929',
@@ -74,21 +73,25 @@ const Colors = (): JSX.Element => {
 		},
 	});
 
-	// FIXME: user data doesn't contain settings
-	// FIXME: customColors should be an array of string (currently set as string)
-	/// Fetch current user in context
-	const { user } = useContext(Context);
-	/// Set as initial data
-	// const [userColors, setUserColors] = useState<IUserData>(user);
-	// console.log(user);
+	const updateTheme = useUpdateTheme();
+	const currentTheme = useContext(ThemeContext);
 
-	/// Set the current colordrop to the new value on color picker changes
-
+	/**
+	 * Set the current colordrop to the new value on color picker changes
+	 * and update theme data in context.
+	 * */
 	useEffect(() => {
 		if (setter && Object.keys(customColors).includes(setter)) {
 			setCustomColors({
 				...customColors,
 				[setter]: { ...customColors[setter], color },
+			});
+
+			updateTheme({
+				colors: {
+					...currentTheme.colors,
+					[setter]: color,
+				}
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,7 +102,9 @@ const Colors = (): JSX.Element => {
 	): [COLORS, ColorType][] {
 		return Object.entries(obj) as [COLORS, ColorType][];
 	}
+
 	const ColorEntries = convertToEntries(customColors);
+
 	return (
 		<Container>
 			<Column>

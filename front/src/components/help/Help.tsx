@@ -7,6 +7,7 @@ const ContentHelp = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: ${(props) => props.theme.colors.primary};
     @media screen and (max-width: 780px) {
 		padding: 0% 10% 0% 10%;
 	}

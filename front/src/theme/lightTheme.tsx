@@ -112,6 +112,13 @@ const lightTheme: import('styled-components').DefaultTheme = {
 			padding: '5rem',
 		},
 	},
+	breakpoints: {
+		xs: '350px',
+		sm: '600px',
+		md: '960px',
+		lg: '1280px',
+		xl: '1920px',
+	},
 };
 
 export default lightTheme;
