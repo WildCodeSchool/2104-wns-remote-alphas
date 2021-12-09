@@ -232,14 +232,16 @@ function Admin(): JSX.Element {
 									setFilter(e.target.value as ROLES | '');
 								}}
 								value={filter}>
-								<option value={filter}>
-									{filter?.toUpperCase() || 'filter by role'}
-								</option>
-								{Object.entries(ROLES).map((role) => (
-									<option key={role[1]} value={role[1]}>
-										{role[0]}
-									</option>
-								))}
+								<option value={filter}>{filter?.toUpperCase() || 'ALL'}</option>
+								{!!filter && <option value="">ALL</option>}
+								{Object.entries(ROLES).map(
+									(role) =>
+										role[1] !== filter && (
+											<option key={role[1]} value={role[1]}>
+												{role[0]}
+											</option>
+										)
+								)}
 							</Select>
 						)}
 					</FilterContainer>
