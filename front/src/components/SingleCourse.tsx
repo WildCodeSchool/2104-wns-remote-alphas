@@ -11,6 +11,9 @@ const Container = styled.div`
 	align-items: center;
 	flex-direction: column;
 	padding: 141px;
+	@media screen and (max-width: 780px) {
+		padding: 3%;
+	}
 `;
 
 const BackButton = styled.button`
@@ -23,10 +26,16 @@ const BackButton = styled.button`
 	width: 125px;
 	align-self: flex-start;
 	margin: 0 0 2% 12%;
+	cursor: pointer;
+	@media screen and (max-width: 780px) {
+		margin: 0;
+		margin-bottom: 2%;
+	}
 `;
 
 const ArrowContent = styled.div`
 	width: 32px;
+
 `;
 
 const Arrow = styled.img`
@@ -42,6 +51,12 @@ const Course = styled.div`
 	background-color: ${(props) => props.theme.colors.opposite};
 	padding: 65px 121px 65px 121px;
 	box-shadow: 10px 12px 16px -3px rgba(0, 0, 0, 0.75);
+	@media screen and (max-width: 780px) {
+		width: 90%;
+		min-height: 40%;
+		padding: 5%;
+		margin-bottom: 80px;
+	}
 `;
 
 const TextOnHead = styled.div`

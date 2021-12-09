@@ -7,35 +7,45 @@ const ContentSoon = styled.div`
     box-shadow: 10px 10px 13px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     display: flex;
-    width: 40vw;
-    max-width: 600px;
-    min-width: 180px;
-    height: 45vh;
-    flex-wrap: wrap;
-    gap: 1em;
     align-items: center;
+    @media screen and (max-width: 780px) {
+		padding: 3%;
+	}
 `;
 
-const Image = styled.img`
+const Image = styled.div`
     margin: auto;
-    width: 35%;
-    max-width: 250px;
-    min-width: 140px;
+    margin-right: 94px;
+    display: flex;
+    @media screen and (max-width: 780px) {
+        margin: auto;
+        width: 40%;
+	}
+`;
+
+const PandaRun = styled.img`
+    width: 100%;
 `;
 
 const Text = styled.p`
-    @media (min-width: 450px) {
-        font-size: ${(props) => props.theme.fontSize.xl};
-    }
+
     font-size: ${(props) => props.theme.fontSize.l};
     font-weight: bold;
     text-align: center;
     color: ${(props) => props.theme.colors.altTextColor};
+    @media screen and (max-width: 780px) {
+		font-size: 20px;
+	}
+    @media (min-width: 450px) {
+        font-size: ${(props) => props.theme.fontSize.xl};
+    }
 `;
 
 const ComingSoon = (): JSX.Element => (
     <ContentSoon>
-        <Image src="assets/images/running_panda.png" alt="illustration of panda is running" />
+        <Image>
+            <PandaRun src="/assets/images/running_panda.png" alt="illustration of panda is running" />
+        </Image>
         <Text>
             Coming Soon !
         </Text>
