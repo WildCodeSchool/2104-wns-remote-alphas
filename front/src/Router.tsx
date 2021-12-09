@@ -45,7 +45,7 @@ function Router(): JSX.Element {
 
 	const client = new ApolloClient({
 		uri: process.env.REACT_APP_API_DEV,
-		cache: new InMemoryCache(),
+		cache: new InMemoryCache({ addTypename: false }),
 		link: authLink.concat(httpLink),
 		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});

@@ -5,6 +5,7 @@ import ME from './mutations/me';
 import SIGNUP from './mutations/signup';
 import UPDATE_COURSE from './mutations/updateOneCourse';
 import UPDATE_ROLE from './mutations/updateRole';
+import UPDATE_SETTINGS from './mutations/updateSettings';
 import GET_COURSES from './queries/getCourses';
 import GET_ONE_COURSE from './queries/getOneCourse';
 import GET_USERS from './queries/getUsers';
@@ -21,4 +22,5 @@ export {
 	SIGNUP,
 	UPDATE_COURSE,
 	UPDATE_ROLE,
+	UPDATE_SETTINGS,
 };

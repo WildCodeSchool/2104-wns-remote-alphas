@@ -7,6 +7,6 @@ export class ColorsSettingsInput {
   @Field((type) => String)
   public theme!: string;
 
-  @Field((type) => String)
-  public customColors!: string;
+  @Field((type) => [String])
+  public customColors!: string[];
 }
