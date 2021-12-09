@@ -88,7 +88,6 @@ export class UserResolver {
           return updatedUser;
         }
       } else {
-        console.log(hostUser?._id, userToUpdate?._id);
         throw new ApolloError("You can't update another user");
       }
     } else {
