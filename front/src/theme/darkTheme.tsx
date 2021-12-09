@@ -34,9 +34,8 @@ const darkTheme: import('styled-components').DefaultTheme = {
 	},
 	// shared values between themes
 	font: {
-		fontSource: 'https://fonts.googleapis.com/css2?family=Oxygen&display=swap',
-		fontName: "'Oxygen'",
-		fontSize: '12px',
+		fontFamily: 'Oxygen',
+
 	},
 	fontSize: {
 		xxs: '12px',

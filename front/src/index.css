@@ -1,8 +1,14 @@
+@font-face {
+    font-family: "Oxygen";
+    src: local("Oxygen-Regular"), url('./theme/fonts/Oxygen-Regular.ttf') format("truetype");
+    font-weight: 400;
+  } 
+
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+/* 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+		sans-serif; */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #292929;

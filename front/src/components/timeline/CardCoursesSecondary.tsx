@@ -15,6 +15,8 @@ const Card = styled.div`
 `;
 
 const Title = styled.div`
+
+  font-family: ${(props) => props.theme.font.fontFamily};
   text-align: center;
   color: ${(props) => props.theme.colors.primary};
   font-size: ${(props) => props.theme.fontSize.l};
