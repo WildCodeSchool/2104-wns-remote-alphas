@@ -40,6 +40,9 @@ const TabletNav = (): JSX.Element => {
 					<OfficeIcon />
 				</LinkReactRouter>
 			)}
+			{user?.role === 'admin' && (
+				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
+			)}
 
 			<ChatIcon />
 
