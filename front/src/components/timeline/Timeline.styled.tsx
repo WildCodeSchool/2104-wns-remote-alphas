@@ -10,7 +10,7 @@ import logo from '../../utils/img/apple-touch-icon.png';
 
 const TimelineContent = styled.div`
 	width: 100%;
-	height: calc(100vh - 113px - 94px);
+	height: calc(100vh - 113px - 105px);
 	background-color: ${(props) => props.theme.colors.primary};
 `;
 export type CourseType = {

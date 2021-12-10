@@ -2,11 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line object-curly-newline
-import { useMutation, useQuery, ApolloError, gql } from '@apollo/client';
-import ListCoursesback, { CourseId } from './ListCoursesBack';
+import { useMutation, useQuery, ApolloError } from '@apollo/client';
+import ListCoursesback from './ListCoursesBack';
 import FormMasterBackOffice from './FormMasterbackOffice';
 import ModalConfirmation from '../core/ModalConfirmation';
-import { ADD_COURSE, DELETE_ONE_COURSE, GET_COURSES } from '../../utils/apollo';
+import {
+	ADD_COURSE,
+	DELETE_ONE_COURSE,
+	GET_COURSES,
+	UPDATE_COURSE,
+} from '../../utils/apollo';
 
 const BackOfficeTitle = styled.div`
 	display: flex;
@@ -57,33 +62,6 @@ export interface CourseType {
 	postedAt: string;
 	_id: string;
 }
-
-export const UPDATE_COURSE = gql`
-	mutation updateOneCourse(
-		$courseName: String!
-		$image_url: String!
-		$description: String!
-		$technos: [String!]
-		$_id: ID!
-	) {
-		updateOneCourse(
-			data: {
-				courseName: $courseName
-				description: $description
-				technos: $technos
-				image_url: $image_url
-			}
-			courseId: { _id: $_id }
-		) {
-			courseName
-			description
-			technos
-			image_url
-			_id
-			postedAt
-		}
-	}
-`;
 
 function FormCourses(): JSX.Element {
 	const initialState = {

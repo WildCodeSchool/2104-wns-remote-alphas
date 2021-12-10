@@ -22,6 +22,7 @@ import Context, { User } from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
 import FormCourses from './components/backOffice/FormCourses';
+import Admin from './components/admin/Admin';
 import ThemeUpdateContext from './components/context/ThemeUpdateContext';
 
 function Router(): JSX.Element {
@@ -44,7 +45,7 @@ function Router(): JSX.Element {
 
 	const client = new ApolloClient({
 		uri: process.env.REACT_APP_API_DEV,
-		cache: new InMemoryCache(),
+		cache: new InMemoryCache({ addTypename: false }),
 		link: authLink.concat(httpLink),
 		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});
@@ -131,8 +132,13 @@ function Router(): JSX.Element {
 												<SingleCourse />
 											</Route>
 											{(user?.role === 'teacher' || user?.role === 'admin') && (
-												<Route exact path="/backOffice">
+												<Route exact path="/backoffice">
 													<FormCourses />
+												</Route>
+											)}
+											{user?.role === 'admin' && (
+												<Route exact path="/admin">
+													<Admin />
 												</Route>
 											)}
 										</>

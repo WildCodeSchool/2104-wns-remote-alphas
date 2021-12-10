@@ -3,7 +3,7 @@ import { Field, InputType } from "type-graphql";
 import { SettingsInput } from "./SettingsInput";
 
 @InputType()
-export class UserInput implements Partial<User> {
+export class UpdateUserInput implements Partial<User> {
   @Field((type) => String)
   public name!: string;
 
@@ -12,9 +12,6 @@ export class UserInput implements Partial<User> {
 
   @Field((type) => String)
   public email!: string;
-
-  @Field((type) => String)
-  public password!: string;
 
   @Field((type) => String, { nullable: true })
   public location?: string;
