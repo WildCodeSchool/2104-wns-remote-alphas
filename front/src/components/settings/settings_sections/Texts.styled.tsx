@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import { setFlagsFromString } from 'v8';
 
 const Wrapper = styled.section`
     display: flex;
@@ -53,7 +54,19 @@ const LargeImg = styled.img`
 `;
 
 const Texts = (): JSX.Element => {
-    console.log('texts and fonts section');
+    const theme = useContext(ThemeContext);
+    const defaultFont = theme.font.fontFamily.Oxygen;
+    const [font, setFont] = useState(defaultFont);
+
+    const handleChange = (event: any) => {
+        setFont({ value: event.target.value });
+    };
+
+    const handleSubmit = (event: any) => {
+        alert(`votre font ${font.value}`);
+        event.preventDefault();
+    };
+
     return (
         <Wrapper>
             <FontFamilyContent>
@@ -61,13 +74,15 @@ const Texts = (): JSX.Element => {
                     <img src="/assets/images/fontFamily.png" alt="illustration of font family" />
                     <p>Font</p>
                 </WrapperFontSettings>
-                <Form>
-                    <select>
-                        <option>Oxygen</option>
+                <Form onSubmit={handleSubmit}>
+                    <select onChange={handleChange}>
+                        <option selected value="oxygen">Oxygen</option>
+                        <option value="open-dyslexic">Open Dyslexic</option>
                     </select>
                     <select>
                         <option>weight</option>
                     </select>
+                    <button type="submit">Valider</button>
                 </Form>
             </FontFamilyContent>
 

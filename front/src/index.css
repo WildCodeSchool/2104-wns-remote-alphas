@@ -2,6 +2,10 @@
     font-family: "Oxygen";
     src: local("Oxygen-Regular"), url('./theme/fonts/Oxygen-Regular.ttf') format("truetype");
     font-weight: 400;
+  }
+  @font-face {
+    font-family: "OpenDyslexic";
+    src: local("OpenDyslexic-Regular"), url('./theme/fonts/OpenDyslexic-Regular.otf') format("opentype");
   } 
 
 body {

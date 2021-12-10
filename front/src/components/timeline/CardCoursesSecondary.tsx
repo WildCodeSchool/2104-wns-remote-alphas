@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -16,8 +16,8 @@ const Card = styled.div`
 
 const Title = styled.div`
 
-  font-family: ${(props) => props.theme.font.fontFamily};
-  text-align: center;
+font-family: ${(props) => props.theme.font.fontFamily.OpenDyslexic};
+text-align: center;
   color: ${(props) => props.theme.colors.primary};
   font-size: ${(props) => props.theme.fontSize.l};
 `;
@@ -42,6 +42,10 @@ const Line = styled.hr`
   width: 100%;
 `;
 
+/* interface FontType {
+
+}
+ */
 function CardCoursesSecondary({
   title, image, imageDescription, course, id
 }: Props): JSX.Element {

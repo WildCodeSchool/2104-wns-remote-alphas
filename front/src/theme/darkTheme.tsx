@@ -34,7 +34,10 @@ const darkTheme: import('styled-components').DefaultTheme = {
 	},
 	// shared values between themes
 	font: {
-		fontFamily: 'Oxygen',
+		fontFamily: {
+			Oxygen: 'Oxygen',
+			OpenDyslexic: 'OpenDyslexic',
+		},
 
 	},
 	fontSize: {
