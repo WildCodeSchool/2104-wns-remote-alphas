@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable no-confusing-arrow */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
 import React from 'react';
@@ -204,6 +206,13 @@ function Admin(): JSX.Element {
 						users.map((user) => ({ id: user._id, isOpen: false }))
 					);
 					setSelectedUser(initialState);
+					setUsers(
+						users.map((userInState) =>
+							userInState._id !== result?.data?.updateRole._id
+								? userInState
+								: result?.data?.updateRole
+						)
+					);
 				}
 			} catch (err) {
 				if (err instanceof ApolloError) {
