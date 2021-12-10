@@ -35,12 +35,17 @@ export interface Settings {
 	global: Global;
 }
 
+export enum ROLES {
+	STUDENT = 'student',
+	ADMIN = 'admin',
+	TEACHER = 'teacher',
+}
 export interface User {
 	_id: string;
 	name: string;
 	firstName: string;
 	email: string;
-	role: string;
+	role: ROLES;
 	location?: string;
 	settings?: Settings;
 }
