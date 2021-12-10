@@ -1,8 +1,9 @@
 import React from 'react';
 
-/** Defines a custom hook for building a responive app depending on the
+/** Defines a custom hook for building a responsive app depending on the
  * current window's size.
  *
+ * @example
  * Sample use of display only when window is larger than 600px :
  * ```
  *  import useWindowSize from '../../../utils/useWindowSize';

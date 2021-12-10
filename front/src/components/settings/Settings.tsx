@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import CircleAvatar from '../core/CircleAvatar.styled';
-import Card from './Card.styled';
-import CardMenu from './CardMenu.styled';
-import NavMenu from './NavMenu.styled';
+import Card from './components/Card.styled';
+import CardMenu from './components/CardMenu.styled';
+import NavMenu, { SECTIONS } from './NavMenu.styled';
 import Colors from './settings_sections/Colors.styled';
 import Distractions from './settings_sections/Distractions.styled';
 import Profile from './settings_sections/Profile.styled';
 import Texts from './settings_sections/Texts.styled';
 import UserSettings from './settings_sections/UserSettings.styled';
+
+const Wrapper = styled.div`
+	height: calc(100vh - 113px - 105px);
+	display: flex;
+	align-items: center;
+	@media screen and (max-width: 780px) {
+		height: inherit;
+	}
+`;
 
 /**
  * Settings provides a setting card with 2 sections:
@@ -17,27 +27,37 @@ import UserSettings from './settings_sections/UserSettings.styled';
  */
 
 const Settings = (): JSX.Element => {
-    /// Define default and current section (default is profile)
-    const [section, setSection] = useState<string>('profile');
+	/// Define default and current section (default is profile)
+	const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
 
-    /// Udpate the active section to change the view
-    const updateSection = (menuItem: string):void => {
-        setSection(menuItem);
-    };
+	/// Udpate the active section to change the view
+	const updateSection = (menuItem: SECTIONS): void => {
+		setSection(menuItem);
+	};
 
-    return (
-        <Card>
-            <CardMenu>
-            <CircleAvatar alt="user avatar" src="/assets/images/default-avatar.png" onClick={() => updateSection('profile')} />
-                <NavMenu section={section} updateSection={updateSection} />
-            </CardMenu>
-            {(section === 'profile') && <Profile />}
-            {(section === 'colors') && <Colors />}
-            {(section === 'texts') && <Texts />}
-            {(section === 'distractions') && <Distractions />}
-            {(section === 'settings') && <UserSettings />}
-        </Card>
-    );
+	const sections = {
+		[SECTIONS.COLORS]: <Colors />,
+		[SECTIONS.DISTRACTIONS]: <Distractions />,
+		[SECTIONS.PROFILE]: <Profile />,
+		[SECTIONS.TEXTS]: <Texts />,
+		[SECTIONS.SETTINGS]: <UserSettings />,
+	};
+	const displayedSection = sections[section];
+	return (
+		<Wrapper>
+			<Card>
+				<CardMenu>
+					<CircleAvatar
+						alt="user avatar"
+						src="/assets/images/default-avatar.png"
+						onClick={() => updateSection(SECTIONS.PROFILE)}
+					/>
+					<NavMenu section={section} updateSection={updateSection} />
+				</CardMenu>
+				{displayedSection}
+			</Card>
+		</Wrapper>
+	);
 };
 
 export default Settings;

@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import Header from './Header.styled';
 import Footer from './Footer.styled';
 
-const Container = styled.div``;
+/**
+ * Build a layout template with the app header and footer.
+ * Navigation is done inside the nested children.
+ */
 const App = styled.div`
-	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: ${(props) => props.theme.colors.primary};
 `;
 
 interface LayoutProps {
@@ -15,7 +20,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps): JSX.Element => (
 	<App>
 		<Header />
-		<Container>{children}</Container>
+		{children}
 		<Footer />
 	</App>
 );

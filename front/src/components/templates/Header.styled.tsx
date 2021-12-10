@@ -10,16 +10,16 @@ import MobileNav from './navMenus/MobileNav.styled';
 /**
  * Build a responsive app header with navigation menu
  */
-const HeaderContent = styled.div`
-	background-color: #292929;
-	color: white;
+const HeaderContent = styled.header`
+	background-color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.textColor};
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 7rem;
 	padding-right: 2rem;
 	padding-left: 2rem;
-	border-bottom: 1px solid #68d0fc;
+	border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
 `;
 const TitleContent = styled.div`
 	align-items: center;
@@ -35,6 +35,8 @@ const Header = (): JSX.Element => {
 			<LinkReactRouter to="/">
 				<TitleContent data-testid="logo-title">
 					<img
+						aria-label="home link"
+						role="navigation"
 						style={{ width: width > 1000 ? '280px' : '' }}
 						src="/assets/images/logo.svg"
 						alt="Masterize"
@@ -51,6 +53,8 @@ const Header = (): JSX.Element => {
 			) : (
 				<LinkReactRouter to="/signin">
 					<img
+						aria-label="login"
+						role="navigation"
 						style={{ width: '25px' }}
 						src="/assets/icons/022-login.svg"
 						alt="Login"

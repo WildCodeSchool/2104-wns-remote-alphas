@@ -13,9 +13,9 @@ export class ColorsSettings {
   @prop({ required: true })
   public theme!: string;
 
-  @Field((type) => String)
+  @Field((type) => [String])
   @prop({ required: true })
-  public customColors!: string;
+  public customColors!: string[];
 }
 
 export const ColorsSettingsModel = getModelForClass(ColorsSettings);

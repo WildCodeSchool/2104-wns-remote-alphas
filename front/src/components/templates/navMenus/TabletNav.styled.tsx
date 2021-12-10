@@ -3,6 +3,13 @@ import Logout from '../../authentication/Logout';
 import Context from '../../context/Context';
 import MenuContent from '../components/MenuContent.styled';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
+import HomeIcon from '../../assets/icons/HomeIcon';
+import CourseIcon from '../../assets/icons/CourseIcon';
+import WikiIcon from '../../assets/icons/WikiIcon';
+import HelpIcon from '../../assets/icons/HelpIcon';
+import OfficeIcon from '../../assets/icons/OfficeIcon';
+import SettingsIcon from '../../assets/icons/SettingsIcon';
+import ChatIcon from '../../assets/icons/ChatIcon';
 
 /**
  *  Build nav menu for tablets and medium screens
@@ -13,59 +20,34 @@ const TabletNav = (): JSX.Element => {
 	return (
 		<MenuContent data-testid="menu" style={{ width: '450px' }}>
 			<LinkReactRouter to="/">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/024-home.svg"
-					alt="Home"
-				/>
+				<HomeIcon />
 			</LinkReactRouter>
 
 			<LinkReactRouter to="/courses">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/025-course.svg"
-					alt="Courses"
-				/>
+				<CourseIcon />
 			</LinkReactRouter>
 
 			<LinkReactRouter to="/wiki">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/026-wiki.svg"
-					alt="Wiki"
-				/>
+				<WikiIcon />
 			</LinkReactRouter>
 
 			<LinkReactRouter to="help">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/027-help.svg"
-					alt="Help"
-				/>
+				<HelpIcon />
 			</LinkReactRouter>
 
 			{(user?.role === 'teacher' || user?.role === 'admin') && (
 				<LinkReactRouter to="/backoffice">
-					<img
-						style={{ width: '30px' }}
-						src="/assets/icons/028-add.svg"
-						alt="Office"
-					/>
+					<OfficeIcon />
 				</LinkReactRouter>
 			)}
+			{user?.role === 'admin' && (
+				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
+			)}
 
-			<img
-				style={{ width: '30px' }}
-				src="/assets/icons/029-chat.svg"
-				alt="Chat"
-			/>
+			<ChatIcon />
 
 			<LinkReactRouter to="/settings">
-				<img
-					style={{ width: '30px' }}
-					src="/assets/icons/013-settings.svg"
-					alt="Settings"
-				/>
+				<SettingsIcon />
 			</LinkReactRouter>
 
 			<Logout />

@@ -8,9 +8,9 @@ import { Field, ObjectType } from "type-graphql";
 @ObjectType()
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class DistractionSettings {
-  @Field((type) => [String])
+  @Field((type) => String)
   @prop({ required: true })
-  public distractionTheme!: string[];
+  public distractionTheme!: string;
 
   @Field((type) => Boolean)
   @prop({ required: true })

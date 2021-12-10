@@ -5,19 +5,14 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { LOGIN, ME } from '../../utils/apollo';
+import AuthField from './AuthField';
 
 const Wrapper = styled.div`
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	margin: auto;
-	margin-top: 5rem;
-	margin-bottom: 5rem;
 	width: 20%;
-	height: 100%;
-	border: 1px solid black;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+	height: calc(100vh - 113px - 105px);
 
 	@media screen and (max-width: 780px) {
 		width: 95%;
@@ -25,6 +20,17 @@ const Wrapper = styled.div`
 	@media all and (min-width: 790px) and (max-width: 1280px) {
 		width: 50%;
 	}
+`;
+
+const FormContainer = styled.div`
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 12px;
+	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 14px;
 `;
 
 const ContainForm = styled.div`
@@ -43,27 +49,6 @@ const Form = styled.form`
 	width: 100%;
 `;
 
-const Input = styled.input`
-	margin: auto;
-	width: 85%;
-	height: 2.5rem;
-	border: 1px solid grey;
-	border-radius: 5px;
-	font-size: 1rem;
-`;
-
-const ContainCheckBox = styled.div`
-	width: 85%;
-	display: flex;
-	justify-content: flex-start;
-	margin: auto;
-`;
-
-const CheckBox = styled.input`
-	cursor: pointer;
-`;
-const LabelForCheck = styled.label``;
-
 const Button = styled.button`
 	margin: auto;
 	width: 85%;
@@ -79,9 +64,16 @@ const Button = styled.button`
 		border-color: #2bb7f3;
 	}
 `;
-const Title = styled.h3``;
+const Title = styled.h1`
+	font-size: ${(props) => props.theme.fontSize.s};
+	text-align: center;
+`;
 
-const LittleTitle = styled.h4`
+const SubTitle = styled.h2`
+	font-size: ${(props) => props.theme.fontSize.s};
+`;
+
+const LittleTitle = styled.p`
 	cursor: pointer;
 	:hover {
 		text-decoration: underline;
@@ -149,36 +141,30 @@ export default function SignInPage(): JSX.Element {
 		}
 	}
 	return (
-		<Wrapper style={{ backgroundColor: 'white' }}>
+		<Wrapper>
+			<FormContainer>
 			<Title>J&apos;ai déjà un compte Masterize</Title>
 			<ContainForm>
 				<Form>
-					<Input
-						type="text"
-						name="email"
-						placeholder="Adresse email"
+					<AuthField
+						label="email"
+						type="email"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
 						value={userLog.email}
+						placeholder="hello@masterize.com"
 					/>
-					<Input
+					<AuthField
+						label="password"
 						type="password"
-						name="password"
-						placeholder="Mot de passe"
 						onChange={(e) => {
 							setUserLog({ ...userLog, [e.target.name]: e.target.value });
 						}}
 						value={userLog.password}
+						placeholder="supersecretpassword"
 					/>
-					<ContainCheckBox>
-						<CheckBox
-							type="checkbox"
-							id="remember-password"
-							name="remember-password"
-						/>
-						<LabelForCheck>Se Souvenir de mon identifiant</LabelForCheck>
-					</ContainCheckBox>
+
 					<Button
 						type="button"
 						value="Envoyer"
@@ -195,7 +181,7 @@ export default function SignInPage(): JSX.Element {
 			</ContainForm>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
 			<Line> </Line>
-			<Title>Nouveau sur Masterize ? </Title>
+			<SubTitle>Nouveau sur Masterize ? </SubTitle>
 			<LittleTitle
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
 				onClick={() => {
@@ -203,6 +189,8 @@ export default function SignInPage(): JSX.Element {
 				}}>
 				S&apos;INSCRIRE
 			</LittleTitle>
+
+			</FormContainer>
 		</Wrapper>
 	);
 }
