@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { setFlagsFromString } from 'v8';
 
@@ -28,6 +28,7 @@ const FontChoice = styled.div`
     justify-content: space-around;
     img {
         align-self: self-end;
+        cursor: pointer;
     }
 `;
 
@@ -56,7 +57,11 @@ const LargeImg = styled.img`
 const Texts = (): JSX.Element => {
     const theme = useContext(ThemeContext);
     const defaultFont = theme.font.fontFamily.Oxygen;
+    const defaultSize = theme.fontSize.xxs;
+    const defaultWeight = theme.font.weight.normal;
     const [font, setFont] = useState(defaultFont);
+    const [fontSize, setfontSize] = useState(defaultSize);
+    const [fontWeight, setfontWeight] = useState(defaultWeight);
 
     const handleChange = (event: any) => {
         setFont({ value: event.target.value });
@@ -67,20 +72,40 @@ const Texts = (): JSX.Element => {
         event.preventDefault();
     };
 
+    const SmallSize = () => {
+        setfontSize(defaultSize);
+        return fontSize;
+    };
+
+    const MediumSize = () => {
+        setfontSize(theme.fontSize.xs);
+        return fontSize;
+    };
+
+    const LargeSize = () => {
+        setfontSize(theme.fontSize.s);
+        return fontSize;
+    };
+
     return (
         <Wrapper>
             <FontFamilyContent>
                 <WrapperFontSettings>
                     <img src="/assets/images/fontFamily.png" alt="illustration of font family" />
                     <p>Font</p>
+                    <p>
+                        font choose:
+                        {font.value}
+                    </p>
                 </WrapperFontSettings>
                 <Form onSubmit={handleSubmit}>
                     <select onChange={handleChange}>
-                        <option selected value="oxygen">Oxygen</option>
-                        <option value="open-dyslexic">Open Dyslexic</option>
+                        <option value={defaultFont}>Oxygen</option>
+                        <option value={theme.font.fontFamily.OpenDyslexic}>Open Dyslexic</option>
                     </select>
                     <select>
-                        <option>weight</option>
+                        <option value={defaultWeight}>normal</option>
+                        <option value={theme.font.weight.bold}>bold</option>
                     </select>
                     <button type="submit">Valider</button>
                 </Form>
@@ -91,10 +116,14 @@ const Texts = (): JSX.Element => {
                     <img src="/assets/images/fontSize.png" alt="" />
                     <p>Font Settings</p>
                 </WrapperFontSettings>
+                <p>
+                    choice of size:
+                    {fontSize}
+                </p>
                 <FontChoice>
-                    <SmallImg src="/assets/images/fontChoice.png" alt="" />
-                    <MediumImg src="/assets/images/fontChoice.png" alt="" />
-                    <LargeImg src="/assets/images/fontChoice.png" alt="" />
+                    <SmallImg src="/assets/images/fontChoice.png" alt="" onClick={SmallSize} />
+                    <MediumImg src="/assets/images/fontChoice.png" alt="" onClick={MediumSize} />
+                    <LargeImg src="/assets/images/fontChoice.png" alt="" onClick={LargeSize} />
                 </FontChoice>
 
             </div>
