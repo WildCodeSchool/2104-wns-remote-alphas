@@ -58,7 +58,9 @@ const DesktopNav = (): JSX.Element => {
 				</LinkReactRouter>
 			)}
 
-			<ButtonChat type="button">Chat Now</ButtonChat>
+			<LinkReactRouter to="/chatRoom">
+				<ButtonChat type="button">Chat Now</ButtonChat>
+			</LinkReactRouter>
 
 			<LinkReactRouter to="/settings">
 				<SettingsIcon />

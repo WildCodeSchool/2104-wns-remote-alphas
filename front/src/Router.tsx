@@ -18,6 +18,7 @@ import Wiki from './components/wiki/Wiki';
 import Help from './components/help/Help';
 import VisitorHomePage from './components/VisitorHomePage';
 import SingleCourse from './components/SingleCourse';
+import ChatInterface from './components/chatRoom/ChatInterface';
 import Context, { User } from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
@@ -129,6 +130,9 @@ function Router(): JSX.Element {
 											</Route>
 											<Route exact path="/courses/:id">
 												<SingleCourse />
+											</Route>
+											<Route exact path="/chatRoom">
+												<ChatInterface />
 											</Route>
 											{(user?.role === 'teacher' || user?.role === 'admin') && (
 												<Route exact path="/backOffice">

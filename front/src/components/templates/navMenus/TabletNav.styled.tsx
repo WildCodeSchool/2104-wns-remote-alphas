@@ -41,7 +41,9 @@ const TabletNav = (): JSX.Element => {
 				</LinkReactRouter>
 			)}
 
-			<ChatIcon />
+			<LinkReactRouter to="/chatRoom">
+				<ChatIcon />
+			</LinkReactRouter>
 
 			<LinkReactRouter to="/settings">
 				<SettingsIcon />
