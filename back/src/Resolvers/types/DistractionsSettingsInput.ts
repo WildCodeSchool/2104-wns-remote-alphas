@@ -3,8 +3,8 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class DistractionSettingsInput {
-  @Field((type) => [String])
-  public distractionTheme!: string[];
+  @Field((type) => String)
+  public distractionTheme!: string;
 
   @Field((type) => Boolean)
   public textNotifications!: boolean;

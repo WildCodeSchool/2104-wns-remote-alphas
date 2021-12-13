@@ -34,12 +34,19 @@ const Nav = styled.nav`
 const MenuIcon = styled.img`
 	width: ${(props) => props.theme.fixedSize.icon.large};
 	height: ${(props) => props.theme.fixedSize.icon.large};
+	@media screen and (max-width: 780px) {
+		width: 24px;
+		height: 24px;
+	}
 `;
 
 const MenuElement = styled.li`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@media screen and (max-width: 780px) {
+		font-size: 12px;
+	}
 `;
 
 interface NavMenuProps {

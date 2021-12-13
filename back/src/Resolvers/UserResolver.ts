@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { ApolloError, AuthenticationError } from "apollo-server";
 import { UserId } from "./types/UserId";
 import { UpdateRoleInput } from "./types/UpdateRoleInput";
+import { UpdateUserInput } from "./types/UpdateUserInput";
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -57,6 +58,37 @@ export class UserResolver {
         }
       } else {
         throw new ApolloError("You are not allowed to do this");
+      }
+    } else {
+      throw new AuthenticationError("Not connected");
+    }
+  }
+
+  @Mutation((returns) => User)
+  async updateSettings(
+    @Arg("userId") userId: UserId,
+    @Arg("newSettings") newSettings: UpdateUserInput,
+    @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
+  ) {
+    if (authenticatedUserEmail) {
+      const hostUser = await UserModel.findOne({
+        email: authenticatedUserEmail,
+      });
+      const userToUpdate = await UserModel.findOne({ _id: userId });
+      if (hostUser?._id.toString() === userToUpdate?._id.toString()) {
+        const updatedUser = await UserModel.findOneAndUpdate(
+          {
+            _id: userId,
+          },
+          newSettings
+        );
+        if (updatedUser) {
+          Object.assign(updatedUser, newSettings);
+          await updatedUser.save();
+          return updatedUser;
+        }
+      } else {
+        throw new ApolloError("You can't update another user");
       }
     } else {
       throw new AuthenticationError("Not connected");

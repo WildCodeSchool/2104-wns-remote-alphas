@@ -13,6 +13,10 @@ vertical-align: middle;
 border-radius: 50%;
 text-align: center;
 box-shadow: 13px 11px 20px 4px rgba(0,0,0,0.56);
+    @media screen and (max-width: 780px) {
+        width: 50px;
+        height: 50px;
+    }
 `;
 
 export default CircleAvatar;
