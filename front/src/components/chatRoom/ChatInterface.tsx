@@ -1,195 +1,182 @@
-import React, { useEffect, useState, useContext } from 'react';
-import Context from '../context/Context';
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable react/prop-types */
+import { ApolloError, gql, useMutation } from '@apollo/client';
+import React, { useState, useContext } from 'react';
+import styled from 'styled-components';
+import Context, { User } from '../context/Context';
 
-interface Data {
-	_id: number;
+interface IMessage {
+	_id: string;
 	text: string;
-	createdAt: any;
-	user: any;
+	author: Pick<User, 'firstName'>;
+	sentAt: Date;
 }
 
-export interface IUserData {
-	firstName?: string;
-	name?: string;
-	email?: string;
-	location?: string;
-}
+export const POST_MESSAGE = gql`
+	mutation postMessage($message: String!) {
+		postMessage(message: $message) {
+			_id
+			text
+			author {
+				firstName
+			}
+			sentAt
+		}
+	}
+`;
+
+// CSS
+const Container = styled.div`
+	width: 100vw;
+	height: 90vh;
+
+	background-color: '#292929';
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+
+const Wrapper = styled.div`
+	width: 70%;
+	height: 70%;
+	border: 1px solid #ecf3ff;
+	text-align: center;
+	overflow: scroll;
+	background-color: #ecf3ff;
+	border-radius: 20px;
+	box-shadow: 5px 5px 5px grey;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+`;
+
+const Name = styled.div`
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	color: grey;
+	margin-top: 10px;
+	margin-left: 8%;
+	font-size: 0.8rem;
+`;
+
+const WrapperText = styled.div<{ isAuthor?: boolean }>`
+	background-color: ${(props) => (props.isAuthor ? '#58CE3D' : '#c3c2c2')};
+	border: ${(props) =>
+		props.isAuthor ? '1px solid #58CE3D' : '1px solid #c3c2c2'};
+
+	width: 20vw;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 5%;
+	border-radius: 20px;
+	padding: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+`;
+
+const Text = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	text-align: left;
+`;
+
+const Datee = styled.div`
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	color: grey;
+	width: 20vw;
+	margin-top: 10px;
+	margin-left: 8%;
+	font-size: 0.6rem;
+`;
+
+const Form = styled.form`
+	width: 70%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 1rem;
+	text-align: center;
+`;
+
+const Input = styled.input`
+	width: 100%;
+	border: 1px solid black;
+	height: 3rem;
+	border-radius: 25px;
+	outline: none;
+	color: grey;
+	fontsize: 1rem;
+`;
 
 function ChatInterface(): JSX.Element {
-	const [text, setText] = useState('');
-	const [bubble, setBubble] = useState<Data[]>([]);
+	const [messages, setMessages] = useState<IMessage[]>([]);
+	const [bubble, setBubble] = useState<string>('');
 
 	const { user } = useContext(Context);
-	const [userData, setUserData] = useState<IUserData>(user);
 
-	useEffect(() => {
-		setBubble([
-			{
-				_id: 1,
-				text: 'Bonjour Anthony comment ça va ?',
-				createdAt: new Date(),
-				user: {
-					_id: 2,
-					name: 'Samuel',
-				},
-			},
-			// {
-			// 	_id: 1,
-			// 	text: '100K Mini sale pute',
-			// 	createdAt: new Date(),
-			// 	user: {
-			// 		_id: 2,
-			// 		name: 'Victor',
-			// 	},
-			// },
-		]);
-	}, []);
+	const [postMessageMutation] = useMutation<
+		{ postMessage: IMessage },
+		{ message: string }
+	>(POST_MESSAGE);
 
-	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setText(e.target.value);
+	function handleChange(value: string) {
+		setBubble(value);
 	}
-	function handleSubmit(): void {
-		setBubble([
-			...bubble,
-			{
-				_id: 2,
-				text,
-				createdAt: new Date(),
-				user: {
-					_id: 3,
-					name: userData.firstName,
-				},
-			},
-		]);
-		console.log('text', text);
-		console.log('bubble', bubble);
-		console.log('user', user);
-		console.log('userData', userData);
-		setText('');
+	async function handleSubmit() {
+		try {
+			const result = await postMessageMutation({
+				variables: { message: bubble },
+			});
+			if (result.data?.postMessage) {
+				setBubble('');
+				setMessages([...messages, result.data.postMessage]);
+			}
+		} catch (err) {
+			if (err instanceof ApolloError) {
+				throw new Error(err.message);
+			}
+		}
+		setBubble('');
 	}
+
 	return (
-		<div
-			className="container"
-			style={{
-				width: '100vw',
-				height: '90vh',
-				backgroundColor: '#292929',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-			}}>
-			<div
-				className="wrapper-interface"
-				style={{
-					width: '70%',
-					height: '70%',
-					border: '1px solid #ECF3FF',
-					textAlign: 'center',
-					overflow: 'scroll',
-					backgroundColor: '#ECF3FF',
-					borderRadius: '20px',
-					boxShadow: '5px 5px 5px grey',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'baseline',
-
-					// margin: 'auto',
-				}}>
-				{bubble.map((item) => (
-					<>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'left',
-								alignItems: 'center',
-								color: 'grey',
-								marginTop: '10px',
-								marginLeft: '8%',
-								fontSize: '0.8rem',
-								// padding: '10px',
-							}}>
-							<div>{item.user.name}</div>
-						</div>
-						<div
-							style={{
-								backgroundColor:
-									userData.firstName === item.user.name ? '#58CE3D' : '#c3c2c2',
-								width: '20vw',
-								// height: '3rem',
-								border:
-									userData.firstName === item.user.name
-										? '1px solid #58CE3D'
-										: ' 1px solid #c3c2c2',
-								color: 'white',
-								display: 'flex',
-								justifyContent: 'left',
-								alignItems: 'center',
-								marginLeft: '5%',
-								borderRadius: '20px',
-								padding: '10px',
-								paddingBottom: '10px',
-								marginTop: '10px',
-							}}>
-							<div
-								style={{
-									display: 'flex',
-									flexWrap: 'wrap',
-									textAlign: 'left',
-								}}>
-								{item.text}
-							</div>
-						</div>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'end',
-								alignItems: 'center',
-								color: 'grey',
-								width: '20vw',
-								marginTop: '10px',
-								marginLeft: '8%',
-								fontSize: '0.6rem',
-								// padding: '10px',
-							}}>
-							{item.createdAt.toLocaleDateString()}
-						</div>
-					</>
+		<Container>
+			<Wrapper>
+				{messages.map((item) => (
+					<div key={item._id}>
+						<Name>
+							<div>{item.author.firstName}</div>
+						</Name>
+						<WrapperText isAuthor={user.firstName === item.author.firstName}>
+							<Text>{item.text}</Text>
+						</WrapperText>
+						<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
+					</div>
 				))}
-			</div>
-			<form
-				style={{
-					width: '70%',
-					marginRight: 'auto',
-					marginLeft: 'auto',
-					marginTop: '1rem',
-					textAlign: 'center',
-				}}
+			</Wrapper>
+			<Form
 				onSubmit={(e) => {
 					e.preventDefault();
 					handleSubmit();
 				}}>
-				<input
-					style={{
-						width: '100%',
-						border: '1px solid black',
-						height: '3rem',
-						borderRadius: '25px',
-						outline: 'none',
-						color: 'grey',
-						fontSize: '1rem',
-					}}
+				<Input
 					type="text"
 					onChange={(e) => {
-						handleChange(e);
+						handleChange(e.target.value);
 					}}
-					value={text}
+					value={bubble}
 				/>
 				{/* <button style={{}} type="submit">
 					Send
 				</button> */}
-			</form>
-		</div>
+			</Form>
+		</Container>
 	);
 }
 
