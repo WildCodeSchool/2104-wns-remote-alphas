@@ -45,7 +45,7 @@ const Wrapper = styled.div`
 	text-align: center;
 	overflow: scroll;
 	background-color: #ecf3ff;
-	border-radius: 20px;
+	// border-radius: 20px;
 	box-shadow: 5px 5px 5px grey;
 	display: flex;
 	flex-direction: column;
