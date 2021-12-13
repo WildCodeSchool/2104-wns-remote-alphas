@@ -6,7 +6,9 @@ import {
 	createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+ BrowserRouter, Switch, Route, Redirect
+} from 'react-router-dom';
 import { DarkTheme, ThemeProvider } from 'styled-components';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
@@ -136,6 +138,15 @@ function Router(): JSX.Element {
 													<FormCourses />
 												</Route>
 											)}
+											<Route exact path="/backoffice">
+												{user?.role === 'student' ? <Redirect to="/" />
+												: (
+												<Route exact path="/backoffice">
+													<FormCourses />
+												</Route>
+												)}
+
+											</Route>
 											{user?.role === 'admin' && (
 												<Route exact path="/admin">
 													<Admin />
