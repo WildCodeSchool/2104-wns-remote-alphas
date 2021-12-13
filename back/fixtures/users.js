@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 module.exports = [
   {
-    _id: ObjectId(),
+    _id: "61b751d0b4b8b10024a7fd9f",
     name: "Lefrancois",
     firstName: "Théodore",
     email: "theodore.lefrancois2906@gmail.com",
@@ -32,7 +32,7 @@ module.exports = [
     },
   },
   {
-    _id: ObjectId(),
+    _id: "61b751d0b4b8b10024a7fda0",
     name: "Houis",
     firstName: "Ameline",
     email: "ameline@gmail.com",
@@ -61,7 +61,7 @@ module.exports = [
     },
   },
   {
-    _id: ObjectId(),
+    _id: "61b751d0b4b8b10024a7fda1",
     name: "Verges",
     firstName: "Anthony",
     email: "verges_anthony@hotmail.fr",
@@ -90,7 +90,7 @@ module.exports = [
     },
   },
   {
-    _id: ObjectId(),
+    _id: "61b751d0b4b8b10024a7fda2",
     name: "Palma",
     firstName: "Alex",
     email: "elya29@protonmail.com",
