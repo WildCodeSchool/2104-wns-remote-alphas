@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './components/Card.styled';
 import CardMenu from './components/CardMenu.styled';
@@ -8,6 +9,15 @@ import Distractions from './settings_sections/Distractions.styled';
 import Profile from './settings_sections/Profile.styled';
 import Texts from './settings_sections/Texts.styled';
 import UserSettings from './settings_sections/UserSettings.styled';
+
+const Wrapper = styled.div`
+	height: calc(100vh - 113px - 105px);
+	display: flex;
+	align-items: center;
+	@media screen and (max-width: 780px) {
+		height: inherit;
+	}
+`;
 
 /**
  * Settings provides a setting card with 2 sections:
@@ -34,17 +44,19 @@ const Settings = (): JSX.Element => {
 	};
 	const displayedSection = sections[section];
 	return (
-		<Card>
-			<CardMenu>
-				<CircleAvatar
-					alt="user avatar"
-					src="/assets/images/default-avatar.png"
-					onClick={() => updateSection(SECTIONS.PROFILE)}
-				/>
-				<NavMenu section={section} updateSection={updateSection} />
-			</CardMenu>
-			{displayedSection}
-		</Card>
+		<Wrapper>
+			<Card>
+				<CardMenu>
+					<CircleAvatar
+						alt="user avatar"
+						src="/assets/images/default-avatar.png"
+						onClick={() => updateSection(SECTIONS.PROFILE)}
+					/>
+					<NavMenu section={section} updateSection={updateSection} />
+				</CardMenu>
+				{displayedSection}
+			</Card>
+		</Wrapper>
 	);
 };
 

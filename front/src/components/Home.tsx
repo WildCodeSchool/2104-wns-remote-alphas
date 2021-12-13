@@ -21,15 +21,20 @@ const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
 	display: flex;
 	justify-content: center;
+	@media screen and (max-width: 780px) {
+		padding: 4%;
+	}
 `;
 
 const CardContainer = styled.div`
 	width: 100%;
-	padding: 50px 0px;
+	height: calc(100vh - 113px - 105px);
 	display: flex;
 	flex-wrap: wrap;
-	margin: 2em;
 	gap: 2em;
+	@media screen and (max-width: 780px) {
+		height: inherit;
+	}
 `;
 
 function Home(): JSX.Element {

@@ -62,6 +62,9 @@ const DesktopNav = (): JSX.Element => {
 				<ButtonChat type="button">Chat Now</ButtonChat>
 			</LinkReactRouter>
 
+			{user?.role === 'admin' && (
+				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
+			)}
 			<LinkReactRouter to="/settings">
 				<SettingsIcon />
 			</LinkReactRouter>

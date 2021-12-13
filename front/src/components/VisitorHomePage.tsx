@@ -19,6 +19,7 @@ const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
 	display: flex;
 	flex-direction: column;
+	height: calc(100vh - 113px - 105px);
 `;
 
 const CardContainer = styled.div`

@@ -71,7 +71,9 @@ const MobileNav = (): JSX.Element => {
 						<text>Office</text>
 					</LinkReactRouter>
 				)}
-
+				{user?.role === 'admin' && (
+					<LinkReactRouter to="/admin">Admin</LinkReactRouter>
+				)}
 				<LinkReactRouter to="/settings">
 					<text>Settings</text>
 				</LinkReactRouter>
