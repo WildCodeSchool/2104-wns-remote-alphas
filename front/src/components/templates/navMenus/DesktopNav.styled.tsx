@@ -57,11 +57,14 @@ const DesktopNav = (): JSX.Element => {
 					<text>Office</text>
 				</LinkReactRouter>
 			)}
+
+			<LinkReactRouter to="/chatRoom">
+				<ButtonChat type="button">Chat Now</ButtonChat>
+			</LinkReactRouter>
+
 			{user?.role === 'admin' && (
 				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
 			)}
-			<ButtonChat type="button">Chat Now</ButtonChat>
-
 			<LinkReactRouter to="/settings">
 				<SettingsIcon />
 			</LinkReactRouter>
