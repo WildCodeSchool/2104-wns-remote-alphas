@@ -4,6 +4,7 @@
 import { ApolloError, useMutation } from '@apollo/client';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import type { NestedObject } from '../../../utils/objectUtilities';
 import { UPDATE_SETTINGS } from '../../../utils/apollo';
 import { deleteSomeKeys, removeTypename } from '../../../utils/objectUtilities';
 import Context, { User } from '../../context/Context';
@@ -68,12 +69,15 @@ const Profile = (): JSX.Element => {
 
 	async function handleSubmit() {
 		try {
-			const newSettings = removeTypename(deleteSomeKeys(user, ['role', '_id']));
-			console.log(newSettings);
+			const newSettings = removeTypename({
+				...deleteSomeKeys(user, ['role', '_id']),
+			} as unknown as NestedObject);
 			const result = await updateSettingsMutation({
 				variables: {
 					_id: user._id,
-					newSettings: { ...newSettings },
+					newSettings: {
+						...(newSettings as unknown as Omit<User, 'role' | 'id'>),
+					},
 				},
 			});
 			if (result?.data?.updateSettings) {

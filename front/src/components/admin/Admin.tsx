@@ -217,7 +217,7 @@ function Admin(): JSX.Element {
 			} catch (err) {
 				if (err instanceof ApolloError) {
 					setErrorState({ message: err.message, status: true });
-					setTimeout(initErrorState, 5000);
+					setTimeout(initErrorState, 10000);
 				}
 			}
 		}

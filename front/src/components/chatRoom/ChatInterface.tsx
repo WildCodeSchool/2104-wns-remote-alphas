@@ -120,8 +120,7 @@ function ChatInterface(): JSX.Element {
 	React.useEffect(() => {
 		if (data) {
 			setMessages([...data.getMessages]);
-		}
-		if (subscribeToMore) {
+		} else if (subscribeToMore) {
 			subscribeToMore<{ newMessage: IMessage }>({
 				document: GET_NEW_MESSAGE,
 				updateQuery: (

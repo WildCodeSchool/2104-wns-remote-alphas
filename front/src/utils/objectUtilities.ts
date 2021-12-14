@@ -4,8 +4,11 @@
 
 import { User } from '../components/context/Context';
 
-// type NestedObject = Record<string, string | number | unknown[] | NestedObject>;
-function removeTypename(obj: any): any {
+export type NestedObject = {
+	[key: string]: string | number | unknown[] | NestedObject;
+};
+
+function removeTypename(obj: NestedObject): NestedObject {
 	let returnedObj = {};
 	for (const key in obj) {
 		if (
@@ -18,8 +21,10 @@ function removeTypename(obj: any): any {
 				returnedObj = { ...returnedObj, [key]: obj[key] };
 			}
 		} else {
-			console.log(key);
-			returnedObj = { ...returnedObj, [key]: removeTypename(obj[key]) };
+			returnedObj = {
+				...returnedObj,
+				[key]: removeTypename(obj[key] as NestedObject),
+			};
 		}
 	}
 	return returnedObj;
