@@ -1,30 +1,22 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable react/prop-types */
-import { ApolloError, gql, useMutation } from '@apollo/client';
+import { ApolloError, useMutation, useQuery } from '@apollo/client';
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import {
+	GET_NEW_MESSAGE,
+	POST_MESSAGE,
+	GET_MESSAGES,
+} from '../../utils/apollo';
 import Context, { User } from '../context/Context';
 
 interface IMessage {
 	_id: string;
 	text: string;
-	author: Pick<User, 'firstName'>;
+	author: User;
 	sentAt: Date;
 }
-
-export const POST_MESSAGE = gql`
-	mutation postMessage($message: String!) {
-		postMessage(message: $message) {
-			_id
-			text
-			author {
-				firstName
-			}
-			sentAt
-		}
-	}
-`;
 
 // CSS
 const Container = styled.div`
@@ -117,13 +109,34 @@ const Input = styled.input`
 function ChatInterface(): JSX.Element {
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [bubble, setBubble] = useState<string>('');
-
+	const { data, subscribeToMore } = useQuery(GET_MESSAGES);
 	const { user } = useContext(Context);
 
 	const [postMessageMutation] = useMutation<
 		{ postMessage: IMessage },
 		{ message: string }
 	>(POST_MESSAGE);
+
+	React.useEffect(() => {
+		if (data) {
+			setMessages([...data.getMessages]);
+		}
+		if (subscribeToMore) {
+			subscribeToMore<{ newMessage: IMessage }>({
+				document: GET_NEW_MESSAGE,
+				updateQuery: (
+					previous: { getMessages: IMessage[] },
+					{
+						subscriptionData: {
+							data: { newMessage },
+						},
+					}
+				) => ({
+					getMessages: [...previous.getMessages, newMessage],
+				}),
+			});
+		}
+	}, [data, subscribeToMore]);
 
 	function handleChange(value: string) {
 		setBubble(value);
@@ -135,7 +148,6 @@ function ChatInterface(): JSX.Element {
 			});
 			if (result.data?.postMessage) {
 				setBubble('');
-				setMessages([...messages, result.data.postMessage]);
 			}
 		} catch (err) {
 			if (err instanceof ApolloError) {

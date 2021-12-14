@@ -1,13 +1,17 @@
+/* eslint-disable operator-linebreak */
 import React, { useCallback, useEffect, useState } from 'react';
 import {
 	ApolloClient,
 	ApolloProvider,
 	InMemoryCache,
 	createHttpLink,
+	split,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { WebSocketLink } from '@apollo/client/link/ws';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { DarkTheme, ThemeProvider } from 'styled-components';
+import { getMainDefinition } from '@apollo/client/utilities';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
 import { Timeline } from './components/timeline/Timeline.styled';
@@ -34,6 +38,13 @@ function Router(): JSX.Element {
 				: process.env.REACT_APP_API_DEV,
 	});
 
+	const wsLink = new WebSocketLink({
+		uri: 'ws://localhost:8080/graphql',
+		options: {
+			reconnect: true,
+		},
+	});
+
 	const authLink = setContext((_, { headers }) => {
 		const token = localStorage.getItem('token');
 		return {
@@ -44,10 +55,22 @@ function Router(): JSX.Element {
 		};
 	});
 
+	const splitLink = split(
+		({ query }) => {
+			const definition = getMainDefinition(query);
+			return (
+				definition.kind === 'OperationDefinition' &&
+				definition.operation === 'subscription'
+			);
+		},
+		wsLink,
+		authLink.concat(httpLink)
+	);
+
 	const client = new ApolloClient({
 		uri: process.env.REACT_APP_API_DEV,
-		cache: new InMemoryCache({ addTypename: false }),
-		link: authLink.concat(httpLink),
+		cache: new InMemoryCache(),
+		link: splitLink,
 		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});
 
