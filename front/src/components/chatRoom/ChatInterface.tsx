@@ -159,17 +159,19 @@ function ChatInterface(): JSX.Element {
 	return (
 		<Container>
 			<Wrapper>
-				{messages.map((item) => (
-					<div key={item._id}>
-						<Name>
-							<div>{item.author.firstName}</div>
-						</Name>
-						<WrapperText isAuthor={user.firstName === item.author.firstName}>
-							<Text>{item.text}</Text>
-						</WrapperText>
-						<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
-					</div>
-				))}
+				{messages
+					.sort((a, b) => (a.sentAt > b.sentAt ? 1 : -1))
+					.map((item) => (
+						<div key={item._id}>
+							<Name>
+								<div>{item.author.firstName}</div>
+							</Name>
+							<WrapperText isAuthor={user.firstName === item.author.firstName}>
+								<Text>{item.text}</Text>
+							</WrapperText>
+							<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
+						</div>
+					))}
 			</Wrapper>
 			<Form
 				onSubmit={(e) => {
