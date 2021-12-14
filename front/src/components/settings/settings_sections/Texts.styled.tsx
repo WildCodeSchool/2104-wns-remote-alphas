@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import { setFlagsFromString } from 'v8';
+import { useUpdateTheme } from '../../context/ThemeUpdateContext';
 
 const Wrapper = styled.section`
     display: flex;
@@ -56,6 +56,7 @@ const LargeImg = styled.img`
 
 const Texts = (): JSX.Element => {
     const theme = useContext(ThemeContext);
+    const updateTheme = useUpdateTheme();
     const defaultFont = theme.font.fontFamily.Oxygen;
     const defaultSize = theme.fontSize.xxs;
     const defaultWeight = theme.font.weight.normal;
@@ -63,8 +64,19 @@ const Texts = (): JSX.Element => {
     const [fontSize, setfontSize] = useState(defaultSize);
     const [fontWeight, setfontWeight] = useState(defaultWeight);
 
-    const handleChange = (event: any) => {
+/*     useEffect(() => {
+        updateTheme({
+        //
+
+        });
+    }); */
+
+   const changeFont = (event: any) => {
         setFont({ value: event.target.value });
+    };
+
+    const changeWeight = (event: any) => {
+        setfontWeight({ value: event.target.value });
     };
 
     const handleSubmit = (event: any) => {
@@ -99,11 +111,15 @@ const Texts = (): JSX.Element => {
                     </p>
                 </WrapperFontSettings>
                 <Form onSubmit={handleSubmit}>
-                    <select onChange={handleChange}>
+                    <select onChange={changeFont}>
                         <option value={defaultFont}>Oxygen</option>
                         <option value={theme.font.fontFamily.OpenDyslexic}>Open Dyslexic</option>
                     </select>
-                    <select>
+                    <p>
+                        weight choose:
+                        {fontWeight.value}
+                    </p>
+                    <select onChange={changeWeight}>
                         <option value={defaultWeight}>normal</option>
                         <option value={theme.font.weight.bold}>bold</option>
                     </select>
