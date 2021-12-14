@@ -78,7 +78,9 @@ const MobileNav = (): JSX.Element => {
 					<text>Settings</text>
 				</LinkReactRouter>
 
-				<ButtonChat type="button">Chat Now</ButtonChat>
+				<LinkReactRouter to="chatRoom">
+					<ButtonChat type="button">Chat Now</ButtonChat>
+				</LinkReactRouter>
 
 				<Logout />
 			</BurgerMenu>
