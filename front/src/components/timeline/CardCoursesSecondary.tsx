@@ -42,10 +42,6 @@ const Line = styled.hr`
   width: 100%;
 `;
 
-/* interface FontType {
-
-}
- */
 function CardCoursesSecondary({
   title, image, imageDescription, course, id
 }: Props): JSX.Element {

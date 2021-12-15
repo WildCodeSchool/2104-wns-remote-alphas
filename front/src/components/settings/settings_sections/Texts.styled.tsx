@@ -32,10 +32,9 @@ const FontChoice = styled.div`
     }
 `;
 
-const Form = styled.form`
+const FontSettings = styled.div`
     display: flex;
     justify-content: space-around;
-
 `;
 const SmallImg = styled.img`
     width: 32px;
@@ -52,6 +51,14 @@ const MediumImg = styled.img`
 const LargeImg = styled.img`
     width: 64px;
     height: 64px;
+`;
+
+const SubmitButton = styled.div`
+    width: 246px;
+    margin: auto;
+    button {
+        width: 100%;
+    }
 `;
 
 const Texts = (): JSX.Element => {
@@ -80,7 +87,7 @@ const Texts = (): JSX.Element => {
     };
 
     const handleSubmit = (event: any) => {
-        alert(`votre font ${font.value}`);
+        alert(`votre font ${font.value},${fontSize}, ${fontWeight.value} `);
         event.preventDefault();
     };
 
@@ -91,6 +98,7 @@ const Texts = (): JSX.Element => {
 
     const MediumSize = () => {
         setfontSize(theme.fontSize.xs);
+        console.log(fontSize);
         return fontSize;
     };
 
@@ -101,49 +109,54 @@ const Texts = (): JSX.Element => {
 
     return (
         <Wrapper>
-            <FontFamilyContent>
-                <WrapperFontSettings>
-                    <img src="/assets/images/fontFamily.png" alt="illustration of font family" />
-                    <p>Font</p>
+            <form onSubmit={handleSubmit}>
+                <FontFamilyContent>
+                    <WrapperFontSettings>
+                        <img src="/assets/images/fontFamily.png" alt="illustration of font family" />
+                        <p>Font</p>
+                        <p>
+                            font choose:
+                            {font.value}
+                        </p>
+                    </WrapperFontSettings>
+                        <FontSettings>
+                        <select onChange={changeFont}>
+                            <option value={defaultFont}>Oxygen</option>
+                            <option
+                            value={theme.font.fontFamily.OpenDyslexic}>
+                                Open Dyslexic
+                            </option>
+                        </select>
+                        <p>
+                            weight choose:
+                            {fontWeight.value}
+                        </p>
+                        <select onChange={changeWeight}>
+                            <option value={defaultWeight}>normal</option>
+                            <option value={theme.font.weight.bold}>bold</option>
+                        </select>
+                        </FontSettings>
+                </FontFamilyContent>
+
+                <div>
+                    <WrapperFontSettings>
+                        <img src="/assets/images/fontSize.png" alt="" />
+                        <p>Font Settings</p>
+                    </WrapperFontSettings>
                     <p>
-                        font choose:
-                        {font.value}
+                        choice of size:
+                        {fontSize}
                     </p>
-                </WrapperFontSettings>
-                <Form onSubmit={handleSubmit}>
-                    <select onChange={changeFont}>
-                        <option value={defaultFont}>Oxygen</option>
-                        <option value={theme.font.fontFamily.OpenDyslexic}>Open Dyslexic</option>
-                    </select>
-                    <p>
-                        weight choose:
-                        {fontWeight.value}
-                    </p>
-                    <select onChange={changeWeight}>
-                        <option value={defaultWeight}>normal</option>
-                        <option value={theme.font.weight.bold}>bold</option>
-                    </select>
+                    <FontChoice>
+                        <SmallImg src="/assets/images/fontChoice.png" alt="" onClick={SmallSize} />
+                        <MediumImg src="/assets/images/fontChoice.png" alt="" onClick={MediumSize} />
+                        <LargeImg src="/assets/images/fontChoice.png" alt="" onClick={LargeSize} />
+                    </FontChoice>
+                </div>
+                <SubmitButton>
                     <button type="submit">Valider</button>
-                </Form>
-            </FontFamilyContent>
-
-            <div>
-                <WrapperFontSettings>
-                    <img src="/assets/images/fontSize.png" alt="" />
-                    <p>Font Settings</p>
-                </WrapperFontSettings>
-                <p>
-                    choice of size:
-                    {fontSize}
-                </p>
-                <FontChoice>
-                    <SmallImg src="/assets/images/fontChoice.png" alt="" onClick={SmallSize} />
-                    <MediumImg src="/assets/images/fontChoice.png" alt="" onClick={MediumSize} />
-                    <LargeImg src="/assets/images/fontChoice.png" alt="" onClick={LargeSize} />
-                </FontChoice>
-
-            </div>
-
+                </SubmitButton>
+            </form>
         </Wrapper>
     );
 };
