@@ -74,21 +74,25 @@ export class UserResolver {
       const hostUser = await UserModel.findOne({
         email: authenticatedUserEmail,
       });
-      const userToUpdate = await UserModel.findOne({ _id: userId });
-      if (hostUser?._id.toString() === userToUpdate?._id.toString()) {
-        const updatedUser = await UserModel.findOneAndUpdate(
-          {
-            _id: userId,
-          },
-          newSettings
-        );
-        if (updatedUser) {
-          Object.assign(updatedUser, newSettings);
-          await updatedUser.save();
-          return updatedUser;
+      const userToUpdate = await UserModel.findById(userId);
+      if (userToUpdate) {
+        if (hostUser?._id.toString() === userToUpdate?._id.toString()) {
+          const updatedUser = await UserModel.findOneAndUpdate(
+            {
+              _id: userId,
+            },
+            newSettings
+          );
+          if (updatedUser) {
+            Object.assign(updatedUser, newSettings);
+            await updatedUser.save();
+            return updatedUser;
+          }
+        } else {
+          throw new ApolloError("You can't update another user");
         }
       } else {
-        throw new ApolloError("You can't update another user");
+        throw new ApolloError("User not found");
       }
     } else {
       throw new AuthenticationError("Not connected");

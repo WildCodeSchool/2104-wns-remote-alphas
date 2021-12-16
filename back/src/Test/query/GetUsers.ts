@@ -20,9 +20,6 @@ export const GET_USERS = gql`
         texts {
           font
           fontWeight
-          fontSize
-          letterSpacing
-          lineHeight
           fontTheme
         }
         distraction {
