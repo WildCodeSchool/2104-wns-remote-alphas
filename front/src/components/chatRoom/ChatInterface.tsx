@@ -90,6 +90,17 @@ const Datee = styled.div`
 	font-size: 0.6rem;
 `;
 
+const WrapperForm = styled.div`
+	display: flex;
+	align-items: center;
+	border: 1px solid black;
+	height: 3.5rem;
+	border-radius: 25px;
+	outline: none;
+	color: grey;
+	background-color: white;
+`;
+
 const Form = styled.form`
 	width: 70%;
 	margin-right: auto;
@@ -100,12 +111,18 @@ const Form = styled.form`
 
 const Input = styled.input`
 	width: 100%;
-	border: 1px solid black;
+	border: 1px solid white;
 	height: 3rem;
 	border-radius: 25px;
 	outline: none;
 	color: grey;
 	fontsize: 1rem;
+`;
+const ButtonSend = styled.button`
+	background-color: red;
+	width: 3rem;
+	height: 2rem;
+	margin-right: 2rem;
 `;
 
 function ChatInterface(): JSX.Element {
@@ -199,16 +216,18 @@ function ChatInterface(): JSX.Element {
 					e.preventDefault();
 					handleSubmit();
 				}}>
-				<Input
-					type="text"
-					onChange={(e) => {
-						handleChange(e.target.value);
-					}}
-					value={bubble}
-				/>
-				{/* <button style={{}} type="submit">
-					Send
-				</button> */}
+				<WrapperForm>
+					<Input
+						type="text"
+						onChange={(e) => {
+							handleChange(e.target.value);
+						}}
+						value={bubble}
+					/>
+					<div>
+						<ButtonSend type="submit">Send</ButtonSend>
+					</div>
+				</WrapperForm>
 			</Form>
 		</Container>
 	);
