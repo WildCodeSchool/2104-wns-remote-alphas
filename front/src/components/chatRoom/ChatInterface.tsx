@@ -24,7 +24,6 @@ interface IMessage {
 const Container = styled.div`
 	width: 100vw;
 	height: 90vh;
-
 	background-color: '#292929';
 	display: flex;
 	flex-direction: column;
@@ -32,13 +31,13 @@ const Container = styled.div`
 	align-items: center;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isAuthor?: boolean }>`
 	width: 70%;
 	height: 70%;
 	border: 1px solid #ecf3ff;
 	text-align: center;
 	overflow: scroll;
-	background-color: #ecf3ff;
+	background-color: ${(props) => props.theme.colors.opposite};
 	// border-radius: 20px;
 	box-shadow: 5px 5px 5px grey;
 	display: flex;
@@ -46,7 +45,8 @@ const Wrapper = styled.div`
 	align-items: baseline;
 `;
 
-const Name = styled.div`
+const Name = styled.div<{ isAuthor?: boolean }>`
+	font-weight: ${(props) => props.isAuthor ? 600 : 400};
 	display: flex;
 	justify-content: left;
 	align-items: center;
@@ -57,11 +57,11 @@ const Name = styled.div`
 `;
 
 const WrapperText = styled.div<{ isAuthor?: boolean }>`
-	background-color: ${(props) => (props.isAuthor ? '#58CE3D' : '#c3c2c2')};
+	background-color: ${(props) => (props.isAuthor ? props.theme.colors.secondary : '#687385')};
 	border: ${(props) =>
-		props.isAuthor ? '1px solid #58CE3D' : '1px solid #c3c2c2'};
-
-	width: 20vw;
+		props.isAuthor ? `1px solid ${(props.theme.colors.secondary)}` : '1px solid #c3c2c2'};
+	max-width: 90%;
+	height: fit-content;
 	color: white;
 	display: flex;
 	justify-content: center;
@@ -106,6 +106,10 @@ const Input = styled.input`
 	outline: none;
 	color: grey;
 	fontsize: 1rem;
+`;
+
+const Box = styled.div<{ isAuthor?: boolean }>`
+	align-self: ${(props) => (props.isAuthor ? 'flex-end' : 'flex-start')};
 `;
 
 function ChatInterface(): JSX.Element {
@@ -182,15 +186,15 @@ function ChatInterface(): JSX.Element {
 				{messages
 					.sort((a, b) => (a.sentAt > b.sentAt ? 1 : -1))
 					.map((item) => (
-						<div key={item._id}>
-							<Name>
+						<Box isAuthor={user.firstName === item.author.firstName} key={item._id}>
+							<Name isAuthor={user.firstName === item.author.firstName}>
 								<div>{item.author.firstName}</div>
 							</Name>
 							<WrapperText isAuthor={user.firstName === item.author.firstName}>
 								<Text>{item.text}</Text>
 							</WrapperText>
 							<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
-						</div>
+						</Box>
 					))}
 				{/* <div ref={messagesEndRef} style={{ height: '2px' }} /> */}
 			</Wrapper>
