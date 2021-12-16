@@ -42,7 +42,7 @@ function Router(): JSX.Element {
 		uri:
 			process.env.NODE_ENV === 'production'
 				? 'wss://les-alphas.wns.wilders.dev/subscriptions'
-				: 'ws://localhost:8080/graphql',
+				: 'ws://localhost:8080',
 
 		options: {
 			reconnect: true,
