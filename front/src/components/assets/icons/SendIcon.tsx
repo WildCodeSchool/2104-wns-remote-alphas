@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../../core/Icon.styled';
 
 /**
- * Display a home icon with hover effect (themed colors)
+ * Display a send icon with hover effect
  */
 const SendIcon = (): JSX.Element => (
     <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" enable-background="new 0 0 512 512" viewBox="0 0 512 512">
