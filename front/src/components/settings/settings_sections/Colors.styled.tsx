@@ -33,13 +33,26 @@ interface ColorType {
 	color: string;
 	description: string;
 }
+
 const Colors = (): JSX.Element => {
+	// Fetch the current theme in theme context
 	const theme = useContext(ThemeContext);
+	const updateTheme = useUpdateTheme();
+	const currentTheme = useContext(ThemeContext);
+
+	// Primary color is used as initial colordrop color
 	const primaryColor = theme.colors.primary;
 
+	// Toggle the colorpicker modal
 	const [visibleColorPicker, toggleColorPicker] = useState(false);
+
+	// Set the "setter" to define which colordrop needs to be updated (primary, secondary...)
 	const [setter, setSetter] = useState<COLORS>(COLORS.PRIMARY);
+
+	// define the current color of the colorpicker
 	const [color, setColor] = useState(primaryColor);
+
+	// Default color theme and its setter to define custom theme
 	const [customColors, setCustomColors] = useState<Record<COLORS, ColorType>>({
 		[COLORS.PRIMARY]: {
 			color: '#292929',
@@ -73,9 +86,6 @@ const Colors = (): JSX.Element => {
 		},
 	});
 
-	const updateTheme = useUpdateTheme();
-	const currentTheme = useContext(ThemeContext);
-
 	/**
 	 * Set the current colordrop to the new value on color picker changes
 	 * and update theme data in context.
@@ -97,6 +107,7 @@ const Colors = (): JSX.Element => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [color, setter]);
 
+	// Convert the colors object entries to an array
 	function convertToEntries(
 		obj: Record<COLORS, ColorType>
 	): [COLORS, ColorType][] {
@@ -109,7 +120,7 @@ const Colors = (): JSX.Element => {
 		<Container>
 			<Column>
 				<Bold>Select a theme</Bold>
-				<ColorTheme />
+				<ColorTheme theme={currentTheme} updateTheme={updateTheme} />
 				<Bold>Or set up your own colors :</Bold>
 				{ColorEntries.map(([key, value]) => (
 					<ColorDrop
