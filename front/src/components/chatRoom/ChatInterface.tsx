@@ -12,6 +12,7 @@ import {
 	GET_MESSAGES,
 } from '../../utils/apollo';
 import Context, { User } from '../context/Context';
+import SendIcon from '../assets/icons/SendIcon';
 
 interface IMessage {
 	_id: string;
@@ -36,7 +37,7 @@ const Wrapper = styled.div`
 	height: 70%;
 	border: 1px solid #ecf3ff;
 	text-align: center;
-	overflow: hidden;
+	overflow: auto;
 	background-color: #ecf3ff;
 	// border-radius: 20px;
 	box-shadow: 5px 5px 5px grey;
@@ -118,10 +119,13 @@ const Input = styled.input`
 	fontsize: 1rem;
 `;
 const ButtonSend = styled.button`
-	background-color: red;
+	background-color: transparent;
+	border: none;
+	outline: none;
 	width: 3rem;
 	height: 2rem;
 	margin-right: 2rem;
+	cursor: pointer;
 `;
 
 function ChatInterface(): JSX.Element {
@@ -223,9 +227,10 @@ function ChatInterface(): JSX.Element {
 						}}
 						value={bubble}
 					/>
-					<div>
-						<ButtonSend type="submit">Send</ButtonSend>
-					</div>
+
+					<ButtonSend type="submit">
+						<SendIcon />
+					</ButtonSend>
 				</WrapperForm>
 			</Form>
 		</Container>
