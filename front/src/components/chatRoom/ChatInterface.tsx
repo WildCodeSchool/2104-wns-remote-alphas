@@ -24,7 +24,6 @@ interface IMessage {
 const Container = styled.div`
 	width: 100vw;
 	height: 90vh;
-
 	background-color: '#292929';
 	display: flex;
 	flex-direction: column;
@@ -37,7 +36,7 @@ const Wrapper = styled.div`
 	height: 70%;
 	border: 1px solid #ecf3ff;
 	text-align: center;
-	overflow: scroll;
+	overflow: hidden;
 	background-color: #ecf3ff;
 	// border-radius: 20px;
 	box-shadow: 5px 5px 5px grey;
