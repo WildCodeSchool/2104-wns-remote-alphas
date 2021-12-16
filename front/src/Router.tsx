@@ -41,8 +41,8 @@ function Router(): JSX.Element {
 	const wsLink = new WebSocketLink({
 		uri:
 			process.env.NODE_ENV === 'production'
-				? 'wss://les-alphas.wns.wilders.dev/subscriptions'
-				: 'ws://localhost:8080',
+				? 'wss://les-alphas.wns.wilders.dev/graphql'
+				: 'ws://localhost:8080/graphql',
 
 		options: {
 			reconnect: true,
