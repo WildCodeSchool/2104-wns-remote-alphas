@@ -53,12 +53,10 @@ export class CourseResolver {
         const addedCourse = new CourseModel({
           ...courseWithDate,
         } as Course);
-        await addedCourse.save(function(error, res) {
+        await addedCourse.save(function(error) {
           if (error) {
             throw new ApolloError(error.message);
           }
-          console.log(res)
-         
         });
         return addedCourse;
       } else {
