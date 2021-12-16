@@ -53,7 +53,13 @@ export class CourseResolver {
         const addedCourse = new CourseModel({
           ...courseWithDate,
         } as Course);
-        await addedCourse.save();
+        await addedCourse.save(function(error, res) {
+          if (error) {
+            throw new ApolloError(error.message);
+          }
+          console.log(res)
+         
+        });
         return addedCourse;
       } else {
         throw new ApolloError("You are not allowed to do this");
