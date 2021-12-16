@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable react/prop-types */
@@ -109,13 +111,31 @@ const Input = styled.input`
 function ChatInterface(): JSX.Element {
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [bubble, setBubble] = useState<string>('');
-	const { data, subscribeToMore } = useQuery(GET_MESSAGES);
+	const { data, subscribeToMore } =
+		useQuery<{ getMessages: IMessage[] }>(GET_MESSAGES);
 	const { user } = useContext(Context);
 
 	const [postMessageMutation] = useMutation<
 		{ postMessage: IMessage },
 		{ message: string }
 	>(POST_MESSAGE);
+
+	const messageEl = React.useRef<HTMLHeadingElement>(null);
+
+	React.useEffect(() => {
+		if (messageEl?.current) {
+			messageEl.current.addEventListener('DOMNodeInserted', (event: Event) => {
+				const { currentTarget } = event;
+
+				if (currentTarget) {
+					(currentTarget as HTMLDivElement).scroll({
+						top: (currentTarget as HTMLDivElement).scrollHeight,
+						behavior: 'smooth',
+					});
+				}
+			});
+		}
+	}, [data]);
 
 	React.useEffect(() => {
 		if (data) {
@@ -135,6 +155,7 @@ function ChatInterface(): JSX.Element {
 				}),
 			});
 		}
+		// scrollToBottom();
 	}, [data, subscribeToMore]);
 
 	function handleChange(value: string) {
@@ -155,10 +176,9 @@ function ChatInterface(): JSX.Element {
 		}
 		setBubble('');
 	}
-
 	return (
 		<Container>
-			<Wrapper>
+			<Wrapper ref={messageEl}>
 				{messages
 					.sort((a, b) => (a.sentAt > b.sentAt ? 1 : -1))
 					.map((item) => (
@@ -172,6 +192,7 @@ function ChatInterface(): JSX.Element {
 							<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
 						</div>
 					))}
+				{/* <div ref={messagesEndRef} style={{ height: '2px' }} /> */}
 			</Wrapper>
 			<Form
 				onSubmit={(e) => {
