@@ -4,7 +4,7 @@ import Icon from '../../core/Icon.styled';
 /**
  * Display a settings icon with hover effect (themed colors)
  */const SettingsIcon = (): JSX.Element => (
-	<Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
+	<Icon aria-label="settings" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
 		<g>
 			<g xmlns="http://www.w3.org/2000/svg">
 				<g>

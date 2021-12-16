@@ -4,9 +4,10 @@ import { useQuery } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
 import convertDate from '../../utils/convertDate';
-import ErrorMessage from '../core/ErrorMessage';
 import { GET_COURSES } from '../../utils/apollo';
 import logo from '../../utils/img/apple-touch-icon.png';
+import Loader from '../core/Loader.styled';
+import Error from '../core/Error.styled';
 
 const TimelineContent = styled.div`
 	width: 100%;
@@ -26,10 +27,8 @@ export function Timeline(): JSX.Element {
 	const { loading, error, data } = useQuery(GET_COURSES);
 	const history = useHistory();
 
-	if (loading) return <p>Loading...</p>;
-	if (error) {
-		return <ErrorMessage>Error while trying to fetch courses</ErrorMessage>;
-	}
+	if (loading) return <Loader />;
+	if (error) return <Error />;
 	return (
 		<TimelineContent data-testid="timeline">
 			<Chrono
