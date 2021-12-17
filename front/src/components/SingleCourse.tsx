@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import ScrollToTop from './core/ScrollToTop';
 import { GET_ONE_COURSE } from '../utils/apollo';
+import { CourseType } from '../utils/types';
 
 const Container = styled.div`
 	display: flex;
@@ -35,7 +36,6 @@ const BackButton = styled.button`
 
 const ArrowContent = styled.div`
 	width: 32px;
-
 `;
 
 const Arrow = styled.img`
@@ -105,9 +105,12 @@ const PandaImage = styled.img`
 function SingleCourse(): JSX.Element {
 	const history = useHistory();
 	const { id } = useParams<{ id: string }>();
-	const { loading, error, data } = useQuery(GET_ONE_COURSE, {
-		variables: { _id: id },
-	});
+	const { loading, error, data } = useQuery<{ getCourseById: CourseType }>(
+		GET_ONE_COURSE,
+		{
+			variables: { _id: id },
+		}
+	);
 	function formattedDate(date: string) {
 		const parsedDate = Date.parse(date);
 		const localeDate = new Date(parsedDate).toLocaleDateString('fr-FR');
@@ -128,11 +131,15 @@ function SingleCourse(): JSX.Element {
 			</BackButton>
 			<Course>
 				<TextOnHead>
-					<TitleCourse>{data.getCourseById.courseName}</TitleCourse>
-					<PostedDate>{formattedDate(data.getCourseById.postedAt)}</PostedDate>
+					<TitleCourse>{data?.getCourseById.courseName}</TitleCourse>
+					{data?.getCourseById && (
+						<PostedDate>
+							{formattedDate(data.getCourseById.postedAt)}
+						</PostedDate>
+					)}
 				</TextOnHead>
 				<ContentVideo>
-					<img src={data.getCourseById.image_url} alt="" />
+					<img src={data?.getCourseById.image_url} alt="" />
 					<LinkOfVideo>Lien vidéo - Thomas</LinkOfVideo>
 				</ContentVideo>
 				<section>

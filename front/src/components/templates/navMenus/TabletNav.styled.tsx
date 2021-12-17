@@ -10,6 +10,7 @@ import HelpIcon from '../../assets/icons/HelpIcon';
 import OfficeIcon from '../../assets/icons/OfficeIcon';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
 import ChatIcon from '../../assets/icons/ChatIcon';
+import { ROLES } from '../../../utils/types';
 
 /**
  *  Build nav menu for tablets and medium screens
@@ -35,12 +36,12 @@ const TabletNav = (): JSX.Element => {
 				<HelpIcon />
 			</LinkReactRouter>
 
-			{(user?.role === 'teacher' || user?.role === 'admin') && (
+			{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 				<LinkReactRouter to="/backoffice">
 					<OfficeIcon />
 				</LinkReactRouter>
 			)}
-			{user?.role === 'admin' && (
+			{user?.role === ROLES.ADMIN && (
 				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
 			)}
 

@@ -11,14 +11,10 @@ import {
 	POST_MESSAGE,
 	GET_MESSAGES,
 } from '../../utils/apollo';
-import Context, { User } from '../context/Context';
 
-interface IMessage {
-	_id: string;
-	text: string;
-	author: User;
-	sentAt: Date;
-}
+import { MessageType } from '../../utils/types';
+
+import Context from '../context/Context';
 
 // CSS
 const Container = styled.div`
@@ -109,14 +105,14 @@ const Input = styled.input`
 `;
 
 function ChatInterface(): JSX.Element {
-	const [messages, setMessages] = useState<IMessage[]>([]);
+	const [messages, setMessages] = useState<MessageType[]>([]);
 	const [bubble, setBubble] = useState<string>('');
 	const { data, subscribeToMore } =
-		useQuery<{ getMessages: IMessage[] }>(GET_MESSAGES);
+		useQuery<{ getMessages: MessageType[] }>(GET_MESSAGES);
 	const { user } = useContext(Context);
 
 	const [postMessageMutation] = useMutation<
-		{ postMessage: IMessage },
+		{ postMessage: MessageType },
 		{ message: string }
 	>(POST_MESSAGE);
 
@@ -141,10 +137,10 @@ function ChatInterface(): JSX.Element {
 		if (data) {
 			setMessages([...data.getMessages]);
 		} else if (subscribeToMore) {
-			subscribeToMore<{ newMessage: IMessage }>({
+			subscribeToMore<{ newMessage: MessageType }>({
 				document: GET_NEW_MESSAGE,
 				updateQuery: (
-					previous: { getMessages: IMessage[] },
+					previous: { getMessages: MessageType[] },
 					{
 						subscriptionData: {
 							data: { newMessage },

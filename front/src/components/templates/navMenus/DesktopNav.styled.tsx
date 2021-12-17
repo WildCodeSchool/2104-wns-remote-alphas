@@ -5,6 +5,7 @@ import Logout from '../../authentication/Logout';
 import Context from '../../context/Context';
 import LinkReactRouter from '../components/LinkReactRouter.styled';
 import MenuContent from '../components/MenuContent.styled';
+import { ROLES } from '../../../utils/types';
 
 /**
  * Build desktop nav menu
@@ -52,7 +53,7 @@ const DesktopNav = (): JSX.Element => {
 				<text>Help</text>
 			</LinkReactRouter>
 
-			{(user?.role === 'teacher' || user?.role === 'admin') && (
+			{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 				<LinkReactRouter to="/backoffice">
 					<text>Office</text>
 				</LinkReactRouter>
@@ -62,7 +63,7 @@ const DesktopNav = (): JSX.Element => {
 				<ButtonChat type="button">Chat Now</ButtonChat>
 			</LinkReactRouter>
 
-			{user?.role === 'admin' && (
+			{user?.role === ROLES.ADMIN && (
 				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
 			)}
 			<LinkReactRouter to="/settings">

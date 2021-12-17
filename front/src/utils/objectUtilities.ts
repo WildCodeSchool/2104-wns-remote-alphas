@@ -2,7 +2,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-restricted-syntax */
 
-import { User } from '../components/context/Context';
+import { User } from './types';
 
 export type NestedObject = {
 	[key: string]: string | number | unknown[] | NestedObject;

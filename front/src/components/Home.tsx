@@ -1,21 +1,16 @@
+/* eslint-disable operator-linebreak */
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import CardCoursesSecondary from './timeline/CardCoursesSecondary';
 import { GET_COURSES } from '../utils/apollo';
+import { CourseType } from '../utils/types';
 import Loader from './core/Loader.styled';
 import Error from './core/Error.styled';
 
 /**
  * App home page view, displayed when a user is connected
  */
-export type CourseType = {
-	_id: string;
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-};
 
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
@@ -38,7 +33,8 @@ const CardContainer = styled.div`
 `;
 
 function Home(): JSX.Element {
-	const { loading, error, data } = useQuery(GET_COURSES);
+	const { loading, error, data } =
+		useQuery<{ getCourses: CourseType[] }>(GET_COURSES);
 
 	return (
 		<AppContent>
@@ -46,7 +42,7 @@ function Home(): JSX.Element {
 			{error && <Error />}
 			{data?.getCourses && (
 				<CardContainer>
-					{data.getCourses.slice(-3).map((course: CourseType) => (
+					{data.getCourses.slice(-3).map((course) => (
 						<CardCoursesSecondary
 							key={course._id}
 							id={course._id}

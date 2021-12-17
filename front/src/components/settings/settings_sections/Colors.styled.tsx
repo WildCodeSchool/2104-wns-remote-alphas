@@ -8,25 +8,11 @@ import ColorTheme from '../components/ColorTheme.styled';
 import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
 import { useUpdateTheme } from '../../context/ThemeUpdateContext';
-
-export interface IUserData {
-	firstName?: string;
-	name?: string;
-	email?: string;
-	location?: string;
-}
+import { COLORS } from '../../../utils/types';
 
 /**
  * Build the colors settings section
  */
-enum COLORS {
-	PRIMARY = 'primary',
-	SECONDARY = 'secondary',
-	TERTIARY = 'tertiary',
-	LIGHTER_SECONDARY = 'lighterSecondary',
-	LIGHT_BACKGROUND = 'lightBackground',
-	LIGHT_TEXT = 'lightText',
-}
 
 interface ColorType {
 	title: string;
@@ -91,7 +77,7 @@ const Colors = (): JSX.Element => {
 				colors: {
 					...currentTheme.colors,
 					[setter]: color,
-				}
+				},
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -7,7 +7,8 @@ import styled from 'styled-components';
 import type { NestedObject } from '../../../utils/objectUtilities';
 import { UPDATE_SETTINGS } from '../../../utils/apollo';
 import { deleteSomeKeys, removeTypename } from '../../../utils/objectUtilities';
-import Context, { User } from '../../context/Context';
+import { User } from '../../../utils/types';
+import Context from '../../context/Context';
 import Field from '../../core/Field.styled';
 import Column from '../../core/layout_parts/Column.styled';
 import Container from '../components/SettingsContainer.styled';
@@ -40,20 +41,11 @@ const Button = styled.button`
 		margin: auto;
 	}
 `;
-/// Define user data interface with form fields
-export interface IUserData {
-	firstName?: string;
-	name?: string;
-	email?: string;
-	location?: string;
-}
 
 /// Build the Profile component
 const Profile = (): JSX.Element => {
 	/// Fetch current user in context
 	const { user, setUser } = useContext(Context);
-	/// Set as initial data
-	// const [userData, setUserData] = useState<IUserData>(user);
 	/// Handle fields focus
 	const [nameFocused, setNameFocus] = useState(false);
 	const [firstNameFocused, setFirstNameFocus] = useState(false);

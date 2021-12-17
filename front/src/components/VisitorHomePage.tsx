@@ -3,17 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Row from './core/layout_parts/Row.styled';
+import { CourseType } from '../utils/types';
 
 /**
  * Default home page shown to the unknown visitors.
  */
-export type CourseType = {
-	_id: string;
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-};
 
 const AppContent = styled.div`
 	background-color: ${(props) => props.theme.colors.primary};
@@ -68,7 +62,7 @@ const LinkReactRouter = styled(Link)`
 	color: white;
 	cursor: pointer;
 	&:hover {
-		color:${(props) => props.theme.colors.secondary};
+		color: ${(props) => props.theme.colors.secondary};
 		text-decoration: underline;
 	}
 	&:focus {
@@ -123,7 +117,7 @@ function VisitorHomePage(): JSX.Element {
 				</h3>
 			</div>
 			<CardContainer data-testid="container-visitor-page">
-				{fakeObjectsForVisitorPage.map((item: CourseType) => (
+				{fakeObjectsForVisitorPage.map((item: Omit<CourseType, 'postedAt'>) => (
 					<Card key={item.courseName}>
 						<Title data-testid="title-secondary-card">{item.courseName}</Title>
 						<Container>
