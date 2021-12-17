@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { waitFor, screen, render } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { Timeline } from '../components/timeline/Timeline.styled';
+import Timeline from '../components/timeline/Timeline.styled';
 import { GET_COURSES } from '../utils/apollo';
 
 const mocks = [
