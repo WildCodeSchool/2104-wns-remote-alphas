@@ -49,7 +49,6 @@ function Router(): JSX.Element {
 
 		options: {
 			reconnect: true,
-			timeout: 30000,
 		},
 	});
 

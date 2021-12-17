@@ -11,6 +11,7 @@ import {
 	POST_MESSAGE,
 	GET_MESSAGES,
 } from '../../utils/apollo';
+import SendIcon from '../assets/icons/SendIcon';
 
 import { MessageType } from '../../utils/types';
 
@@ -20,7 +21,6 @@ import Context from '../context/Context';
 const Container = styled.div`
 	width: 100vw;
 	height: 90vh;
-
 	background-color: '#292929';
 	display: flex;
 	flex-direction: column;
@@ -28,13 +28,13 @@ const Container = styled.div`
 	align-items: center;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isAuthor?: boolean }>`
 	width: 70%;
 	height: 70%;
 	border: 1px solid #ecf3ff;
 	text-align: center;
 	overflow: scroll;
-	background-color: #ecf3ff;
+	background-color: ${(props) => props.theme.colors.opposite};
 	// border-radius: 20px;
 	box-shadow: 5px 5px 5px grey;
 	display: flex;
@@ -42,7 +42,8 @@ const Wrapper = styled.div`
 	align-items: baseline;
 `;
 
-const Name = styled.div`
+const Name = styled.div<{ isAuthor?: boolean }>`
+	font-weight: ${(props) => (props.isAuthor ? 600 : 400)};
 	display: flex;
 	justify-content: left;
 	align-items: center;
@@ -53,11 +54,14 @@ const Name = styled.div`
 `;
 
 const WrapperText = styled.div<{ isAuthor?: boolean }>`
-	background-color: ${(props) => (props.isAuthor ? '#58CE3D' : '#c3c2c2')};
+	background-color: ${(props) =>
+		props.isAuthor ? props.theme.colors.secondary : '#687385'};
 	border: ${(props) =>
-		props.isAuthor ? '1px solid #58CE3D' : '1px solid #c3c2c2'};
-
-	width: 20vw;
+		props.isAuthor
+			? `1px solid ${props.theme.colors.secondary}`
+			: '1px solid #c3c2c2'};
+	max-width: 90%;
+	height: fit-content;
 	color: white;
 	display: flex;
 	justify-content: center;
@@ -86,6 +90,17 @@ const Datee = styled.div`
 	font-size: 0.6rem;
 `;
 
+const WrapperForm = styled.div`
+	display: flex;
+	align-items: center;
+	border: 1px solid black;
+	height: 3.5rem;
+	border-radius: 25px;
+	outline: none;
+	color: grey;
+	background-color: white;
+`;
+
 const Form = styled.form`
 	width: 70%;
 	margin-right: auto;
@@ -96,12 +111,26 @@ const Form = styled.form`
 
 const Input = styled.input`
 	width: 100%;
-	border: 1px solid black;
+	border: 1px solid white;
 	height: 3rem;
 	border-radius: 25px;
 	outline: none;
 	color: grey;
 	fontsize: 1rem;
+`;
+const ButtonSend = styled.button`
+	background-color: transparent;
+	border: none;
+	outline: none;
+	width: 3rem;
+	height: 2rem;
+	margin-right: 2rem;
+	cursor: pointer;
+`;
+
+const Box = styled.div<{ isAuthor?: boolean }>`
+	align-self: ${(props) => (props.isAuthor ? 'flex-end' : 'flex-start')};
+	margin-right: ${(props) => (props.isAuthor ? '1.9rem' : '0rem')};
 `;
 
 function ChatInterface(): JSX.Element {
@@ -159,11 +188,13 @@ function ChatInterface(): JSX.Element {
 	}
 	async function handleSubmit() {
 		try {
-			const result = await postMessageMutation({
-				variables: { message: bubble },
-			});
-			if (result.data?.postMessage) {
-				setBubble('');
+			if (bubble !== '') {
+				const result = await postMessageMutation({
+					variables: { message: bubble },
+				});
+				if (result.data?.postMessage) {
+					setBubble('');
+				}
 			}
 		} catch (err) {
 			if (err instanceof ApolloError) {
@@ -178,15 +209,17 @@ function ChatInterface(): JSX.Element {
 				{messages
 					.sort((a, b) => (a.sentAt > b.sentAt ? 1 : -1))
 					.map((item) => (
-						<div key={item._id}>
-							<Name>
+						<Box
+							isAuthor={user.firstName === item.author.firstName}
+							key={item._id}>
+							<Name isAuthor={user.firstName === item.author.firstName}>
 								<div>{item.author.firstName}</div>
 							</Name>
 							<WrapperText isAuthor={user.firstName === item.author.firstName}>
 								<Text>{item.text}</Text>
 							</WrapperText>
 							<Datee>{new Date(item.sentAt).toLocaleDateString()}</Datee>
-						</div>
+						</Box>
 					))}
 				{/* <div ref={messagesEndRef} style={{ height: '2px' }} /> */}
 			</Wrapper>
@@ -195,16 +228,19 @@ function ChatInterface(): JSX.Element {
 					e.preventDefault();
 					handleSubmit();
 				}}>
-				<Input
-					type="text"
-					onChange={(e) => {
-						handleChange(e.target.value);
-					}}
-					value={bubble}
-				/>
-				{/* <button style={{}} type="submit">
-					Send
-				</button> */}
+				<WrapperForm>
+					<Input
+						type="text"
+						onChange={(e) => {
+							handleChange(e.target.value);
+						}}
+						value={bubble}
+					/>
+
+					<ButtonSend type="submit" disabled={bubble === ''}>
+						<SendIcon />
+					</ButtonSend>
+				</WrapperForm>
 			</Form>
 		</Container>
 	);

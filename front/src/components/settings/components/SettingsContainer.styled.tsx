@@ -7,8 +7,9 @@ const Container = styled.div`
     display: grid;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: stretch;
-    width: 60%;
+    width: 100%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
 `;
 
 export default Container;
