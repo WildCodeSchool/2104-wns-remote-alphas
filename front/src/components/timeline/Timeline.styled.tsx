@@ -52,14 +52,14 @@ function Timeline(): JSX.Element {
 					cardForeColor: 'white',
 				}}>
 				<div className="chrono-icons">
-					{data.getCourses.map(() => (
-						<img src={logo} alt={logo} />
+					{data.getCourses.map((course: CourseType) => (
+						<img key={course._id} src={logo} alt={logo} />
 					))}
 				</div>
-				{data.getCourses.map((course: CourseType, index: number) => (
+				{data.getCourses.map((course: CourseType) => (
 					<button
 						type="button"
-						key={index}
+						key={course._id}
 						onClick={() => {
 							history.push(`/courses/${course._id}`);
 						}}>

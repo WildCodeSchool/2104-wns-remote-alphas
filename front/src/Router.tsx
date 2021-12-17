@@ -28,7 +28,7 @@ import ChatInterface from './components/chatRoom/ChatInterface';
 import Context from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
-import { User } from './utils/types';
+import { ROLES, User } from './utils/types';
 import FormCourses from './components/backOffice/FormCourses';
 import Admin from './components/admin/Admin';
 import ThemeUpdateContext from './components/context/ThemeUpdateContext';
@@ -130,12 +130,6 @@ function Router(): JSX.Element {
 							}}>
 							<Layout>
 								<Switch>
-									<Route exact path="/signin">
-										<SignInPage />
-									</Route>
-									<Route exact path="/signup">
-										<SignUpPage />
-									</Route>
 									{isLogin ? (
 										<>
 											<Route exact path="/">
@@ -165,21 +159,30 @@ function Router(): JSX.Element {
 											<Route exact path="/chatRoom">
 												<ChatInterface />
 											</Route>
-											{(user?.role === 'teacher' || user?.role === 'admin') && (
+											{(user?.role === ROLES.TEACHER ||
+												user?.role === ROLES.ADMIN) && (
 												<Route exact path="/backoffice">
 													<FormCourses />
 												</Route>
 											)}
-											{user?.role === 'admin' && (
+											{user?.role === ROLES.ADMIN && (
 												<Route exact path="/admin">
 													<Admin />
 												</Route>
 											)}
 										</>
 									) : (
-										<Route exact path="/">
-											<VisitorHomePage />
-										</Route>
+										<>
+											<Route exact path="/">
+												<VisitorHomePage />
+											</Route>
+											<Route exact path="/signin">
+												<SignInPage />
+											</Route>
+											<Route exact path="/signup">
+												<SignUpPage />
+											</Route>
+										</>
 									)}
 								</Switch>
 							</Layout>

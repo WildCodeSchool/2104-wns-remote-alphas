@@ -110,6 +110,7 @@ const Colors = (): JSX.Element => {
 				<Bold>Or set up your own colors :</Bold>
 				{ColorEntries.map(([key, value]) => (
 					<ColorDrop
+						key={key}
 						color={value.color}
 						title={value.title}
 						description={value.description}
