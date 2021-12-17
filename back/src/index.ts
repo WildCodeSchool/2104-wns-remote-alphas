@@ -23,6 +23,7 @@ const jwtKey = process.env.SECRET_KEY || "test secret key";
 const PORT = 8080;
 
 async function bootstrap() {
+  // connect to the database
   const connectionString = process.env.MONGODB!;
   mongoose
     .connect(connectionString, {
@@ -52,6 +53,7 @@ async function bootstrap() {
     .finally(() => fixtures.disconnect());
   console.log("fixtures loaded");
 
+  /// Get TypeGraphQL schemas
   const schema = await buildSchema({
     resolvers: [CourseResolver, UserResolver, LoginResolver, MessageResolver],
   });

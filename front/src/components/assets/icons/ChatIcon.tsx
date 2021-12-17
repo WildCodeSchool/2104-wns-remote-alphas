@@ -7,7 +7,7 @@ import JelloAnimatedIcon from '../../core/JelloAnimatedIcon';
  * Display an animated chat icon with hover effect (spin)
  */
 const ChatIcon = (): JSX.Element => (
-    <JelloAnimatedIcon animated xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
+    <JelloAnimatedIcon aria-label="chat" animated xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g className="jello">
             <g xmlns="http://www.w3.org/2000/svg">
                 <g>
