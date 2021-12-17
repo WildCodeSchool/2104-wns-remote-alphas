@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -14,7 +16,7 @@ import { DarkTheme, ThemeProvider } from 'styled-components';
 import { getMainDefinition } from '@apollo/client/utilities';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
-import { Timeline } from './components/timeline/Timeline.styled';
+import Timeline from './components/timeline/Timeline.styled';
 import Home from './components/Home';
 import SignInPage from './components/authentication/SignInPage';
 import SignUpPage from './components/authentication/SignUpPage';
@@ -23,9 +25,10 @@ import Help from './components/help/Help';
 import VisitorHomePage from './components/VisitorHomePage';
 import SingleCourse from './components/SingleCourse';
 import ChatInterface from './components/chatRoom/ChatInterface';
-import Context, { User } from './components/context/Context';
+import Context from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
+import { User } from './utils/types';
 import FormCourses from './components/backOffice/FormCourses';
 import Admin from './components/admin/Admin';
 import ThemeUpdateContext from './components/context/ThemeUpdateContext';
