@@ -4,34 +4,28 @@ import { DarkTheme } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
 import DoubleColorDrop from './DoubleColorDrop.styled';
+import { COLORTHEMES } from '../../../utils/types';
 
 /**
  * Builds a row with color themes drops and titles for colors settings section
  */
 interface ColorThemeProps {
-    theme: DarkTheme;
-    updateTheme: (_theme: DarkTheme) => void;
+	theme: DarkTheme;
+	updateTheme: (_theme: DarkTheme) => void;
 }
 const ColorTheme = ({ updateTheme, theme }: ColorThemeProps): JSX.Element => {
-    // const [newTheme, setNewTheme] = useState();
-    console.log(theme);
+	// set default themes names
 
-    // set default themes names
-    enum COLORTHEMES {
-        DARK = 'dark',
-        LIGHT = 'light',
-        GREYSCALE = 'greyscale',
-        HIGH_CONTRAST = 'high contrast',
-    }
+	interface ColorThemeType {
+		title: string;
+		color: string;
+		description: string;
+	}
 
-    interface ColorThemeType {
-        title: string;
-        color: string;
-        description: string;
-    }
-
-    // Default themes
-	const [defaultTheme, setDefaultTheme] = useState<Record<COLORTHEMES, ColorThemeType>>({
+	// Default themes
+	const [defaultTheme, setDefaultTheme] = useState<
+		Record<COLORTHEMES, ColorThemeType>
+	>({
 		[COLORTHEMES.DARK]: {
 			color: '#292929',
 			title: 'Primary',
@@ -54,17 +48,25 @@ const ColorTheme = ({ updateTheme, theme }: ColorThemeProps): JSX.Element => {
 		},
 	});
 
-    // TODO: create collection of themes with default theme, predefined themes and text themes
-    // add enum DEFAULT_THEMES dark = default DarkTheme, light, greyscale, high contrast
-    // on click, set update theme with enum theme values.
-    return (
-        <Row gap="0">
-            <ColorDrop color="#292929" title="Dark" />
-            <ColorDrop color="#ECEFF1" title="Light" />
-            <DoubleColorDrop lowerColor="#BDBDBD" upperColor="#E0E0E0" title="GreyScale" />
-            <DoubleColorDrop lowerColor="#000" upperColor="#fff" title="High Contrast" />
-        </Row>
-    );
+	// TODO: create collection of themes with default theme, predefined themes and text themes
+	// add enum DEFAULT_THEMES dark = default DarkTheme, light, greyscale, high contrast
+	// on click, set update theme with enum theme values.
+	return (
+		<Row gap="0">
+			<ColorDrop color="#292929" title="Dark" />
+			<ColorDrop color="#ECEFF1" title="Light" />
+			<DoubleColorDrop
+				lowerColor="#BDBDBD"
+				upperColor="#E0E0E0"
+				title="GreyScale"
+			/>
+			<DoubleColorDrop
+				lowerColor="#000"
+				upperColor="#fff"
+				title="High Contrast"
+			/>
+		</Row>
+	);
 };
 
 export default ColorTheme;

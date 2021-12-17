@@ -118,7 +118,7 @@ function VisitorHomePage(): JSX.Element {
 			</div>
 			<CardContainer data-testid="container-visitor-page">
 				{fakeObjectsForVisitorPage.map((item: Omit<CourseType, 'postedAt'>) => (
-					<Card key={item.courseName}>
+					<Card key={item._id}>
 						<Title data-testid="title-secondary-card">{item.courseName}</Title>
 						<Container>
 							<Image src={item.image_url} alt={item.description} />
@@ -127,7 +127,9 @@ function VisitorHomePage(): JSX.Element {
 						<Row gap="10px">
 							{item?.technos.length > 0 &&
 								item.technos.map((techno) => (
-									<ThemeCourse aria-label="tag">{techno}</ThemeCourse>
+									<ThemeCourse key={`${item._id}-${techno}`} aria-label="tag">
+										{techno}
+									</ThemeCourse>
 								))}
 						</Row>
 					</Card>

@@ -24,7 +24,6 @@ function ListCoursesback({
 					<th colSpan={4}> </th>
 				</tr>
 			</thead>
-
 			{courses
 				.sort((a, b) => (b.postedAt > a.postedAt ? 1 : -1))
 				.map((item) => (

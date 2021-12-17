@@ -8,7 +8,7 @@ export interface CourseType {
 }
 
 export interface ColorsType {
-	theme: 'dark' | 'light' | 'greyscale' | 'highcontrast';
+	theme: COLORTHEMES;
 	customColors: string[];
 }
 
@@ -62,6 +62,13 @@ export enum COLORS {
 	LIGHTER_SECONDARY = 'lighterSecondary',
 	LIGHT_BACKGROUND = 'lightBackground',
 	LIGHT_TEXT = 'lightText',
+}
+
+export enum COLORTHEMES {
+	DARK = 'dark',
+	LIGHT = 'light',
+	GREYSCALE = 'greyscale',
+	HIGH_CONTRAST = 'high contrast',
 }
 
 export interface User {
