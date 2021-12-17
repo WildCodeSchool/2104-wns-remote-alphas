@@ -134,6 +134,7 @@ const ButtonSend = styled.button`
 
 const Box = styled.div<{ isAuthor?: boolean }>`
 	align-self: ${(props) => (props.isAuthor ? 'flex-end' : 'flex-start')};
+	margin-right: ${(props) => (props.isAuthor ? '1.9rem' : '0rem')};
 `;
 
 function ChatInterface(): JSX.Element {
