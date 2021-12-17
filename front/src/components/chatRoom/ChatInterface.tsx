@@ -47,7 +47,7 @@ const Wrapper = styled.div<{ isAuthor?: boolean }>`
 `;
 
 const Name = styled.div<{ isAuthor?: boolean }>`
-	font-weight: ${(props) => props.isAuthor ? 600 : 400};
+	font-weight: ${(props) => (props.isAuthor ? 600 : 400)};
 	display: flex;
 	justify-content: left;
 	align-items: center;
@@ -58,9 +58,12 @@ const Name = styled.div<{ isAuthor?: boolean }>`
 `;
 
 const WrapperText = styled.div<{ isAuthor?: boolean }>`
-	background-color: ${(props) => (props.isAuthor ? props.theme.colors.secondary : '#687385')};
+	background-color: ${(props) =>
+		props.isAuthor ? props.theme.colors.secondary : '#687385'};
 	border: ${(props) =>
-		props.isAuthor ? `1px solid ${(props.theme.colors.secondary)}` : '1px solid #c3c2c2'};
+		props.isAuthor
+			? `1px solid ${props.theme.colors.secondary}`
+			: '1px solid #c3c2c2'};
 	max-width: 90%;
 	height: fit-content;
 	color: white;
@@ -188,11 +191,13 @@ function ChatInterface(): JSX.Element {
 	}
 	async function handleSubmit() {
 		try {
-			const result = await postMessageMutation({
-				variables: { message: bubble },
-			});
-			if (result.data?.postMessage) {
-				setBubble('');
+			if (bubble !== '') {
+				const result = await postMessageMutation({
+					variables: { message: bubble },
+				});
+				if (result.data?.postMessage) {
+					setBubble('');
+				}
 			}
 		} catch (err) {
 			if (err instanceof ApolloError) {
@@ -207,7 +212,9 @@ function ChatInterface(): JSX.Element {
 				{messages
 					.sort((a, b) => (a.sentAt > b.sentAt ? 1 : -1))
 					.map((item) => (
-						<Box isAuthor={user.firstName === item.author.firstName} key={item._id}>
+						<Box
+							isAuthor={user.firstName === item.author.firstName}
+							key={item._id}>
 							<Name isAuthor={user.firstName === item.author.firstName}>
 								<div>{item.author.firstName}</div>
 							</Name>
@@ -233,7 +240,7 @@ function ChatInterface(): JSX.Element {
 						value={bubble}
 					/>
 
-					<ButtonSend type="submit">
+					<ButtonSend type="submit" disabled={bubble === ''}>
 						<SendIcon />
 					</ButtonSend>
 				</WrapperForm>
