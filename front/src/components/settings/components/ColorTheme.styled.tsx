@@ -1,6 +1,6 @@
 // eslint-disable-next-line object-curly-newline
 import React, { useState } from 'react';
-import { DarkTheme } from 'styled-components';
+import { DefaultTheme } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
 import DoubleColorDrop from './DoubleColorDrop.styled';
@@ -10,8 +10,8 @@ import { COLORTHEMES } from '../../../utils/types';
  * Builds a row with color themes drops and titles for colors settings section
  */
 interface ColorThemeProps {
-	theme: DarkTheme;
-	updateTheme: (_theme: DarkTheme) => void;
+	theme: DefaultTheme;
+	updateTheme: (_theme: DefaultTheme) => void;
 }
 const ColorTheme = ({ updateTheme, theme }: ColorThemeProps): JSX.Element => {
 	// set default themes names

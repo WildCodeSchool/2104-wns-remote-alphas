@@ -84,6 +84,7 @@ const Colors = (): JSX.Element => {
 			});
 
 			updateTheme({
+				...theme,
 				colors: {
 					...currentTheme.colors,
 					[setter]: color,

@@ -12,7 +12,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { DarkTheme, ThemeProvider } from 'styled-components';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { getMainDefinition } from '@apollo/client/utilities';
 import darkTheme from './theme/darkTheme';
 import Layout from './components/templates/Layout.styled';
@@ -86,7 +86,7 @@ function Router(): JSX.Element {
 	const [userTheme, setUserTheme] = useState(darkTheme);
 
 	const updateTheme = useCallback(
-		(changes: Partial<DarkTheme>) => {
+		(changes: Partial<DefaultTheme>) => {
 			setUserTheme({ ...userTheme, ...changes });
 		},
 		[userTheme, setUserTheme]
