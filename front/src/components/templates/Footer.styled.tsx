@@ -31,6 +31,7 @@ const FooterContent = styled.div`
 const Wrapper = styled.div`
 	color: ${(props) => props.theme.colors.textColor};
 	font-size: 10px;
+	margin-right: 8px;
 	@media (min-width: 580px) {
 		font-size: 14px;
 	}
