@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoutIcon from '../assets/icons/LogoutIcon';
-import Context, { User } from '../context/Context';
+import Context from '../context/Context';
+import { User } from '../../utils/types';
 
 /// Logout button
 const Button = styled.button`

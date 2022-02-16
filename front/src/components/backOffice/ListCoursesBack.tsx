@@ -1,18 +1,6 @@
-/* eslint-disable react/button-has-type */
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import convertDate from '../../utils/convertDate';
-import ModalConfirmation from '../core/ModalConfirmation';
-
-// APPEL API GRAPHQL
-export type CourseType = {
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-	postedAt: string;
-	_id: string;
-};
+import { CourseType } from '../../utils/types';
 
 export type CourseId = {
 	_id: string;
@@ -20,7 +8,6 @@ export type CourseId = {
 
 interface Iprops {
 	courses: CourseType[];
-	// deleteCourse(_id: string): void;
 	fetchById(_id: string): void;
 	displayModal(item: CourseType): void;
 }
@@ -37,7 +24,6 @@ function ListCoursesback({
 					<th colSpan={4}> </th>
 				</tr>
 			</thead>
-
 			{courses
 				.sort((a, b) => (b.postedAt > a.postedAt ? 1 : -1))
 				.map((item) => (
@@ -78,8 +64,6 @@ function ListCoursesback({
 								type="button"
 								onClick={(e) => {
 									e.preventDefault();
-									// deleteCourse(item._id);
-									// displayModalToConfirm();
 									displayModal(item);
 								}}>
 								Supprimer
@@ -106,15 +90,6 @@ function ListCoursesback({
 					</tbody>
 				))}
 		</table>
-		// {showModal && (
-		// 	<ModalConfirmation
-		// 		question="Es-tu sûr de vouloir supprimer ce cours ?"
-		// 		displayModal={displayModalToConfirm}
-		// 		deleteCourse={deleteCourse}
-		// 		id={item._id}
-		// 		courses={courses}
-		// 	/>
-		// )}
 	);
 }
 

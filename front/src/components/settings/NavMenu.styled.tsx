@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Divider from '../core/Divider.styled';
+import { SECTIONS } from '../../utils/types';
 
 /**
  * NavMenu displays the setting cards' navigation menu, with links and icons.
@@ -53,13 +54,7 @@ interface NavMenuProps {
 	updateSection: (e: SECTIONS) => void;
 	section: string;
 }
-export enum SECTIONS {
-	PROFILE = 'profile',
-	COLORS = 'colors',
-	TEXTS = 'texts',
-	DISTRACTIONS = 'distractions',
-	SETTINGS = 'settings',
-}
+
 const NavMenu = ({ updateSection, section }: NavMenuProps): JSX.Element => (
 	<Nav>
 		<span className="menu-title">Customize</span>

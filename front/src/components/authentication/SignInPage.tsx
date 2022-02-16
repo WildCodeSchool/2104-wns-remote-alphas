@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { LOGIN, ME } from '../../utils/apollo';
+import { User } from '../../utils/types';
 import AuthField from './AuthField';
 
 const Wrapper = styled.div`
@@ -83,7 +84,6 @@ const LittleTitle = styled.p`
 const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
-	//margin: auto;
 `;
 
 export default function SignInPage(): JSX.Element {
@@ -93,8 +93,8 @@ export default function SignInPage(): JSX.Element {
 		message: '',
 	};
 	const [userLog, setUserLog] = useState(initialState);
-	const [loginMutation] = useMutation(LOGIN);
-	const [userMutation] = useMutation(ME);
+	const [loginMutation] = useMutation<{ login: string }>(LOGIN);
+	const [userMutation] = useMutation<{ me: User }>(ME);
 	const history = useHistory();
 
 	const [errorState, setErrorState] = useState(initialErrorState);
@@ -107,28 +107,24 @@ export default function SignInPage(): JSX.Element {
 
 	async function handleSubmit() {
 		try {
-			const {
-				data: { login },
-			} = await loginMutation({
+			const loginResult = await loginMutation({
 				variables: {
 					email: userLog.email,
 					password: userLog.password,
 				},
 			});
 
-			if (typeof login === 'string') {
-				localStorage.setItem('token', login);
+			if (typeof loginResult.data?.login === 'string') {
+				localStorage.setItem('token', loginResult.data.login);
 
 				if (setIsLogin) {
 					setIsLogin(true);
 				}
-				const {
-					data: { me },
-				} = await userMutation({});
+				const meResult = await userMutation({});
 
-				if (me._id) {
-					setUser({ ...me });
-					localStorage.setItem('user', JSON.stringify(me));
+				if (meResult.data?.me._id) {
+					setUser({ ...meResult.data.me });
+					localStorage.setItem('user', JSON.stringify(meResult.data.me));
 				}
 				history.push('/');
 			} else {
@@ -143,53 +139,52 @@ export default function SignInPage(): JSX.Element {
 	return (
 		<Wrapper>
 			<FormContainer>
-			<Title>J&apos;ai déjà un compte Masterize</Title>
-			<ContainForm>
-				<Form>
-					<AuthField
-						label="email"
-						type="email"
-						onChange={(e) => {
-							setUserLog({ ...userLog, [e.target.name]: e.target.value });
-						}}
-						value={userLog.email}
-						placeholder="hello@masterize.com"
-					/>
-					<AuthField
-						label="password"
-						type="password"
-						onChange={(e) => {
-							setUserLog({ ...userLog, [e.target.name]: e.target.value });
-						}}
-						value={userLog.password}
-						placeholder="supersecretpassword"
-					/>
+				<Title>J&apos;ai déjà un compte Masterize</Title>
+				<ContainForm>
+					<Form>
+						<AuthField
+							label="email"
+							type="email"
+							onChange={(e) => {
+								setUserLog({ ...userLog, [e.target.name]: e.target.value });
+							}}
+							value={userLog.email}
+							placeholder="hello@masterize.com"
+						/>
+						<AuthField
+							label="password"
+							type="password"
+							onChange={(e) => {
+								setUserLog({ ...userLog, [e.target.name]: e.target.value });
+							}}
+							value={userLog.password}
+							placeholder="supersecretpassword"
+						/>
 
-					<Button
-						type="button"
-						value="Envoyer"
-						onClick={(e) => {
-							e.preventDefault();
-							handleSubmit();
-						}}>
-						Se connecter
-					</Button>
-					{errorState.status && (
-						<ErrorMessage>{errorState.message}</ErrorMessage>
-					)}
-				</Form>
-			</ContainForm>
-			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
-			<Line> </Line>
-			<SubTitle>Nouveau sur Masterize ? </SubTitle>
-			<LittleTitle
-				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
-				onClick={() => {
-					handleClick();
-				}}>
-				S&apos;INSCRIRE
-			</LittleTitle>
-
+						<Button
+							type="button"
+							value="Envoyer"
+							onClick={(e) => {
+								e.preventDefault();
+								handleSubmit();
+							}}>
+							Se connecter
+						</Button>
+						{errorState.status && (
+							<ErrorMessage>{errorState.message}</ErrorMessage>
+						)}
+					</Form>
+				</ContainForm>
+				<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
+				<Line> </Line>
+				<SubTitle>Nouveau sur Masterize ? </SubTitle>
+				<LittleTitle
+					style={{ color: '#2bb7f3', textDecoration: 'bold' }}
+					onClick={() => {
+						handleClick();
+					}}>
+					S&apos;INSCRIRE
+				</LittleTitle>
 			</FormContainer>
 		</Wrapper>
 	);
