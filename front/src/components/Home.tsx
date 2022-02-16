@@ -30,6 +30,9 @@ const CardContainer = styled.div`
 	@media screen and (max-width: 780px) {
 		height: inherit;
 	}
+	@media screen and (min-width: 781px) and (max-width: 1211px) {
+		height: revert;
+	}
 `;
 
 function Home(): JSX.Element {
