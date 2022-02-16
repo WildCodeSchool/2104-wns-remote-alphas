@@ -87,7 +87,8 @@ const Texts = (): JSX.Element => {
     };
 
     const handleSubmit = (event: any) => {
-        event.preventDefault();
+        // event.preventDefault();
+        alert(`${font}${fontSize}${fontWeight}`);
     };
 
     const SmallSize = () => {
@@ -104,6 +105,10 @@ const Texts = (): JSX.Element => {
         setfontSize(theme.fontSize.s);
         return fontSize;
     };
+
+/*     useEffect(() => {
+
+	}); */
 
     return (
         <Wrapper>
