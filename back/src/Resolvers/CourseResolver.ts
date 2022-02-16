@@ -55,7 +55,7 @@ export class CourseResolver {
         } as Course);
         await addedCourse.save(function(error) {
           if (error) {
-            throw new ApolloError(error.message);
+            throw new ApolloError("Your course are not saved, an error is occured");
           }
         });
         return addedCourse;
