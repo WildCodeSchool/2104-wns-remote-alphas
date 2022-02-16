@@ -6,6 +6,7 @@ import LinkReactRouter from '../components/LinkReactRouter.styled';
 import MenuContent from '../components/MenuContent.styled';
 import BurgerMenu from '../components/BurgerMenu.styled';
 import BurgerIcon from '../../assets/icons/BurgerIcon';
+import { ROLES } from '../../../utils/types';
 
 /**
  * Build mobile nav menu with collapsible drawer and burger icon
@@ -66,19 +67,21 @@ const MobileNav = (): JSX.Element => {
 					<text>Help</text>
 				</LinkReactRouter>
 
-				{(user?.role === 'teacher' || user?.role === 'admin') && (
+				{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 					<LinkReactRouter to="/backoffice">
 						<text>Office</text>
 					</LinkReactRouter>
 				)}
-				{user?.role === 'admin' && (
+				{user?.role === ROLES.ADMIN && (
 					<LinkReactRouter to="/admin">Admin</LinkReactRouter>
 				)}
 				<LinkReactRouter to="/settings">
 					<text>Settings</text>
 				</LinkReactRouter>
 
-				<ButtonChat type="button">Chat Now</ButtonChat>
+				<LinkReactRouter to="chatRoom">
+					<ButtonChat type="button">Chat Now</ButtonChat>
+				</LinkReactRouter>
 
 				<Logout />
 			</BurgerMenu>

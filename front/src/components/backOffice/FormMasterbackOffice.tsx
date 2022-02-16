@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CourseType } from '../../utils/types';
 import ErrorMessage from '../core/ErrorMessage';
 
 const Container = styled.div`
@@ -60,14 +61,14 @@ const Button = styled.button`
 	}
 `;
 
+type Course = Omit<CourseType, 'technos' | 'id' | 'postedAt'>;
+interface CourseInput extends Course {
+	technos: string;
+}
+
 interface Iprops {
 	onChange(value: string, name: string): void;
-	courseInput: {
-		courseName: string;
-		image_url: string;
-		description: string;
-		technos: string;
-	};
+	courseInput: CourseInput;
 	onSubmit(e: React.SyntheticEvent): void;
 	buttonType: 'post' | 'update';
 	onCancel(): void;
@@ -113,18 +114,6 @@ function FormMasterBackOffice({
 					}}
 					value={courseInput.description}
 				/>
-				{/* <Input
-					type="file"
-					name="image_url"
-					accept="image/png, image/jpeg"
-					placeholder="Titre du cours"
-					onChange={(e) => {
-						setPostCoursesState({
-							...postCoursesState,
-							[e.target.name]: e.target.value,
-						});
-					}}
-				/> */}
 				{errorState.status && <ErrorMessage>{errorState.message}</ErrorMessage>}
 				<Button type="submit">
 					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}

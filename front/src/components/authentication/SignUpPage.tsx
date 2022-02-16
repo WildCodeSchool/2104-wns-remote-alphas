@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
+import { User } from '../../utils/types';
 /// Build styled components
 const Wrapper = styled.div`
 	display: flex;
@@ -101,7 +102,6 @@ export default function SignUpPage(): JSX.Element {
 		email: '',
 		firstName: '',
 		password: '',
-		roles: ['student'],
 	};
 	const initialErrorState = {
 		status: false,
@@ -109,9 +109,9 @@ export default function SignUpPage(): JSX.Element {
 	};
 	const [userLog, setUserLog] = useState(initialState);
 	const [errorState, setErrorState] = useState(initialErrorState);
-	const [signupMutation] = useMutation(SIGNUP);
-	const [loginMutation] = useMutation(LOGIN);
-	const [userMutation] = useMutation(ME);
+	const [signupMutation] = useMutation<{ signup: User }>(SIGNUP);
+	const [loginMutation] = useMutation<{ login: string }>(LOGIN);
+	const [userMutation] = useMutation<{ me: User }>(ME);
 	const history = useHistory();
 
 	const { setIsLogin, setUser } = useContext(Context);
@@ -122,34 +122,30 @@ export default function SignUpPage(): JSX.Element {
 
 	async function handleSubmit() {
 		try {
-			const result = await signupMutation({
+			const signupResult = await signupMutation({
 				variables: {
 					...userLog,
 				},
 			});
-			if (result.data.signup) {
-				const {
-					data: { login },
-				} = await loginMutation({
+			if (signupResult.data?.signup) {
+				const loginResult = await loginMutation({
 					variables: {
 						email: userLog.email,
 						password: userLog.password,
 					},
 				});
-				if (typeof login === 'string') {
-					localStorage.setItem('token', login);
+				if (typeof loginResult.data?.login === 'string') {
+					localStorage.setItem('token', loginResult.data.login);
 
 					if (setIsLogin) {
 						setIsLogin(true);
 					}
 
-					const {
-						data: { me },
-					} = await userMutation({});
+					const meResult = await userMutation({});
 
-					if (me._id) {
-						setUser({ ...me });
-						localStorage.setItem('user', JSON.stringify(me));
+					if (meResult.data?.me._id) {
+						setUser({ ...meResult.data.me });
+						localStorage.setItem('user', JSON.stringify(meResult.data.me));
 					}
 					history.push('/');
 				} else {

@@ -1,35 +1,29 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable operator-linebreak */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Chrono } from 'react-chrono';
 import styled from 'styled-components';
 import convertDate from '../../utils/convertDate';
-import ErrorMessage from '../core/ErrorMessage';
 import { GET_COURSES } from '../../utils/apollo';
+import { CourseType } from '../../utils/types';
 import logo from '../../utils/img/apple-touch-icon.png';
+import Loader from '../core/Loader.styled';
+import Error from '../core/Error.styled';
 
 const TimelineContent = styled.div`
 	width: 100%;
 	height: calc(100vh - 113px - 105px);
 	background-color: ${(props) => props.theme.colors.primary};
 `;
-export type CourseType = {
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-	postedAt?: string;
-	_id: string;
-};
 
-export function Timeline(): JSX.Element {
+function Timeline(): JSX.Element {
 	const { loading, error, data } = useQuery(GET_COURSES);
 	const history = useHistory();
 
-	if (loading) return <p>Loading...</p>;
-	if (error) {
-		return <ErrorMessage>Error while trying to fetch courses</ErrorMessage>;
-	}
+	if (loading) return <Loader />;
+	if (error) return <Error />;
 	return (
 		<TimelineContent data-testid="timeline">
 			<Chrono
@@ -58,16 +52,14 @@ export function Timeline(): JSX.Element {
 					cardForeColor: 'white',
 				}}>
 				<div className="chrono-icons">
-					{data.getCourses.map(() => (
-						<img src={logo} alt="" />
+					{data.getCourses.map((course: CourseType) => (
+						<img key={course._id} src={logo} alt={logo} />
 					))}
 				</div>
-				{data.getCourses.map((course: CourseType, index: number) => (
+				{data.getCourses.map((course: CourseType) => (
 					<button
 						type="button"
-						// eslint-disable-next-line react/no-array-index-key
-						key={index}
-						// eslint-disable-next-line no-underscore-dangle
+						key={course._id}
 						onClick={() => {
 							history.push(`/courses/${course._id}`);
 						}}>
@@ -81,3 +73,5 @@ export function Timeline(): JSX.Element {
 		</TimelineContent>
 	);
 }
+
+export default Timeline;

@@ -64,12 +64,10 @@ const SubmitButton = styled.div`
 const Texts = (): JSX.Element => {
     const theme = useContext(ThemeContext);
     const updateTheme = useUpdateTheme();
-    const defaultFont = theme.font.fontFamily.Oxygen;
-    const defaultSize = theme.fontSize.xxs;
-    const defaultWeight = theme.font.weight.normal;
-    const [font, setFont] = useState(defaultFont);
-    const [fontSize, setfontSize] = useState(defaultSize);
-    const [fontWeight, setfontWeight] = useState(defaultWeight);
+
+    const [font, setFont] = useState(theme.font.fontName);
+    const [fontSize, setfontSize] = useState(theme.fontSize.xxs);
+    const [fontWeight, setfontWeight] = useState(theme.font.fontWeight);
 
 /*     useEffect(() => {
         updateTheme({
@@ -79,26 +77,26 @@ const Texts = (): JSX.Element => {
     }); */
 
    const changeFont = (event: any) => {
-        setFont({ value: event.target.value });
+       console.log('f,dk', event.target.value);
+        setFont(event.target.value);
     };
 
     const changeWeight = (event: any) => {
-        setfontWeight({ value: event.target.value });
+        console.log('zzz', event.target.value);
+        setfontWeight(event.target.value);
     };
 
     const handleSubmit = (event: any) => {
-        alert(`votre font ${font.value},${fontSize}, ${fontWeight.value} `);
         event.preventDefault();
     };
 
     const SmallSize = () => {
-        setfontSize(defaultSize);
+        setfontSize(theme.fontSize.xxs);
         return fontSize;
     };
 
     const MediumSize = () => {
         setfontSize(theme.fontSize.xs);
-        console.log(fontSize);
         return fontSize;
     };
 
@@ -116,24 +114,24 @@ const Texts = (): JSX.Element => {
                         <p>Font</p>
                         <p>
                             font choose:
-                            {font.value}
+                            {font}
                         </p>
                     </WrapperFontSettings>
                         <FontSettings>
                         <select onChange={changeFont}>
-                            <option value={defaultFont}>Oxygen</option>
+                            <option value={theme.font.fontName} selected>Oxygen</option>
                             <option
-                            value={theme.font.fontFamily.OpenDyslexic}>
+                            value="Open Dyslexic">
                                 Open Dyslexic
                             </option>
                         </select>
                         <p>
                             weight choose:
-                            {fontWeight.value}
+                            {fontWeight}
                         </p>
                         <select onChange={changeWeight}>
-                            <option value={defaultWeight}>normal</option>
-                            <option value={theme.font.weight.bold}>bold</option>
+                            <option value={theme.font.fontWeight} selected>normal</option>
+                            <option value="bold">bold</option>
                         </select>
                         </FontSettings>
                 </FontFamilyContent>
