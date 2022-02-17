@@ -20,6 +20,7 @@ import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import DiscussList from "./screens/DiscussList";
 import Login from "./components/Login";
+import ListCourse from "./screens/ListCourse";
 
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
@@ -174,6 +175,8 @@ export default function App() {
                   iconName = focused ? "log-in" : "log-in-outline";
                 } else if (route.name === "Log out") {
                   iconName = focused ? "log-out" : "log-out-outline";
+                } else if (route.name === "Cours") {
+                  iconName = focused ? "book" : "book-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -182,6 +185,7 @@ export default function App() {
             })}
           >
             <Tab.Screen name="Accueil" component={Home} />
+            <Tab.Screen name="Cours" component={ListCourse} />
             <Tab.Screen name="Messages" component={MessageStackScreen} />
             <Tab.Screen name="Log out" component={Login} listeners={({ navigation }) => ({
               tabPress: (e) => {
