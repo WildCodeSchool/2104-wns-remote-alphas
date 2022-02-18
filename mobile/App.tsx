@@ -25,6 +25,7 @@ import ListCourse from "./screens/ListCourse";
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SingleCourse from "./screens/SingleCourse";
 
 
 Notifications.setNotificationHandler({
@@ -40,10 +41,20 @@ const ChatStack = createStackNavigator();
 function MessageStackScreen() {
   return (
     <ChatStack.Navigator>
-      <ChatStack.Screen name="Discussions" component={DiscussList} />
+      <ChatStack.Screen name="Discussions" component={DiscussList} options={{headerShown: false}} />
       <ChatStack.Screen name="ChatRoom" component={ChatInterface} />
     </ChatStack.Navigator>
   );
+}
+
+const CourseStack = createStackNavigator();
+function CourseStackScreen() {
+  return (
+    <CourseStack.Navigator >
+      <CourseStack.Screen name="Cours" component={ListCourse} options={{headerShown: false}} />
+      <CourseStack.Screen name="Single" component={SingleCourse} />
+    </CourseStack.Navigator>
+  )
 }
 const Tab = createBottomTabNavigator();
 
@@ -184,9 +195,9 @@ export default function App() {
               tabBarInactiveTintColor: "gray",
             })}
           >
-            <Tab.Screen name="Accueil" component={Home} />
-            <Tab.Screen name="Cours" component={ListCourse} />
-            <Tab.Screen name="Messages" component={MessageStackScreen} />
+            <Tab.Screen name="Accueil" component={Home} options={{headerShown: false}} />
+            <Tab.Screen name="Cours" component={CourseStackScreen} options={{headerShown: false}} />
+            <Tab.Screen name="Messages" component={MessageStackScreen} options={{headerShown: false}} />
             <Tab.Screen name="Log out" component={Login} listeners={({ navigation }) => ({
               tabPress: (e) => {
                 e.preventDefault();
@@ -194,7 +205,7 @@ export default function App() {
               },
             })}
              /> 
-              <Tab.Screen name="Caméra" component={CameraScreen} />
+              <Tab.Screen name="Caméra" component={CameraScreen} options={{headerShown: false}} />
            </Tab.Navigator>  
                ) : ( 
                  <Tab.Navigator
@@ -219,7 +230,7 @@ export default function App() {
                     tabBarInactiveTintColor: "gray",
                   })}
                 >
-                  <Tab.Screen name="Se connecter" component={Login} />
+                  <Tab.Screen name="Se connecter" component={Login} options={{headerShown: false}} />
                 </Tab.Navigator>
                 )}
         </NavigationContainer>
