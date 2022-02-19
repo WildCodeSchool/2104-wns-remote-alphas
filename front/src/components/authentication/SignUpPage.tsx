@@ -5,54 +5,12 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
-/// Build styled components
-const Wrapper = styled.div`
-	display: flex;
-	margin: auto;
-	height: 100vh;
-	width: 80vw;
-	@media all and (min-width: 1000px) {
-		width: 40vw;
-	}
-`;
-
-const FormContainer = styled.div`
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 14px;
-	margin: auto;
-	width: 100%;
-`;
-
-const ContainForm = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 45%;
-`;
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 1rem;
-	width: 100%;
-`;
-
-const Input = styled.input`
-	margin: auto;
-	width: 85%;
-	height: 2.5rem;
-	border: 1px solid grey;
-	border-radius: 5px;
-	font-size: 1rem;
-`;
+import Wrapper from './components/Wrapper.styled';
+import FormCard from './components/FormCard.styled';
+import FormContainer from './components/FormContainer.styled';
+import Form from './components/Form.styled';
+import Divider from '../core/Divider.styled';
+import AuthField from './AuthField';
 
 const Button = styled.button`
 	margin: auto;
@@ -82,13 +40,6 @@ const LittleTitle = styled.h4`
 	:hover {
 		text-decoration: underline;
 	}
-`;
-
-const Line = styled.div`
-	border: 0.01px solid grey;
-	width: 70%;
-	margin: auto;
-	margin-top: 1rem;
 `;
 
 /// View
@@ -167,46 +118,46 @@ export default function SignUpPage(): JSX.Element {
 
 	return (
 		<Wrapper>
-			<FormContainer>
+			<FormCard>
 				<Title>Create an account</Title>
 				<Subtitle>fill out this form to register on Masterize</Subtitle>
-				<ContainForm>
+				<FormContainer>
 					<Form>
-						<Input
+						<AuthField
+							label="Fistname"
 							type="text"
-							name="name"
-							placeholder="Name"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
 							value={userLog.name}
+							placeholder="Jane"
 						/>
-						<Input
+						<AuthField
+							label="Name"
 							type="text"
-							name="firstName"
-							placeholder="First name"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
-							value={userLog.firstName}
+							value={userLog.name}
+							placeholder="Doe"
 						/>
-						<Input
-							type="text"
-							name="email"
-							placeholder="Email"
+						<AuthField
+							label="Email"
+							type="email"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
-							value={userLog.email}
+							value={userLog.name}
+							placeholder="jane.doe@domain.com"
 						/>
-						<Input
+						<AuthField
+							label="Password"
 							type="password"
-							name="password"
-							placeholder="Password"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
-							value={userLog.password}
+							value={userLog.name}
+							placeholder="********"
 						/>
 						<Button
 							type="button"
@@ -221,10 +172,10 @@ export default function SignUpPage(): JSX.Element {
 							<ErrorMessage>{errorState.message}</ErrorMessage>
 						)}
 					</Form>
-				</ContainForm>
-				<Line />
+				</FormContainer>
+				<Divider style={{ width: '70%', marginTop: '1.5em' }} />
 				<LittleTitle onClick={() => handleClick()}>I already have an account</LittleTitle>
-			</FormContainer>
+			</FormCard>
 		</Wrapper>
 	);
 }

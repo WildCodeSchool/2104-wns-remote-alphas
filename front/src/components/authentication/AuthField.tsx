@@ -19,7 +19,10 @@ const Label = styled.label`
 const LabelSpan = styled.span`
 	width: 85%;
 	margin: auto;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
 `;
 
 interface FieldProps {

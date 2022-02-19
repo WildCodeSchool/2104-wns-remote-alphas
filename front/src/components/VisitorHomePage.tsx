@@ -32,10 +32,6 @@ const Image = styled.img`
 	width: 200px;
 `;
 
-const Line = styled.hr`
-	width: 100%;
-`;
-
 const LinkReactRouter = styled(Link)`
 	text-decoration: none;
 	color: ${(props) => props.theme.colors.secondary};

@@ -6,48 +6,11 @@ import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { LOGIN, ME } from '../../utils/apollo';
 import AuthField from './AuthField';
-
-const Wrapper = styled.div`
-	display: flex;
-	align-items: center;
-	margin: auto;
-	width: 20%;
-	height: calc(100vh - 113px - 105px);
-
-	@media screen and (max-width: 780px) {
-		width: 95%;
-	}
-	@media all and (min-width: 790px) and (max-width: 1280px) {
-		width: 50%;
-	}
-`;
-
-const FormContainer = styled.div`
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 14px;
-`;
-
-const ContainForm = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 45%;
-`;
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 1rem;
-	width: 100%;
-`;
+import FormCard from './components/FormCard.styled';
+import Wrapper from './components/Wrapper.styled';
+import FormContainer from './components/FormContainer.styled';
+import Form from './components/Form.styled';
+import Divider from '../core/Divider.styled';
 
 const Button = styled.button`
 	margin: auto;
@@ -78,12 +41,6 @@ const LittleTitle = styled.p`
 	:hover {
 		text-decoration: underline;
 	}
-`;
-
-const Line = styled.div`
-	border: 0.01px solid grey;
-	width: 70%;
-	//margin: auto;
 `;
 
 export default function SignInPage(): JSX.Element {
@@ -142,9 +99,9 @@ export default function SignInPage(): JSX.Element {
 	}
 	return (
 		<Wrapper>
-			<FormContainer>
+			<FormCard>
 			<Title>J&apos;ai déjà un compte Masterize</Title>
-			<ContainForm>
+			<FormContainer>
 				<Form>
 					<AuthField
 						label="email"
@@ -178,9 +135,9 @@ export default function SignInPage(): JSX.Element {
 						<ErrorMessage>{errorState.message}</ErrorMessage>
 					)}
 				</Form>
-			</ContainForm>
+			</FormContainer>
 			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
-			<Line> </Line>
+			<Divider style={{ width: '70%' }} />
 			<SubTitle>Nouveau sur Masterize ? </SubTitle>
 			<LittleTitle
 				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
@@ -190,7 +147,7 @@ export default function SignInPage(): JSX.Element {
 				S&apos;INSCRIRE
 			</LittleTitle>
 
-			</FormContainer>
+			</FormCard>
 		</Wrapper>
 	);
 }
