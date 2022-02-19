@@ -19,11 +19,15 @@ const Label = styled.label`
 const LabelSpan = styled.span`
 	width: 85%;
 	margin: auto;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
 `;
 
 interface FieldProps {
 	type: string;
+	name: string;
 	label: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
 	value: string;
@@ -31,6 +35,7 @@ interface FieldProps {
 }
 const AuthField = ({
 	type = 'text',
+	name = 'input name',
 	label = 'input label',
 	onChange,
 	value,
@@ -40,7 +45,7 @@ const AuthField = ({
 		<LabelSpan>{label}</LabelSpan>
 		<Input
 			type={type}
-			name={label}
+			name={name}
 			id={label}
 			placeholder={placeholder}
 			onChange={onChange}

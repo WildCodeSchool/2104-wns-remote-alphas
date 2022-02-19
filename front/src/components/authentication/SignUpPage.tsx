@@ -5,74 +5,14 @@ import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
-import { User } from '../../utils/types';
-/// Build styled components
-const Wrapper = styled.div`
-	display: flex;
-	align-items: center;
-	margin: auto;
-	height: calc(100vh - 113px - 105px);
-	width: 20%;
+import Wrapper from './components/Wrapper.styled';
+import FormCard from './components/FormCard.styled';
+import FormContainer from './components/FormContainer.styled';
+import Form from './components/Form.styled';
+import Divider from '../core/Divider.styled';
+import AuthField from './components/AuthField.styled';
+import Button from './components/Button.styled';
 
-	@media screen and (max-width: 780px) {
-		width: 95%;
-	}
-	@media all and (min-width: 790px) and (max-width: 1280px) {
-		width: 50%;
-	}
-`;
-
-const FormContainer = styled.div`
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 14px;
-`;
-
-const ContainForm = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 45%;
-`;
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 1rem;
-	width: 100%;
-`;
-
-const Input = styled.input`
-	margin: auto;
-	width: 85%;
-	height: 2.5rem;
-	border: 1px solid grey;
-	border-radius: 5px;
-	font-size: 1rem;
-`;
-
-const Button = styled.button`
-	margin: auto;
-	width: 85%;
-	height: 2.5rem;
-	cursor: pointer;
-	border-radius: 5px;
-	color: white;
-	border: 1px solid #68d0fc;
-	background-color: #68d0fc;
-	font-size: 1rem;
-	:hover {
-		background-color: #2bb7f3;
-		border-color: #2bb7f3;
-	}
-`;
 const Title = styled.h3``;
 
 const Subtitle = styled.p`
@@ -88,13 +28,6 @@ const LittleTitle = styled.h4`
 	}
 `;
 
-const Line = styled.div`
-	border: 0.01px solid grey;
-	width: 70%;
-	margin-top: 2rem;
-	margin: auto;
-`;
-
 /// View
 export default function SignUpPage(): JSX.Element {
 	const initialState = {
@@ -102,6 +35,7 @@ export default function SignUpPage(): JSX.Element {
 		email: '',
 		firstName: '',
 		password: '',
+		roles: ['student'],
 	};
 	const initialErrorState = {
 		status: false,
@@ -109,9 +43,9 @@ export default function SignUpPage(): JSX.Element {
 	};
 	const [userLog, setUserLog] = useState(initialState);
 	const [errorState, setErrorState] = useState(initialErrorState);
-	const [signupMutation] = useMutation<{ signup: User }>(SIGNUP);
-	const [loginMutation] = useMutation<{ login: string }>(LOGIN);
-	const [userMutation] = useMutation<{ me: User }>(ME);
+	const [signupMutation] = useMutation(SIGNUP);
+	const [loginMutation] = useMutation(LOGIN);
+	const [userMutation] = useMutation(ME);
 	const history = useHistory();
 
 	const { setIsLogin, setUser } = useContext(Context);
@@ -122,30 +56,34 @@ export default function SignUpPage(): JSX.Element {
 
 	async function handleSubmit() {
 		try {
-			const signupResult = await signupMutation({
+			const result = await signupMutation({
 				variables: {
 					...userLog,
 				},
 			});
-			if (signupResult.data?.signup) {
-				const loginResult = await loginMutation({
+			if (result.data.signup) {
+				const {
+					data: { login },
+				} = await loginMutation({
 					variables: {
 						email: userLog.email,
 						password: userLog.password,
 					},
 				});
-				if (typeof loginResult.data?.login === 'string') {
-					localStorage.setItem('token', loginResult.data.login);
+				if (typeof login === 'string') {
+					localStorage.setItem('token', login);
 
 					if (setIsLogin) {
 						setIsLogin(true);
 					}
 
-					const meResult = await userMutation({});
+					const {
+						data: { me },
+					} = await userMutation({});
 
-					if (meResult.data?.me._id) {
-						setUser({ ...meResult.data.me });
-						localStorage.setItem('user', JSON.stringify(meResult.data.me));
+					if (me._id) {
+						setUser({ ...me });
+						localStorage.setItem('user', JSON.stringify(me));
 					}
 					history.push('/');
 				} else {
@@ -166,65 +104,70 @@ export default function SignUpPage(): JSX.Element {
 
 	return (
 		<Wrapper>
-			<FormContainer>
-				<Title>Nouveau sur Masterize</Title>
-				<Subtitle>Saisissez vos informations personnelles</Subtitle>
-				<ContainForm>
+			<FormCard>
+				<Title>Create an account</Title>
+				<Subtitle>fill out this form to register on Masterize</Subtitle>
+				<FormContainer>
 					<Form>
-						<Input
-							type="text"
-							name="name"
-							placeholder="Nom"
-							onChange={(e) => {
-								setUserLog({ ...userLog, [e.target.name]: e.target.value });
-							}}
-							value={userLog.name}
-						/>
-						<Input
-							type="text"
+						<AuthField
 							name="firstName"
-							placeholder="Prénom"
+							label="Firstname"
+							type="text"
 							onChange={(e) => {
+								console.log(userLog.firstName);
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
 							value={userLog.firstName}
+							placeholder="Jane"
 						/>
-						<Input
+						<AuthField
+							name="name"
+							label="Name"
 							type="text"
+							onChange={(e) => {
+								console.log(e.target.value);
+								setUserLog({ ...userLog, [e.target.name]: e.target.value });
+							}}
+							value={userLog.name}
+							placeholder="Doe"
+						/>
+						<AuthField
 							name="email"
-							placeholder="Adresse email"
+							label="Email"
+							type="email"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
 							value={userLog.email}
+							placeholder="jane.doe@domain.com"
 						/>
-						<Input
-							type="password"
+						<AuthField
 							name="password"
-							placeholder="Mot de passe"
+							label="Password"
+							type="password"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
 							value={userLog.password}
+							placeholder="********"
 						/>
 						<Button
 							type="button"
-							value="s'enregistrer"
+							value="Sign up"
 							onClick={(e) => {
 								e.preventDefault();
 								handleSubmit();
 							}}>
-							S&apos;inscrire
+							Sign up
 						</Button>
 						{errorState.status && (
 							<ErrorMessage>{errorState.message}</ErrorMessage>
 						)}
 					</Form>
-				</ContainForm>
-				<Line> </Line>
-				<Title>Déjà un compte Masterize</Title>
-				<LittleTitle onClick={() => handleClick()}>SE CONNECTER</LittleTitle>
-			</FormContainer>
+				</FormContainer>
+				<Divider style={{ width: '70%', marginTop: '1.5em' }} />
+				<LittleTitle onClick={() => handleClick()}>I already have an account</LittleTitle>
+			</FormCard>
 		</Wrapper>
 	);
 }
