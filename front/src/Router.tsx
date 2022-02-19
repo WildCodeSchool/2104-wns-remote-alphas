@@ -125,16 +125,22 @@ function Router(): JSX.Element {
 								user,
 								setUser,
 							}}>
-							<Layout>
-								<Switch>
+							{!isLogin ? (
+								<>
+									<Route exact path="/">
+										<VisitorHomePage />
+									</Route>
 									<Route exact path="/signin">
 										<SignInPage />
 									</Route>
 									<Route exact path="/signup">
 										<SignUpPage />
 									</Route>
-									{isLogin ? (
-										<>
+								</>
+							) :
+								(
+									<Layout>
+										<Switch>
 											<Route exact path="/">
 												<Home />
 											</Route>
@@ -172,14 +178,9 @@ function Router(): JSX.Element {
 													<Admin />
 												</Route>
 											)}
-										</>
-									) : (
-										<Route exact path="/">
-											<VisitorHomePage />
-										</Route>
-									)}
-								</Switch>
-							</Layout>
+										</Switch>
+									</Layout>
+								)}
 						</Context.Provider>
 					</ThemeUpdateContext.Provider>
 				</ThemeProvider>
