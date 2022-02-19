@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Card = styled.div`
 	width: 25%;
-	background-color: ${(props) => props.theme.colors.quaterny};
+	background-color: ${(props) => props.theme.colors.opposite};
 	padding: ${(props) => props.theme.padding.s};
 	margin: auto;
 	border-radius: ${(props) => props.theme.fixedSize.borderRadius};

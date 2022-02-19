@@ -12,23 +12,9 @@ import FormContainer from './components/FormContainer.styled';
 import Form from './components/Form.styled';
 import Divider from '../core/Divider.styled';
 import Button from './components/Button.styled';
-
-
-const Title = styled.h1`
-	font-size: ${(props) => props.theme.fontSize.s};
-	text-align: center;
-`;
-
-const SubTitle = styled.h2`
-	font-size: ${(props) => props.theme.fontSize.s};
-`;
-
-const LittleTitle = styled.p`
-	cursor: pointer;
-	:hover {
-		text-decoration: underline;
-	}
-`;
+import H1 from './components/typos/H1.styled';
+import H2 from './components/typos/H2.styled';
+import TextLink from './components/typos/TextLink.styled';
 
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
@@ -87,7 +73,7 @@ export default function SignInPage(): JSX.Element {
 	return (
 		<Wrapper>
 			<FormCard>
-			<Title>J&apos;ai déjà un compte Masterize</Title>
+			<H1>I have an account</H1>
 			<FormContainer>
 				<Form>
 					<AuthField
@@ -112,28 +98,27 @@ export default function SignInPage(): JSX.Element {
 					/>
 					<Button
 						type="button"
-						value="Envoyer"
+						value="Login"
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();
 						}}>
-						Se connecter
+						Go to my classroom
 					</Button>
 					{errorState.status && (
 						<ErrorMessage>{errorState.message}</ErrorMessage>
 					)}
 				</Form>
 			</FormContainer>
-			<LittleTitle>MOT DE PASSE OUBLIE</LittleTitle>
+			<TextLink>Gosh, I forgot my password 😱</TextLink>
 			<Divider style={{ width: '70%' }} />
-			<SubTitle>Nouveau sur Masterize ? </SubTitle>
-			<LittleTitle
-				style={{ color: '#2bb7f3', textDecoration: 'bold' }}
+			<TextLink
+				accent
 				onClick={() => {
 					handleClick();
 				}}>
-				S&apos;INSCRIRE
-			</LittleTitle>
+				I dont have any account, sign me up right now !
+			</TextLink>
 
 			</FormCard>
 		</Wrapper>

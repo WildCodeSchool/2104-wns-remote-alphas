@@ -12,23 +12,10 @@ import Form from './components/Form.styled';
 import Divider from '../core/Divider.styled';
 import AuthField from './components/AuthField.styled';
 import Button from './components/Button.styled';
+import H3 from './components/typos/H3.styled';
+import TextLink from './components/typos/TextLink.styled';
+import H1 from './components/typos/H1.styled';
 
-const Title = styled.h3``;
-
-const Subtitle = styled.p`
-	text-align: center;
-`;
-
-const LittleTitle = styled.h4`
-	cursor: pointer;
-	color: #2bb7f3;
-	text-decoration: bold;
-	:hover {
-		text-decoration: underline;
-	}
-`;
-
-/// View
 export default function SignUpPage(): JSX.Element {
 	const initialState = {
 		name: '',
@@ -105,8 +92,8 @@ export default function SignUpPage(): JSX.Element {
 	return (
 		<Wrapper>
 			<FormCard>
-				<Title>Create an account</Title>
-				<Subtitle>fill out this form to register on Masterize</Subtitle>
+				<H1>Create an account</H1>
+				<p style={{ textAlign: 'center' }}>fill out this form to register on Masterize</p>
 				<FormContainer>
 					<Form>
 						<AuthField
@@ -153,7 +140,7 @@ export default function SignUpPage(): JSX.Element {
 						/>
 						<Button
 							type="button"
-							value="Sign up"
+							value="Signup"
 							onClick={(e) => {
 								e.preventDefault();
 								handleSubmit();
@@ -166,7 +153,7 @@ export default function SignUpPage(): JSX.Element {
 					</Form>
 				</FormContainer>
 				<Divider style={{ width: '70%', marginTop: '1.5em' }} />
-				<LittleTitle onClick={() => handleClick()}>I already have an account</LittleTitle>
+				<TextLink accent onClick={() => handleClick()}>I already have an account</TextLink>
 			</FormCard>
 		</Wrapper>
 	);

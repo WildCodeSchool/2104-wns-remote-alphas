@@ -19,7 +19,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		// Second highlight Color
 		tertiary: '#FE7F2D',
 		// Complementary Colors
-		quaterny: '#FFFFFF',
+		quaterny: '#1E40AF',
 		primaryLighter: '#D1DCE5',
 		secondaryLighter: '#4E4E4E',
 		// Text light for dark backgrounds
@@ -27,7 +27,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		// Text dark for light backgrounds
 		altTextColor: '#292929',
 		// opposite to primary color
-		opposite: '#ECEFF1',
+		opposite: '#FBFBFC',
 	},
 	neumorphism: {
 		boxShadow: 'inset 8px 8px 8px #212121, inset -8px -8px 8px #313131',

@@ -16,7 +16,7 @@ const Label = styled.label`
 	flex-direction: column;
 `;
 
-const LabelSpan = styled.span`
+const LabelSpan = styled.label`
 	width: 85%;
 	margin: auto;
 	margin-bottom: 5px;
@@ -44,6 +44,8 @@ const AuthField = ({
 	<Label htmlFor={label}>
 		<LabelSpan>{label}</LabelSpan>
 		<Input
+			aria-label={label}
+			aria-required="true"
 			type={type}
 			name={name}
 			id={label}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ColorLuminance from '../../../utils/colorLuminance';
 
 /**
  * Button for authentication forms
@@ -6,16 +7,16 @@ import styled from 'styled-components';
  const Button = styled.button`
  margin: auto;
  width: 85%;
- height: 2.5rem;
+ height: 3rem;
  cursor: pointer;
  border-radius: 5px;
  color: white;
  border: 1px solid #68d0fc;
- background-color: #68d0fc;
+ background-color: ${(props) => props.theme.colors.quaterny};
  font-size: 1rem;
  :hover {
-     background-color: #2bb7f3;
-     border-color: #2bb7f3;
+     background-color: ${(props) => ColorLuminance(props.theme.colors.quaterny, +0.5)};
+     border-color: ${(props) => ColorLuminance(props.theme.colors.quaterny, +0.5)};
  }
 `;
 

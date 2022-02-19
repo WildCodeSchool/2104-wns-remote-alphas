@@ -3,7 +3,7 @@ import styled from 'styled-components';
 /**
  * Responsive positionning wrapper for no layout boxes (login / signup forms)
  */
- const Wrapper = styled.div`
+ const Wrapper = styled.main`
  display: flex;
  margin: auto;
  height: 100vh;
