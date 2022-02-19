@@ -8,16 +8,11 @@ import { ME, SIGNUP, LOGIN } from '../../utils/apollo';
 /// Build styled components
 const Wrapper = styled.div`
 	display: flex;
-	align-items: center;
 	margin: auto;
-	height: calc(100vh - 113px - 105px);
-	width: 20%;
-
-	@media screen and (max-width: 780px) {
-		width: 95%;
-	}
-	@media all and (min-width: 790px) and (max-width: 1280px) {
-		width: 50%;
+	height: 100vh;
+	width: 80vw;
+	@media all and (min-width: 1000px) {
+		width: 40vw;
 	}
 `;
 
@@ -30,6 +25,8 @@ const FormContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	padding: 14px;
+	margin: auto;
+	width: 100%;
 `;
 
 const ContainForm = styled.div`
@@ -90,8 +87,8 @@ const LittleTitle = styled.h4`
 const Line = styled.div`
 	border: 0.01px solid grey;
 	width: 70%;
-	margin-top: 2rem;
 	margin: auto;
+	margin-top: 1rem;
 `;
 
 /// View
@@ -171,14 +168,14 @@ export default function SignUpPage(): JSX.Element {
 	return (
 		<Wrapper>
 			<FormContainer>
-				<Title>Nouveau sur Masterize</Title>
-				<Subtitle>Saisissez vos informations personnelles</Subtitle>
+				<Title>Create an account</Title>
+				<Subtitle>fill out this form to register on Masterize</Subtitle>
 				<ContainForm>
 					<Form>
 						<Input
 							type="text"
 							name="name"
-							placeholder="Nom"
+							placeholder="Name"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
@@ -187,7 +184,7 @@ export default function SignUpPage(): JSX.Element {
 						<Input
 							type="text"
 							name="firstName"
-							placeholder="Prénom"
+							placeholder="First name"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
@@ -196,7 +193,7 @@ export default function SignUpPage(): JSX.Element {
 						<Input
 							type="text"
 							name="email"
-							placeholder="Adresse email"
+							placeholder="Email"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
@@ -205,7 +202,7 @@ export default function SignUpPage(): JSX.Element {
 						<Input
 							type="password"
 							name="password"
-							placeholder="Mot de passe"
+							placeholder="Password"
 							onChange={(e) => {
 								setUserLog({ ...userLog, [e.target.name]: e.target.value });
 							}}
@@ -213,21 +210,20 @@ export default function SignUpPage(): JSX.Element {
 						/>
 						<Button
 							type="button"
-							value="s'enregistrer"
+							value="Sign up"
 							onClick={(e) => {
 								e.preventDefault();
 								handleSubmit();
 							}}>
-							S&apos;inscrire
+							Sign up
 						</Button>
 						{errorState.status && (
 							<ErrorMessage>{errorState.message}</ErrorMessage>
 						)}
 					</Form>
 				</ContainForm>
-				<Line> </Line>
-				<Title>Déjà un compte Masterize</Title>
-				<LittleTitle onClick={() => handleClick()}>SE CONNECTER</LittleTitle>
+				<Line />
+				<LittleTitle onClick={() => handleClick()}>I already have an account</LittleTitle>
 			</FormContainer>
 		</Wrapper>
 	);
