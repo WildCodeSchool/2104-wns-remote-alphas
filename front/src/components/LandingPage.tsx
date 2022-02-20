@@ -8,16 +8,36 @@ import GradientBackground from './core/GradientBackground.styled';
 import GradientTitle from './core/GradientTitle.styled';
 
 /**
- * Default home page shown to the unknown visitors.
+ * Default home page shown to the unknown visitors with call to actions (log in and sign in).
  */
 
 const BoxCard = styled.main`
 	background: #292929;
 	padding: 3em;
 	border-radius: 30px;
-	width: 600px;
+	width: 60%;
+	max-height: 80%;
 	margin: auto;
 	alignItems: stretch;
+	text, br {
+		display: none;
+	}
+	@media all and (max-width: 515px) {
+		h1 {
+			font-size: 35px;
+		}
+		h2 {
+			font-size: 18px;
+		}
+	}
+	@media all and (min-width: 580px) {
+		text, br {
+			display: block;
+		}
+	}
+	@media all and (min-width: 1000px) {
+		width: 33%;
+	}
 `;
 
 const Container = styled.div`
@@ -34,9 +54,13 @@ const Image = styled.img`
 const ButtonsRow = styled.div`
 	display: flex;
 	gap: 2em;
-	flex-direction: row;
-	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 1em;
+	@media all and (min-width: 580px) {
+		flex-direction: row;
+		justify-content: space-around;
+	}
 `;
 
 const Text = styled.text`
