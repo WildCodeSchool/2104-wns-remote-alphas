@@ -8,9 +8,9 @@ import styled, { ThemeContext } from 'styled-components';
 /**
  * Tabbable div for keyboard navigation
  */
-const HoverEffect = styled.div`
+const FocusEffect = styled.div`
 	:focus {
-		box-shadow: 0 0 10px 5px #08F;
+		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
 	}
 `;
 
@@ -22,13 +22,13 @@ interface TabableProps {
 
 }
 
-const Tabable = ({ children, onClick, onKeyPress, pressedKey } : TabableProps): JSX.Element => <HoverEffect
+const Tabable = ({ children, onClick, onKeyPress, pressedKey } : TabableProps): JSX.Element => <FocusEffect
 aria-label="open tips"
 	onClick={onClick}
 	onKeyPress={(e) => e.key === pressedKey && onKeyPress()}
 	role="button"
 	tabIndex={0}>
 	{children}
-</HoverEffect>;
+</FocusEffect>;
 
 export default Tabable;

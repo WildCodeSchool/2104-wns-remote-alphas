@@ -12,7 +12,9 @@ const Card = styled.article`
   width: 25%;
   height: 80%;
   :focus {
-	box-shadow: 0 0 5px 1px #08F;
+	:focus {
+		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
+	}
   }
 `;
 
@@ -63,7 +65,9 @@ function CardCoursesSecondary({
 			tabIndex={0}
 			onClick={() => {
 				clickCourse();
-			}}>
+			}}
+			onKeyPress={(e) => e.key === 'Enter' && clickCourse()}
+			>
 			<Container>
 				<Title data-testid="title-secondary-card">{title}</Title>
 				<Image src={image} alt={imageDescription} />
