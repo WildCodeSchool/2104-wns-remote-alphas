@@ -8,7 +8,6 @@ import Tabable from '../core/accessibility/Tabable.Styled';
  * Display a panda every two hours.
  * The panda reminds to the user to take a break (opens a modal on click).
  */
-
 const Image = styled.img`
 	width: 100px;
 	position: absolute;
@@ -21,7 +20,6 @@ const Timer = styled.div<{ visible?: boolean }>`
 	visibility: ${(props) => props.visible ? 'visible' : 'hidden'};
 `;
 
-// TODO: make a clickable link and create view for terms of services.
 const PandaTips = (): JSX.Element => {
 	const [pandaVisible, setPandaVisibility] = useState(false);
 

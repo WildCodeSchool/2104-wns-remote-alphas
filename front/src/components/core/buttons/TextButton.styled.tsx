@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ColorLuminance from '../../../utils/colorLuminance';
 
 /**
- * Text link with hover effect
+ * Accessible Text link with hover effect and keyboard navigation
  */
 const TextButton = styled.button<{ accent?: boolean }>`
 	cursor: pointer;

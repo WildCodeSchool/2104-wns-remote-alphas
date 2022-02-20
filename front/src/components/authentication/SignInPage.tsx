@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
-import styled from 'styled-components';
 import Context from '../context/Context';
 import ErrorMessage from '../core/ErrorMessage';
 import { LOGIN, ME } from '../../utils/apollo';
@@ -13,8 +12,6 @@ import Form from './components/Form.styled';
 import Divider from '../core/Divider.styled';
 import Button from './components/Button.styled';
 import H1 from './components/typos/H1.styled';
-import H2 from './components/typos/H2.styled';
-import TextLink from './components/typos/TextLink.styled';
 import GradientBackground from '../core/GradientBackground.styled';
 import TextButton from '../core/buttons/TextButton.styled';
 
