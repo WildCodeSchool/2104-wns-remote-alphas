@@ -11,6 +11,10 @@ const Card = styled.article`
   cursor: pointer;
   width: 25%;
   height: 80%;
+  @media all and (max-width: 1000px) {
+	min-width: 300px;
+  	max-height: 280px;
+  }
   :focus {
 	:focus {
 		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};

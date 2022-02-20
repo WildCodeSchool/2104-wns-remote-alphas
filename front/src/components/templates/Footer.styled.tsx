@@ -11,6 +11,9 @@ const FooterContainer = styled.footer`
 	display: none;
 	@media (min-width: 350px) {
 		display: block;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
 	}
 `;
 

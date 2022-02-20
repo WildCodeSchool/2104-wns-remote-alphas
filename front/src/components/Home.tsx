@@ -30,28 +30,29 @@ const Title = styled.h1`
 	}
 `;
 
-const Content = styled.main`
+const Content = styled.section`
 	background-color: ${(props) => props.theme.colors.primary};
 	width: 100vw;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2em;
-	@media screen and (max-width: 780px) {
-		height: inherit;
-	}
-	article:nth-child(2) {
-		width: 30%;
-		height: 100%;
-		img {
-			width: 72%;
-		}
-		h2 {
-			font-size: 40px;
+	margin-top: 2em;
+	@media all and (min-width: 1000px) {
+		margin-top: unset;
+		article:nth-child(2) {
+			width: 30%;
+			height: 100%;
+			img {
+				width: 72%;
+			}
+			h2 {
+				font-size: 40px;
+			}
 		}
 	}
 `;
 
-const Column = styled.div<{ alignItems?: string, gap?: number }>`
+const Column = styled.main<{ alignItems?: string, gap?: number }>`
     display: flex;
     flex-direction: column;
 	width: 100%;
@@ -59,6 +60,21 @@ const Column = styled.div<{ alignItems?: string, gap?: number }>`
     margin: 0;
     gap: ${(props) => props.gap} ? ${(props) => props.gap} : ${({ theme }) => theme.margin.generic.small};
     align-items: ${(props) => props.alignItems} ? ${(props) => props.alignItems} : '';
+	.heading {
+		display: none;
+	}
+	@media all and (min-width: 1100px) {
+		.heading {
+			display: flex;
+			width: 100%;
+		}
+	}
+`;
+
+const ResponsiveBox = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	width: 100vw;
 `;
 
 function Home(): JSX.Element {
@@ -72,8 +88,8 @@ function Home(): JSX.Element {
 			{loading && <Loader />}
 			{error && <Error />}
 			{data?.getCourses && (
-				<>
-					<Row>
+				<ResponsiveBox>
+					<Row className="heading">
 						<Title>Last Courses...</Title>
 						<TextButton
 						accent
@@ -97,7 +113,7 @@ function Home(): JSX.Element {
 							/>
 						))}
 					</Content>
-				</>)}
+				</ResponsiveBox>)}
 		</Column>
 	);
 }
