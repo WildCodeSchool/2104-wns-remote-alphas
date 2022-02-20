@@ -141,6 +141,7 @@ function Office(): JSX.Element {
 	}
 
 	function closeModal() {
+		document.body.classList.remove('no-scroll');
 		setShowModal(false);
 		setPostCourseState(initialState);
 		setOpacityUnderModal(1);
