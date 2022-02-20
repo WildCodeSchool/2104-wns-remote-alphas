@@ -6,6 +6,7 @@ import { GET_ONE_COURSE } from '../utils/apollo';
 import { CourseType } from '../utils/types';
 import { ScrollView } from "react-native-gesture-handler";
 import formattedDate from "../utils/formattedDate";
+import { WhiteBalance } from "expo-camera/build/Camera.types";
 
 
 export default function SingleCourse({route}) {
@@ -30,7 +31,15 @@ export default function SingleCourse({route}) {
           <View style={styles.imgcontent}>
               <Image style={styles.images} source={{uri: data?.getCourseById.image_url}}></Image>
           </View>
-          <Text style={styles.description}>{data?.getCourseById.description}</Text>   
+          <Text style={styles.description}>{data?.getCourseById.description}</Text>
+          <Text style={styles.textcourse}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Phasellus pellentesque diam et ipsum porttitor, imperdiet facilisis magna scelerisque. 
+            Vestibulum mi tellus, pellentesque vel sem vel, imperdiet ultricies lorem. Ut vulputate posuere nisl, 
+            ac elementum est rhoncus in. Vestibulum risus lacus, semper et aliquam ac, condimentum vitae felis. 
+            Fusce dictum purus eget lorem sagittis commodo. Nullam eros est, ultricies non ex a, sollicitudin condimentum tortor. 
+            Fusce et orci facilisis ipsum viverra scelerisque. Suspendisse sapien sapien, bibendum at turpis eu, venenatis mattis arcu.
+          </Text>
+          <Text style={styles.technos}>{data?.getCourseById.technos}</Text>
         </ScrollView>
       </View>
     </View>
@@ -43,25 +52,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    backgroundColor: '#ECEFF1',
-    borderRadius: 10,
-    margin: 40,
-    padding: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
+    margin: 25,
+    padding: 15,
   },
   images: {
-    height: 120,
-    width: 220,
+    height: 140,
+    width: 240,
     alignItems: 'center',
-    marginBottom: 10
+    marginTop: 25,
+    marginBottom: 25,
+    borderRadius: 5,
   },
   imgcontent: {
     justifyContent: 'center',
@@ -70,18 +70,31 @@ const styles = StyleSheet.create({
   text: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: 10,
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 22,
+    color: 'white'
   },
   date: {
     color: '#FE7F2D'
   },
   description : {
-    textAlign: 'center'
+    color: 'white'
+  },
+  textcourse: {
+    color: 'white',
+    textAlign: 'justify',
+  },
+  technos: {
+    backgroundColor: '#68D0FC',
+    fontSize: 10,
+    borderRadius: 3,
+    color: '#292929',
+    padding: 5,
+    alignSelf: 'flex-end',
+    marginTop: 25,
   }
 
 });
