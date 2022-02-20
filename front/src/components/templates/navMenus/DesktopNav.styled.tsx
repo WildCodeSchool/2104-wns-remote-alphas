@@ -49,9 +49,9 @@ const DesktopNav = (): JSX.Element => {
 				<text>Wiki</text>
 			</LinkReactRouter>
 
-			<LinkReactRouter to="help">
+			{/* <LinkReactRouter to="help">
 				<text>Help</text>
-			</LinkReactRouter>
+			</LinkReactRouter> */}
 
 			{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 				<LinkReactRouter to="/backoffice">

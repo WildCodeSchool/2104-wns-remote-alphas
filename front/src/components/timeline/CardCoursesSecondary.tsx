@@ -9,6 +9,8 @@ const Card = styled.article`
   border-radius: ${(props) => props.theme.fixedSize.borderRadius};
   box-shadow: ${(props) => props.theme.fixedSize.boxShadow};
   cursor: pointer;
+  width: 25%;
+  height: 80%;
   :focus {
 	box-shadow: 0 0 5px 1px #08F;
   }
@@ -17,7 +19,7 @@ const Card = styled.article`
 const Title = styled.h2`
   text-align: left;
   color: ${(props) => props.theme.colors.primary};
-  font-size: ${(props) => props.theme.fontSize.l};
+  font-size: ${(props) => props.theme.fontSize.m};
   font-weight: normal;
   margin: 0px;
   margin-bottom: .5em;
@@ -37,7 +39,7 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 80%;
+  width: 60%;
   display: flex;
   margin: auto;
 `;
