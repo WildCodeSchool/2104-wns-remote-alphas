@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import CardCoursesSecondary from './timeline/CardCoursesSecondary';
 import { GET_COURSES } from '../utils/apollo';
@@ -64,6 +65,8 @@ function Home(): JSX.Element {
 	const { loading, error, data } =
 		useQuery<{ getCourses: CourseType[] }>(GET_COURSES);
 
+	const history = useHistory();
+
 	return (
 		<Column id="main-content">
 			{loading && <Loader />}
@@ -72,8 +75,12 @@ function Home(): JSX.Element {
 				<>
 					<Row>
 						<Title>Last Courses...</Title>
-						<TextButton accent>
+						<TextButton
+						accent
+						onClick={() => history.push('/courses')}
+						>
 							View timeline
+							&nbsp;
 							{'=>'}
 						</TextButton>
 					</Row>
