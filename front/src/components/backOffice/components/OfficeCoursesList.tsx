@@ -1,6 +1,10 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
+import styled from 'styled-components';
 import convertDate from '../../../utils/convertDate';
 import { CourseType } from '../../../utils/types';
+import Button from '../../core/Button.styled';
 
 export type CourseId = {
 	_id: string;
@@ -11,6 +15,18 @@ interface Iprops {
 	fetchById(_id: string): void;
 	displayModal(item: CourseType): void;
 }
+
+const ContentColumn = styled.tr`
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: center;
+	align-items: flex-start;
+`;
+
+const Label = styled.text`
+	text-align: start;
+`;
 
 function OfficeCoursesList({
 	courses,
@@ -39,52 +55,54 @@ function OfficeCoursesList({
 							border: '1px solid white',
 							padding: '1rem',
 						}}>
-						<tr><th><h2 style={{ color: 'white' }}>{item.courseName}</h2></th></tr>
-						<tr><td><h3 style={{ color: 'white' }}>{item.technos}</h3></td></tr>
-						<tr style={{ color: 'white' }}>
-							<td>{item.postedAt ? convertDate(item.postedAt, 'fr') : undefined}</td>
-						</tr>
+						<ContentColumn>
+							<th>
+								<Label style={{ color: 'white' }}>
+									Name :
+								</Label>
+								<h2 style={{ color: 'white' }}>{item.courseName}</h2>
+							</th>
+							<td>
+								<h3 style={{ color: 'white' }}>
+									{item.technos[0]}
+									{item.technos.length > 1 &&
+									<span>
+										&nbsp;
+										|
+										&nbsp;
+										{item.technos[1]}
+									</span>}
+
+								</h3>
+							</td>
+							<br />
+							<td style={{ color: 'white' }}>
+								{item.postedAt ? convertDate(item.postedAt, 'fr') : undefined}
+							</td>
+						</ContentColumn>
+
 						<tr
 							style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
 							<td>
-								<button
-									style={{
-										backgroundColor: '#FF2960',
-										cursor: 'pointer',
-										width: '8rem',
-										height: '1.5rem',
-										border: '1px solid red',
-										borderRadius: '5px',
-										color: 'white',
-										fontWeight: 'bold',
-									}}
+								<Button
 									type="button"
+									alert
 									onClick={(e) => {
 										e.preventDefault();
 										displayModal(item);
 									}}>
-									Supprimer
-								</button>
+									Delete
+								</Button>
 							</td>
 							<td>
-								<button
-									style={{
-										backgroundColor: '#68d0fc',
-										cursor: 'pointer',
-										width: '8rem',
-										height: '1.5rem',
-										border: '1px solid #68d0fc',
-										borderRadius: '5px',
-										color: 'white',
-										fontWeight: 'bold',
-									}}
+								<Button
 									type="button"
 									onClick={(e) => {
 										e.preventDefault();
 										fetchById(item._id);
 									}}>
-									Modifier
-								</button>
+									Edit
+								</Button>
 							</td>
 						</tr>
 					</tbody>
