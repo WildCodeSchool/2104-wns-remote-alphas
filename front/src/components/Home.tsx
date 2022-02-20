@@ -7,12 +7,13 @@ import { GET_COURSES } from '../utils/apollo';
 import { CourseType } from '../utils/types';
 import Loader from './core/Loader.styled';
 import Error from './core/Error.styled';
+// import CourseIcon from './assets/icons/CourseIcon';
 
 /**
- * App home page view, displayed when a user is connected
+ * Homepage view, displayed when a user is connected
  */
 
-const AppContent = styled.div`
+const AppContent = styled.main`
 	background-color: ${(props) => props.theme.colors.primary};
 	display: flex;
 	justify-content: center;
@@ -21,7 +22,7 @@ const AppContent = styled.div`
 	}
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled.section`
 	width: 100%;
 	height: calc(100vh - 113px - 105px);
 	display: flex;
@@ -30,6 +31,14 @@ const CardContainer = styled.div`
 	@media screen and (max-width: 780px) {
 		height: inherit;
 	}
+	article:nth-child(2) {
+		div {
+			width: 350px;
+		}
+		img {
+			width: 100%;
+		}
+	}
 `;
 
 function Home(): JSX.Element {
@@ -37,7 +46,7 @@ function Home(): JSX.Element {
 		useQuery<{ getCourses: CourseType[] }>(GET_COURSES);
 
 	return (
-		<AppContent>
+		<AppContent id="main-content">
 			{loading && <Loader />}
 			{error && <Error />}
 			{data?.getCourses && (
@@ -49,7 +58,8 @@ function Home(): JSX.Element {
 							title={course.courseName}
 							image={course.image_url}
 							imageDescription="image video"
-							course={course.technos[0]}
+							techno1={course.technos[0]}
+							techno2={course.technos[1]}
 						/>
 					))}
 				</CardContainer>

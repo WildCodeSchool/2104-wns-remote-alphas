@@ -97,8 +97,8 @@ export default function SignInPage(): JSX.Element {
 						placeholder="supersecretpassword"
 					/>
 					<Button
-						type="button"
-						value="Login"
+						type="submit"
+						value="Log in"
 						onClick={(e) => {
 							e.preventDefault();
 							handleSubmit();

@@ -55,7 +55,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 	margin: {
 		navItems: '0px 48px',
 		mainTitle: '0px 0px 150px 94px',
-		mainCard: '0px 32px',
+		mainCard: '10px 32px',
 		imageCard: '16px 0px 21px 0px',
 		nameOfInput: '0px 0px 5px 0px',
 		textMenuSettings: '0px 0px 0px 75px',

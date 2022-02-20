@@ -81,10 +81,10 @@ function LandingPage(): JSX.Element {
 					<LinkReactRouter to="/signup">
 						Sign up today and join your training classmates,
 					</LinkReactRouter>
-					{'   '}
+					&nbsp;
 					or
+					&nbsp;
 					<LinkReactRouter to="/signin">
-						{'   '}
 						log in your account.
 					</LinkReactRouter>
 				</Text>

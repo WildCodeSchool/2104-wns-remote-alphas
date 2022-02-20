@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import SrOnly from '../../core/accessibility/SrOnly.styled';
 
 const Input = styled.input`
 	margin: auto;
@@ -16,7 +17,7 @@ const Label = styled.label`
 	flex-direction: column;
 `;
 
-const LabelSpan = styled.label`
+const LabelSpan = styled.span`
 	width: 85%;
 	margin: auto;
 	margin-bottom: 5px;
@@ -42,10 +43,10 @@ const AuthField = ({
 	placeholder,
 }: FieldProps): JSX.Element => (
 	<Label htmlFor={label}>
+		<SrOnly><text>test sr</text></SrOnly>
 		<LabelSpan>{label}</LabelSpan>
 		<Input
 			aria-label={label}
-			aria-required="true"
 			type={type}
 			name={name}
 			id={label}
