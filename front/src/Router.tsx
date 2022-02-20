@@ -29,7 +29,7 @@ import Context from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
 import { ROLES, User } from './utils/types';
-import FormCourses from './components/backOffice/FormCourses';
+import Office from './components/backOffice/Office';
 import Admin from './components/admin/Admin';
 import ThemeUpdateContext from './components/context/ThemeUpdateContext';
 
@@ -173,7 +173,7 @@ function Router(): JSX.Element {
 											</Route>
 											{(user?.role === 'teacher' || user?.role === 'admin') && (
 												<Route exact path="/backoffice">
-													<FormCourses />
+													<Office />
 												</Route>
 											)}
 											{user?.role === 'admin' && (

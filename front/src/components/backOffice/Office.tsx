@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line object-curly-newline
 import { useMutation, useQuery, ApolloError } from '@apollo/client';
-import ListCoursesback from './ListCoursesBack';
-import FormMasterBackOffice from './FormMasterbackOffice';
+import OfficeCoursesList from './components/OfficeCoursesList';
 import ModalConfirmation from '../core/ModalConfirmation';
 import {
 	ADD_COURSE,
@@ -14,6 +13,7 @@ import {
 	UPDATE_COURSE,
 } from '../../utils/apollo';
 import { CourseType } from '../../utils/types';
+import OfficeForm from './components/OfficeForm.styled';
 
 const BackOfficeTitle = styled.div`
 	display: flex;
@@ -22,7 +22,7 @@ const BackOfficeTitle = styled.div`
 	color: white;
 `;
 
-const FormContent = styled.div`
+const ContentContainer = styled.section`
 	margin: auto;
 	display: flex;
 	justify-content: space-around;
@@ -32,7 +32,7 @@ const FormContent = styled.div`
 	overflow: scroll;
 `;
 
-const ListCoursesBackOffice = styled.div`
+const ListSection = styled.section`
 	width: 40%;
 	height: 100%;
 `;
@@ -47,7 +47,7 @@ const H2 = styled.h2`
 	text-align: center;
 `;
 
-function FormCourses(): JSX.Element {
+function Office(): JSX.Element {
 	const initialState = {
 		courseName: '',
 		image_url: '',
@@ -209,24 +209,15 @@ function FormCourses(): JSX.Element {
 	}
 
 	return (
-		<>
+		<main id="main-content">
 			<BackOfficeTitle>
 				<h1>Back Office</h1>
 			</BackOfficeTitle>
 
-			<FormContent style={{ opacity: `${opacityUnderModal}` }}>
-				<ListCoursesBackOffice>
-					<H2>Liste des cours</H2>
-					<ListCoursesback
-						courses={courses}
-						// deleteCourse={deleteCourse}
-						fetchById={fetchOneCourse}
-						displayModal={toggleModal}
-					/>
-				</ListCoursesBackOffice>
+			<ContentContainer style={{ opacity: `${opacityUnderModal}` }}>
 				<Form>
-					<H2>Poster un cours</H2>
-					<FormMasterBackOffice
+					<H2>Post a new course</H2>
+					<OfficeForm
 						onChange={handleChange}
 						courseInput={postCourseState}
 						onSubmit={handleSubmit}
@@ -235,17 +226,26 @@ function FormCourses(): JSX.Element {
 						errorState={formErrorState}
 					/>
 				</Form>
-			</FormContent>
+				<ListSection>
+					<H2>All the courses</H2>
+					<OfficeCoursesList
+						courses={courses}
+						// deleteCourse={deleteCourse}
+						fetchById={fetchOneCourse}
+						displayModal={toggleModal}
+					/>
+				</ListSection>
+			</ContentContainer>
 			{showModal && (
 				<ModalConfirmation
-					title="Confirmation"
-					question="Es-tu sûr de vouloir supprimer ce cours ?"
+					title="Do you want to continue ?"
+					question={`You are deleting the ${postCourseState.courseName} course. This is an irreversible action.`}
 					onConfirm={() => deleteCourse(postCourseState._id)}
 					onCancel={closeModal}
-					confirmActionName="Supprimer"
+					confirmActionName="Delete the course"
 				/>
 			)}
-		</>
+		</main>
 	);
 }
-export default FormCourses;
+export default Office;

@@ -1,6 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable operator-linebreak */
+import { printIntrospectionSchema } from 'graphql';
 import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 
@@ -31,16 +32,16 @@ from {
 `;
 
 const Overlay = styled.div`
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	background-color: transparent;
-	z-index: 10;
+	z-index: 1000;
 	position: fixed;
 	left: 0;
 	top: 0;
 `;
 
-const ModalContent = styled.div<{ reverseModal?: boolean }>`
+const ModalContent = styled.section<{ reverseModal?: boolean }>`
 	background-color: #292929;
 	width: 30%;
 	height: 40%;
@@ -66,18 +67,22 @@ const ModalContent = styled.div<{ reverseModal?: boolean }>`
 `;
 const Title = styled.h2`
 	color: white;
+	font-size: ${(props) => props.theme.fontSize.m}
 `;
-const Text = styled.h4`
+const Text = styled.h3`
 	height: 50%;
 	display: flex;
 	align-items: center;
 	color: white;
+	font-size: 16px;
+	line-height: 2em;
 `;
 const WrapperButtons = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 	height: 30%;
+	gap: 2em;
 `;
 
 const Button = styled.button<{ alert?: boolean }>`
@@ -85,13 +90,14 @@ const Button = styled.button<{ alert?: boolean }>`
 	background-color: ${(props) =>
 		props.alert ? '#ff2960' : props.theme.colors.secondary};
 	cursor: pointer;
-	width: 8rem;
-	height: 1.5rem;
+	width: 12rem;
+	height: 3rem;
 	border: 1px solid
 		${(props) => (props.alert ? '#ff2960' : props.theme.colors.secondary)};
 	border-radius: 5px;
 	color: white;
 	font-weight: bold;
+	padding: 10px;
 `;
 
 function ModalConfirmation({
@@ -114,8 +120,10 @@ function ModalConfirmation({
 				}}
 				aria-hidden="true"
 			/>
-			<ModalContent reverseModal={reverseModal}>
-				<Title style={{ color: 'white' }}>{title}</Title>
+			<ModalContent
+			aria-modal="true"
+			reverseModal={reverseModal}>
+				<Title>{title}</Title>
 				<Text>{question}</Text>
 				<WrapperButtons>
 					<Button
@@ -134,7 +142,7 @@ function ModalConfirmation({
 							}, 250);
 						}}
 						type="button">
-						Annuler
+						Cancel
 					</Button>
 				</WrapperButtons>
 			</ModalContent>

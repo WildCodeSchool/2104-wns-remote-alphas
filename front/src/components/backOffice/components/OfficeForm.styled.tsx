@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CourseType } from '../../utils/types';
-import ErrorMessage from '../core/ErrorMessage';
+import { CourseType } from '../../../utils/types';
+import ErrorMessage from '../../core/ErrorMessage';
 
 const Container = styled.div`
 	display: 'flex';
@@ -74,7 +74,7 @@ interface Iprops {
 	onCancel(): void;
 	errorState: { status: boolean; message: string };
 }
-function FormMasterBackOffice({
+function OfficeForm({
 	onChange,
 	courseInput,
 	onSubmit,
@@ -91,7 +91,7 @@ function FormMasterBackOffice({
 				<Input
 					type="text"
 					name="courseName"
-					placeholder="Titre du cours"
+					placeholder="Handle bloc pattern in Flutter"
 					onChange={(e) => {
 						onChange(e.target.value, e.target.name);
 					}}
@@ -100,7 +100,7 @@ function FormMasterBackOffice({
 				<Input
 					type="text"
 					name="technos"
-					placeholder="Technos abordées du cours"
+					placeholder="Dart, Flutter, Bloc"
 					onChange={(e) => {
 						onChange(e.target.value, e.target.name);
 					}}
@@ -108,7 +108,7 @@ function FormMasterBackOffice({
 				/>
 				<Textarea
 					name="description"
-					placeholder="Contenu du cours"
+					placeholder="Fill out the very interesting course content here"
 					onChange={(e) => {
 						onChange(e.target.value, e.target.name);
 					}}
@@ -116,7 +116,7 @@ function FormMasterBackOffice({
 				/>
 				{errorState.status && <ErrorMessage>{errorState.message}</ErrorMessage>}
 				<Button type="submit">
-					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}
+					{buttonType === 'post' ? 'Post a new course' : 'Edit a course'}
 				</Button>
 				{buttonType === 'update' && (
 					<Button
@@ -129,7 +129,7 @@ function FormMasterBackOffice({
 							e.preventDefault();
 							onCancel();
 						}}>
-						Annuler modification
+						Cancel edition
 					</Button>
 				)}
 			</Form>
@@ -137,4 +137,4 @@ function FormMasterBackOffice({
 	);
 }
 
-export default FormMasterBackOffice;
+export default OfficeForm;
