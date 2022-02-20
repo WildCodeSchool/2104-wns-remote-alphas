@@ -11,7 +11,7 @@ const TextLink = styled.p<{ accent?: boolean }>`
 		text-decoration: underline;
         color: ${(props) => ColorLuminance(props.theme.colors.quaterny, +0.5)};
 	}
-    color: ${(props) => props.accent ? props.theme.colors.quaterny : props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.secondary};
     font-weight: ${(props) => props.accent ? 'bold' : 'regular'};
 `;
 

@@ -6,15 +6,16 @@ const Input = styled.input`
 	margin: auto;
 	width: 85%;
 	height: 2.5rem;
-	border: 1px solid grey;
 	border-radius: 5px;
 	font-size: 1rem;
+	background-color: ${(props) => props.theme.colors.opposite}
 `;
 
 const Label = styled.label`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	color: ${(props) => props.theme.colors.opposite}
 `;
 
 const LabelSpan = styled.span`
@@ -43,7 +44,7 @@ const AuthField = ({
 	placeholder,
 }: FieldProps): JSX.Element => (
 	<Label htmlFor={label}>
-		<SrOnly><text>test sr</text></SrOnly>
+		{/* <SrOnly><text>test sr</text></SrOnly> */}
 		<LabelSpan>{label}</LabelSpan>
 		<Input
 			aria-label={label}

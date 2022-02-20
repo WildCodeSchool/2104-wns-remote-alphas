@@ -4,8 +4,7 @@ import styled from 'styled-components';
  * Styled card for login / signup forms
  */
  const FormCard = styled.div`
- background-color: white;
- border: 1px solid black;
+ background-color: ${(props) => props.theme.colors.primary};
  border-radius: 12px;
  box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
  display: flex;

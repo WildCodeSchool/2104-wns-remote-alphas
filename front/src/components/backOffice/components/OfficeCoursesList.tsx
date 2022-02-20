@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import convertDate from '../../../utils/convertDate';
 import { CourseType } from '../../../utils/types';
-import Button from '../../core/Button.styled';
+import Button from '../../core/buttons/Button.styled';
 
 export type CourseId = {
 	_id: string;

@@ -1,6 +1,6 @@
 /* eslint-disable no-confusing-arrow */
 import styled from 'styled-components';
-import ColorLuminance from '../../utils/colorLuminance';
+import ColorLuminance from '../../../utils/colorLuminance';
 
 /**
  * Text link with hover effect
@@ -9,6 +9,8 @@ const TextButton = styled.button<{ accent?: boolean }>`
 	cursor: pointer;
     background-color: unset;
     border: unset;
+    padding: .5em;
+    margin: .8em;
 	:hover {
 		text-decoration: underline;
         color: ${(props) => ColorLuminance(props.theme.colors.secondary, +0.3)};

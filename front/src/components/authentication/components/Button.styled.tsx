@@ -10,9 +10,11 @@ import ColorLuminance from '../../../utils/colorLuminance';
  height: 3rem;
  cursor: pointer;
  border-radius: 5px;
- color: white;
- border: 1px solid #68d0fc;
- background-color: ${(props) => props.theme.colors.quaterny};
+ color: ${(props) => props.theme.colors.primary};
+ font-weight: bold;
+ text-transform: uppercase;
+ border: 1px solid ${(props) => props.theme.colors.secondary};
+ background-color: ${(props) => props.theme.colors.secondary};
  font-size: 1rem;
  :hover {
      background-color: ${(props) => ColorLuminance(props.theme.colors.quaterny, +0.5)};

@@ -10,7 +10,7 @@ import { CourseType } from '../utils/types';
 import Loader from './core/Loader.styled';
 import Error from './core/Error.styled';
 import Row from './core/layout_parts/Row.styled';
-import TextButton from './core/TextButton.styled';
+import TextButton from './core/buttons/TextButton.styled';
 // import CourseIcon from './assets/icons/CourseIcon';
 
 /**

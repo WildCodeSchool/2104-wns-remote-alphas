@@ -15,6 +15,8 @@ import Button from './components/Button.styled';
 import H1 from './components/typos/H1.styled';
 import H2 from './components/typos/H2.styled';
 import TextLink from './components/typos/TextLink.styled';
+import GradientBackground from '../core/GradientBackground.styled';
+import TextButton from '../core/buttons/TextButton.styled';
 
 export default function SignInPage(): JSX.Element {
 	const initialState = { email: '', password: '' };
@@ -71,56 +73,58 @@ export default function SignInPage(): JSX.Element {
 		}
 	}
 	return (
-		<Wrapper>
-			<FormCard>
-			<H1>I have an account</H1>
-			<FormContainer>
-				<Form>
-					<AuthField
-						name="email"
-						label="Email"
-						type="email"
-						onChange={(e) => {
-							setUserLog({ ...userLog, [e.target.name]: e.target.value });
-						}}
-						value={userLog.email}
-						placeholder="hello@masterize.com"
-					/>
-					<AuthField
-						name="password"
-						label="Password"
-						type="password"
-						onChange={(e) => {
-							setUserLog({ ...userLog, [e.target.name]: e.target.value });
-						}}
-						value={userLog.password}
-						placeholder="supersecretpassword"
-					/>
-					<Button
-						type="submit"
-						value="Log in"
-						onClick={(e) => {
-							e.preventDefault();
-							handleSubmit();
+		<GradientBackground>
+			<Wrapper>
+				<FormCard>
+					<H1>I have an account</H1>
+					<FormContainer>
+						<Form>
+							<AuthField
+								name="email"
+								label="Email"
+								type="email"
+								onChange={(e) => {
+									setUserLog({ ...userLog, [e.target.name]: e.target.value });
+								}}
+								value={userLog.email}
+								placeholder="hello@masterize.com"
+							/>
+							<AuthField
+								name="password"
+								label="Password"
+								type="password"
+								onChange={(e) => {
+									setUserLog({ ...userLog, [e.target.name]: e.target.value });
+								}}
+								value={userLog.password}
+								placeholder="supersecretpassword"
+							/>
+							<Button
+								type="submit"
+								value="Log in"
+								onClick={(e) => {
+									e.preventDefault();
+									handleSubmit();
+								}}>
+								Go to my classroom
+							</Button>
+							{errorState.status && (
+								<ErrorMessage>{errorState.message}</ErrorMessage>
+							)}
+						</Form>
+					</FormContainer>
+					<TextButton>Gosh, I forgot my password 😱</TextButton>
+					<Divider style={{ width: '70%' }} />
+					<TextButton
+						accent
+						onClick={() => {
+							handleClick();
 						}}>
-						Go to my classroom
-					</Button>
-					{errorState.status && (
-						<ErrorMessage>{errorState.message}</ErrorMessage>
-					)}
-				</Form>
-			</FormContainer>
-			<TextLink>Gosh, I forgot my password 😱</TextLink>
-			<Divider style={{ width: '70%' }} />
-			<TextLink
-				accent
-				onClick={() => {
-					handleClick();
-				}}>
-				I dont have any account, sign me up right now !
-			</TextLink>
+						I dont have any account, sign me up right now !
+					</TextButton>
 
-			</FormCard>
-		</Wrapper>
+				</FormCard>
+			</Wrapper>
+		</GradientBackground>
 	);
 }

@@ -5,7 +5,7 @@ import styled from 'styled-components';
  */
  const H3 = styled.h3`
  cursor: pointer;
- color: #2bb7f3;
+ color: white;
  text-decoration: bold;
  :hover {
      text-decoration: underline;

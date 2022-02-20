@@ -9,11 +9,13 @@ const Button = styled.button<{ alert?: boolean }>`
 	border: 1px solid
 		${(props) => (props.alert ? '#FF2960' : props.theme.colors.secondary)};
 	border-radius: 5px;
-	color: white;
+    color: ${(props) => (props.alert ? 'white' : props.theme.colors.primary)};
 	font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
 	padding: 10px;
     :hover {
-        transform: scale(1.1, 1.1);
+        transform: scale(1.03, 1.03);
     }
 `;
 

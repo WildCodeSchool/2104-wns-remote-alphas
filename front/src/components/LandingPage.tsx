@@ -1,41 +1,15 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import CTAButton from './core/buttons/CTAButton.styled';
+import GradientBackground from './core/GradientBackground.styled';
+import GradientTitle from './core/GradientTitle.styled';
 
 /**
  * Default home page shown to the unknown visitors.
  */
-const AppContent = styled.div`
-	background-color: ${(props) => props.theme.colors.primary};
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	background: linear-gradient(270deg, #10dfd7, #5adf10, #e9ee2a, #ee822a, #ee462a, #ee2a99, #ee2ae7, #9f2aee, #512aee, #2a7cee, #2ab0ee);
-	background-size: 2200% 2200%;
-	
-	-webkit-animation: HueRotate 46s ease infinite;
-	-moz-animation: HueRotate 46s ease infinite;
-	animation: HueRotate 46s ease infinite;
-	
-	
-	@-webkit-keyframes HueRotate {
-		0%{background-position:0% 72%}
-		50%{background-position:100% 29%}
-		100%{background-position:0% 72%}
-	}
-	@-moz-keyframes HueRotate {
-		0%{background-position:0% 72%}
-		50%{background-position:100% 29%}
-		100%{background-position:0% 72%}
-	}
-	@keyframes HueRotate {
-		0%{background-position:0% 72%}
-		50%{background-position:100% 29%}
-		100%{background-position:0% 72%}
-	}
-`;
 
 const BoxCard = styled.main`
 	background: #292929;
@@ -44,13 +18,6 @@ const BoxCard = styled.main`
 	width: 600px;
 	margin: auto;
 	alignItems: stretch;
-`;
-
-const Title = styled.h1`
-	text-align: center;
-	color: ${(props) => props.theme.colors.secondary};
-	font-size: 60px;
-	margin: 5px;
 `;
 
 const Container = styled.div`
@@ -64,19 +31,12 @@ const Image = styled.img`
 	width: 200px;
 `;
 
-const LinkReactRouter = styled(Link)`
-	text-decoration: none;
-	color: ${(props) => props.theme.colors.secondary};
-	cursor: pointer;
-	&:hover {
-		color:${(props) => props.theme.colors.secondary};
-		text-decoration: underline;
-	}
-	&:focus {
-		color: ${(props) => props.theme.colors.secondary};
-		text-decoration: underline;
-		outline: none;
-	}
+const ButtonsRow = styled.div`
+	display: flex;
+	gap: 2em;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 1em;
 `;
 
 const Text = styled.text`
@@ -86,15 +46,17 @@ const Text = styled.text`
 `;
 
 function LandingPage(): JSX.Element {
+	const history = useHistory();
+
 	return (
-		<AppContent>
+		<GradientBackground>
 			<BoxCard>
 				<Container>
-					<Image src="/assets/images/133725.png" aria-hidden />
+					<Image src="/assets/images/133725.png" aria-hidden alt="panda" />
 				</Container>
-				<Title>
-					Discover Masterize
-				</Title>
+				<GradientTitle>
+					Masterize
+				</GradientTitle>
 				<h2 style={{ color: 'white', textAlign: 'center' }}>
 					The inclusive learning platform for remote classes.
 				</h2>
@@ -109,19 +71,24 @@ function LandingPage(): JSX.Element {
 				</Text>
 				<br />
 				<br />
-				<Text>
-					<LinkReactRouter to="/signup">
-						Sign up today and join your training classmates,
-					</LinkReactRouter>
-					&nbsp;
-					or
-					&nbsp;
-					<LinkReactRouter to="/signin">
-						log in your account.
-					</LinkReactRouter>
-				</Text>
+				<ButtonsRow>
+					<CTAButton
+						type="button"
+						onClick={() => {
+							history.push('/signup');
+						}}>
+						Sign up
+					</CTAButton>
+					<CTAButton
+						type="button"
+						onClick={() => {
+							history.push('/signin');
+						}}>
+						Log in
+					</CTAButton>
+				</ButtonsRow>
 			</BoxCard>
-		</AppContent>
+		</GradientBackground>
 	);
 }
 
