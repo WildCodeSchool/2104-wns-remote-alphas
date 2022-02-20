@@ -6,7 +6,6 @@ import { GET_ONE_COURSE } from '../utils/apollo';
 import { CourseType } from '../utils/types';
 import { ScrollView } from "react-native-gesture-handler";
 import formattedDate from "../utils/formattedDate";
-import { WhiteBalance } from "expo-camera/build/Camera.types";
 
 
 export default function SingleCourse({route}) {
@@ -96,6 +95,5 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginTop: 25,
   }
-
 });
 

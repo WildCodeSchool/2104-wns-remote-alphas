@@ -8,25 +8,24 @@ import Course from '../components/Course';
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function ListCourse({navigation}) {
-    const { loading, error, data } =
-    useQuery<{ getCourses: CourseType[] }>(GET_COURSES);
+  const { loading, error, data } =
+  useQuery<{ getCourses: CourseType[] }>(GET_COURSES);
 
-    if (loading) return <Text>Loading</Text>;
-    if (error) return <Text>Error loading courses</Text>;
+  if (loading) return <Text>Loading</Text>;
+  if (error) return <Text>Error loading courses</Text>;
     
   return (
-    
     <View style={styles.courses}>
-        {data.getCourses.map((course) => (
-              <Course
-              navigation={navigation}
-              image={course.image_url}
-              title={course.courseName}
-              techno={course.technos}
-              key={course._id}
-              id={course._id}
-              />
-        ))}            
+      {data.getCourses.map((course) => (
+        <Course
+        navigation={navigation}
+        image={course.image_url}
+        title={course.courseName}
+        techno={course.technos}
+        key={course._id}
+        id={course._id}
+        />
+      ))}            
     </View>
   );
 }
@@ -35,5 +34,4 @@ const styles = StyleSheet.create({
   courses: {
     backgroundColor: 'rgb(41, 41, 41)',
   }
-
 });
