@@ -5,7 +5,7 @@ const Distractions = (): JSX.Element => {
     console.log('distractions section');
     return (
         <Container>
-            <text>Distractions</text>
+            <text>WIP Toogle chat and panda tips here</text>
         </Container>
     );
 };
