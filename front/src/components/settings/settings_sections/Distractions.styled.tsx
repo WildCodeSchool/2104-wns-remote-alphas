@@ -1,9 +1,12 @@
 import React from 'react';
+import Container from '../components/SettingsContainer.styled';
 
 const Distractions = (): JSX.Element => {
     console.log('distractions section');
     return (
-        <text>Distractions</text>
+        <Container>
+            <text>Distractions</text>
+        </Container>
     );
 };
 
