@@ -44,7 +44,6 @@ function Timeline(): JSX.Element {
 					},
 				}))}
 				mode="HORIZONTAL"
-				slideShow
 				itemWidth={500}
 				theme={{
 					primary: '#68d0fc',
