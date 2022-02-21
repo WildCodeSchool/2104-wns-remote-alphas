@@ -5,7 +5,7 @@ import Icon from '../../core/Icon.styled';
  * Display a logout icon with hover effect (themed colors)
  */
 const LogoutIcon = (): JSX.Element => (
-	<Icon aria-label="log out" style={{ width: '25px' }} xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
+	<Icon tabIndex={0} aria-label="log out" role="button" style={{ width: '25px' }} xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
 		<g>
 			<g xmlns="http://www.w3.org/2000/svg">
 				<g>

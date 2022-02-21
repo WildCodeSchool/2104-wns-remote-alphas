@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
 import Logout from '../../authentication/Logout';
@@ -21,19 +22,20 @@ const ButtonChat = styled.button`
 	width: 117px;
 	&:hover {
 		background-color: ${(props) => props.theme.colors.secondary};
-		color: ${(props) => props.theme.colors.textColor};
+		color: ${(props) => props.theme.colors.primary};
 		font-weight: bold;
 	}
 	&:focus {
 		outline: none;
 		background-color: ${(props) => props.theme.colors.secondary};
 		color: ${(props) => props.theme.colors.textColor};
-		border: 2px solid ${(props) => props.theme.colors.textColor};
+		border: 2px solid ${(props) => props.theme.colors.primary};
 	}
 `;
 
 const DesktopNav = (): JSX.Element => {
 	const { user } = useContext(Context);
+	const history = useHistory();
 
 	return (
 		<MenuContent data-testid="menu">
@@ -66,7 +68,13 @@ const DesktopNav = (): JSX.Element => {
 			{user?.role === ROLES.ADMIN && (
 				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
 			)}
-			<LinkReactRouter to="/settings">
+			<LinkReactRouter
+			to="/settings"
+			onKeyPress={(e) => {
+					if (e.key === 'Enter') {
+						history.push('/settings');
+					}
+				}}>
 				<SettingsIcon />
 			</LinkReactRouter>
 
