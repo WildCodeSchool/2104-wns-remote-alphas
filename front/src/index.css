@@ -22,3 +22,46 @@ code {
 	overflow: hidden;
 	
 }
+
+/* React Chrono Timeline custom stylings */
+#timeline-main-wrapper {
+	height: 50%;
+}
+
+.timeline-item-title {
+	color: white;
+}
+
+.css-1t6did-TitleWrapper.active {
+	color: #292929 !important;
+	padding: .5em;
+}
+
+.TimelineTitleContainer {
+	margin: -1em;
+}
+
+.react-chrono-timeline {
+	/* wrapper for cards section */
+}
+
+.timeline-horz-card-wrapper {
+	/* wrapper for horizonal cards */
+}
+
+.timeline-card-content {
+	/* card content */
+	border-radius: 20px !important;
+	padding: 1em;
+
+}
+
+.card-title {
+	color: #292929 !important;
+}
+
+.css-d0st9p-CardImage {
+	/* card image */
+	border-radius: 10px;
+	max-height: 95%;
+}
