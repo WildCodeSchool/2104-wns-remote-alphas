@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import Bold from '../../core/Bold.styled';
+import Tabable from '../../core/accessibility/Tabable.Styled';
 
 /**
  * Build a circular color drop for displaying selected colors or themes
@@ -39,21 +40,36 @@ const ColorDrop = ({
 	color,
 	title = '',
 	description = '',
-	onClick = () => {},
+	onClick = () => { },
 	border = true,
 }: ColorDropProps): JSX.Element => (
 	<Row>
 		<Row>
-			<Drop
-				key={title}
-				hasBorder={border}
-				background={color}
+			<Tabable
+				rounded
 				onClick={() => {
 					if (onClick) {
 						onClick();
 					}
 				}}
-			/>
+				pressedKey="Enter"
+				onKeyPress={() => {
+					if (onClick) {
+						onClick();
+					}
+				}}
+			>
+				<Drop
+					key={title}
+					hasBorder={border}
+					background={color}
+					onClick={() => {
+						if (onClick) {
+							onClick();
+						}
+					}}
+				/>
+			</Tabable>
 			<Bold>{title}</Bold>
 		</Row>
 		<p>{description}</p>

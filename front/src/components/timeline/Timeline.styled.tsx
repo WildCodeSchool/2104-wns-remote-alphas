@@ -44,18 +44,13 @@ function Timeline(): JSX.Element {
 					},
 				}))}
 				mode="HORIZONTAL"
-				itemWidth={500}
+				itemWidth={300}
 				theme={{
 					primary: '#68d0fc',
 					secondary: 'white',
 					cardBgColor: 'white',
 					cardForeColor: 'white',
 				}}>
-				{/* <div className="chrono-icons">
-					{data.getCourses.map((course: CourseType) => (
-						<img key={course._id} src={logo} alt={logo} />
-					))}
-				</div> */}
 				{data.getCourses.map((course: CourseType) => (
 					<Button
 						type="button"

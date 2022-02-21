@@ -46,12 +46,18 @@ const Settings = (): JSX.Element => {
 	const displayedSection = sections[section];
 	return (
 		<Wrapper>
-			<Card>
+			<Card id="main-content">
 				<CardMenu>
 					<CircleAvatar
-						alt="user avatar"
+						tabIndex={0}
+						alt="user settings"
 						src="/assets/images/default-avatar.png"
 						onClick={() => updateSection(SECTIONS.PROFILE)}
+						onKeyPress={(e) => {
+							if (e.key === 'Enter') {
+							updateSection(SECTIONS.PROFILE);
+							}
+						}}
 					/>
 					<NavMenu section={section} updateSection={updateSection} />
 				</CardMenu>

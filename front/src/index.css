@@ -41,14 +41,6 @@ code {
 	margin: -1em;
 }
 
-.react-chrono-timeline {
-	/* wrapper for cards section */
-}
-
-.timeline-horz-card-wrapper {
-	/* wrapper for horizonal cards */
-}
-
 .timeline-card-content {
 	/* card content */
 	border-radius: 20px !important;
