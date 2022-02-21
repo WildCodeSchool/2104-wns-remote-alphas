@@ -101,7 +101,6 @@ export default function SignUpPage(): JSX.Element {
 								label="Firstname"
 								type="text"
 								onChange={(e) => {
-									console.log(userLog.firstName);
 									setUserLog({ ...userLog, [e.target.name]: e.target.value });
 								}}
 								value={userLog.firstName}
@@ -112,7 +111,6 @@ export default function SignUpPage(): JSX.Element {
 								label="Name"
 								type="text"
 								onChange={(e) => {
-									console.log(e.target.value);
 									setUserLog({ ...userLog, [e.target.name]: e.target.value });
 								}}
 								value={userLog.name}

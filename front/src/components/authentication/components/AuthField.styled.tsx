@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SrOnly from '../../core/accessibility/SrOnly.styled';
+// import SrOnly from '../../core/accessibility/SrOnly.styled';
 
 const Input = styled.input`
 	margin: auto;

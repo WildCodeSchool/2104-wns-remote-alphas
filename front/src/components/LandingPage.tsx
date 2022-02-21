@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import CTAButton from './core/buttons/CTAButton.styled';
 import GradientBackground from './core/GradientBackground.styled';

@@ -1,4 +1,4 @@
-// eslint-disable-next-line object-curly-newline
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 import Column from '../../core/layout_parts/Column.styled';
@@ -9,7 +9,7 @@ import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
 import { useUpdateTheme } from '../../context/ThemeUpdateContext';
 import { COLORS } from '../../../utils/types';
-import { getKeyboardFocusableElements, removeTabIndex } from '../../../utils/trapFocus';
+import { getKeyboardFocusableElements, removeTabIndex, toggleTabIndex } from '../../../utils/trapFocus';
 
 /**
  * Build the colors settings section
@@ -28,7 +28,7 @@ const Colors = (): JSX.Element => {
 	const currentTheme = useContext(ThemeContext);
 
 	// Get all the focusable elements for modal focus trap
-	const focusable = getKeyboardFocusableElements();
+	const focusableElements = getKeyboardFocusableElements();
 
 	// Primary color is used as initial colordrop color
 	const primaryColor = theme.colors.primary;
@@ -122,9 +122,9 @@ const Colors = (): JSX.Element => {
 						description={value.description}
 						onClick={() => {
 							toggleColorPicker(!visibleColorPicker);
+							removeTabIndex(focusableElements);
 							setSetter(key);
 							setColor(value.color);
-							removeTabIndex(focusable);
 						}}
 					/>
 				))}

@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
-import { keyDownHandler } from '../../utils/trapFocus';
+import { getKeyboardFocusableElements, keyDownHandler, restoreTabIndex } from '../../utils/trapFocus';
 import Button from '../core/buttons/Button.styled';
 import ColorDrop from './components/ColorDrop.styled';
 
@@ -55,16 +55,20 @@ const Colorpicker = ({
     setColor,
     color,
     toggleColorPicker,
-    visibleColorPicker
+    visibleColorPicker,
 }: ColorpickerProps): JSX.Element => {
     const modalRef = useRef(null);
+    // Get all the focusable elements for modal focus trap
+    const focusableElements = getKeyboardFocusableElements();
+
     function onEscape() {
         toggleColorPicker(!visibleColorPicker);
+        restoreTabIndex(focusableElements);
     }
 
     return (
         <>
-            <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
+            <Overlay onClick={() => onEscape()} />
             <Modal
                 ref={modalRef}
                 onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
@@ -73,7 +77,11 @@ const Colorpicker = ({
                     <ColorDrop color={color} />
                     Current color is {color}
                 </Content>
-                <Button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</Button>
+                <Button
+                    type="button"
+                    onClick={() => onEscape()}>
+                    Close
+                </Button>
             </Modal>
         </>
     );

@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable max-len */
 import React from 'react';
-import styled, { css, ThemeContext } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /**
  * Tabbable div for keyboard navigation
@@ -26,7 +26,7 @@ interface TabableProps {
 }
 
 const Tabable = ({ children, onClick, onKeyPress, pressedKey, rounded }: TabableProps): JSX.Element => <FocusEffect
-	rounded
+	rounded={rounded}
 	aria-label="tabable element"
 	onClick={onClick}
 	onKeyPress={(e) => e.key === pressedKey && onKeyPress()}

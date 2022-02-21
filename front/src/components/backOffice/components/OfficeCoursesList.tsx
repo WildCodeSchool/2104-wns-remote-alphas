@@ -24,10 +24,6 @@ const ContentColumn = styled.tr`
 	align-items: flex-start;
 `;
 
-const Label = styled.text`
-	text-align: start;
-`;
-
 const Tbody = styled.tbody`
 	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
 	display: flex;
