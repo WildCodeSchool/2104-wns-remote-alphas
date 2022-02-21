@@ -12,7 +12,6 @@ function getKeyboardFocusableElements(element = document) {
 // Lock focusable elements (to trap focus inside the modal box)
 function removeTabIndex(focusableElements: any) {
     focusableElements.forEach((element: { tabIndex: number; }) => {
-        console.log(element);
         element.tabIndex = -1;
     });
 }
@@ -20,12 +19,12 @@ function removeTabIndex(focusableElements: any) {
 // Unlock focusable elements (to make it focusable when the modal is closed)
 function restoreTabIndex(focusableElements: any) {
     focusableElements.forEach((element: { tabIndex: number; }) => {
-        console.log(element);
         element.tabIndex = 0;
     });
 }
 
 function keyDownHandler(onEscape: any, e: KeyboardEvent, modalRef: any) {
+    console.log(e.key);
     // close dialog with esc key
     if (e.key === 'Escape') {
         onEscape();
@@ -35,7 +34,7 @@ function keyDownHandler(onEscape: any, e: KeyboardEvent, modalRef: any) {
 
     // Keep focus inside the modal
     const focusableModalElements = modalRef.current.querySelectorAll(
-        'a[href], button:not([disabled]), textarea, input, select'
+        'a[href], button:not([disabled]), textarea, input, select, .react-colorful__interactive'
     );
     const firstElement: any = focusableModalElements[0];
     const lastElement: any = focusableModalElements[focusableModalElements.length - 1];

@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
 import { keyDownHandler } from '../../utils/trapFocus';
+import Button from '../core/buttons/Button.styled';
 import ColorDrop from './components/ColorDrop.styled';
 
 /**
@@ -58,19 +59,21 @@ const Colorpicker = ({
 }: ColorpickerProps): JSX.Element => {
     const modalRef = useRef(null);
     function onEscape() {
-
+        toggleColorPicker(!visibleColorPicker);
     }
 
     return (
         <>
             <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
-            <Modal ref={modalRef}>
-                <Content onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+            <Modal
+                ref={modalRef}
+                onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+                <Content>
                     <HexColorPicker color={color} onChange={setColor} />
                     <ColorDrop color={color} />
                     Current color is {color}
                 </Content>
-                <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>
+                <Button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</Button>
             </Modal>
         </>
     );
