@@ -28,6 +28,18 @@ const Label = styled.text`
 	text-align: start;
 `;
 
+const Tbody = styled.tbody`
+	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
+	display: flex;
+	justify-content: space-between;
+	alignItems: center;
+	width: 90%;
+	background-color: #1c1c1c;
+	margin: auto;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+`;
+
 function OfficeCoursesList({
 	courses,
 	fetchById,
@@ -35,35 +47,16 @@ function OfficeCoursesList({
 }: Iprops): JSX.Element {
 	return (
 		<table style={{ width: '100%' }}>
-			<thead>
-				<tr>
-					<th colSpan={4}> </th>
-				</tr>
-			</thead>
 			{courses
 				.sort((a, b) => (b.postedAt > a.postedAt ? 1 : -1))
 				.map((item) => (
-					<tbody
-						key={item._id}
-						style={{
-							display: 'flex',
-							justifyContent: 'space-between',
-							alignItems: 'center',
-							width: '90%',
-							backgroundColor: 'black',
-							margin: 'auto',
-							border: '1px solid white',
-							padding: '1rem',
-						}}>
+					<Tbody key={item._id}>
 						<ContentColumn>
 							<th>
-								<Label style={{ color: 'white' }}>
-									Name :
-								</Label>
-								<h2 style={{ color: 'white' }}>{item.courseName}</h2>
+								<h3 style={{ color: 'white' }}>{item.courseName}</h3>
 							</th>
 							<td>
-								<h3 style={{ color: 'white' }}>
+								<h4 style={{ color: 'orange' }}>
 									{item.technos[0]}
 									{item.technos.length > 1 &&
 									<span>
@@ -73,11 +66,11 @@ function OfficeCoursesList({
 										{item.technos[1]}
 									</span>}
 
-								</h3>
+								</h4>
 							</td>
 							<br />
 							<td style={{ color: 'white' }}>
-								{item.postedAt ? convertDate(item.postedAt, 'fr') : undefined}
+								<p style={{ fontStyle: 'italic', fontSize: '.85em' }}>{item.postedAt ? convertDate(item.postedAt, 'fr') : undefined}</p>
 							</td>
 						</ContentColumn>
 
@@ -105,7 +98,7 @@ function OfficeCoursesList({
 								</Button>
 							</td>
 						</tr>
-					</tbody>
+					</Tbody>
 				))}
 		</table>
 	);
