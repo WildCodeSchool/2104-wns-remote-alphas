@@ -9,7 +9,7 @@ import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
 import { useUpdateTheme } from '../../context/ThemeUpdateContext';
 import { COLORS } from '../../../utils/types';
-import { getKeyboardFocusableElements, removeTabIndex, toggleTabIndex } from '../../../utils/trapFocus';
+import { getKeyboardFocusableElements, removeTabIndex } from '../../../utils/trapFocus';
 
 /**
  * Build the colors settings section

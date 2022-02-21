@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 
-// TODO: fix any
+// FIXME: fix any
 // FIXME: bug with focus on first opening in backoffice modal
 
 // Get keyboard focusable elements
@@ -23,10 +23,6 @@ function restoreTabIndex(focusableElements: any) {
     focusableElements.forEach((element: { tabIndex: number; }) => {
         element.tabIndex = 0;
     });
-}
-
-function toggleTabIndex(active: boolean, focusableElements: any) {
-    return active ? restoreTabIndex(focusableElements) : removeTabIndex(focusableElements);
 }
 
 function keyDownHandler(onEscape: any, e: KeyboardEvent, modalRef: any) {
@@ -57,5 +53,5 @@ function keyDownHandler(onEscape: any, e: KeyboardEvent, modalRef: any) {
 }
 
 export {
-    getKeyboardFocusableElements, removeTabIndex, restoreTabIndex, toggleTabIndex, keyDownHandler
+    getKeyboardFocusableElements, removeTabIndex, restoreTabIndex, keyDownHandler
 };

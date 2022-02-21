@@ -9,8 +9,6 @@ import ColorDrop from './components/ColorDrop.styled';
 /**
  * Colorpicker displays a modal color picker
  */
-
-// TODO: style button and create core component
 const Overlay = styled.div`
     position: fixed;
     z-index: 20;
