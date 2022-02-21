@@ -1,10 +1,13 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable max-len */
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import Bold from '../../core/Bold.styled';
 import Tabable from '../../core/accessibility/Tabable.Styled';
+import ConditionalWrapper from '../../core/ConditionalWrapper';
 
 /**
  * Build a circular color drop for displaying selected colors or themes
@@ -29,6 +32,7 @@ const Drop = styled.div<{ hasBorder?: boolean; background: string }>`
 `;
 
 interface ColorDropProps {
+	focusable?: boolean,
 	color: string;
 	title?: string;
 	description?: string;
@@ -37,6 +41,7 @@ interface ColorDropProps {
 }
 
 const ColorDrop = ({
+	focusable = false,
 	color,
 	title = '',
 	description = '',
@@ -45,19 +50,27 @@ const ColorDrop = ({
 }: ColorDropProps): JSX.Element => (
 	<Row>
 		<Row>
-			<Tabable
-				rounded
-				onClick={() => {
-					if (onClick) {
-						onClick();
-					}
-				}}
-				pressedKey="Enter"
-				onKeyPress={() => {
-					if (onClick) {
-						onClick();
-					}
-				}}
+			<ConditionalWrapper
+				condition={focusable}
+				wrapper={
+					(children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined) =>
+					<Tabable
+						rounded
+						onClick={() => {
+							if (onClick) {
+								onClick();
+							}
+						}}
+						pressedKey="Enter"
+						onKeyPress={() => {
+							if (onClick) {
+								onClick();
+							}
+						}}
+					>
+						{children}
+					</Tabable>
+				}
 			>
 				<Drop
 					key={title}
@@ -69,7 +82,7 @@ const ColorDrop = ({
 						}
 					}}
 				/>
-			</Tabable>
+			</ConditionalWrapper>
 			<Bold>{title}</Bold>
 		</Row>
 		<p>{description}</p>

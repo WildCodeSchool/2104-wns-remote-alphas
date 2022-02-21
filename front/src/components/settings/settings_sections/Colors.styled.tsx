@@ -9,6 +9,7 @@ import Container from '../components/SettingsContainer.styled';
 import Bold from '../../core/Bold.styled';
 import { useUpdateTheme } from '../../context/ThemeUpdateContext';
 import { COLORS } from '../../../utils/types';
+import { getKeyboardFocusableElements, removeTabIndex } from '../../../utils/trapFocus';
 
 /**
  * Build the colors settings section
@@ -25,6 +26,9 @@ const Colors = (): JSX.Element => {
 	const theme = useContext(ThemeContext);
 	const updateTheme = useUpdateTheme();
 	const currentTheme = useContext(ThemeContext);
+
+	// Get all the focusable elements for modal focus trap
+	const focusable = getKeyboardFocusableElements();
 
 	// Primary color is used as initial colordrop color
 	const primaryColor = theme.colors.primary;
@@ -111,6 +115,7 @@ const Colors = (): JSX.Element => {
 				<Bold>Or set up your own colors :</Bold>
 				{ColorEntries.map(([key, value]) => (
 					<ColorDrop
+						focusable
 						key={key}
 						color={value.color}
 						title={value.title}
@@ -119,6 +124,7 @@ const Colors = (): JSX.Element => {
 							toggleColorPicker(!visibleColorPicker);
 							setSetter(key);
 							setColor(value.color);
+							removeTabIndex(focusable);
 						}}
 					/>
 				))}

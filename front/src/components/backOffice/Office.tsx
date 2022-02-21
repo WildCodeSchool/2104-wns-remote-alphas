@@ -1,11 +1,10 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable no-param-reassign
- */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line object-curly-newline
 import { useMutation, useQuery, ApolloError } from '@apollo/client';
+import { getKeyboardFocusableElements, removeTabIndex, restoreTabIndex } from '../../utils/trapFocus';
 import OfficeCoursesList from './components/OfficeCoursesList';
 import ModalConfirmation from '../core/ModalConfirmation';
 import {
@@ -89,30 +88,7 @@ function Office(): JSX.Element {
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const [opacityUnderModal, setOpacityUnderModal] = useState(1);
-
-	// Get keyboard focusable elements
-	function getKeyboardFocusableElements(element = document) {
-		return element.querySelectorAll(
-			'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-		);
-	}
-
-	// Lock focusable elements (to trap focus inside the modal box)
-	function removeTabIndex(focusableElements: any) {
-		focusableElements.forEach((element: { tabIndex: number; }) => {
-			console.log(element);
-			element.tabIndex = -1;
-		});
-	}
-
-	// Unlock focusable elements (to make it focusable when the modal is closed)
-	function restoreTabIndex(focusableElements: any) {
-		focusableElements.forEach((element: { tabIndex: number; }) => {
-			console.log(element);
-			element.tabIndex = 0;
-		});
-	}
-
+	// Get the focusable elements for focus trap
 	const focusable = getKeyboardFocusableElements();
 
 	async function handleSubmit(e: React.SyntheticEvent) {
@@ -194,7 +170,6 @@ function Office(): JSX.Element {
 
 	function toggleModal(item: CourseType): void {
 		setShowModal(!showModal);
-		removeTabIndex(focusable);
 
 		if (!showModal) {
 			setPostCourseState({
@@ -206,6 +181,7 @@ function Office(): JSX.Element {
 				postedAt: item.postedAt,
 			});
 			setOpacityUnderModal(0.05);
+			removeTabIndex(focusable);
 		} else {
 			setPostCourseState(initialState);
 		}
@@ -237,6 +213,7 @@ function Office(): JSX.Element {
 		setButtonType('post');
 		setPostCourseState(initialState);
 		setOpacityUnderModal(1);
+		restoreTabIndex(focusable);
 	}
 
 	return (

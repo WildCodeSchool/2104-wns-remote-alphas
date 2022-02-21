@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import React, { useRef, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import { keyDownHandler } from '../../utils/trapFocus';
 
 interface Iprops {
 	title: string;
@@ -114,39 +115,39 @@ function ModalConfirmation({
 
 	document.body.classList.add('no-scroll');
 
-	// const modal = document.getElementById('confirm-dialog');
-	// const cancelButton = document.getElementById('cancelButton');
-	// modal?.addEventListener('transitionend', (e) => {
-	// 	cancelButton?.focus();
-	// });
+	// const keyDownHandler = (e: KeyboardEvent) => {
+	// 	// close dialog with esc key
+	// 	if (e.key === 'Escape') {
+	// 		setReverseModal(true);
+	// 		setTimeout(() => {
+	// 			onCancel();
+	// 		}, 250);
+	// 	}
+	//     // trap focus only with tab key
+	//     if (e.key !== 'Tab') return;
 
-	const keyDownHandler = (e: KeyboardEvent) => {
-		// close dialog with esc key
-		if (e.key === 'Escape') {
-			setReverseModal(true);
-			setTimeout(() => {
-				onCancel();
-			}, 250);
-		}
-        // trap focus only with tab key
-        if (e.key !== 'Tab') return;
+	//     const focusableModalElements = modalRef.current.querySelectorAll(
+	//         'a[href], button:not([disabled]), textarea, input, select'
+	//     );
+	//     const firstElement:any = focusableModalElements[0];
+	//     const lastElement:any = focusableModalElements[focusableModalElements.length - 1];
 
-        const focusableModalElements = modalRef.current.querySelectorAll(
-            'a[href], button:not([disabled]), textarea, input, select'
-        );
-        const firstElement:any = focusableModalElements[0];
-        const lastElement:any = focusableModalElements[focusableModalElements.length - 1];
+	//     if (!e.shiftKey && document.activeElement === lastElement) {
+	//         firstElement.focus();
+	//         e.preventDefault();
+	//     }
 
-        if (!e.shiftKey && document.activeElement === lastElement) {
-            firstElement.focus();
-            e.preventDefault();
-        }
-
-        if (e.shiftKey && document.activeElement === firstElement) {
-            lastElement.focus();
-            e.preventDefault();
-        }
-    };
+	//     if (e.shiftKey && document.activeElement === firstElement) {
+	//         lastElement.focus();
+	//         e.preventDefault();
+	//     }
+	// };
+	function onEscape() {
+		setReverseModal(true);
+		setTimeout(() => {
+			onCancel();
+		}, 250);
+	}
 
 	return (
 		<>
@@ -159,39 +160,39 @@ function ModalConfirmation({
 				}}
 				aria-hidden="true"
 			/>
-				<ModalContent
-					id="confirmDialog"
-					ref={modalRef}
-					role="dialog"
-					aria-modal="true"
-					reverseModal={reverseModal}
-					onKeyDown={(event:any) => keyDownHandler(event)}
-					>
-					<Title>{title}</Title>
-					<Text>{question}</Text>
-					<WrapperButtons>
-						<Button
-							alert
-							onClick={() => {
-								onConfirm();
-							}}
-							type="button">
-							{confirmActionName}
-						</Button>
-						<Button
-							ref={cancelRef}
-							id="cancelButton"
-							onClick={() => {
-								setReverseModal(true);
-								setTimeout(() => {
-									onCancel();
-								}, 250);
-							}}
-							type="button">
-							Cancel
-						</Button>
-					</WrapperButtons>
-				</ModalContent>
+			<ModalContent
+				id="confirmDialog"
+				ref={modalRef}
+				role="dialog"
+				aria-modal="true"
+				reverseModal={reverseModal}
+				onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}
+			>
+				<Title>{title}</Title>
+				<Text>{question}</Text>
+				<WrapperButtons>
+					<Button
+						alert
+						onClick={() => {
+							onConfirm();
+						}}
+						type="button">
+						{confirmActionName}
+					</Button>
+					<Button
+						ref={cancelRef}
+						id="cancelButton"
+						onClick={() => {
+							setReverseModal(true);
+							setTimeout(() => {
+								onCancel();
+							}, 250);
+						}}
+						type="button">
+						Cancel
+					</Button>
+				</WrapperButtons>
+			</ModalContent>
 		</>
 	);
 }

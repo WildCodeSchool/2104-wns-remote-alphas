@@ -18,7 +18,7 @@ const FocusEffect = styled.div<{ rounded?: boolean }>`
 `;
 
 interface TabableProps {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	onClick?: any;
 	pressedKey: string;
 	onKeyPress: any;

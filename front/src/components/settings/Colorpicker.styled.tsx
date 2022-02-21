@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
+import { keyDownHandler } from '../../utils/trapFocus';
 import ColorDrop from './components/ColorDrop.styled';
 
 /**
@@ -54,18 +55,25 @@ const Colorpicker = ({
     color,
     toggleColorPicker,
     visibleColorPicker
-}: ColorpickerProps): JSX.Element => (
-    <>
-        <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
-        <Modal>
-            <Content>
-                <HexColorPicker color={color} onChange={setColor} />
-                <ColorDrop color={color} />
-                Current color is {color}
-            </Content>
-            <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>
-        </Modal>
-    </>
-);
+}: ColorpickerProps): JSX.Element => {
+    const modalRef = useRef(null);
+    function onEscape() {
+
+    }
+
+    return (
+        <>
+            <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
+            <Modal ref={modalRef}>
+                <Content onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+                    <HexColorPicker color={color} onChange={setColor} />
+                    <ColorDrop color={color} />
+                    Current color is {color}
+                </Content>
+                <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>
+            </Modal>
+        </>
+    );
+};
 
 export default Colorpicker;
