@@ -12,6 +12,7 @@ import Context from '../../context/Context';
 import Field from '../../core/Field.styled';
 import Column from '../../core/layout_parts/Column.styled';
 import Container from '../components/SettingsContainer.styled';
+import Button from '../../core/buttons/Button.styled';
 
 /**
  * Profile displays the user profile's form
@@ -25,20 +26,6 @@ const Form = styled.form`
 	margin: ${(props) => props.theme.margin.generic.small};
 	@media screen and (max-width: 780px) {
 		display: contents;
-	}
-`;
-
-// TODO: style core button
-const Button = styled.button`
-	width: ${(props) => props.theme.fixedSize.button.small.width};
-	height: ${(props) => props.theme.fixedSize.button.small.height};
-	background-color: ${(props) => props.theme.colors.secondary};
-	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
-	color: ${(props) => props.theme.colors.primary};
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	@media screen and (max-width: 780px) {
-		margin: auto;
 	}
 `;
 
@@ -85,6 +72,7 @@ const Profile = (): JSX.Element => {
 			}
 		}
 	}
+
 	return (
 		<Container>
 			<h1>Welcome {userName} !</h1>
@@ -94,7 +82,7 @@ const Profile = (): JSX.Element => {
 					e.preventDefault();
 					handleSubmit();
 				}}>
-				<Column>
+				<Column style={{ margin: 'unset', marginBottom: '2rem' }}>
 					<Field
 						type="text"
 						label="Name"
@@ -126,7 +114,7 @@ const Profile = (): JSX.Element => {
 					/>
 				</Column>
 
-				<Column>
+				<Column style={{ margin: 'unset', marginBottom: '2rem' }}>
 					<Field
 						type="text"
 						label="First Name"

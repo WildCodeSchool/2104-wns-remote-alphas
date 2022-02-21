@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const Input = styled.input`
 	margin: auto;
 	width: 85%;
-	height: 2.5rem;
-	border-radius: 5px;
+	height: ${(props) => props.theme.fixedSize.borderRadius};
+	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
 	font-size: 1rem;
 	background-color: ${(props) => props.theme.colors.opposite}
 `;

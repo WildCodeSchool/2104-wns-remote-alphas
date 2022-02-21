@@ -96,7 +96,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		avatar: '110px',
 		toggleButton: '64px',
 		boxShadow: '19px 20px 11px 13px rgba(0,0,0,0.36)',
-		borderRadius: '12px',
+		borderRadius: '8px',
 		button: {
 			small: {
 				height: '3em',
@@ -104,7 +104,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 			},
 		},
 		field: {
-			height: '2.5em',
+			height: '2.5rem',
 		},
 		footer: {
 			height: '90px',

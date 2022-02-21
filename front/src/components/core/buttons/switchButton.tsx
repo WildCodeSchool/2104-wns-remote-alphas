@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
+/**
+ * Switch button for toggle values
+ */
 interface SwitchProps {
     checked: boolean;
     setChecked: any;
