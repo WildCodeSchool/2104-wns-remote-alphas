@@ -22,7 +22,7 @@ const Title = styled.h1`
 	font-size: ${(props) => props.theme.fontSize.l};
 	margin-top: .5em;
 	margin-bottom: 1em;
-	margin-left: 1em;
+	margin-left: 3em;
 	width: 80%;
 	display: none;
 	@media screen and (min-width: 780px) {
@@ -35,6 +35,7 @@ const Content = styled.section`
 	width: 100vw;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	gap: 2em;
 	margin-top: 2em;
 	@media all and (min-width: 1000px) {
@@ -75,6 +76,7 @@ const ResponsiveBox = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	width: 100vw;
+	margin-top: 1em;
 `;
 
 function Home(): JSX.Element {
@@ -92,6 +94,7 @@ function Home(): JSX.Element {
 					<Row className="heading">
 						<Title>Last Courses...</Title>
 						<TextButton
+						style={{ marginRight: '1em', width: '20%' }}
 						accent
 						onClick={() => history.push('/courses')}
 						>

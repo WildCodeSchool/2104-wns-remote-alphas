@@ -96,7 +96,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		avatar: '110px',
 		toggleButton: '64px',
 		boxShadow: '19px 20px 11px 13px rgba(0,0,0,0.36)',
-		borderRadius: '8px',
+		borderRadius: '15px',
 		button: {
 			small: {
 				height: '3em',

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const Card = styled.article`
   background-color: ${(props) => props.theme.colors.opposite};
-  margin: auto;
+  margin: auto 1em;
   border-radius: ${(props) => props.theme.fixedSize.borderRadius};
   box-shadow: ${(props) => props.theme.fixedSize.boxShadow};
   cursor: pointer;
