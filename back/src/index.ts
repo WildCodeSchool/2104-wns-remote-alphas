@@ -10,9 +10,9 @@ import {
   MessageResolver,
 } from "./Resolvers";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { Expo } from 'expo-server-sdk';
-
-let expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
+/* import { Expo } from 'expo-server-sdk';
+ */
+/* let expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
 
 let messages = [];
 for (let pushToken of somePushTokens) {
@@ -76,7 +76,7 @@ let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
       console.error(error);
     }
   }
-})();
+})(); */
 
 if (!process.env.MONGODB) {
   throw new Error("environment variable MONGODB is missing");

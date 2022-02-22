@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AppRegistry } from "react-native";
+import { AppRegistry, Button } from "react-native";
 import {
   ApolloClient,
   InMemoryCache,
@@ -24,7 +24,6 @@ import Login from "./components/Login";
 import UserContext from "./context/UserContext";
 import ChatInterface from "./screens/ChatInterface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -219,6 +218,12 @@ export default function App() {
                 </Tab.Navigator>
                 )}
         </NavigationContainer>
+        <Button
+        title="Press to schedule a notification"
+        onPress={async () => {
+          await schedulePushNotification();
+        }}
+      />
         </ApolloProvider>
     </UserContext.Provider>
   );
@@ -243,6 +248,17 @@ export default function App() {
   //     body: JSON.stringify(message),
   //   });
   // }
+
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: 'Here is the notification body',
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -272,7 +288,7 @@ export default function App() {
         lightColor: "#FF231F7C",
       });
     }
-
+    console.log('push token', token)
     return token;
   }
 }

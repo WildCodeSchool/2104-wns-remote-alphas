@@ -1,9 +1,16 @@
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, Ctx, Publisher, PubSub, Subscription } from "type-graphql";
 import { Course, CourseModel } from "../Models/Course";
 import { CourseInput } from "./types/CourseInput";
 import { CourseId } from "./types/CourseId";
 import { AuthenticationError, ApolloError } from "apollo-server";
 import { DeleteResponse } from "./types/DeleteResponse";
+import { Types } from "mongoose";
+
+interface NotifPayload {
+  to: string;
+  title: string;
+  body: string;
+}
 
 @Resolver((of) => Course)
 export class CourseResolver {
@@ -35,6 +42,7 @@ export class CourseResolver {
   @Mutation((returns) => Course)
   async addCourse(
     @Arg("course") courseInput: CourseInput,
+    @PubSub("COURSE") publish: Publisher<NotifPayload>,
     @Ctx()
     {
       authenticatedUserEmail,
@@ -62,6 +70,10 @@ export class CourseResolver {
       throw new AuthenticationError("Not connected");
     }
   }
+
+  @Subscription({
+    topics: "COURSE",
+  })
 
   @Mutation(() => Course)
   async updateOneCourse(
