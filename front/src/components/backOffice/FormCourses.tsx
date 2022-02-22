@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -12,6 +13,7 @@ import {
 	GET_COURSES,
 	UPDATE_COURSE,
 } from '../../utils/apollo';
+import { CourseType } from '../../utils/types';
 
 const BackOfficeTitle = styled.div`
 	display: flex;
@@ -31,20 +33,11 @@ const FormContent = styled.div`
 `;
 
 const ListCoursesBackOffice = styled.div`
-	//border: 2px solid red;
 	width: 40%;
 	height: 100%;
 `;
 
-// const ContainerList = styled.div`
-// 	display: flex;
-// 	justify-content: center;
-// 	flex-direction: column;
-// 	gap: 3rem;
-// `;
-
 const Form = styled.div`
-	//border: 2px solid yellow;
 	width: 60%;
 	height: 100%;
 `;
@@ -53,15 +46,6 @@ const H2 = styled.h2`
 	color: white;
 	text-align: center;
 `;
-
-export interface CourseType {
-	courseName: string;
-	description: string;
-	technos: string[];
-	image_url: string;
-	postedAt: string;
-	_id: string;
-}
 
 function FormCourses(): JSX.Element {
 	const initialState = {
@@ -91,9 +75,14 @@ function FormCourses(): JSX.Element {
 
 	const [buttonType, setButtonType] = useState<'post' | 'update'>('post');
 
-	const [addCourseMutation] = useMutation(ADD_COURSE);
-	const [updateOneCourseMutation] = useMutation(UPDATE_COURSE);
-	const [deleteOneCourseMutation] = useMutation(DELETE_ONE_COURSE);
+	const [addCourseMutation] =
+		useMutation<{ addCourse: CourseType }>(ADD_COURSE);
+	const [updateOneCourseMutation] =
+		useMutation<{ updateOneCourse: CourseType }>(UPDATE_COURSE);
+	const [deleteOneCourseMutation] =
+		useMutation<{ deleteOneCourse: { _id: string; message: string } }>(
+			DELETE_ONE_COURSE
+		);
 
 	const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -103,9 +92,7 @@ function FormCourses(): JSX.Element {
 		e.preventDefault();
 		if (buttonType === 'update') {
 			try {
-				const {
-					data: { updateOneCourse },
-				} = await updateOneCourseMutation({
+				const updateCourseResult = await updateOneCourseMutation({
 					variables: {
 						courseName: postCourseState.courseName,
 						image_url: 'http://reactjs/image.fr',
@@ -114,12 +101,12 @@ function FormCourses(): JSX.Element {
 						_id: postCourseState._id,
 					},
 				});
-				if (updateOneCourse) {
+				if (updateCourseResult?.data?.updateOneCourse) {
 					setPostCourseState(initialState);
 					setCourses(
 						courses.map((item) => {
-							if (item._id === updateOneCourse._id) {
-								return updateOneCourse;
+							if (item._id === updateCourseResult.data?.updateOneCourse._id) {
+								return updateCourseResult.data.updateOneCourse;
 							}
 							return item;
 						})
@@ -133,9 +120,7 @@ function FormCourses(): JSX.Element {
 			}
 		} else {
 			try {
-				const {
-					data: { addCourse },
-				} = await addCourseMutation({
+				const addCourseResult = await addCourseMutation({
 					variables: {
 						courseName: postCourseState.courseName,
 						image_url: 'http://reactjs/image.fr',
@@ -143,9 +128,9 @@ function FormCourses(): JSX.Element {
 						technos: postCourseState.technos.split(' '),
 					},
 				});
-				if (addCourse) {
+				if (addCourseResult.data?.addCourse) {
 					setPostCourseState(initialState);
-					setCourses([...courses, addCourse]);
+					setCourses([...courses, addCourseResult.data.addCourse]);
 				}
 			} catch (err) {
 				if (err instanceof ApolloError) {
@@ -162,16 +147,16 @@ function FormCourses(): JSX.Element {
 	}
 
 	async function deleteCourse(_id: string) {
-		const {
-			data: { deleteOneCourse },
-		} = await deleteOneCourseMutation({
+		const deletedResult = await deleteOneCourseMutation({
 			variables: {
 				_id,
 			},
 		});
-		if (deleteOneCourse) {
+		if (deletedResult?.data?.deleteOneCourse) {
 			setCourses(
-				courses.filter((course) => course._id !== deleteOneCourse._id)
+				courses.filter(
+					(course) => course._id !== deletedResult.data?.deleteOneCourse._id
+				)
 			);
 			closeModal();
 			setButtonType('post');

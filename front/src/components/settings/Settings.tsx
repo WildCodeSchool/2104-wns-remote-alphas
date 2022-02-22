@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './components/Card.styled';
 import CardMenu from './components/CardMenu.styled';
-import NavMenu, { SECTIONS } from './NavMenu.styled';
+import NavMenu from './NavMenu.styled';
 import Colors from './settings_sections/Colors.styled';
 import Distractions from './settings_sections/Distractions.styled';
 import Profile from './settings_sections/Profile.styled';
 import Texts from './settings_sections/Texts.styled';
 import UserSettings from './settings_sections/UserSettings.styled';
+import { SECTIONS } from '../../utils/types';
 
 const Wrapper = styled.div`
 	height: calc(100vh - 113px - 105px);

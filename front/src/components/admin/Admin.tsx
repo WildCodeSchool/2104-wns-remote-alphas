@@ -5,7 +5,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMutation, useQuery, ApolloError } from '@apollo/client';
-import { User, ROLES } from '../context/Context';
+import { User, ROLES } from '../../utils/types';
 import { GET_USERS, UPDATE_ROLE } from '../../utils/apollo';
 import ErrorMessage from '../core/ErrorMessage';
 import FilterIcon from '../assets/icons/FilterIcon';
@@ -143,9 +143,8 @@ function Admin(): JSX.Element {
 	const [filter, setFilter] = React.useState<ROLES | ''>('');
 	const [showFilter, setShowFilter] = React.useState(false);
 	const [errorState, setErrorState] = React.useState(initialErrorState);
-	const [selectedUser, setSelectedUser] = React.useState<UserInAdmin>(
-		initialState
-	);
+	const [selectedUser, setSelectedUser] =
+		React.useState<UserInAdmin>(initialState);
 	const [users, setUsers] = React.useState<UserInAdmin[]>([]);
 	const [toggledDetails, setToggleDetails] = React.useState<
 		{ id: string; isOpen: boolean }[]
@@ -217,7 +216,7 @@ function Admin(): JSX.Element {
 			} catch (err) {
 				if (err instanceof ApolloError) {
 					setErrorState({ message: err.message, status: true });
-					setTimeout(initErrorState, 5000);
+					setTimeout(initErrorState, 10000);
 				}
 			}
 		}

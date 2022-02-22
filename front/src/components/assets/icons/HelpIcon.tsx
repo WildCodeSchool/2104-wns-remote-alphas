@@ -5,7 +5,7 @@ import Icon from '../../core/Icon.styled';
  * Display a help icon with hover effect (themed colors)
  */
 const HelpIcon = (): JSX.Element => (
-    <Icon xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
+    <Icon aria-label="help" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512">
         <g>
             <path xmlns="http://www.w3.org/2000/svg" d="m277.332031 384c0 11.78125-9.550781 21.332031-21.332031 21.332031s-21.332031-9.550781-21.332031-21.332031 9.550781-21.332031 21.332031-21.332031 21.332031 9.550781 21.332031 21.332031zm0 0" data-original="#d1dce5" />
             <path xmlns="http://www.w3.org/2000/svg" d="m256 512c-141.164062 0-256-114.835938-256-256s114.835938-256 256-256 256 114.835938 256 256-114.835938 256-256 256zm0-480c-123.519531 0-224 100.480469-224 224s100.480469 224 224 224 224-100.480469 224-224-100.480469-224-224-224zm0 0" data-original="#d1dce5" />

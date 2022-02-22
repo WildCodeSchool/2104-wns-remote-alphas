@@ -103,7 +103,6 @@ describe("Tests for the back", () => {
     const res = await query({
       query: GET_USERS,
     });
-    console.log(res);
     expect(res.data?.getUsers.length).toEqual(1);
     expect(typeof res.data?.getUsers).toEqual("object");
   });
