@@ -13,6 +13,10 @@ const Icon = styled.svg`
         fill: ${(props) => props.theme.colors.secondary};
         transition: 0.1s color ease-out;
     }
+    &:focus >* {
+        fill: ${(props) => props.theme.colors.secondary};
+        transition: 0.1s color ease-out;
+    }
 `;
 
 export default Icon;

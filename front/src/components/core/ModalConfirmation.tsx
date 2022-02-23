@@ -1,8 +1,10 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable operator-linebreak */
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/tabindex-no-positive */
+import React, { useRef, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import { keyDownHandler } from '../../utils/trapFocus';
 
 interface Iprops {
 	title: string;
@@ -31,10 +33,10 @@ from {
 `;
 
 const Overlay = styled.div`
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	background-color: transparent;
-	z-index: 10;
+	z-index: 1000;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -66,18 +68,22 @@ const ModalContent = styled.div<{ reverseModal?: boolean }>`
 `;
 const Title = styled.h2`
 	color: white;
+	font-size: ${(props) => props.theme.fontSize.m}
 `;
-const Text = styled.h4`
+const Text = styled.h3`
 	height: 50%;
 	display: flex;
 	align-items: center;
 	color: white;
+	font-size: 16px;
+	line-height: 2em;
 `;
 const WrapperButtons = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 	height: 30%;
+	gap: 2em;
 `;
 
 const Button = styled.button<{ alert?: boolean }>`
@@ -85,13 +91,14 @@ const Button = styled.button<{ alert?: boolean }>`
 	background-color: ${(props) =>
 		props.alert ? '#ff2960' : props.theme.colors.secondary};
 	cursor: pointer;
-	width: 8rem;
-	height: 1.5rem;
+	width: 12rem;
+	height: 3rem;
 	border: 1px solid
 		${(props) => (props.alert ? '#ff2960' : props.theme.colors.secondary)};
 	border-radius: 5px;
 	color: white;
 	font-weight: bold;
+	padding: 10px;
 `;
 
 function ModalConfirmation({
@@ -102,6 +109,45 @@ function ModalConfirmation({
 	confirmActionName,
 }: Iprops): JSX.Element {
 	const [reverseModal, setReverseModal] = useState(false);
+
+	const modalRef = useRef<any>(null);
+	const cancelRef = useRef<any>(null);
+
+	document.body.classList.add('no-scroll');
+
+	// const keyDownHandler = (e: KeyboardEvent) => {
+	// 	// close dialog with esc key
+	// 	if (e.key === 'Escape') {
+	// 		setReverseModal(true);
+	// 		setTimeout(() => {
+	// 			onCancel();
+	// 		}, 250);
+	// 	}
+	//     // trap focus only with tab key
+	//     if (e.key !== 'Tab') return;
+
+	//     const focusableModalElements = modalRef.current.querySelectorAll(
+	//         'a[href], button:not([disabled]), textarea, input, select'
+	//     );
+	//     const firstElement:any = focusableModalElements[0];
+	//     const lastElement:any = focusableModalElements[focusableModalElements.length - 1];
+
+	//     if (!e.shiftKey && document.activeElement === lastElement) {
+	//         firstElement.focus();
+	//         e.preventDefault();
+	//     }
+
+	//     if (e.shiftKey && document.activeElement === firstElement) {
+	//         lastElement.focus();
+	//         e.preventDefault();
+	//     }
+	// };
+	function onEscape() {
+		setReverseModal(true);
+		setTimeout(() => {
+			onCancel();
+		}, 250);
+	}
 
 	return (
 		<>
@@ -114,8 +160,15 @@ function ModalConfirmation({
 				}}
 				aria-hidden="true"
 			/>
-			<ModalContent reverseModal={reverseModal}>
-				<Title style={{ color: 'white' }}>{title}</Title>
+			<ModalContent
+				id="confirmDialog"
+				ref={modalRef}
+				role="dialog"
+				aria-modal="true"
+				reverseModal={reverseModal}
+				onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}
+			>
+				<Title>{title}</Title>
 				<Text>{question}</Text>
 				<WrapperButtons>
 					<Button
@@ -127,6 +180,8 @@ function ModalConfirmation({
 						{confirmActionName}
 					</Button>
 					<Button
+						ref={cancelRef}
+						id="cancelButton"
 						onClick={() => {
 							setReverseModal(true);
 							setTimeout(() => {
@@ -134,7 +189,7 @@ function ModalConfirmation({
 							}, 250);
 						}}
 						type="button">
-						Annuler
+						Cancel
 					</Button>
 				</WrapperButtons>
 			</ModalContent>

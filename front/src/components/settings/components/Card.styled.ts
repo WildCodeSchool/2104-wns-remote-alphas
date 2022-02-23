@@ -9,7 +9,7 @@ const Card = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 60%;
     min-height: 500px;
     border-radius: 10px;
     margin: auto;

@@ -61,35 +61,63 @@ const NavMenu = ({ updateSection, section }: NavMenuProps): JSX.Element => (
 		<ul>
 			<Divider />
 			<MenuElement
+				tabIndex={0}
 				className={`banner ${section === SECTIONS.COLORS ? 'active' : ''}`}
-				onClick={() => updateSection(SECTIONS.COLORS)}>
-				<MenuIcon src="/assets/icons/002-pantone.svg" />
+				onClick={() => updateSection(SECTIONS.COLORS)}
+				onKeyPress={(e) => {
+					if (e.key === 'Enter') {
+					updateSection(SECTIONS.COLORS);
+					}
+				}}
+				>
+				<MenuIcon src="/assets/icons/002-pantone.svg" alt="color settings" />
 				Colors
 			</MenuElement>
 
 			<Divider />
 			<MenuElement
+				tabIndex={0}
 				className={`banner ${section === SECTIONS.TEXTS ? 'active' : ''}`}
-				onClick={() => updateSection(SECTIONS.TEXTS)}>
-				<MenuIcon src="/assets/icons/006-font-1.svg" />
+				onClick={() => updateSection(SECTIONS.TEXTS)}
+				onKeyPress={(e) => {
+					if (e.key === 'Enter') {
+					updateSection(SECTIONS.TEXTS);
+					}
+				}}
+				>
+				<MenuIcon src="/assets/icons/006-font-1.svg" alt="texts and fonts settings" />
 				Texts & Fonts
 			</MenuElement>
 
 			<Divider />
 			<MenuElement
+				tabIndex={0}
 				className={`banner ${
 					section === SECTIONS.DISTRACTIONS ? 'active' : ''
 				}`}
-				onClick={() => updateSection(SECTIONS.DISTRACTIONS)}>
-				<MenuIcon src="/assets/icons/004-brain.svg" />
+				onClick={() => updateSection(SECTIONS.DISTRACTIONS)}
+				onKeyPress={(e) => {
+					if (e.key === 'Enter') {
+					updateSection(SECTIONS.DISTRACTIONS);
+					}
+				}}
+				>
+				<MenuIcon src="/assets/icons/004-brain.svg" alt="distractions settings" />
 				Distractions
 			</MenuElement>
 
 			<Divider />
 			<MenuElement
-				className={`banner ${section === SECTIONS.SETTINGS ? 'active' : ''}`}
-				onClick={() => updateSection(SECTIONS.SETTINGS)}>
-				<MenuIcon src="/assets/icons/003-wrench.svg" />
+				tabIndex={0}
+				className={`banner ${section === SECTIONS.PROFILE ? 'active' : ''}`}
+				onClick={() => updateSection(SECTIONS.PROFILE)}
+				onKeyPress={(e) => {
+					if (e.key === 'Enter') {
+					updateSection(SECTIONS.PROFILE);
+					}
+				}}
+				>
+				<MenuIcon src="/assets/icons/003-wrench.svg" alt="other settings" />
 				Settings
 			</MenuElement>
 		</ul>

@@ -6,6 +6,7 @@ import LinkReactRouter from './components/LinkReactRouter.styled';
 import DesktopNav from './navMenus/DesktopNav.styled';
 import TabletNav from './navMenus/TabletNav.styled';
 import MobileNav from './navMenus/MobileNav.styled';
+import SkipLink from '../core/accessibility/SkipLink.styled';
 
 /**
  * Build a responsive app header with navigation menu
@@ -46,6 +47,7 @@ const Header = (): JSX.Element => {
 
 			{isLogin ? (
 				<>
+					<SkipLink href="#main-content"><text>Skip to main content</text></SkipLink>
 					{width > 1000 && <DesktopNav />}
 					{width > 650 && width < 1000 && <TabletNav />}
 					{width < 650 && <MobileNav />}

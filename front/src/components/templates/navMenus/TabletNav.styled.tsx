@@ -32,9 +32,9 @@ const TabletNav = (): JSX.Element => {
 				<WikiIcon />
 			</LinkReactRouter>
 
-			<LinkReactRouter to="help">
+			{/* <LinkReactRouter to="help">
 				<HelpIcon />
-			</LinkReactRouter>
+			</LinkReactRouter> */}
 
 			{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 				<LinkReactRouter to="/backoffice">
