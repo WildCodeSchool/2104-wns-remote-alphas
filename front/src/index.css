@@ -1,142 +1,138 @@
 html {
-	width: 100vw;
-	height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-color: #292929;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #292929;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .no-scroll {
-	overflow: hidden;
-	
+  overflow: hidden;
 }
 
 /* React Chrono Timeline custom stylings */
 #timeline-main-wrapper {
-	height: 50%;
+  height: 50%;
 }
 
 .timeline-item-title {
-	color: white;
+  color: white;
 }
 
 .css-1t6did-TitleWrapper.active {
-	color: #292929 !important;
-	padding: .5em;
+  color: #292929 !important;
+  padding: 0.5em;
 }
 
 .TimelineTitleContainer {
-	margin: -1em;
+  margin: -1em;
 }
 
 .timeline-card-content {
-	/* card content */
-	border-radius: 20px !important;
-	padding: 1em;
-
+  /* card content */
+  border-radius: 20px !important;
+  padding: 1em;
 }
 
 .card-title {
-	color: #292929 !important;
+  color: #292929 !important;
 }
 
 .css-d0st9p-CardImage {
-	/* card image */
-	border-radius: 10px;
-	max-height: 95%;
+  /* card image */
+  border-radius: 10px;
+  max-height: 95%;
 }
 
-/* Switch button */	  
-  .knobs,
-  .layer {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-  }
-  
-  .button {
-	position: relative;
-	top: 50%;
-	width: 74px;
-	height: 40px;
-	margin: -20px auto 0 auto;
-	overflow: hidden;
-  }
-  
-  .button.r,
-  .button.r .layer {
-	border-radius: 100px;
-  }
-  
-  .checkbox {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	opacity: 0;
-	cursor: pointer;
-	z-index: 3;
-  }
-  
-  .knobs {
-	z-index: 2;
-  }
-  
-  .layer {
-	width: 100%;
-	background-color: #ebf7fc;
-	transition: 0.3s ease all;
-	z-index: 1;
-  }
-  
-  #switch-btn .knobs:before {
-	content: "YES";
-	position: absolute;
-	top: 4px;
-	left: 4px;
-	width: 22px;
-	height: 12px;
-	color: #fff;
-	font-size: 10px;
-	font-weight: bold;
-	text-align: center;
-	line-height: 1;
-	padding: 9px 4px;
-	background-color: #03a9f4;
-	border-radius: 50%;
-	transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-  }
-  
-  #switch-btn .checkbox:active + .knobs:before {
-	width: 46px;
-	border-radius: 100px;
-  }
-  
-  #switch-btn .checkbox:checked:active + .knobs:before {
-	margin-left: -26px;
-  }
-  
-  #switch-btn .checkbox:checked + .knobs:before {
-	content: "NO";
-	left: 42px;
-	background-color: #f44336;
-  }
-  
-  #switch-btn .checkbox:checked ~ .layer {
-	background-color: #fcebeb;
-  }
+/* Switch button */
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 40px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+#switch-btn .knobs:before {
+  content: 'YES';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 22px;
+  height: 12px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: #03a9f4;
+  border-radius: 50%;
+  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#switch-btn .checkbox:active + .knobs:before {
+  width: 46px;
+  border-radius: 100px;
+}
+
+#switch-btn .checkbox:checked:active + .knobs:before {
+  margin-left: -26px;
+}
+
+#switch-btn .checkbox:checked + .knobs:before {
+  content: 'NO';
+  left: 42px;
+  background-color: #f44336;
+}
+
+#switch-btn .checkbox:checked ~ .layer {
+  background-color: #fcebeb;
+}

@@ -1,5 +1,3 @@
-/* eslint-disable no-confusing-arrow */
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,13 +10,13 @@ const Card = styled.article`
   width: 25%;
   height: 80%;
   @media all and (max-width: 1000px) {
-	min-width: 300px;
-  	max-height: 280px;
+    min-width: 300px;
+    max-height: 280px;
   }
   :focus {
-	:focus {
-		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
-	}
+    :focus {
+      box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
+    }
   }
 `;
 
@@ -28,7 +26,7 @@ const Title = styled.h2`
   font-size: ${(props) => props.theme.fontSize.m};
   font-weight: normal;
   margin: 0px;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 `;
 
 const ThemeCourse = styled.div`
@@ -55,47 +53,48 @@ const Line = styled.hr`
 `;
 
 function CardCoursesSecondary({
-	title, image, imageDescription, techno1, techno2, id
+  title,
+  image,
+  imageDescription,
+  techno1,
+  techno2,
+  id,
 }: Props): JSX.Element {
-	const history = useHistory();
+  const history = useHistory();
 
-	function clickCourse() {
-		history.push(`/courses/${id}`);
-	}
+  function clickCourse() {
+    history.push(`/courses/${id}`);
+  }
 
-	return (
-		<Card
-			className="course"
-			tabIndex={0}
-			onClick={() => {
-				clickCourse();
-			}}
-			onKeyPress={(e) => e.key === 'Enter' && clickCourse()}
-			>
-			<Container>
-				<Title data-testid="title-secondary-card">{title}</Title>
-				<Image src={image} alt={imageDescription} />
-			</Container>
-			<Line />
-			<ThemeCourse>
-				{techno1}
-				&nbsp;
-				|
-				&nbsp;
-				{techno2}
-			</ThemeCourse>
-		</Card>
-
-	);
+  return (
+    <Card
+      className="course"
+      tabIndex={0}
+      onClick={() => {
+        clickCourse();
+      }}
+      onKeyPress={(e) => e.key === 'Enter' && clickCourse()}>
+      <Container>
+        <Title data-testid="title-secondary-card">{title}</Title>
+        <Image src={image} alt={imageDescription} />
+      </Container>
+      <Line />
+      <ThemeCourse>
+        {techno1}
+        &nbsp; | &nbsp;
+        {techno2}
+      </ThemeCourse>
+    </Card>
+  );
 }
 
 interface Props {
-	title: string,
-	image: string,
-	imageDescription: string,
-	techno1: string,
-	techno2: string,
-	id: string,
+  title: string;
+  image: string;
+  imageDescription: string;
+  techno1: string;
+  techno2: string;
+  id: string;
 }
 
 export default CardCoursesSecondary;
