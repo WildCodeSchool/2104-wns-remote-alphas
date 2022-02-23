@@ -16,3 +16,15 @@ COPY tsconfig.json tsconfig.json
 
 
 CMD ["yarn", "start"]
+
+
+FROM cypress/included:9.5.0
+
+WORKDIR /app
+
+RUN yarn install
+
+COPY cypress ./
+COPY cypress.json cypress.json
+
+CMD ["yarn", "run", "record:ecs"]

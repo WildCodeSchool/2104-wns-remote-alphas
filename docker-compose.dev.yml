@@ -7,6 +7,7 @@ services:
     volumes:
       - "./front:/app"
       - "/app/node_modules"
+      - "/app/cypress"
     ports:
       - 3030:3000
     env_file:
