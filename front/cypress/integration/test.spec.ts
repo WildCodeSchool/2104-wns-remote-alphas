@@ -5,6 +5,7 @@ describe('My First Test', () => {
       .click()
       cy.get('input[name*="email"]').type('ameline@gmail.com')
       cy.get('input[name*="password"]').type('password')
-      cy.get('form').submit()
+      //cy.get('form').submit()
+      cy.get('button[value*="Envoyer"]').click()
     })
   })
