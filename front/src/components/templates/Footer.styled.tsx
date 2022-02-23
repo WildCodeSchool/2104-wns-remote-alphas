@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import ColorLuminance from '../../utils/colorLuminance';
 import LargeDivider from '../core/LargeDivider.styled';
+import PandaTips from './PandaTips.styled';
 
 /**
  * Builds a responsive footer with a neumorphic divider on top
@@ -10,6 +11,9 @@ const FooterContainer = styled.footer`
 	display: none;
 	@media (min-width: 350px) {
 		display: block;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
 	}
 `;
 
@@ -46,6 +50,7 @@ const Footer = (): JSX.Element => {
 
 	return (
 		<FooterContainer>
+			<PandaTips />
 			<LargeDivider light={lightShadow} dark={darkShadow} />
 			<FooterContent data-testid="footer">
 				<Wrapper>© 2021 Alpha Wilders - All Rights Reserved.</Wrapper>

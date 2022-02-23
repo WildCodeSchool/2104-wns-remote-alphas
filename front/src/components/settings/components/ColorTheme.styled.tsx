@@ -53,8 +53,8 @@ const ColorTheme = ({ updateTheme, theme }: ColorThemeProps): JSX.Element => {
 	// on click, set update theme with enum theme values.
 	return (
 		<Row gap="0">
-			<ColorDrop color="#292929" title="Dark" />
-			<ColorDrop color="#ECEFF1" title="Light" />
+			<ColorDrop color="#292929" title="Dark" focusable />
+			<ColorDrop color="#ECEFF1" title="Light" focusable />
 			<DoubleColorDrop
 				lowerColor="#BDBDBD"
 				upperColor="#E0E0E0"

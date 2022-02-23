@@ -164,15 +164,17 @@ function SingleCourse(): JSX.Element {
 				<div>
 					<h3>Going further...</h3>
 					<table>
-						<tr>
-							<LinkReference>Reference Link</LinkReference>
-							<LinkReference>Reference Link</LinkReference>
-						</tr>
-						<tr>
-							<LinkReference>Reference Link</LinkReference>
-							<LinkReference>Reference Link</LinkReference>
-							<LinkReference>Reference Link</LinkReference>
-						</tr>
+						<tbody>
+							<tr>
+								<LinkReference>Reference Link</LinkReference>
+								<LinkReference>Reference Link</LinkReference>
+							</tr>
+							<tr>
+								<LinkReference>Reference Link</LinkReference>
+								<LinkReference>Reference Link</LinkReference>
+								<LinkReference>Reference Link</LinkReference>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 				<NinjaPanda>

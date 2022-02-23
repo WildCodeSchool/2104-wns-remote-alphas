@@ -13,15 +13,19 @@ import styled, { css } from 'styled-components';
  */
 
 const Input = styled.input<{ focused?: boolean }>`
-	border-radius: ${(props) => props.theme.fixedSize.borderRadius};
+	border-radius: 8px;
 	background-color: ${(props) => props.theme.colors.secondaryLighter};
 	color: ${(props) => props.theme.colors.primaryLighter};
 	height: ${(props) => props.theme.fixedSize.field.height};
 	width: 90%;
     ${(props) => (props.focused && css`
-        border: 3px solid #FE7F2D;
-        outline: none;`
+		outline: 3px solid #FE7F2D;
+		outline-offset: -3px;
+		`
 	)};
+	margin-top: .3em;
+	font-size: 1rem;
+	padding-left: 1rem;
 `;
 
 const Label = styled.label<{ focused?: boolean }>`
@@ -30,6 +34,7 @@ const Label = styled.label<{ focused?: boolean }>`
         font-weight: bold;`
 	)};
     fontWeight: 500;
+	margin-top: .3em;
 `;
 
 interface FormFieldProps {

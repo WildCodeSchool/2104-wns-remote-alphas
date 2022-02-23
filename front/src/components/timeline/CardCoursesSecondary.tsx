@@ -1,39 +1,53 @@
+/* eslint-disable no-confusing-arrow */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Card = styled.div`
-  width: 50%;
-  background-color: ${(props) => props.theme.colors.quaterny};
-  padding: ${(props) => props.theme.padding.s};
-  margin: auto;
+const Card = styled.article`
+  background-color: ${(props) => props.theme.colors.opposite};
+  margin: auto 1em;
   border-radius: ${(props) => props.theme.fixedSize.borderRadius};
   box-shadow: ${(props) => props.theme.fixedSize.boxShadow};
   cursor: pointer;
-  min-width: 130px;
-  max-width: 300px;
+  width: 25%;
+  height: 80%;
+  @media all and (max-width: 1000px) {
+	min-width: 300px;
+  	max-height: 280px;
+  }
+  :focus {
+	:focus {
+		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
+	}
+  }
 `;
 
-const Title = styled.div`
-  text-align: center;
+const Title = styled.h2`
+  text-align: left;
   color: ${(props) => props.theme.colors.primary};
-  font-size: ${(props) => props.theme.fontSize.l};
+  font-size: ${(props) => props.theme.fontSize.m};
+  font-weight: normal;
+  margin: 0px;
+  margin-bottom: .5em;
 `;
 
 const ThemeCourse = styled.div`
-  text-align: center;
   color: ${(props) => props.theme.colors.tertiary};
   margin: ${(props) => props.theme.margin.mainCard};
   font-size: ${(props) => props.theme.fontSize.s};
   text-align: left;
+  font-weight: 500;
 `;
 
 const Container = styled.div`
-  margin: ${(props) => props.theme.margin.imageCard};
+  // margin: ${(props) => props.theme.margin.imageCard};
+  padding: ${(props) => props.theme.padding.s};
 `;
 
 const Image = styled.img`
-  width: 100%;
+  width: 60%;
+  display: flex;
+  margin: auto;
 `;
 
 const Line = styled.hr`
@@ -41,35 +55,47 @@ const Line = styled.hr`
 `;
 
 function CardCoursesSecondary({
-  title, image, imageDescription, course, id
+	title, image, imageDescription, techno1, techno2, id
 }: Props): JSX.Element {
-  const history = useHistory();
+	const history = useHistory();
 
-  function clickCourse() {
-    history.push(`/courses/${id}`);
-  }
-  return (
-    <Card
-      onClick={() => {
-        clickCourse();
-      }}>
-      <Title data-testid="title-secondary-card">{title}</Title>
-      <Container>
-        <Image src={image} alt={imageDescription} />
-      </Container>
-      <Line />
-      <ThemeCourse>{course}</ThemeCourse>
-    </Card>
+	function clickCourse() {
+		history.push(`/courses/${id}`);
+	}
 
-  );
+	return (
+		<Card
+			className="course"
+			tabIndex={0}
+			onClick={() => {
+				clickCourse();
+			}}
+			onKeyPress={(e) => e.key === 'Enter' && clickCourse()}
+			>
+			<Container>
+				<Title data-testid="title-secondary-card">{title}</Title>
+				<Image src={image} alt={imageDescription} />
+			</Container>
+			<Line />
+			<ThemeCourse>
+				{techno1}
+				&nbsp;
+				|
+				&nbsp;
+				{techno2}
+			</ThemeCourse>
+		</Card>
+
+	);
 }
 
 interface Props {
-  title: string,
-  image: string,
-  imageDescription: string,
-  course: string,
-  id: string,
+	title: string,
+	image: string,
+	imageDescription: string,
+	techno1: string,
+	techno2: string,
+	id: string,
 }
 
 export default CardCoursesSecondary;
