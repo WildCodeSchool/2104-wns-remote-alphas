@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
+import { getKeyboardFocusableElements, keyDownHandler, restoreTabIndex } from '../../utils/trapFocus';
+import Button from '../core/buttons/Button.styled';
 import ColorDrop from './components/ColorDrop.styled';
 
 /**
  * Colorpicker displays a modal color picker
  */
-
-// TODO: style button and create core component
 const Overlay = styled.div`
     position: fixed;
     z-index: 20;
@@ -53,19 +53,36 @@ const Colorpicker = ({
     setColor,
     color,
     toggleColorPicker,
-    visibleColorPicker
-}: ColorpickerProps): JSX.Element => (
-    <>
-        <Overlay onClick={() => toggleColorPicker(!visibleColorPicker)} />
-        <Modal>
-            <Content>
-                <HexColorPicker color={color} onChange={setColor} />
-                <ColorDrop color={color} />
-                Current color is {color}
-            </Content>
-            <button type="button" onClick={() => toggleColorPicker(!visibleColorPicker)}>Close</button>
-        </Modal>
-    </>
-);
+    visibleColorPicker,
+}: ColorpickerProps): JSX.Element => {
+    const modalRef = useRef(null);
+    // Get all the focusable elements for modal focus trap
+    const focusableElements = getKeyboardFocusableElements();
+
+    function onEscape() {
+        toggleColorPicker(!visibleColorPicker);
+        restoreTabIndex(focusableElements);
+    }
+
+    return (
+        <>
+            <Overlay onClick={() => onEscape()} />
+            <Modal
+                ref={modalRef}
+                onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+                <Content>
+                    <HexColorPicker color={color} onChange={setColor} />
+                    <ColorDrop color={color} />
+                    Current color is {color}
+                </Content>
+                <Button
+                    type="button"
+                    onClick={() => onEscape()}>
+                    Close
+                </Button>
+            </Modal>
+        </>
+    );
+};
 
 export default Colorpicker;

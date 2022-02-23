@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
 
@@ -20,6 +20,21 @@ const LowerDrop = styled.div<{ color: string }>`
 	background-color: ${(props) => props.color};
 `;
 
+const FocusEffect = styled.div<{ rounded?: boolean }>`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1em;
+    flex-wrap: wrap;
+	width: fit-content;
+	:focus {
+		box-shadow: 0 0 10px 5px ${(props) => props.theme.colors.secondary};
+		${(props) => props.rounded && css`
+				border-radius: 50%;
+			`};
+	}
+`;
+
 interface DoubleColorDropProps {
 	lowerColor: string;
 	upperColor: string;
@@ -32,8 +47,10 @@ const DoubleColorDrop = ({
 	title = '',
 }: DoubleColorDropProps): JSX.Element => (
 	<Row>
-		<LowerDrop color={lowerColor} />
-		<ColorDrop color={upperColor} />
+		<FocusEffect tabIndex={0} rounded>
+			<LowerDrop color={lowerColor} />
+			<ColorDrop color={upperColor} />
+		</FocusEffect>
 		<text>{title}</text>
 	</Row>
 );

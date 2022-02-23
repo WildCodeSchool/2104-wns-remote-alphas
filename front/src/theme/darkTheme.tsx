@@ -19,7 +19,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		// Second highlight Color
 		tertiary: '#FE7F2D',
 		// Complementary Colors
-		quaterny: '#FFFFFF',
+		quaterny: '#1E40AF',
 		primaryLighter: '#D1DCE5',
 		secondaryLighter: '#4E4E4E',
 		// Text light for dark backgrounds
@@ -27,7 +27,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		// Text dark for light backgrounds
 		altTextColor: '#292929',
 		// opposite to primary color
-		opposite: '#ECEFF1',
+		opposite: '#FBFBFC',
 	},
 	neumorphism: {
 		boxShadow: 'inset 8px 8px 8px #212121, inset -8px -8px 8px #313131',
@@ -55,7 +55,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 	margin: {
 		navItems: '0px 48px',
 		mainTitle: '0px 0px 150px 94px',
-		mainCard: '0px 32px',
+		mainCard: '10px 32px',
 		imageCard: '16px 0px 21px 0px',
 		nameOfInput: '0px 0px 5px 0px',
 		textMenuSettings: '0px 0px 0px 75px',
@@ -96,7 +96,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 		avatar: '110px',
 		toggleButton: '64px',
 		boxShadow: '19px 20px 11px 13px rgba(0,0,0,0.36)',
-		borderRadius: '12px',
+		borderRadius: '15px',
 		button: {
 			small: {
 				height: '3em',
@@ -104,7 +104,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
 			},
 		},
 		field: {
-			height: '2.5em',
+			height: '2.5rem',
 		},
 		footer: {
 			height: '90px',

@@ -1,7 +1,10 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
 import styled from 'styled-components';
-import { CourseType } from '../../utils/types';
-import ErrorMessage from '../core/ErrorMessage';
+import { CourseType } from '../../../utils/types';
+import Button from '../../core/buttons/Button.styled';
+import ErrorMessage from '../../core/ErrorMessage';
 
 const Container = styled.div`
 	display: 'flex';
@@ -21,44 +24,37 @@ const Form = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
+	padding-top: 1em;
 `;
 
 const Input = styled.input`
 	margin: auto;
-	width: 85%;
+	width: 100%;
 	height: 2.5rem;
 	border: 1px solid grey;
 	border-radius: 5px;
 	font-size: 1rem;
+	margin-top: 10px;
+`;
+
+const Label = styled.label`
+	color: white;
+	width: 85%;
+	margin-bottom: 2em;
 `;
 
 const Textarea = styled.textarea`
 	max-width: 85%;
-	min-width: 85%;
-	width: 85%;
-	min-height: 2.5rem;
+	min-width: 100%;
+	width: 100%;
+	min-height: 25rem;
 	max-height: 50%;
 	margin: auto;
 	height: 50%;
 	border: 1px solid grey;
 	border-radius: 5px;
 	font-size: 1rem;
-`;
-
-const Button = styled.button`
-	margin: auto;
-	width: 50%;
-	height: 2.5rem;
-	cursor: pointer;
-	border-radius: 5px;
-	color: white;
-	border: 1px solid #68d0fc;
-	background-color: #68d0fc;
-	font-size: 1rem;
-	:hover {
-		background-color: #2bb7f3;
-		border-color: #2bb7f3;
-	}
+	margin-top: 10px;
 `;
 
 type Course = Omit<CourseType, 'technos' | 'id' | 'postedAt'>;
@@ -74,7 +70,7 @@ interface Iprops {
 	onCancel(): void;
 	errorState: { status: boolean; message: string };
 }
-function FormMasterBackOffice({
+function OfficeForm({
 	onChange,
 	courseInput,
 	onSubmit,
@@ -88,48 +84,74 @@ function FormMasterBackOffice({
 				onSubmit={(e) => {
 					onSubmit(e);
 				}}>
-				<Input
-					type="text"
-					name="courseName"
-					placeholder="Titre du cours"
-					onChange={(e) => {
-						onChange(e.target.value, e.target.name);
-					}}
-					value={courseInput.courseName}
-				/>
-				<Input
-					type="text"
-					name="technos"
-					placeholder="Technos abordées du cours"
-					onChange={(e) => {
-						onChange(e.target.value, e.target.name);
-					}}
-					value={courseInput.technos}
-				/>
+				<Label>
+					Enter course name
+					<Input
+						type="text"
+						name="courseName"
+						placeholder="Handle bloc pattern in Flutter"
+						onChange={(e) => {
+							onChange(e.target.value, e.target.name);
+						}}
+						value={courseInput.courseName}
+					/>
+				</Label>
+				<Label>
+					Define the related technologies
+					<Input
+						type="text"
+						name="technos"
+						placeholder="Dart, Flutter, Bloc"
+						onChange={(e) => {
+							onChange(e.target.value, e.target.name);
+						}}
+						value={courseInput.technos}
+					/>
+				</Label>
+				<Label>
+					Write your content
 				<Textarea
 					name="description"
-					placeholder="Contenu du cours"
+					placeholder="Fill out the very interesting course content here"
 					onChange={(e) => {
 						onChange(e.target.value, e.target.name);
 					}}
 					value={courseInput.description}
 				/>
-				{errorState.status && <ErrorMessage>{errorState.message}</ErrorMessage>}
-				<Button type="submit">
-					{buttonType === 'post' ? 'Poster un cours' : 'Mettre à jour'}
+				</Label>
+				{errorState.status &&
+					<ErrorMessage>
+						<span>
+							🚨
+							&nbsp;
+							🚨
+							&nbsp;
+							🚨
+							&nbsp;
+							{errorState.message}
+						</span>
+					</ErrorMessage>}
+				<Button
+					type="submit"
+					style={{
+						width: '85%',
+						marginBottom: '2em'
+					}}>
+					{buttonType === 'post' ? 'Post a new course' : 'Edit a course'}
 				</Button>
 				{buttonType === 'update' && (
 					<Button
 						style={{
-							backgroundColor: 'transparent',
-							border: '1px solid white',
+							width: '85%',
+							marginBottom: '2em'
 						}}
 						type="button"
+						alert
 						onClick={(e) => {
 							e.preventDefault();
 							onCancel();
 						}}>
-						Annuler modification
+						Cancel edition
 					</Button>
 				)}
 			</Form>
@@ -137,4 +159,4 @@ function FormMasterBackOffice({
 	);
 }
 
-export default FormMasterBackOffice;
+export default OfficeForm;

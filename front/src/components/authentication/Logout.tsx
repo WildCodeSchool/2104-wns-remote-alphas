@@ -33,6 +33,21 @@ export default function Logout(): JSX.Element {
 	return (
 		<Button
 			type="button"
+			onKeyPress={(e) => {
+				if (e.key === 'Enter') {
+					client?.cache.reset();
+					localStorage.clear();
+
+					if (isLogin) {
+						setIsLogin(false);
+					}
+					if (user) {
+						setUser({} as User);
+					}
+
+					history.push('/');
+				}
+			}}
 			onClick={() => {
 				client?.cache.reset();
 				localStorage.clear();
