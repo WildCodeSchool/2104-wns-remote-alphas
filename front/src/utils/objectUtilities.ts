@@ -1,46 +1,39 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-restricted-syntax */
-
 import { User } from './types';
 
 export type NestedObject = {
-	[key: string]: string | number | unknown[] | NestedObject;
+  [key: string]: string | number | unknown[] | NestedObject;
 };
 
 function removeTypename(obj: NestedObject): NestedObject {
-	let returnedObj = {};
-	for (const key in obj) {
-		if (
-			Array.isArray(obj[key]) ||
-			typeof obj[key] === 'string' ||
-			typeof obj[key] === 'number' ||
-			typeof obj[key] === 'boolean'
-		) {
-			if (key !== '__typename') {
-				returnedObj = { ...returnedObj, [key]: obj[key] };
-			}
-		} else {
-			returnedObj = {
-				...returnedObj,
-				[key]: removeTypename(obj[key] as NestedObject),
-			};
-		}
-	}
-	return returnedObj;
+  let returnedObj = {};
+  for (const key in obj) {
+    if (
+      Array.isArray(obj[key]) ||
+      typeof obj[key] === 'string' ||
+      typeof obj[key] === 'number' ||
+      typeof obj[key] === 'boolean'
+    ) {
+      if (key !== '__typename') {
+        returnedObj = { ...returnedObj, [key]: obj[key] };
+      }
+    } else {
+      returnedObj = {
+        ...returnedObj,
+        [key]: removeTypename(obj[key] as NestedObject),
+      };
+    }
+  }
+  return returnedObj;
 }
 
-function deleteSomeKeys(
-	obj: User,
-	keyToRemove: string[]
-): Omit<User, 'role' | 'id'> {
-	return Object.fromEntries(
-		Object.entries(obj)
-			// remove keys which are in keyToRemove params
-			.map((entry) => (!keyToRemove.includes(entry[0]) ? entry : []))
-			// remove empty arrays
-			.filter((item) => item.length !== 0)
-	);
+function deleteSomeKeys(obj: User, keyToRemove: string[]): Omit<User, 'role' | 'id'> {
+  return Object.fromEntries(
+    Object.entries(obj)
+      // remove keys which are in keyToRemove params
+      .map((entry) => (!keyToRemove.includes(entry[0]) ? entry : []))
+      // remove empty arrays
+      .filter((item) => item.length !== 0),
+  );
 }
 
 export { deleteSomeKeys, removeTypename };

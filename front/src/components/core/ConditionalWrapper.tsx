@@ -1,11 +1,16 @@
-/* eslint-disable no-confusing-arrow */
-/* eslint-disable max-len */
+import React from 'react';
 
 // TODO: fix any
 interface WrapperProps {
-    condition: boolean;
-    wrapper: any;
-    children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined;
+  condition: boolean;
+  wrapper: any;
+  children:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
 }
 
 /**
@@ -14,8 +19,10 @@ interface WrapperProps {
  * @param wrapper is the wrapper element
  * @param children are the inside elements you need to conditionnally wrap
  */
-const ConditionalWrapper = (
-    { condition, wrapper, children }: WrapperProps
-) => condition ? wrapper(children) : children;
+const ConditionalWrapper = ({
+  condition,
+  wrapper,
+  children,
+}: WrapperProps): JSX.Element => (condition ? wrapper(children) : children);
 
 export default ConditionalWrapper;

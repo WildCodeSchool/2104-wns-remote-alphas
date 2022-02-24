@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
+
+import { SECTIONS } from '../../utils/types';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './components/Card.styled';
 import CardMenu from './components/CardMenu.styled';
@@ -9,15 +11,14 @@ import Distractions from './settings_sections/Distractions.styled';
 import Profile from './settings_sections/Profile.styled';
 import Texts from './settings_sections/Texts.styled';
 import UserSettings from './settings_sections/UserSettings.styled';
-import { SECTIONS } from '../../utils/types';
 
 const Wrapper = styled.div`
-	height: calc(100vh - 113px - 105px);
-	display: flex;
-	align-items: center;
-	@media screen and (max-width: 780px) {
-		height: inherit;
-	}
+  height: calc(100vh - 113px - 105px);
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 780px) {
+    height: inherit;
+  }
 `;
 
 /**
@@ -28,43 +29,43 @@ const Wrapper = styled.div`
  */
 
 const Settings = (): JSX.Element => {
-	/// Define default and current section (default is profile)
-	const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
+  /// Define default and current section (default is profile)
+  const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
 
-	/// Udpate the active section to change the view
-	const updateSection = (menuItem: SECTIONS): void => {
-		setSection(menuItem);
-	};
+  /// Udpate the active section to change the view
+  const updateSection = (menuItem: SECTIONS): void => {
+    setSection(menuItem);
+  };
 
-	const sections = {
-		[SECTIONS.COLORS]: <Colors />,
-		[SECTIONS.DISTRACTIONS]: <Distractions />,
-		[SECTIONS.PROFILE]: <Profile />,
-		[SECTIONS.TEXTS]: <Texts />,
-		[SECTIONS.SETTINGS]: <UserSettings />,
-	};
-	const displayedSection = sections[section];
-	return (
-		<Wrapper>
-			<Card id="main-content">
-				<CardMenu>
-					<CircleAvatar
-						tabIndex={0}
-						alt="user settings"
-						src="/assets/images/default-avatar.png"
-						onClick={() => updateSection(SECTIONS.PROFILE)}
-						onKeyPress={(e) => {
-							if (e.key === 'Enter') {
-							updateSection(SECTIONS.PROFILE);
-							}
-						}}
-					/>
-					<NavMenu section={section} updateSection={updateSection} />
-				</CardMenu>
-				{displayedSection}
-			</Card>
-		</Wrapper>
-	);
+  const sections = {
+    [SECTIONS.COLORS]: <Colors />,
+    [SECTIONS.DISTRACTIONS]: <Distractions />,
+    [SECTIONS.PROFILE]: <Profile />,
+    [SECTIONS.TEXTS]: <Texts />,
+    [SECTIONS.SETTINGS]: <UserSettings />,
+  };
+  const displayedSection = sections[section];
+  return (
+    <Wrapper>
+      <Card id="main-content">
+        <CardMenu>
+          <CircleAvatar
+            tabIndex={0}
+            alt="user settings"
+            src="/assets/images/default-avatar.png"
+            onClick={() => updateSection(SECTIONS.PROFILE)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                updateSection(SECTIONS.PROFILE);
+              }
+            }}
+          />
+          <NavMenu section={section} updateSection={updateSection} />
+        </CardMenu>
+        {displayedSection}
+      </Card>
+    </Wrapper>
+  );
 };
 
 export default Settings;
