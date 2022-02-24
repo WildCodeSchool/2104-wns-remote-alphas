@@ -9,12 +9,13 @@ import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import React, { useCallback, useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
 import Admin from './components/admin/Admin';
 import SignInPage from './components/authentication/SignInPage';
 import SignUpPage from './components/authentication/SignUpPage';
+import OfficeCoursesList from './components/backOffice/components/OfficeCoursesList';
 import Office from './components/backOffice/Office';
 import ChatInterface from './components/chatRoom/ChatInterface';
 import Context from './components/context/Context';
@@ -170,10 +171,21 @@ function Router(): JSX.Element {
                         <Office />
                       </Route>
                     )}
-                    {user?.role === ROLES.ADMIN && (
+                    <Route exact path="/backoffice">
+                      {user?.role === ROLES.STUDENT ? (
+                        <Redirect to="/" />
+                      ) : (
+                        <Route exact path="/backoffice">
+                          <Office />
+                        </Route>
+                      )}
+                    </Route>
+                    {user?.role === ROLES.ADMIN ? (
                       <Route exact path="/admin">
                         <Admin />
                       </Route>
+                    ) : (
+                      <Redirect to="/" />
                     )}
                   </Switch>
                 </Layout>
