@@ -3,14 +3,9 @@ import React from 'react';
 // TODO: fix any
 interface WrapperProps {
   condition: boolean;
-  wrapper: any;
-  children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
+  wrapper(children: React.ReactElement): React.ReactElement;
+
+  children: React.ReactElement;
 }
 
 /**

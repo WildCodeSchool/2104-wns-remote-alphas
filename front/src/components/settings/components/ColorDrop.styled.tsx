@@ -50,13 +50,7 @@ const ColorDrop = ({
       <ConditionalWrapper
         condition={focusable}
         wrapper={(
-          children:
-            | boolean
-            | React.ReactChild
-            | React.ReactFragment
-            | React.ReactPortal
-            | null
-            | undefined,
+          children: Parameters<Parameters<typeof ConditionalWrapper>[0]['wrapper']>[0],
         ) => (
           <Tabable
             rounded

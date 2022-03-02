@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 import { keyDownHandler } from '../../utils/trapFocus';
@@ -56,7 +56,6 @@ const ModalContent = styled.div<{ reverseModal?: boolean }>`
   animation-duration: 0.5s;
   z-index: 30;
   ${(props) =>
-    // eslint-disable-next-line implicit-arrow-linebreak
     props.reverseModal &&
     css`
       animation-name: ${ReverseModal};
@@ -105,8 +104,8 @@ function ModalConfirmation({
 }: Iprops): JSX.Element {
   const [reverseModal, setReverseModal] = useState(false);
 
-  const modalRef = useRef<any>(null);
-  const cancelRef = useRef<any>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   document.body.classList.add('no-scroll');
 
@@ -161,7 +160,9 @@ function ModalConfirmation({
         role="dialog"
         aria-modal="true"
         reverseModal={reverseModal}
-        onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+        onKeyDown={(event: React.KeyboardEvent) =>
+          keyDownHandler(onEscape, event, modalRef)
+        }>
         <Title>{title}</Title>
         <Text>{question}</Text>
         <WrapperButtons>

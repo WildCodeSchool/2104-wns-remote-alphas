@@ -5,7 +5,7 @@ import styled from 'styled-components';
  */
 interface SwitchProps {
   checked: boolean;
-  setChecked: any;
+  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Checkbox = styled.input``;

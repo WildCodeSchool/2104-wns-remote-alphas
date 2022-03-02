@@ -73,7 +73,9 @@ const Colorpicker = ({
       <Overlay onClick={() => onEscape()} />
       <Modal
         ref={modalRef}
-        onKeyDown={(event: any) => keyDownHandler(onEscape, event, modalRef)}>
+        onKeyDown={(event: React.KeyboardEvent) =>
+          keyDownHandler(onEscape, event, modalRef)
+        }>
         <Content>
           <HexColorPicker color={color} onChange={setColor} />
           <ColorDrop color={color} />
