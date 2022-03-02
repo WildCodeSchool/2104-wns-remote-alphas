@@ -29,9 +29,10 @@ import Context from './components/context/Context';
 import Settings from './components/settings/Settings';
 import { ME } from './utils/apollo';
 import { ROLES, User } from './utils/types';
-import Office from './components/backOffice/Office';
+// import Office from './components/backOffice/Office';
 import Admin from './components/admin/Admin';
 import ThemeUpdateContext from './components/context/ThemeUpdateContext';
+import Editor from './components/backOffice/Editor';
 
 function Router(): JSX.Element {
 	const httpLink = createHttpLink({
@@ -173,7 +174,8 @@ function Router(): JSX.Element {
 											</Route>
 											{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
 												<Route exact path="/backoffice">
-													<Office />
+													{/* <Office /> */}
+													<Editor />
 												</Route>
 											)}
 											{user?.role === ROLES.ADMIN && (

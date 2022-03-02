@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Editor } from '@tinymce/tinymce-react';
 // eslint-disable-next-line object-curly-newline
 import { useMutation, useQuery, ApolloError } from '@apollo/client';
 import { getKeyboardFocusableElements, removeTabIndex, restoreTabIndex } from '../../utils/trapFocus';
@@ -216,12 +217,15 @@ function Office(): JSX.Element {
 		restoreTabIndex(focusable);
 	}
 
+	const handleEditorChange = (e: any) => {
+		console.log('Content was updated:', e.target.getContent());
+	};
+
 	return (
 		<main id="main-content">
 			<BackOfficeTitle>
 				<h1>Back Office</h1>
 			</BackOfficeTitle>
-
 			<ContentContainer style={{ opacity: `${opacityUnderModal}` }}>
 				<Form>
 					<H2>Post a new course</H2>
