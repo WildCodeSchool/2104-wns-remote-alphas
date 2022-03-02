@@ -26,7 +26,6 @@ function keyDownHandler(
   e: React.KeyboardEvent,
   modalRef: React.MutableRefObject<HTMLElement | null>,
 ): void {
-  console.log(e.key);
   // close dialog with esc key
   if (e.key === 'Escape') {
     onEscape();

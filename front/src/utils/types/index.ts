@@ -78,7 +78,7 @@ export interface User {
   email: string;
   role: ROLES;
   location?: string;
-  settings?: Settings;
+  settings: Settings;
 }
 
 export interface MessageType {

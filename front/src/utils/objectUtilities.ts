@@ -36,4 +36,10 @@ function deleteSomeKeys(obj: User, keyToRemove: string[]): Omit<User, 'role' | '
   );
 }
 
-export { deleteSomeKeys, removeTypename };
+function extractColors(colorsObject: {
+  [key: string]: { color: string; title: string; description: string };
+}): string[] {
+  return Object.values(colorsObject).map((colorObject) => colorObject.color);
+}
+
+export { deleteSomeKeys, extractColors, removeTypename };

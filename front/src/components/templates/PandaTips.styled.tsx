@@ -19,7 +19,7 @@ const Timer = styled.div<{ visible?: boolean }>`
   visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
 `;
 
-const PandaTips = () => {
+const PandaTips = (): JSX.Element => {
   const [pandaVisible, setPandaVisibility] = useState(false);
 
   useEffect(() => {

@@ -89,6 +89,25 @@ function Router(): JSX.Element {
     [userTheme, setUserTheme],
   );
 
+  function updateColors() {
+    const userColors = user.settings.colors.customColors;
+    setUserTheme({
+      ...darkTheme,
+      colors: {
+        ...darkTheme.colors,
+        primary: userColors[0],
+        secondary: userColors[1],
+        tertiary: userColors[2],
+      },
+    });
+  }
+
+  useEffect(() => {
+    if (user._id) {
+      updateColors();
+    }
+  }, [user]);
+
   useEffect(() => {
     const isValidToken = localStorage.getItem('token');
     setIsLogin(!!isValidToken);

@@ -25,7 +25,6 @@ const Colors = (): JSX.Element => {
   // Fetch the current theme in theme context
   const theme = useContext(ThemeContext);
   const updateTheme = useUpdateTheme();
-  const currentTheme = useContext(ThemeContext);
 
   // Get all the focusable elements for modal focus trap
   const focusableElements = getKeyboardFocusableElements();
@@ -90,7 +89,7 @@ const Colors = (): JSX.Element => {
       updateTheme({
         ...theme,
         colors: {
-          ...currentTheme.colors,
+          ...theme.colors,
           [setter]: color,
         },
       });
@@ -108,7 +107,7 @@ const Colors = (): JSX.Element => {
     <Container>
       <Column>
         <Bold>Select a theme</Bold>
-        <ColorTheme theme={currentTheme} updateTheme={updateTheme} />
+        <ColorTheme theme={theme} updateTheme={updateTheme} />
         <Bold>Or set up your own colors :</Bold>
         {ColorEntries.map(([key, value]) => (
           <ColorDrop
@@ -128,6 +127,7 @@ const Colors = (): JSX.Element => {
       </Column>
       {visibleColorPicker && (
         <Colorpicker
+          setter={setter}
           color={color}
           setColor={setColor}
           toggleColorPicker={toggleColorPicker}

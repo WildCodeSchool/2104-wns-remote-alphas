@@ -29,6 +29,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
     // opposite to primary color
     opposite: '#FBFBFC',
   },
+
   neumorphism: {
     boxShadow: 'inset 8px 8px 8px #212121, inset -8px -8px 8px #313131',
   },

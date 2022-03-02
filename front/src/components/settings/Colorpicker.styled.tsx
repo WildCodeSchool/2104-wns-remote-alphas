@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import styled from 'styled-components';
 
@@ -7,6 +7,8 @@ import {
   keyDownHandler,
   restoreTabIndex,
 } from '../../utils/trapFocus';
+import { COLORS } from '../../utils/types';
+import Context from '../context/Context';
 import Button from '../core/buttons/Button.styled';
 import ColorDrop from './components/ColorDrop.styled';
 
@@ -47,7 +49,8 @@ const Content = styled.div`
 `;
 
 interface ColorpickerProps {
-  setColor: (e: string) => void;
+  setter: COLORS;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
   toggleColorPicker: (e: boolean) => void;
   visibleColorPicker: boolean;
   color: string;
@@ -58,14 +61,35 @@ const Colorpicker = ({
   color,
   toggleColorPicker,
   visibleColorPicker,
+  setter,
 }: ColorpickerProps): JSX.Element => {
   const modalRef = useRef(null);
+  const { user, setUser } = useContext(Context);
   // Get all the focusable elements for modal focus trap
   const focusableElements = getKeyboardFocusableElements();
 
   function onEscape() {
     toggleColorPicker(!visibleColorPicker);
     restoreTabIndex(focusableElements);
+    const index = [
+      COLORS.PRIMARY,
+      COLORS.SECONDARY,
+      COLORS.TERTIARY,
+      COLORS.LIGHTER_SECONDARY,
+      COLORS.LIGHT_BACKGROUND,
+      COLORS.LIGHT_TEXT,
+    ].indexOf(setter);
+    if (typeof index !== 'number') return;
+    setUser({
+      ...user,
+      settings: {
+        ...user.settings,
+        colors: {
+          ...user.settings.colors,
+          customColors: user.settings.colors.customColors.splice(index, 1, color),
+        },
+      },
+    });
   }
 
   return (

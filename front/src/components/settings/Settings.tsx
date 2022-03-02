@@ -1,7 +1,15 @@
-import { useState } from 'react';
+import { ApolloError, useMutation } from '@apollo/client';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { SECTIONS } from '../../utils/types';
+import { UPDATE_SETTINGS } from '../../utils/apollo';
+import {
+  deleteSomeKeys,
+  NestedObject,
+  removeTypename,
+} from '../../utils/objectUtilities';
+import { SECTIONS, User } from '../../utils/types';
+import Context from '../context/Context';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './components/Card.styled';
 import CardMenu from './components/CardMenu.styled';
@@ -32,11 +40,40 @@ const Settings = (): JSX.Element => {
   /// Define default and current section (default is profile)
   const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
 
+  const { user } = useContext(Context);
+  const [updateSettingsMutation] = useMutation<
+    { updateSettings: User },
+    { _id: string; newSettings: Omit<User, 'role' | 'id'> }
+  >(UPDATE_SETTINGS);
   /// Udpate the active section to change the view
   const updateSection = (menuItem: SECTIONS): void => {
     setSection(menuItem);
   };
 
+  async function persistData() {
+    try {
+      const newSettings = removeTypename({
+        ...deleteSomeKeys(user, ['role', '_id']),
+      } as unknown as NestedObject);
+
+      const result = await updateSettingsMutation({
+        variables: {
+          _id: user._id,
+          newSettings: {
+            ...(newSettings as unknown as Omit<User, 'role' | 'id'>),
+          },
+        },
+      });
+      if (result?.data?.updateSettings) {
+        // add persistency
+        localStorage.setItem('user', JSON.stringify(result?.data?.updateSettings));
+      }
+    } catch (err) {
+      if (err instanceof ApolloError) {
+        console.error(err.message);
+      }
+    }
+  }
   const sections = {
     [SECTIONS.COLORS]: <Colors />,
     [SECTIONS.DISTRACTIONS]: <Distractions />,
@@ -45,6 +82,13 @@ const Settings = (): JSX.Element => {
     [SECTIONS.SETTINGS]: <UserSettings />,
   };
   const displayedSection = sections[section];
+
+  useEffect(() => {
+    return () => {
+      persistData();
+    };
+  }, []);
+
   return (
     <Wrapper>
       <Card id="main-content">
