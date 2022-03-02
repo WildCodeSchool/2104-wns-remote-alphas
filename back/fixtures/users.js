@@ -14,7 +14,17 @@ module.exports = [
     settings: {
       instantChat: true,
       pandaTips: true,
-      colors: { theme: "Dark", customColors: ["blue"] },
+      colors: {
+        theme: "Dark",
+        customColors: [
+          "#292929",
+          "#68D0FC",
+          "#FE7F2D",
+          "#1E40AF",
+          "#D1DCE5",
+          "#4E4E4E",
+        ],
+      },
       texts: {
         font: "arial",
         fontWeight: 400,

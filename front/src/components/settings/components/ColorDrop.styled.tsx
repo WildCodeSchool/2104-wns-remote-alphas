@@ -1,9 +1,10 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable operator-linebreak */
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Row from '../../core/layout_parts/Row.styled';
+
+import Tabable from '../../core/accessibility/Tabable.Styled';
 import Bold from '../../core/Bold.styled';
+import ConditionalWrapper from '../../core/ConditionalWrapper';
+import Row from '../../core/layout_parts/Row.styled';
 
 /**
  * Build a circular color drop for displaying selected colors or themes
@@ -15,49 +16,73 @@ import Bold from '../../core/Bold.styled';
  */
 
 const Drop = styled.div<{ hasBorder?: boolean; background: string }>`
-	background-color: ${(props) => props.background};
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	z-index: 10;
-	${(props) =>
-		props.hasBorder &&
-		css`
-			border: 1px solid #4e4e4e;
-		`};
+  background-color: ${(props) => props.background};
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  z-index: 10;
+  ${(props) =>
+    props.hasBorder &&
+    css`
+      border: 1px solid #4e4e4e;
+    `};
 `;
 
 interface ColorDropProps {
-	color: string;
-	title?: string;
-	description?: string;
-	border?: boolean;
-	onClick?(): void;
+  focusable?: boolean;
+  color: string;
+  title?: string;
+  description?: string;
+  border?: boolean;
+  onClick?(): void;
 }
 
 const ColorDrop = ({
-	color,
-	title = '',
-	description = '',
-	onClick = () => {},
-	border = true,
+  focusable = false,
+  color,
+  title = '',
+  description = '',
+  onClick = () => undefined,
+  border = true,
 }: ColorDropProps): JSX.Element => (
-	<Row>
-		<Row>
-			<Drop
-				key={title}
-				hasBorder={border}
-				background={color}
-				onClick={() => {
-					if (onClick) {
-						onClick();
-					}
-				}}
-			/>
-			<Bold>{title}</Bold>
-		</Row>
-		<p>{description}</p>
-	</Row>
+  <Row>
+    <Row>
+      <ConditionalWrapper
+        condition={focusable}
+        wrapper={(
+          children: Parameters<Parameters<typeof ConditionalWrapper>[0]['wrapper']>[0],
+        ) => (
+          <Tabable
+            rounded
+            onClick={() => {
+              if (onClick) {
+                onClick();
+              }
+            }}
+            pressedKey="Enter"
+            onKeyPress={() => {
+              if (onClick) {
+                onClick();
+              }
+            }}>
+            {children}
+          </Tabable>
+        )}>
+        <Drop
+          key={title}
+          hasBorder={border}
+          background={color}
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            }
+          }}
+        />
+      </ConditionalWrapper>
+      <Bold>{title}</Bold>
+    </Row>
+    <p>{description}</p>
+  </Row>
 );
 
 export default ColorDrop;

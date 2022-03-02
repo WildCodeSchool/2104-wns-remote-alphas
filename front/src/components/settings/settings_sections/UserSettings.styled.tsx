@@ -1,10 +1,6 @@
-import React from 'react';
-
 const UserSettings = (): JSX.Element => {
-    console.log('settings section');
-    return (
-        <text>Settings</text>
-    );
+  console.log('settings section');
+  return <text>Settings</text>;
 };
 
 export default UserSettings;
