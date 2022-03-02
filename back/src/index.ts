@@ -79,6 +79,24 @@ async function bootstrap() {
         }
       }
     },
+    cors: {
+      origin:
+        process.env.NODE_ENV === "production"
+          ? (origin, callback) => {
+              const whitelist = [
+                "https://les-alphas.wns.wilders.dev",
+                "https://staging.les-alphas.wns.wilders.dev",
+              ];
+              if (origin) {
+                if (whitelist.indexOf(origin) !== -1) {
+                  callback(null, true);
+                } else {
+                  callback(new Error("Not allowed by CORS"));
+                }
+              }
+            }
+          : "*",
+    },
   });
 
   const { url } = await server.listen(PORT);
