@@ -26,7 +26,6 @@ export class User {
   @prop({ required: true })
   public email!: string;
 
-  // FIXME: Hash passwords !!! 😱😱😱
   @Field((type) => String, {description:'The user password'})
   @prop({ required: true })
   public password!: string;
