@@ -8,7 +8,7 @@ import { ObjectId } from "mongodb";
 import { Field, ID, ObjectType } from "type-graphql";
 import { Settings } from "./Settings";
 
-@ObjectType()
+@ObjectType({description:'This is a user -and a test description, by the way-'})
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class User {
   @Field((type) => ID)

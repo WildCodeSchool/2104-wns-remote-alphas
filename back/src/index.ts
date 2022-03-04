@@ -60,6 +60,7 @@ async function bootstrap() {
 
   const server = new ApolloServer({
     schema,
+    introspection: process.env.NODE_ENV !== 'production',
     playground: process.env.NODE_ENV !== "production",
     context: ({ req }) => {
       if (req) {
