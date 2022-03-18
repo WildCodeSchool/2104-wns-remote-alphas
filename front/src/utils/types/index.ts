@@ -59,9 +59,9 @@ export enum COLORS {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   TERTIARY = 'tertiary',
-  LIGHTER_SECONDARY = 'lighterSecondary',
+  QUATERNY = 'quaterny',
   LIGHT_BACKGROUND = 'lightBackground',
-  LIGHT_TEXT = 'lightText',
+  TEXT_COLOR = 'textColor',
 }
 
 export enum COLORTHEMES {
@@ -69,6 +69,7 @@ export enum COLORTHEMES {
   LIGHT = 'light',
   GREYSCALE = 'greyscale',
   HIGH_CONTRAST = 'high contrast',
+  CUSTOM = 'custom',
 }
 
 export interface User {

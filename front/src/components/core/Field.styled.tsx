@@ -15,7 +15,7 @@ import styled, { css } from 'styled-components';
 const Input = styled.input<{ focused?: boolean }>`
   border-radius: 8px;
   background-color: ${(props) => props.theme.colors.secondaryLighter};
-  color: ${(props) => props.theme.colors.primaryLighter};
+  color: ${(props) => props.theme.colors.lightBackground};
   height: ${(props) => props.theme.fixedSize.field.height};
   width: 90%;
   ${(props) =>

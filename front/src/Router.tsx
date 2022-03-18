@@ -91,6 +91,9 @@ function Router(): JSX.Element {
 
   function updateColors() {
     const userColors = user.settings.colors.customColors;
+    if (user.settings.colors.theme !== 'custom') {
+      return;
+    }
     setUserTheme({
       ...darkTheme,
       colors: {
@@ -98,6 +101,9 @@ function Router(): JSX.Element {
         primary: userColors[0],
         secondary: userColors[1],
         tertiary: userColors[2],
+        quaterny: userColors[3],
+        lightBackground: userColors[4],
+        textColor: userColors[5],
       },
     });
   }

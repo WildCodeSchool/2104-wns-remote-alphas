@@ -23,7 +23,15 @@ const ColorTheme = ({ updateTheme, theme }: ColorThemeProps): JSX.Element => {
   }
 
   // Default themes
-  const [defaultTheme, setDefaultTheme] = useState<Record<COLORTHEMES, ColorThemeType>>({
+  const [defaultTheme, setDefaultTheme] = useState<
+    Record<
+      | COLORTHEMES.DARK
+      | COLORTHEMES.GREYSCALE
+      | COLORTHEMES.HIGH_CONTRAST
+      | COLORTHEMES.LIGHT,
+      ColorThemeType
+    >
+  >({
     [COLORTHEMES.DARK]: {
       color: '#292929',
       title: 'Primary',

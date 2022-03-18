@@ -7,7 +7,7 @@ import {
   keyDownHandler,
   restoreTabIndex,
 } from '../../utils/trapFocus';
-import { COLORS } from '../../utils/types';
+import { COLORS, COLORTHEMES } from '../../utils/types';
 import Context from '../context/Context';
 import Button from '../core/buttons/Button.styled';
 import ColorDrop from './components/ColorDrop.styled';
@@ -75,9 +75,9 @@ const Colorpicker = ({
       COLORS.PRIMARY,
       COLORS.SECONDARY,
       COLORS.TERTIARY,
-      COLORS.LIGHTER_SECONDARY,
+      COLORS.QUATERNY,
       COLORS.LIGHT_BACKGROUND,
-      COLORS.LIGHT_TEXT,
+      COLORS.TEXT_COLOR,
     ].indexOf(setter);
     if (typeof index !== 'number') return;
     setUser({
@@ -86,7 +86,13 @@ const Colorpicker = ({
         ...user.settings,
         colors: {
           ...user.settings.colors,
-          customColors: user.settings.colors.customColors.splice(index, 1, color),
+          theme:
+            user.settings.colors.customColors[index] === color
+              ? user.settings.colors.theme
+              : COLORTHEMES.CUSTOM,
+          customColors: user.settings.colors.customColors.map((currentColor, i) =>
+            i === index ? color : currentColor,
+          ),
         },
       },
     });
