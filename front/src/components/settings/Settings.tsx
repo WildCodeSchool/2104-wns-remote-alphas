@@ -41,6 +41,12 @@ const Settings = (): JSX.Element => {
   const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
 
   const { user } = useContext(Context);
+  const [newSettings, setNewSettings] = useState(
+    removeTypename({
+      ...deleteSomeKeys(user, ['role', '_id']),
+    } as unknown as NestedObject),
+  );
+
   const [updateSettingsMutation] = useMutation<
     { updateSettings: User },
     { _id: string; newSettings: Omit<User, 'role' | 'id'> }
@@ -50,17 +56,23 @@ const Settings = (): JSX.Element => {
     setSection(menuItem);
   };
 
+  useEffect(() => {
+    setNewSettings(
+      removeTypename({
+        ...deleteSomeKeys(user, ['role', '_id']),
+      } as unknown as NestedObject),
+    );
+  }, [user]);
+
   async function persistData() {
     try {
-      const newSettings = removeTypename({
-        ...deleteSomeKeys(user, ['role', '_id']),
-      } as unknown as NestedObject);
-
       const result = await updateSettingsMutation({
         variables: {
           _id: user._id,
           newSettings: {
-            ...(newSettings as unknown as Omit<User, 'role' | 'id'>),
+            ...(removeTypename({
+              ...deleteSomeKeys(user, ['role', '_id']),
+            } as unknown as NestedObject) as unknown as Omit<User, 'role' | 'id'>),
           },
         },
       });
@@ -87,7 +99,7 @@ const Settings = (): JSX.Element => {
     return () => {
       persistData();
     };
-  }, []);
+  }, [newSettings]);
 
   return (
     <Wrapper>

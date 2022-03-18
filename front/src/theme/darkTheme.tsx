@@ -20,7 +20,7 @@ const darkTheme: import('styled-components').DefaultTheme = {
     tertiary: '#FE7F2D',
     // Complementary Colors
     quaterny: '#1E40AF',
-    primaryLighter: '#D1DCE5',
+    lightBackground: '#D1DCE5',
     secondaryLighter: '#4E4E4E',
     // Text light for dark backgrounds
     textColor: '#E5E5E5',

@@ -7,7 +7,7 @@ declare module 'styled-components' {
       secondary: string;
       tertiary: string;
       quaterny: string;
-      primaryLighter: string;
+      lightBackground: string;
       secondaryLighter: string;
       textColor: string;
       altTextColor: string;
