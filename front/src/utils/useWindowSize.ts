@@ -18,26 +18,26 @@ import React from 'react';
  * ```
 */
 export default function useWindowSize(): {
-    [key: string]: number
+  [key: string]: number;
 } {
-    const [windowSize, setWindowSize] = React.useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
+  const [windowSize, setWindowSize] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
-    /// update window size on resizing
-    function changeWindowSize() {
-        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    }
+  /// update window size on resizing
+  function changeWindowSize() {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+  }
 
-    React.useEffect(() => {
-        window.addEventListener('resize', changeWindowSize);
+  React.useEffect(() => {
+    window.addEventListener('resize', changeWindowSize);
 
-        return () => {
-            /// clean the listeners when component unmounts
-            window.removeEventListener('resize', changeWindowSize);
-        };
-    }, []);
+    return () => {
+      /// clean the listeners when component unmounts
+      window.removeEventListener('resize', changeWindowSize);
+    };
+  }, []);
 
-    return windowSize;
+  return windowSize;
 }

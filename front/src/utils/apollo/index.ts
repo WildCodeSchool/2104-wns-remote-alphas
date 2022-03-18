@@ -13,20 +13,19 @@ import GET_ONE_COURSE from './queries/getOneCourse';
 import GET_USERS from './queries/getUsers';
 import GET_NEW_MESSAGE from './subscriptions/getNewMessage';
 
-// eslint-disable-next-line object-curly-newline
 export {
-	ADD_COURSE,
-	DELETE_ONE_COURSE,
-	GET_COURSES,
-	GET_MESSAGES,
-	GET_ONE_COURSE,
-	GET_NEW_MESSAGE,
-	GET_USERS,
-	LOGIN,
-	ME,
-	POST_MESSAGE,
-	SIGNUP,
-	UPDATE_COURSE,
-	UPDATE_ROLE,
-	UPDATE_SETTINGS,
+  ADD_COURSE,
+  DELETE_ONE_COURSE,
+  GET_COURSES,
+  GET_MESSAGES,
+  GET_NEW_MESSAGE,
+  GET_ONE_COURSE,
+  GET_USERS,
+  LOGIN,
+  ME,
+  POST_MESSAGE,
+  SIGNUP,
+  UPDATE_COURSE,
+  UPDATE_ROLE,
+  UPDATE_SETTINGS,
 };
