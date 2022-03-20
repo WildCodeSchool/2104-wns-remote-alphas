@@ -30,4 +30,14 @@ To stop the containers from the command line :
 
 test CI BUG
 
+## To run cypress locally
+
+To launch window cypress :
+
+`npx cypress open` 
+
+Only run test:
+
+`npx cypress open`
+
 
