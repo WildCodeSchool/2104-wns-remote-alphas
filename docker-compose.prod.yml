@@ -17,7 +17,7 @@ services:
             dockerfile: Dockerfile
         command: sh -c "yarn build"
         volumes:
-            - web-client-build:/apps/build
+            - web-client-build:/app/build
         environment:
             - NODE_ENV=production
     mongodb:
