@@ -3,7 +3,7 @@ version: "3"
 services:
     back:
         build: ./back
-        command: sh -c "npm run build && npm run prod"
+        command: sh -c "yarn build && yarn prod"
         restart: always
         expose:
             - 8080
@@ -15,7 +15,7 @@ services:
         build:
             context: ./front
             dockerfile: Dockerfile
-        command: sh -c "npm run build"
+        command: sh -c "yarn build"
         volumes:
             - web-client-build:/app/build
         environment:

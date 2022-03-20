@@ -1,60 +1,59 @@
-import React, { useContext } from 'react';
-import Logout from '../../authentication/Logout';
-import Context from '../../context/Context';
-import MenuContent from '../components/MenuContent.styled';
-import LinkReactRouter from '../components/LinkReactRouter.styled';
-import HomeIcon from '../../assets/icons/HomeIcon';
+import { useContext } from 'react';
+
+import { ROLES } from '../../../utils/types';
+import ChatIcon from '../../assets/icons/ChatIcon';
 import CourseIcon from '../../assets/icons/CourseIcon';
-import WikiIcon from '../../assets/icons/WikiIcon';
 import HelpIcon from '../../assets/icons/HelpIcon';
+import HomeIcon from '../../assets/icons/HomeIcon';
 import OfficeIcon from '../../assets/icons/OfficeIcon';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
-import ChatIcon from '../../assets/icons/ChatIcon';
-import { ROLES } from '../../../utils/types';
+import WikiIcon from '../../assets/icons/WikiIcon';
+import Logout from '../../authentication/Logout';
+import Context from '../../context/Context';
+import LinkReactRouter from '../components/LinkReactRouter.styled';
+import MenuContent from '../components/MenuContent.styled';
 
 /**
  *  Build nav menu for tablets and medium screens
  * */
 const TabletNav = (): JSX.Element => {
-	const { user } = useContext(Context);
+  const { user } = useContext(Context);
 
-	return (
-		<MenuContent data-testid="menu" style={{ width: '450px' }}>
-			<LinkReactRouter to="/">
-				<HomeIcon />
-			</LinkReactRouter>
+  return (
+    <MenuContent data-testid="menu" style={{ width: '450px' }}>
+      <LinkReactRouter to="/">
+        <HomeIcon />
+      </LinkReactRouter>
 
-			<LinkReactRouter to="/courses">
-				<CourseIcon />
-			</LinkReactRouter>
+      <LinkReactRouter to="/courses">
+        <CourseIcon />
+      </LinkReactRouter>
 
-			<LinkReactRouter to="/wiki">
-				<WikiIcon />
-			</LinkReactRouter>
+      <LinkReactRouter to="/wiki">
+        <WikiIcon />
+      </LinkReactRouter>
 
-			<LinkReactRouter to="help">
+      {/* <LinkReactRouter to="help">
 				<HelpIcon />
-			</LinkReactRouter>
+			</LinkReactRouter> */}
 
-			{(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
-				<LinkReactRouter to="/backoffice">
-					<OfficeIcon />
-				</LinkReactRouter>
-			)}
-			{user?.role === ROLES.ADMIN && (
-				<LinkReactRouter to="/admin">Admin</LinkReactRouter>
-			)}
+      {(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
+        <LinkReactRouter to="/backoffice">
+          <OfficeIcon />
+        </LinkReactRouter>
+      )}
+      {user?.role === ROLES.ADMIN && <LinkReactRouter to="/admin">Admin</LinkReactRouter>}
 
-			<LinkReactRouter to="/chatRoom">
-				<ChatIcon />
-			</LinkReactRouter>
+      <LinkReactRouter to="/chatRoom">
+        <ChatIcon />
+      </LinkReactRouter>
 
-			<LinkReactRouter to="/settings">
-				<SettingsIcon />
-			</LinkReactRouter>
+      <LinkReactRouter to="/settings">
+        <SettingsIcon />
+      </LinkReactRouter>
 
-			<Logout />
-		</MenuContent>
-	);
+      <Logout />
+    </MenuContent>
+  );
 };
 export default TabletNav;

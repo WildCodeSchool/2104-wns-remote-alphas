@@ -1,5 +1,15 @@
-import React, { useState } from 'react';
+import { ApolloError, useMutation } from '@apollo/client';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import { UPDATE_SETTINGS } from '../../utils/apollo';
+import {
+  deleteSomeKeys,
+  NestedObject,
+  removeTypename,
+} from '../../utils/objectUtilities';
+import { SECTIONS, User } from '../../utils/types';
+import Context from '../context/Context';
 import CircleAvatar from '../core/CircleAvatar.styled';
 import Card from './components/Card.styled';
 import CardMenu from './components/CardMenu.styled';
@@ -9,15 +19,14 @@ import Distractions from './settings_sections/Distractions.styled';
 import Profile from './settings_sections/Profile.styled';
 import Texts from './settings_sections/Texts.styled';
 import UserSettings from './settings_sections/UserSettings.styled';
-import { SECTIONS } from '../../utils/types';
 
 const Wrapper = styled.div`
-	height: calc(100vh - 113px - 105px);
-	display: flex;
-	align-items: center;
-	@media screen and (max-width: 780px) {
-		height: inherit;
-	}
+  height: calc(100vh - 113px - 105px);
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 780px) {
+    height: inherit;
+  }
 `;
 
 /**
@@ -28,37 +37,91 @@ const Wrapper = styled.div`
  */
 
 const Settings = (): JSX.Element => {
-	/// Define default and current section (default is profile)
-	const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
+  /// Define default and current section (default is profile)
+  const [section, setSection] = useState<SECTIONS>(SECTIONS.PROFILE);
 
-	/// Udpate the active section to change the view
-	const updateSection = (menuItem: SECTIONS): void => {
-		setSection(menuItem);
-	};
+  const { user } = useContext(Context);
+  const [newSettings, setNewSettings] = useState(
+    removeTypename({
+      ...deleteSomeKeys(user, ['role', '_id']),
+    } as unknown as NestedObject),
+  );
 
-	const sections = {
-		[SECTIONS.COLORS]: <Colors />,
-		[SECTIONS.DISTRACTIONS]: <Distractions />,
-		[SECTIONS.PROFILE]: <Profile />,
-		[SECTIONS.TEXTS]: <Texts />,
-		[SECTIONS.SETTINGS]: <UserSettings />,
-	};
-	const displayedSection = sections[section];
-	return (
-		<Wrapper>
-			<Card>
-				<CardMenu>
-					<CircleAvatar
-						alt="user avatar"
-						src="/assets/images/default-avatar.png"
-						onClick={() => updateSection(SECTIONS.PROFILE)}
-					/>
-					<NavMenu section={section} updateSection={updateSection} />
-				</CardMenu>
-				{displayedSection}
-			</Card>
-		</Wrapper>
-	);
+  const [updateSettingsMutation] = useMutation<
+    { updateSettings: User },
+    { _id: string; newSettings: Omit<User, 'role' | 'id'> }
+  >(UPDATE_SETTINGS);
+  /// Udpate the active section to change the view
+  const updateSection = (menuItem: SECTIONS): void => {
+    setSection(menuItem);
+  };
+
+  useEffect(() => {
+    setNewSettings(
+      removeTypename({
+        ...deleteSomeKeys(user, ['role', '_id']),
+      } as unknown as NestedObject),
+    );
+  }, [user]);
+
+  async function persistData() {
+    try {
+      const result = await updateSettingsMutation({
+        variables: {
+          _id: user._id,
+          newSettings: {
+            ...(removeTypename({
+              ...deleteSomeKeys(user, ['role', '_id']),
+            } as unknown as NestedObject) as unknown as Omit<User, 'role' | 'id'>),
+          },
+        },
+      });
+      if (result?.data?.updateSettings) {
+        // add persistency
+        localStorage.setItem('user', JSON.stringify(result?.data?.updateSettings));
+      }
+    } catch (err) {
+      if (err instanceof ApolloError) {
+        console.error(err.message);
+      }
+    }
+  }
+  const sections = {
+    [SECTIONS.COLORS]: <Colors />,
+    [SECTIONS.DISTRACTIONS]: <Distractions />,
+    [SECTIONS.PROFILE]: <Profile />,
+    [SECTIONS.TEXTS]: <Texts />,
+    [SECTIONS.SETTINGS]: <UserSettings />,
+  };
+  const displayedSection = sections[section];
+
+  useEffect(() => {
+    return () => {
+      persistData();
+    };
+  }, [newSettings]);
+
+  return (
+    <Wrapper>
+      <Card id="main-content">
+        <CardMenu>
+          <CircleAvatar
+            tabIndex={0}
+            alt="user settings"
+            src="/assets/images/default-avatar.png"
+            onClick={() => updateSection(SECTIONS.PROFILE)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                updateSection(SECTIONS.PROFILE);
+              }
+            }}
+          />
+          <NavMenu section={section} updateSection={updateSection} />
+        </CardMenu>
+        {displayedSection}
+      </Card>
+    </Wrapper>
+  );
 };
 
 export default Settings;
