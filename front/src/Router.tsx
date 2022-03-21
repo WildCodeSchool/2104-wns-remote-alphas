@@ -196,7 +196,7 @@ function Router(): JSX.Element {
                         <Office />
                       </Route>
                     )}
-                    <Route exact path="/backoffice">
+                    {/* <Route exact path="/backoffice">
                       {user?.role === ROLES.STUDENT ? (
                         <Redirect to="/" />
                       ) : (
@@ -204,14 +204,14 @@ function Router(): JSX.Element {
                           <Office />
                         </Route>
                       )}
-                    </Route>
-                    {user?.role === ROLES.ADMIN ? (
+                    </Route> */}
+                    {/* {user?.role === ROLES.ADMIN ? (
                       <Route exact path="/admin">
                         <Admin />
                       </Route>
                     ) : (
                       <Redirect to="/" />
-                    )}
+                    )} */}
                   </Switch>
                 </Layout>
               )}
