@@ -120,7 +120,7 @@ function Router(): JSX.Element {
     if (!user || !user._id) {
       const res = localStorage.getItem('user');
       if (res) {
-        const userData = JSON.parse(res);
+        const userData = JSON.parse(JSON.stringify(res));
         setUser(userData);
       } else if (isValidToken) {
         client.mutate({ mutation: ME }).then((result) => {
