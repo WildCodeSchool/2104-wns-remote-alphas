@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ROLES } from '../../../utils/types';
 import ChatIcon from '../../assets/icons/ChatIcon';
 import CourseIcon from '../../assets/icons/CourseIcon';
-import HelpIcon from '../../assets/icons/HelpIcon';
+// import HelpIcon from '../../assets/icons/HelpIcon';
 import HomeIcon from '../../assets/icons/HomeIcon';
 import OfficeIcon from '../../assets/icons/OfficeIcon';
 import SettingsIcon from '../../assets/icons/SettingsIcon';

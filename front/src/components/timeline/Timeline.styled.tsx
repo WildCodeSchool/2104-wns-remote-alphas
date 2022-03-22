@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { GET_COURSES } from '../../utils/apollo';
 import convertDate from '../../utils/convertDate';
-import logo from '../../utils/img/apple-touch-icon.png';
 import { CourseType } from '../../utils/types';
 import Button from '../core/buttons/Button.styled';
 import Error from '../core/Error.styled';

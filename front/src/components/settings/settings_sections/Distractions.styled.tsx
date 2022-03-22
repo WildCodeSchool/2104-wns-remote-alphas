@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import H1 from '../../authentication/components/typos/H1.styled';
 import H2 from '../../authentication/components/typos/H2.styled';
-import Bold from '../../core/Bold.styled';
+// import Bold from '../../core/Bold.styled';
 import SwitchButton from '../../core/buttons/switchButton';
 import Column from '../../core/layout_parts/Column.styled';
 import Row from '../../core/layout_parts/Row.styled';

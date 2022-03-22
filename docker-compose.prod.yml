@@ -15,7 +15,7 @@ services:
         build:
             context: ./front
             dockerfile: Dockerfile
-        command: sh -c "yarn build"
+        command: sh -c "npm run build"
         volumes:
             - web-client-build:/app/build
         environment:
@@ -24,7 +24,7 @@ services:
         image: mongo:4.4.9
         volumes:
             - ./data:/data/db
-        restart: always
+        # restart: always
     nginx:
         image: nginx:1.21.3
         depends_on:

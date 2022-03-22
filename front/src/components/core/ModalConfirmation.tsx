@@ -109,33 +109,6 @@ function ModalConfirmation({
 
   document.body.classList.add('no-scroll');
 
-  // const keyDownHandler = (e: KeyboardEvent) => {
-  // 	// close dialog with esc key
-  // 	if (e.key === 'Escape') {
-  // 		setReverseModal(true);
-  // 		setTimeout(() => {
-  // 			onCancel();
-  // 		}, 250);
-  // 	}
-  //     // trap focus only with tab key
-  //     if (e.key !== 'Tab') return;
-
-  //     const focusableModalElements = modalRef.current.querySelectorAll(
-  //         'a[href], button:not([disabled]), textarea, input, select'
-  //     );
-  //     const firstElement:any = focusableModalElements[0];
-  //     const lastElement:any = focusableModalElements[focusableModalElements.length - 1];
-
-  //     if (!e.shiftKey && document.activeElement === lastElement) {
-  //         firstElement.focus();
-  //         e.preventDefault();
-  //     }
-
-  //     if (e.shiftKey && document.activeElement === firstElement) {
-  //         lastElement.focus();
-  //         e.preventDefault();
-  //     }
-  // };
   function onEscape() {
     setReverseModal(true);
     setTimeout(() => {

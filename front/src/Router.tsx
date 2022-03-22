@@ -15,7 +15,7 @@ import { DefaultTheme, ThemeProvider } from 'styled-components';
 import Admin from './components/admin/Admin';
 import SignInPage from './components/authentication/SignInPage';
 import SignUpPage from './components/authentication/SignUpPage';
-import OfficeCoursesList from './components/backOffice/components/OfficeCoursesList';
+// import OfficeCoursesList from './components/backOffice/components/OfficeCoursesList';
 import Office from './components/backOffice/Office';
 import ChatInterface from './components/chatRoom/ChatInterface';
 import Context from './components/context/Context';
