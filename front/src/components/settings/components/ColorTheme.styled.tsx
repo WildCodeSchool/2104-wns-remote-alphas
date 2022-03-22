@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { DefaultTheme } from 'styled-components';
-
 import { COLORTHEMES } from '../../../utils/types';
 import Row from '../../core/layout_parts/Row.styled';
 import ColorDrop from './ColorDrop.styled';
