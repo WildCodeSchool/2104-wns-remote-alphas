@@ -5,6 +5,8 @@ import { CourseId } from "./types/CourseId";
 import { AuthenticationError, ApolloError } from "apollo-server";
 import { DeleteResponse } from "./types/DeleteResponse";
 
+/* It's a resolver for the Course type, which has a query to get all courses, a query to get one course
+by id, a mutation to add a course, a mutation to update a course, and a mutation to delete a course */
 @Resolver((of) => Course)
 export class CourseResolver {
   @Query((returns) => [Course])

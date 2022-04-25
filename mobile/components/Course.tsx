@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     margin: 12,
-    border: 'solid #ECEFF1 0.75px',
+    //border: 'solid #ECEFF1 0.75px',
     borderRadius: 4,
     backgroundColor: 'white'
   },

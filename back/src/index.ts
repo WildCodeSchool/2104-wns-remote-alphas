@@ -79,6 +79,7 @@ async function bootstrap() {
         }
       }
     },
+/* A security measure to prevent cross-site scripting attacks. */
     cors: {
       origin:
         process.env.NODE_ENV === "production"

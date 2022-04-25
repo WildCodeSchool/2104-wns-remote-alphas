@@ -6,6 +6,8 @@ import { Mutation, Resolver, Arg } from "type-graphql";
 import { User, UserModel } from "../Models/User";
 import { LogsInput } from "./types/LogsInput";
 
+/* It's a resolver that takes in a user's email and password, checks if the user exists in the
+database, and if so, returns a JWT token */
 const jwtKey = process.env.SECRET_KEY || "test secret key";
 @Resolver((of) => User)
 export class LoginResolver {

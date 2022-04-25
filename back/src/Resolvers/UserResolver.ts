@@ -9,6 +9,7 @@ import { UpdateUserInput } from "./types/UpdateUserInput";
 
 @Resolver((of) => User)
 export class UserResolver {
+/* A query that returns all the users in the database. */
   @Query((returns) => [User])
   async getUsers(
     @Ctx()
@@ -120,6 +121,7 @@ export class UserResolver {
       throw new ApolloError("Please fill all the fields");
     }
   }
+/* A mutation that returns the user that is connected. */
   @Mutation((returns) => User)
   async me(
     @Ctx() { authenticatedUserEmail }: { authenticatedUserEmail: string }
