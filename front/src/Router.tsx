@@ -191,11 +191,14 @@ function Router(): JSX.Element {
                     <Route exact path="/chatRoom">
                       <ChatInterface />
                     </Route>
-                    {(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) && (
+                    {(user?.role === ROLES.TEACHER || user?.role === ROLES.ADMIN) ? (
                       <Route exact path="/backoffice">
                         <Office />
                       </Route>
-                    )}
+                        ) : (
+                          <Redirect to="/" />
+                        )
+                      }
                     <Route exact path="/backoffice">
                       {user?.role === ROLES.STUDENT ? (
                         <Redirect to="/" />
